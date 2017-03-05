@@ -1,0 +1,1074 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-20 07:12+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco - https://localise.biz/"
+
+#: functions.php:55
+msgid "Primary"
+msgstr ""
+
+#: functions.php:56
+msgid "Footer Menu"
+msgstr ""
+
+#. 1: number of comments, 2: post title.
+#: comments.php:42
+#, php-format
+msgctxt "comments title"
+msgid "%1$s comments"
+msgid_plural "%1$s comments"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/frontend/translate/cs-strings-2.php:21
+msgid ""
+"This post is password protected. To view it please enter your password below:"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:22
+msgid "Auto Update"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:23
+msgid "Auto Update Theme"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:24
+msgid "Automatic Upgrade"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:25
+msgid "Marketplace Username"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:26
+msgid "Enter your Marketplace Username."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:27
+msgid "Secret API Key"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:28
+msgid "Enter your Secret API key."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:29
+msgid "Skip Theme Backup"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:30
+msgid "Do you want to skip theme backup?"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:31
+msgid "Auto"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:32
+msgid "Please add client logo first."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:33
+msgid "Please fill all mandatory fields."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:34
+msgid "Please fill sidebar name field."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:47
+msgid "Minimum PHP Version"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:48
+msgid "To run this theme properly, mentioned minium PHP version is required."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:49
+msgid "Available"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:50
+msgid ""
+"Sets max size of post data allowed. This setting also affects file upload."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:51
+msgid "The maximum size of a file that can be uploaded."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:52
+msgid ""
+"This sets the maximum amount of memory that a script is allowed to allocate."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:53
+msgid "To download import data this option is required."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:54
+msgid "should be enabled in"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:55
+msgid "Real Estate Framework"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:56
+msgid ""
+"This plugin is required as this handles the core functionality of the theme."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:57
+msgid "WP Real Estate Manager"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:58
+msgid ""
+"This plugin is required as this handles all functionality related to real "
+"estate manager etc."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:59
+msgid "Revolution Slider"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:60
+msgid "This plugin is required to import Revolution sliders from demo data."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:61
+msgid "Install Required Plugins"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:62
+msgid "Install Plugins"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:63
+#, php-format
+msgid "Installing Plugin: %s"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:64
+#, php-format
+msgid "Updating Plugin: %s"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:65
+msgid "Something went wrong with the plugin API."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:66
+msgid "Return to Required Plugins Installer"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:67
+msgid "Return to the Dashboard"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:68
+#: assets/frontend/translate/cs-strings-2.php:115
+msgid "Plugin activated successfully."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:69
+#: assets/frontend/translate/cs-strings-2.php:138
+msgid "The following plugin was activated successfully:"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:70
+#, php-format
+msgid "No action taken. Plugin %1$s was already active."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:71
+#, php-format
+msgid ""
+"Plugin not activated. A higher version of %s is needed for this theme. "
+"Please update the plugin."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:72
+#, php-format
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:73
+msgid "Dismiss this notice"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:74
+msgid ""
+"There are one or more required or recommended plugins to install, update or "
+"activate."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:75
+msgid "Please contact the administrator of this site for help."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:76
+msgid "This plugin needs to be updated to be compatible with your theme."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:77
+msgid "Update Required"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:78
+msgid ""
+"The remote plugin package does not contain a folder with the desired slug "
+"and renaming did not work."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:79
+msgid ""
+"The remote plugin package consists of more than one file, but the files are "
+"not packaged in a folder."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:80
+msgid ""
+"Please contact the plugin provider and ask them to package their plugin "
+"according to the WordPress guidelines."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:81
+msgid "Required"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:82
+msgid "Recommended"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:83
+msgid "WordPress Repository"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:84
+msgid "External Source"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:85
+msgid "Pre-Packaged"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:86
+msgid "Not Installed"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:87
+msgid "Installed But Not Activated"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:88
+msgid "Active"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:89
+msgid "Required Update not Available"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:90
+msgid "Requires Update"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:91
+msgid "Update recommended"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:92
+msgid "Installed version:"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:93
+msgid "Minimum required version:"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:94
+msgid "Available version:"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:95
+msgid "No plugins to install, update or activate."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:96
+msgid "Plugin"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:97
+msgid "Source"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:98
+msgid "Type"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:99
+msgid "Version"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:100
+msgid "Status"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:101
+#, php-format
+msgid "Install %2$s"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:102
+#, php-format
+msgid "Update %2$s"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:103
+#, php-format
+msgid "Activate %2$s"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:104
+msgid "Upgrade message from the plugin author:"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:105
+msgid "Install"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:106
+msgid "Update"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:107
+msgid "Activate"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:108
+msgid "No plugins were selected to be installed. No action taken."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:109
+msgid "No plugins were selected to be updated. No action taken."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:110
+msgid "No plugins are available to be installed at this time."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:111
+msgid "No plugins are available to be updated at this time."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:112
+msgid "No plugins were selected to be activated. No action taken."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:113
+msgid "No plugins are available to be activated at this time."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:114
+msgid "Plugin activation failed."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:116
+msgid "Updating Plugin"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:117
+msgid "An error occurred while installing"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:118
+#, php-format
+msgid "The installation of %1$s failed."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:119
+msgid ""
+"The installation and activation process is starting. This process may take a "
+"while on some hosts, so please be patient."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:120
+#, php-format
+msgid "%1$s installed and activated successfully."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:121
+msgid "Show Details"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:122
+msgid "Hide Details"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:123
+msgid "All installations and activations have been completed."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:124
+#, php-format
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:125
+msgid ""
+"The installation process is starting. This process may take a while on some "
+"hosts, so please be patient."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:126
+#, php-format
+msgid "%1$s installed successfully."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:127
+msgid "All installations have been completed."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:128
+msgid "Installing Plugin"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:129
+#, php-format
+msgid "TGMPA v%s"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:130
+#, php-format
+msgctxt "Install/Update Status"
+msgid "%1$s, %2$s"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:131
+msgctxt "as in: \"version nr unknown\""
+msgid "unknown"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:132
+#: assets/frontend/translate/cs-strings-3.php:74
+msgctxt "plugin A *and* plugin B"
+msgid "and"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:134
+msgid "All"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:135
+msgid "To Install"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:136
+msgid "Update Available"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:137
+msgid "To Activate"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:139
+msgid "The following plugins were activated successfully:"
+msgstr ""
+
+#. Name of the theme
+#: assets/frontend/translate/cs-strings-2.php:141
+msgid "Homevillas Real Estate"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:142
+msgid "Home v2"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:143
+msgid "Home v3"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:144
+msgid "Home v4"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:145
+msgid "Home v5"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:150
+msgid "About a Minute Ago"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:151
+#, php-format
+msgid "%d Minutes Ago"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:152
+msgid "About an Hour Ago"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:153
+#, php-format
+msgid "%d Hours Ago"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:154
+msgid "About a Day Ago"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:155
+#, php-format
+msgid "%d Days Ago"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:156
+msgid "About a Week Ago"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:157
+#, php-format
+msgid "%d Weeks Ago"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:158
+msgid "About a Month Ago"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:159
+#, php-format
+msgid "%d Months Ago"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:160
+msgid "About a year Ago"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:161
+#, php-format
+msgid "%d years Ago"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:166
+msgid "Category:"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:167
+msgid "Categories:"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:168
+msgid "Tag:"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:169
+msgid "Tags:"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:171
+#, php-format
+msgid "based on %s customer rating"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:172
+#, php-format
+msgid "based on %s customer ratings"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:173
+msgid "Reviews"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:188
+msgid "Product Description"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:189
+msgid "Additional Information"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:190
+#, php-format
+msgid "out of %s5%s"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:193
+msgid "Fancy Menu"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:194
+msgid "Menu List"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:195
+msgid "No menus have been created yet."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:196
+msgid "Create some"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:197
+#: assets/frontend/translate/cs-strings-2.php:214
+#: assets/frontend/translate/cs-strings-3.php:20
+#: assets/frontend/translate/cs-strings-3.php:27
+msgid "Title"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:198
+msgid "Menu"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:201
+msgid "Submit"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:202
+msgid "ago"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:203
+msgid "Reply"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:204
+msgid "facebook"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:205
+msgid "twitter"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:206
+msgid "google+"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:207
+msgid "tumbler"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:208
+msgid "dribble"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:209
+msgid "stumbleupon"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:210
+msgid "Content"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:211
+msgid "Remove"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:212
+msgid "Categories"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:213
+msgid "-- Select Categories --"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:215
+msgid "Mega Menu View"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:216
+msgid "Simple"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:217
+msgid "Active Mega Menu"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:218
+msgid "on"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:219
+msgid "Featured"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:220
+msgid "Views"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:223
+msgid "eng"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:224
+msgid "France"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:225
+msgid "Germany"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:226
+msgid "Italy"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:227
+msgid "Iceland"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:228
+msgid "USD"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:229
+msgid "UAE"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:230
+#, php-format
+msgid "%s (Invalid)"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:231
+#, php-format
+msgid "%s (Pending)"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:232
+#, php-format
+msgid "Original: %s"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:233
+msgid "Move up"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:234
+msgid "Move down"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:235
+msgid "Edit Menu Item"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:236
+#: assets/frontend/translate/cs-strings-3.php:21
+#: assets/frontend/translate/cs-strings-3.php:28
+msgid "URL"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:237
+msgid "Navigation Label"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:238
+msgid "Title Attribute"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:239
+msgid "Open link in a new tab"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:240
+msgid "CSS Classes (optional)"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:241
+msgid "Link Relationship (XFN)"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:242
+msgid "Description"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:243
+msgid ""
+"The description will be displayed in the menu if the current theme supports "
+"it."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:244
+msgid "Cancel"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:247
+#, php-format
+msgid "Posted in %1$s"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:248
+#, php-format
+msgid "Tagged %1$s"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:249
+#: assets/frontend/translate/cs-strings-3.php:54
+#, php-format
+msgid "Edit %s"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:250
+msgid "Leave a Comment"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:251
+#, php-format
+msgctxt "post date"
+msgid "Posted on %s"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-2.php:252
+#, php-format
+msgctxt "post author"
+msgid "by %s"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:22
+#: assets/frontend/translate/cs-strings-3.php:29
+msgid "Logo"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:23
+msgid "Successfully installed"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:24
+msgid ""
+"Sorry unable to upgrade theme. Contact Theme Author and repot this issue."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:25
+msgid "Clients"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:26
+msgid "Enable clients in footer"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:30
+msgid "Added Clients"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:31
+#, php-format
+msgid "Rated %s out of 5"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:32
+msgid "Placeholder"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:33
+msgid "N/A"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:34
+msgid "Next"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:35
+msgid "Previous"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:36
+msgid "Prev"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:37
+msgid "Product"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:38
+msgid "Price"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:39
+msgid "Quantity"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:40
+#: assets/frontend/translate/cs-strings-3.php:52
+msgid "Total"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:41
+msgid "Remove this item"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:42
+msgid "Available on backorder"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:43
+msgid "Coupon"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:44
+msgid "Coupon code"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:45
+msgid "Update Cart"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:46
+msgid "Apply Coupon"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:47
+msgid "calculated_shipping"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:48
+#, php-format
+msgid "estimated for %s"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:49
+msgid "Cart Totals"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:50
+msgid "Subtotal"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:51
+msgid "Shipping"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:53
+#: assets/frontend/translate/cs-strings-3.php:57
+msgid "Pages:"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:55
+msgid "Previous Article"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:56
+msgid "Next Article "
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:58
+msgid "Written by "
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:59
+msgid "Share "
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:60
+msgid "You May also Like this"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:61
+msgid "Primary Menu"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:62
+msgid "About info Image"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:63
+msgid "Search"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:64
+msgid "SKU:"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:65
+msgid "Edit"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:66
+#, php-format
+msgid "%d seconds ago"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:67
+msgid "Ready to publish your first post?"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:68
+msgid "Get started here"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:69
+msgid "Continue reading"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:70
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:71
+#, php-format
+msgctxt "comments title"
+msgid "One thought on &ldquo;%s&rdquo;"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:72
+msgctxt "Product quantity input tooltip"
+msgid "Qty"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:73
+msgctxt "Parent post link"
+msgid ""
+"<span class=\"meta-nav\">Published in</span><span class=\"post-title\">"
+"%title</span>"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:75
+msgctxt "Used before full size attachment link."
+msgid "Full size"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:76
+msgid "Font Weight"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:77
+msgid "Select font weight for heading here"
+msgstr ""
+
+#: assets/frontend/translate/cs-strings-3.php:78
+msgid "Select font weight"
+msgstr ""
+
+#. Description of the theme
+msgid ""
+"Homevillas Real Estate is complete solution for property WordPress theme, "
+"not only the front end but back end of theme provide complete property "
+"management system where user can set a complete online property marketplace "
+"for users and members, offering them their separate profile page, dashboards "
+"and accepting commission directly via default payment gateways of "
+"woocommerce."
+msgstr ""
+
+#. URI of the theme
+msgid "http://www.chimpstudio.co.uk/"
+msgstr ""
+
+#. Author of the theme
+msgid "Chimp Studio"
+msgstr ""
+
+#. Author URI of the theme
+msgid "https://themeforest.net/user/chimpstudio"
+msgstr ""
