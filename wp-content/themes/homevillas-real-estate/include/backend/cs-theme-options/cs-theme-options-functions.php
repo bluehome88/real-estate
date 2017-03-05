@@ -314,18 +314,18 @@ if ( ! function_exists('wp_rem_cs_var_get_demo_content') ) {
 
 	function wp_rem_cs_var_get_demo_content($wp_rem_cs_var_demo_file = '') {
 
-		global $wp_filesystem;
+		// global $wp_filesystem;
 
 		$backup_url = wp_nonce_url('themes.php?page=wp_rem_settings_page');
-		if ( false === ( $creds = request_filesystem_credentials($backup_url, '', false, false, array()) ) ) {
+		// if ( false === ( $creds = request_filesystem_credentials($backup_url, '', false, false, array()) ) ) {
 
-			return true;
-		}
+		// 	return true;
+		// }
 
-		if ( ! WP_Filesystem($creds) ) {
-			request_filesystem_credentials($backup_url, '', true, false, array());
-			return true;
-		}
+		// if ( ! WP_Filesystem($creds) ) {
+		// 	request_filesystem_credentials($backup_url, '', true, false, array());
+		// 	return true;
+		// }
 
 		$wp_rem_cs_var_upload_dir = get_template_directory() . '/include/backend/cs-theme-options/demo-data/';
 
@@ -335,7 +335,7 @@ if ( ! function_exists('wp_rem_cs_var_get_demo_content') ) {
 
 		if ( is_file($wp_rem_cs_var_filename) ) {
 
-			$get_options_file = $wp_filesystem->get_contents($wp_rem_cs_var_filename);
+			$get_options_file = file_get_contents($wp_rem_cs_var_filename);
 
 			$wp_rem_cs_var_demo_data = $get_options_file;
 		}
