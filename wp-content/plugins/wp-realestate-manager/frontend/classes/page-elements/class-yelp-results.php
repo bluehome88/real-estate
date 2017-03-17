@@ -91,7 +91,7 @@ if ( ! class_exists( 'wp_rem_yelp_list_results' ) ) {
 											)
 										);
 										$context = stream_context_create($options);
-										$data = file_get_contents('https://api.yelp.com/v3/businesses/search?term=' . $cate_term . '&latitude=' . $lat . '&longitude=' . $long . '&limit=' . $limit . '', false, $context);
+										$data = @file_get_contents('https://api.yelp.com/v3/businesses/search?term=' . $cate_term . '&latitude=' . $lat . '&longitude=' . $long . '&limit=' . $limit . '', false, $context);
 
 										if ( $data ) {
 											$data = json_decode( $data, true );

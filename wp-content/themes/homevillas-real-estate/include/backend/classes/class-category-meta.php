@@ -30,22 +30,6 @@ class Wp_rem_cs_Category_Meta {
      */
     public function add_category_meta_fields() {
         global $wp_rem_cs_var_form_fields, $wp_rem_cs_var_static_text;
-        echo '<div class="form-field">';
-        echo '<label for="cat_icon">' . wp_rem_cs_var_theme_text_srt( 'wp_rem_cs_var_cat_icon' ) . '</label>';
-        echo wp_rem_cs_var_icomoon_icons_box( '', '', 'cat_meta[cat_icon]' );
-        echo '<p class="description">' . wp_rem_cs_var_theme_text_srt( 'wp_rem_cs_var_cat_icon_hint' ) . '</p>';
-        echo '</div>';
-        echo '<div class="form-field">';
-        echo '<label for="cat_color">' . wp_rem_cs_var_theme_text_srt( 'wp_rem_cs_var_cat_color' ) . '</label>';
-        $wp_rem_cs_opt_array = array(
-            'std' => '#8781bd',
-            'cust_id' => 'cat_meta[cat_color]',
-            'cust_name' => 'cat_meta[cat_color][]',
-            'classes' => 'bg_color',
-        );
-        $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render( $wp_rem_cs_opt_array );
-        echo '<p class="description">' . wp_rem_cs_var_theme_text_srt( 'wp_rem_cs_var_cat_color_hint' ) . '</p>';
-        echo '</div>';
     }
 
     /**
@@ -61,17 +45,6 @@ class Wp_rem_cs_Category_Meta {
             $cat_id = $cat_data->term_id;
             $cat_meta = get_term_meta( $cat_id, 'cat_meta_data', true );
         }
-        $cat_color = isset( $cat_meta['cat_color'] ) ? $cat_meta['cat_color'] : '';
-        $cat_icon = isset( $cat_meta['cat_icon'] ) ? $cat_meta['cat_icon'] : '';
-
-        echo '<tr class="form-field">';
-        echo '<th scope="row" valign="top"><label for="cat_icon">' . wp_rem_cs_var_theme_text_srt( 'wp_rem_cs_var_cat_icon' ) . '</label></th>';
-        echo '<td>';
-        echo wp_rem_cs_var_icomoon_icons_box( $cat_icon, '', 'cat_meta[cat_icon]' );
-        echo '<br />';
-        echo '<span class="description">' . wp_rem_cs_var_theme_text_srt( 'wp_rem_cs_var_cat_icon_hint' ) . '</span>';
-        echo '</td>';
-        echo '</tr>';
 
     }
 

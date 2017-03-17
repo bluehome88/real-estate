@@ -97,7 +97,7 @@ if (!function_exists('wp_rem_cs_var_page_builder_property_categories')) {
                             $wp_rem_opt_array = array(
                                 'name' => wp_rem_plugin_text_srt('wp_rem_element_title'),
                                 'desc' => '',
-                                'hint_text' => wp_rem_plugin_text_srt('wp_rem_element_title_hint'),
+                                'label_desc' => wp_rem_plugin_text_srt('wp_rem_element_title_hint'),
                                 'echo' => true,
                                 'field_params' => array(
                                     'std' => $property_categories_title,
@@ -110,7 +110,7 @@ if (!function_exists('wp_rem_cs_var_page_builder_property_categories')) {
                             $wp_rem_opt_array = array(
                                 'name' => wp_rem_plugin_text_srt('wp_rem_element_sub_title'),
                                 'desc' => '',
-                                'hint_text' => wp_rem_plugin_text_srt('wp_rem_element_sub_title_hint'),
+                                'label_desc' => wp_rem_plugin_text_srt('wp_rem_element_sub_title_hint'),
                                 'echo' => true,
                                 'field_params' => array(
                                     'std' => $property_categories_subtitle,
@@ -124,7 +124,7 @@ if (!function_exists('wp_rem_cs_var_page_builder_property_categories')) {
                             $wp_rem_opt_array = array(
                                 'name' => wp_rem_plugin_text_srt('wp_rem_title_align'),
                                 'desc' => '',
-                                'hint_text' => wp_rem_plugin_text_srt('wp_rem_title_align_hint'),
+                                'label_desc' => wp_rem_plugin_text_srt('wp_rem_title_align_hint'),
                                 'echo' => true,
                                 'field_params' => array(
                                     'std' => esc_attr($property_categories_title_align),
@@ -145,7 +145,7 @@ if (!function_exists('wp_rem_cs_var_page_builder_property_categories')) {
                             $wp_rem_opt_array = array(
                                 'name' => 'Styles',
                                 'desc' => '',
-                                'hint_text' => '',
+                                'label_desc' => '',
                                 'echo' => true,
                                 'field_params' => array(
                                     'std' => esc_attr($property_categories_styles),
@@ -176,7 +176,7 @@ if (!function_exists('wp_rem_cs_var_page_builder_property_categories')) {
                             $wp_rem_opt_array = array(
                                 'name' => wp_rem_plugin_text_srt('wp_rem_property_categories_categories'),
                                 'desc' => '',
-                                'hint_text' => wp_rem_plugin_text_srt('wp_rem_property_categories_categories_hint'),
+                                'label_desc' => wp_rem_plugin_text_srt('wp_rem_property_categories_categories_hint'),
                                 'echo' => true,
                                 'multi' => true,
                                 'classes' => 'chosen-select',
@@ -218,7 +218,7 @@ if (!function_exists('wp_rem_cs_var_page_builder_property_categories')) {
                             $wp_rem_cs_opt_array = array(
                                 'name' => '',
                                 'desc' => '',
-                                'hint_text' => '',
+                                'label_desc' => '',
                                 'echo' => true,
                                 'field_params' => array(
                                     'std' => wp_rem_plugin_text_srt('wp_rem_save'),

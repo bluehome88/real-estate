@@ -39,6 +39,7 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_button') ) {
 				'wp_rem_cs_var_button_bg_color' => '',
 				'wp_rem_cs_var_button_align' => '',
 				'wp_rem_cs_button_icon' => '',
+				'wp_rem_cs_button_icon_group' => 'default',
 				'wp_rem_cs_var_button_size' => '',
 				'wp_rem_cs_var_icon_view' => '',
 				'wp_rem_cs_var_button_alignment' => ''
@@ -74,6 +75,7 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_button') ) {
 			$wp_rem_cs_var_button_bg_color = isset($wp_rem_cs_var_button_bg_color) ? $wp_rem_cs_var_button_bg_color : '';
 			$wp_rem_cs_var_button_align = isset($wp_rem_cs_var_button_align) ? $wp_rem_cs_var_button_align : '';
 			$wp_rem_cs_button_icon = isset($wp_rem_cs_button_icon) ? $wp_rem_cs_button_icon : '';
+			$wp_rem_cs_button_icon_group = isset($wp_rem_cs_button_icon_group) ? $wp_rem_cs_button_icon_group : 'default';
 			$wp_rem_cs_var_button_size = isset($wp_rem_cs_var_button_size) ? $wp_rem_cs_var_button_size : '';
 			$wp_rem_cs_var_icon_view = isset($wp_rem_cs_var_icon_view) ? $wp_rem_cs_var_icon_view : '';
 			if ( isset($_POST['shortcode_element']) && $_POST['shortcode_element'] == 'shortcode' ) {
@@ -274,7 +276,8 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_button') ) {
 										?>
 									</div>
 									<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-										<?php echo wp_rem_cs_var_icomoon_icons_box(esc_html($wp_rem_cs_button_icon), esc_attr($wp_rem_cs_counter), 'wp_rem_cs_button_icon'); ?>
+										<?php //echo wp_rem_cs_var_icomoon_icons_box(esc_html($wp_rem_cs_button_icon), esc_attr($wp_rem_cs_counter), 'wp_rem_cs_button_icon'); ?>
+                                                                            <?php echo apply_filters( 'cs_icons_fields', esc_html($wp_rem_cs_button_icon), esc_attr($wp_rem_cs_counter), 'wp_rem_cs_button_icon', $wp_rem_cs_button_icon_group ); ?>
 									</div>
 								</div>
 								<?php
@@ -431,6 +434,9 @@ if ( ! function_exists('wp_rem_cs_save_page_builder_data_button_callback') ) {
 				}
 				if ( isset($data['wp_rem_cs_button_icon'][$counters['wp_rem_cs_counter_button']]) && $data['wp_rem_cs_button_icon'][$counters['wp_rem_cs_counter_button']] != '' ) {
 					$wp_rem_cs_var_button .= 'wp_rem_cs_button_icon="' . htmlspecialchars($data['wp_rem_cs_button_icon'][$counters['wp_rem_cs_counter_button']], ENT_QUOTES) . '" ';
+				}
+                                if ( isset($data['wp_rem_cs_button_icon_group'][$counters['wp_rem_cs_counter_button']]) && $data['wp_rem_cs_button_icon_group'][$counters['wp_rem_cs_counter_button']] != '' ) {
+					$wp_rem_cs_var_button .= 'wp_rem_cs_button_icon_group="' . htmlspecialchars($data['wp_rem_cs_button_icon_group'][$counters['wp_rem_cs_counter_button']], ENT_QUOTES) . '" ';
 				}
 				if ( isset($data['wp_rem_cs_var_icon_view'][$counters['wp_rem_cs_counter_button']]) && $data['wp_rem_cs_var_icon_view'][$counters['wp_rem_cs_counter_button']] != '' ) {
 					$wp_rem_cs_var_button .= 'wp_rem_cs_var_icon_view="' . htmlspecialchars($data['wp_rem_cs_var_icon_view'][$counters['wp_rem_cs_counter_button']], ENT_QUOTES) . '" ';

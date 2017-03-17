@@ -4,7 +4,7 @@
   Plugin Name: Real Estate Framework
   Plugin URI: http://themeforest.net/user/Chimpstudio/
   Description: Real Estate Framework.
-  Version: 1.1
+  Version: 1.3
   Author: ChimpStudio
   Author URI: http://themeforest.net/user/Chimpstudio/
   Requires at least: 4.1
@@ -103,6 +103,13 @@ if ( ! class_exists('wp_rem_real_estate_framework') ) {
             require_once 'includes/cs-framework-config.php';
             require_once 'includes/cs-helpers.php';
             require_once 'assets/translate/cs-strings.php';
+			
+			// fonts
+			require_once 'cs-fonts/cs-fonts.php';
+			require_once 'cs-fonts/cs-fonts-admin.php';
+			require_once 'cs-fonts/cs-fonts-admin-frontend.php';
+			require_once 'cs-fonts/cs-fonts-frontend.php';
+			
             //require_once 'includes/cs-maintenance-mode/cs-maintenance-mode.php';
             //require_once 'includes/cs-maintenance-mode/cs-functions.php';
             //require_once 'includes/cs-maintenance-mode/cs-fields.php';
@@ -218,7 +225,7 @@ if ( ! class_exists('wp_rem_real_estate_framework') ) {
         }
 
         public function create_wp_rem_cs_maintenance_options($wp_rem_cs_var_settings) {
-            global $wp_rem_cs_var_frame_static_text;
+            global $wp_rem_cs_var_frame_static_text, $wp_rem_cs_var_options;
             $on_off_option = array(
                 "show" => "on",
                 "hide" => "off",
@@ -305,16 +312,17 @@ if ( ! class_exists('wp_rem_real_estate_framework') ) {
 
             $wp_rem_cs_var_options_array = array();
             $wp_rem_cs_var_options_array[] = wp_rem_cs_var_frame_text_srt('wp_rem_cs_var_maintenance_field_select_page');
-            foreach ( $wp_rem_cs_var_pages as $wp_rem_cs_var_page ) {
-                $wp_rem_cs_var_options_array[$wp_rem_cs_var_page->ID] = isset($wp_rem_cs_var_page->post_title) && ($wp_rem_cs_var_page->post_title != '') ? $wp_rem_cs_var_page->post_title : wp_rem_cs_var_frame_text_srt('wp_rem_cs_var_no_title');
-            }
+			$maintinance_mode_page = isset($wp_rem_cs_var_options['wp_rem_cs_var_maintinance_mode_page']) ? $wp_rem_cs_var_options['wp_rem_cs_var_maintinance_mode_page'] : '';
+            if( $maintinance_mode_page != '' && is_numeric($maintinance_mode_page) && $maintinance_mode_page > 0){
+				$wp_rem_cs_var_options_array[$maintinance_mode_page] = get_the_title($maintinance_mode_page);
+			}
 
             $wp_rem_cs_var_settings[] = array( "name" => wp_rem_cs_var_frame_text_srt('wp_rem_cs_var_maintenance_field_mode_page'),
                 "desc" => "",
                 "label_desc" => wp_rem_cs_var_frame_text_srt('wp_rem_cs_var_maintenance_field_mode_page_hint'),
                 "id" => "maintinance_mode_page",
                 "std" => wp_rem_cs_var_frame_text_srt('wp_rem_cs_var_maintenance_select_page'),
-                "type" => "select",
+                "type" => "custom_page_select",
                 'classes' => 'chosen-select',
                 "options" => $wp_rem_cs_var_options_array
             );

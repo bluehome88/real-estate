@@ -737,69 +737,126 @@ function wp_rem_property_remove_help_tabs() {
 }
 
 add_filter('views_edit-properties', function( $views ) {
-
-
-    // expired property count
-    //1474624006 date format in db
-    //1474631520  comparing date format
-
+    
     $args_expire = array(
-        'post_type' => 'properties',
-        'posts_per_page' => -1,
-        'meta_query' => array(
-            'relation' => 'AND',
-            array(
-                'key' => 'wp_rem_property_expired',
-                'value' => current_time('timestamp'),
-                'compare' => '<',
-            ),
-        ),
+	'post_type' => 'properties',
+	'posts_per_page' => 1,
+        'fields' => 'ids',
+	'meta_query' => array(
+	    'relation' => 'AND',
+	    array(
+		'key' => 'wp_rem_property_expired',
+		'value' => current_time('timestamp'),
+		'compare' => '<',
+	    ),
+	),
     );
     $query_expire = new WP_Query($args_expire);
-    $count_lisings_expire = 0;
-    $count_lisings_expire = $query_expire->post_count;
-
+    $count_lisings_expire   = $query_expire->found_posts;
     // end expired property count
-
+    
+    $total_add = wp_count_posts( 'properties' );
+    
     $args = array(
-        'post_type' => 'properties',
-        'posts_per_page' => "-1",
-        ''
+	'post_type' => 'properties',
+	'posts_per_page' => "1",
+        'fields' => 'ids',
     );
-    $custom_query = new WP_Query($args);
-    $total_add = 0;
-    $total_paid = 0;
-    $total_free = 0;
-    $total_active = 0;
-    $total_pending = 0;
-    while ($custom_query->have_posts()) : $custom_query->the_post();
-        global $post;
-        $wp_rem_property_posted = get_post_meta($post->ID, 'wp_rem_property_posted', true);
-        $wp_rem_property_package_id = get_post_meta($post->ID, 'wp_rem_property_package', true);
-        $wp_rem_property_package_type = get_post_meta($wp_rem_property_package_id, 'wp_rem_package_type', true);
-        $wp_rem_user_status = get_post_meta($post->ID, 'wp_rem_property_status', true);
-        if (isset($wp_rem_property_package_type) && !empty($wp_rem_property_package_type)) {
-            if ($wp_rem_property_package_type == 'paid') {
-                $total_paid ++;
-            } else if ($wp_rem_property_package_type == 'free') {
-                $total_free ++;
-            }
-        }
-        if (isset($wp_rem_user_status) && !empty($wp_rem_user_status)) {
-            if ($wp_rem_user_status == 'active') {
-                $total_active ++;
-            }
-        }
-        $total_add ++;
-    endwhile;
+    $args['meta_query'] = array(
+        array(
+                'key'     => 'wp_rem_property_status',
+                'value'   => 'active',
+                'compare' => '=',
+        ),
+    );
+    
+    $total_query = new WP_Query($args);
+    $total_active   = $total_query->found_posts;
+    
+    /*
+     * Getting Free Packages
+     */
+    
+    $args = array(
+	'post_type' => 'packages',
+	'posts_per_page' => -1,
+        'fields' => 'ids',
+    );
+    $args['meta_query'] = array(
+        array(
+                'key'     => 'wp_rem_package_type',
+                'value'   => 'free',
+                'compare' => '=',
+        ),
+    );
+    $free_listings_query = new WP_Query($args);
+    $free_package_ids   = $free_listings_query->posts;
+    
+    /*
+     * Getting Paid Packages
+     */
+    
+    $args = array(
+	'post_type' => 'packages',
+	'posts_per_page' => -1,
+        'fields' => 'ids',
+    );
+    $args['meta_query'] = array(
+        array(
+                'key'     => 'wp_rem_package_type',
+                'value'   => 'paid',
+                'compare' => '=',
+        ),
+    );
+    $paid_listings_query = new WP_Query($args);
+    $paid_package_ids   = $paid_listings_query->posts;
+    
+    
+     /*
+     * Free Ads
+     */
+    $args = array(
+	'post_type' => 'properties',
+	'posts_per_page' => "1",
+        'fields' => 'ids',
+    );
+    $args['meta_query'] = array(
+        array(
+                'key'     => 'wp_rem_property_package',
+                'value'   => $free_package_ids,
+                'compare' => 'IN',
+        ),
+    );
+    $free_query = new WP_Query($args);
+    $free_ads   = $free_query->found_posts;
+    
+    
+    /*
+     * Paid Ads
+     */
+    $args = array(
+	'post_type' => 'properties',
+	'posts_per_page' => "1",
+        'fields' => 'ids',
+    );
+    $args['meta_query'] = array(
+        array(
+                'key'     => 'wp_rem_property_package',
+                'value'   => $paid_package_ids,
+                'compare' => 'IN',
+        ),
+    );
+    $paid_query = new WP_Query($args);
+    $paid_ads   = $paid_query->found_posts;
+    
     wp_reset_postdata();
     echo '
     <ul class="total-wp-rem-property row">
-	<li class="col-lg-3 col-md-3 col-sm-6 col-xs-12"><div class="wp-rem-text-holder"><strong>' . wp_rem_plugin_text_srt('wp_rem_property_php_total_ads') . ' </strong><em>' . $total_add . '</em><i class="icon-coins"></i></div></li>
+	<li class="col-lg-3 col-md-3 col-sm-6 col-xs-12"><div class="wp-rem-text-holder"><strong>' . wp_rem_plugin_text_srt('wp_rem_property_php_total_ads') . ' </strong><em>' . $total_add->publish . '</em><i class="icon-coins"></i></div></li>
 	<li class="col-lg-3 col-md-3 col-sm-6 col-xs-12"><div class="wp-rem-text-holder"><strong>' . wp_rem_plugin_text_srt('wp_rem_property_php_active_ads') . ' </strong><em>' . $total_active . '</em><i class="icon-check_circle"></i></div></li>
 	<li class="col-lg-3 col-md-3 col-sm-6 col-xs-12"><div class="wp-rem-text-holder"><strong>' . wp_rem_plugin_text_srt('wp_rem_property_php_expire_ads') . ' </strong><em>' . $count_lisings_expire . '</em><i class="icon-back-in-time"></i></div></li>
-	<li class="col-lg-3 col-md-3 col-sm-6 col-xs-12"><div class="wp-rem-text-holder"><strong>' . wp_rem_plugin_text_srt('wp_rem_property_php_free_ads') . '</strong><em>' . $total_free . '</em><i class="icon-money_off"></i></div></li>
-	<li class="col-lg-3 col-md-3 col-sm-6 col-xs-12"><div class="wp-rem-text-holder"><strong>' . wp_rem_plugin_text_srt('wp_rem_property_php_paid_ads') . '</strong><em>' . $total_paid . '</em><i class="icon-attach_money"></i></div></li>
+	<li class="col-lg-3 col-md-3 col-sm-6 col-xs-12"><div class="wp-rem-text-holder"><strong>' . wp_rem_plugin_text_srt('wp_rem_property_php_free_ads') . '</strong><em>' . $free_ads . '</em><i class="icon-money_off"></i></div></li>
+	<li class="col-lg-3 col-md-3 col-sm-6 col-xs-12"><div class="wp-rem-text-holder"><strong>' . wp_rem_plugin_text_srt('wp_rem_property_php_paid_ads') . '</strong><em>' . $paid_ads . '</em><i class="icon-attach_money"></i></div></li>
     </ul>
     ';
     return $views;

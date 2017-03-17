@@ -47,8 +47,7 @@ if ( ! class_exists( 'Wp_rem_Member_Permissions' ) ) {
 			$permissions = get_user_meta( $user_ID, 'wp_rem_permissions', true );
 			$user_status = get_user_meta( $user_ID, 'wp_rem_user_type', true );
 			$member_id = get_user_meta( $user_ID, 'wp_rem_company', true );
-			$user_type = get_post_meta( $member_id, 'wp_rem_member_user_type', true );
-			if ( isset( $user_status ) && $user_status == 'supper-admin' && $user_type != 'buyer' ) {
+			if ( isset( $user_status ) && $user_status == 'supper-admin' ) {
 				return true;
 			}
 

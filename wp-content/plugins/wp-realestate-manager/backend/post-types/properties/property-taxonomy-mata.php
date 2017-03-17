@@ -27,7 +27,7 @@ if (!class_exists('Property_taxonomy_Meta')) {
                     </div>
 
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-            <?php echo wp_rem_iconlist_plugin_options('', 'property_type_icon', 'wp_rem_property_taxonomy_icon'); ?>
+                        <?php echo apply_filters( 'cs_icons_fields', '', 'property_type_icon', 'wp_rem_property_taxonomy_icon' ); ?>
                     </div>
                 </div>
             </div>
@@ -39,6 +39,8 @@ if (!class_exists('Property_taxonomy_Meta')) {
 
             // retrieve the existing value(s) for this meta field. This returns an array
             $term_meta = get_term_meta($t_id, 'wp_rem_property_taxonomy_icon', true);
+            $icon_group = get_term_meta($t_id, 'wp_rem_property_taxonomy_icon_group', true);
+            $icon_group = ( isset( $icon_group ) && $icon_group != '' )? $icon_group : 'default';
             ?>
 
 
@@ -49,7 +51,7 @@ if (!class_exists('Property_taxonomy_Meta')) {
                     </div>
 
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-            <?php echo wp_rem_iconlist_plugin_options($term_meta, 'property_type_icon', 'wp_rem_property_taxonomy_icon'); ?>
+                        <?php echo apply_filters( 'cs_icons_fields', $term_meta, 'property_type_icon', 'wp_rem_property_taxonomy_icon', $icon_group ); ?>
                     </div>
                 </div>
             </div>
@@ -60,11 +62,13 @@ if (!class_exists('Property_taxonomy_Meta')) {
             if (isset($_POST['wp_rem_property_taxonomy_icon'])) {
 
                 $icon = $_POST['wp_rem_property_taxonomy_icon'][0];
+                $icon_group = $_POST['wp_rem_property_taxonomy_icon_group'][0];
 
                 $t_id = $term_id;
 
                 // Save the option array.
                 update_term_meta($t_id, 'wp_rem_property_taxonomy_icon', $icon);
+                update_term_meta($t_id, 'wp_rem_property_taxonomy_icon_group', $icon_group);
             }
         }
 

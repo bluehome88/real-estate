@@ -162,6 +162,25 @@ if ( ! class_exists('wp_rem_options_fields') ) {
 
                         $output .= $wp_rem_html_fields->wp_rem_set_section($wp_rem_opt_array);
                         break;
+                        
+                    case "paragraph":
+                        $name       = isset( $value['name'] )? $value['name'] : '';
+                        $std        = isset( $value['std'] )? $value['std'] : '';    
+                        $label_desc = isset( $value['label_desc'] )? $value['label_desc'] : '';
+                        $output     .= '<div class="form-elements">';
+                            $output     .= '<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">';
+                                    $output .= '<label>' . esc_html( $name ) . '</label>';
+                                    if( $label_desc != '' ){
+                                        $output .= '<p class="label-desc">' . $label_desc . '</p>';
+                                    }
+                                    
+                            $output     .= '</div>';
+                            $output     .= '<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">';
+                                    $output .= '<p>' . esc_html( $std ) . '</p>';
+                            $output     .= '</div>';
+                        $output     .= '</div>';
+                        
+                        break;
                     case 'password' :
                         if ( isset($wp_rem_plugin_options) ) {
                             if ( isset($wp_rem_plugin_options['wp_rem_' . $value['id']]) ) {
@@ -634,10 +653,22 @@ if ( ! class_exists('wp_rem_options_fields') ) {
                             foreach ( $yelp_cats as $feat_key => $features ) {
                                 $feat_rand = rand(1000000, 99999999);
                                 if ( isset($features) && $features <> '' ) {
-                                    $output .= '
-									<li class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-										<input id="feat-' . $feat_rand . '" ' . (is_array($wp_rem_get_places) && in_array($feat_key, $wp_rem_get_places) ? ' checked="checked"' : '') . ' type="checkbox" value="' . $feat_key . '" name="wp_rem_' . $value['id'] . '[]"> <label for="feat-' . $feat_rand . '"> ' . $features . '</label>
-									</li>';
+                                    $output .= '<li class="col-lg-6 col-md-6 col-sm-12 col-xs-12">';
+										$checked = (is_array($wp_rem_get_places) && in_array($feat_key, $wp_rem_get_places) ? ' checked="checked"' : '');
+										$output .= $wp_rem_form_fields->wp_rem_form_checkbox_render(
+												array( 'name' => '',
+													'cust_id' => 'feat-' . $feat_rand . '',
+													'cust_name' => 'wp_rem_' . $value['id'] . '[]',
+													'classes' => '',
+													'std' => $feat_key,
+													'description' => '',
+													'simple' => true,
+													'return' => true,
+													'extra_atr' => $checked,
+												)
+										);
+										$output .= '<label for="feat-' . $feat_rand . '"> ' . $features . '</label>';
+									$output .= '</li>';
                                 }
                             }
                             $output .= '</ul>';
@@ -825,7 +856,60 @@ if ( ! class_exists('wp_rem_options_fields') ) {
 
                         $output .=($value['id'] == 'wp_rem_bgimage_position') ? '</div>' : '';
                         break;
-                    case 'select_values' :
+                    case 'custom_select':
+                        if ( isset($wp_rem_plugin_options) and $wp_rem_plugin_options <> '' ) {
+                            if ( isset($wp_rem_plugin_options['wp_rem_' . $value['id']]) and $wp_rem_plugin_options['wp_rem_' . $value['id']] <> '' ) {
+                                $select_value = $wp_rem_plugin_options['wp_rem_' . $value['id']];
+								$user_info = get_userdata($select_value);
+								$value['options'] = array($select_value => $user_info->display_name);
+                            } else {
+                                $select_value = $value['std'];
+                            }
+                        } else {
+                            $select_value = $value['std'];
+                        }
+                        
+						$output .= $wp_rem_html_fields->wp_rem_opening_field(array(
+								'id' => isset($value['id']) ? $value['id'] : '',
+								'name' => isset($value['name']) ? $value['name'] : '',
+								'label_desc' => isset($value['label_desc']) ? $value['label_desc'] : '',
+							)
+                        );
+						
+							$main_wraper = isset($value['main_wraper']) ? $value['main_wraper'] : false;
+							$main_wraper_class = isset($value['main_wraper_class']) ? $value['main_wraper_class'] : '';
+							$main_wraper_extra = isset($value['main_wraper_extra']) ? $value['main_wraper_extra'] : '';
+							
+							if ( isset($main_wraper) && $main_wraper == true ) {
+								$main_wraper_class_str = '';
+								if ( isset($main_wraper_class) && $main_wraper_class != '' ) {
+									$main_wraper_class_str = $main_wraper_class;
+								}
+								$main_wraper_extra_str = '';
+								if ( isset($main_wraper_extra) && $main_wraper_extra != '' ) {
+									$main_wraper_extra_str = $main_wraper_extra;
+								}
+								$main_wraper_start = '<div class="' . $main_wraper_class_str . '" ' . $main_wraper_extra_str . '>';
+								$main_wraper_end = '</div>';
+							}
+							$output .= $main_wraper_start;
+								$wp_rem_opt_array = array(
+									'std' => $select_value,
+									'id' => $value['id'],
+									'options' => $value['options'],
+									'classes' => $wp_rem_classes,
+									'markup' => isset($value['markup']) ? $value['markup'] : '',
+									'return' => true,
+								);
+								$output .= $wp_rem_form_fields->wp_rem_form_select_render($wp_rem_opt_array);
+							$output .= $main_wraper_end;
+						
+						$output .= $wp_rem_html_fields->wp_rem_closing_field(array(
+                            'desc' => '',
+                        ));
+						
+						break;
+					case 'select_values' :
                         if ( isset($wp_rem_plugin_options) and $wp_rem_plugin_options <> '' ) {
                             if ( isset($wp_rem_plugin_options['wp_rem_' . $value['id']]) and $wp_rem_plugin_options['wp_rem_' . $value['id']] <> '' ) {
                                 $select_value = $wp_rem_plugin_options['wp_rem_' . $value['id']];
@@ -1155,8 +1239,11 @@ if ( ! class_exists('wp_rem_options_fields') ) {
                         if ( isset($value['split']) && $value['split'] <> '' ) {
                             $wp_rem_opt_array['split'] = $value['split'];
                         }
-
-                        $output .= $wp_rem_html_fields->wp_rem_select_page_field($wp_rem_opt_array);
+						if(isset($value['custom_page_select']) && $value['custom_page_select'] == true){
+							$output .= $wp_rem_html_fields->wp_rem_custom_select_page_field($wp_rem_opt_array);
+						}else{
+							$output .= $wp_rem_html_fields->wp_rem_select_page_field($wp_rem_opt_array);
+						}
 
                         break;
                     case 'map_nearby_places':
@@ -3070,8 +3157,10 @@ if ( ! class_exists('wp_rem_options_fields') ) {
                         $orders_status = isset($wp_rem_plugin_options['orders_status']) ? $wp_rem_plugin_options['orders_status'] : '';
                         $orders_color = isset($wp_rem_plugin_options['orders_color']) ? $wp_rem_plugin_options['orders_color'] : '';
 
-                        //$orders_status = '';
-                        //$orders_color = '';
+						if ( (is_array($orders_status) && sizeof($orders_status) <= 0) || $orders_status == '' ) {
+							$orders_status = array(0 => 'Processing', 1 => 'Completed');
+							$orders_color  = array(0 => '#ffba00', 1 => '#7ad03a');
+						}
                         ?>
 
                         <div class="wp-rem-list-wrap order-statuse-layout-list">
@@ -3099,10 +3188,16 @@ if ( ! class_exists('wp_rem_options_fields') ) {
                                     foreach ( $orders_status as $key => $lable ) {
                                         if ( $lable == 'Processing' || $lable == 'Completed' ) {
                                             $readonly = 'readonly';
-                                        } else {
+										} else {
                                             $readonly = '';
                                         }
                                         $order_color = isset($orders_color[$key]) ? $orders_color[$key] : '';
+										if ( $lable == 'Processing'){
+											$lable = wp_rem_plugin_text_srt('wp_rem_processing');
+										}
+										if ( $lable == 'Completed'){
+											$lable = wp_rem_plugin_text_srt('wp_rem_completed');
+										}
                                         ?>
                                         <li class="wp-rem-list-item tr_clone" id="repeat_element<?php echo absint($counter); ?>">
                                             <div class="col-lg-1 col-md-1 col-sm-6 col-xs-12">

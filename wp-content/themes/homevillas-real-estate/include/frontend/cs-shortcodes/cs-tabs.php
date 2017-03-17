@@ -76,6 +76,7 @@ if (!function_exists('wp_rem_cs_var_tabs_item_shortcode')) {
         $defaults = array(
             'wp_rem_cs_var_tabs_title' => '',
             'wp_rem_cs_var_tabs_icon' => '',
+            'wp_rem_cs_var_tabs_icon_group' => 'default',
             'wp_rem_cs_var_tab_active' => ''
         );
         extract(shortcode_atts($defaults, $atts));
@@ -87,9 +88,6 @@ if (!function_exists('wp_rem_cs_var_tabs_item_shortcode')) {
         $wp_rem_cs_var_tabs_color = isset($wp_rem_cs_var_tabs_color) ? $wp_rem_cs_var_tabs_color : '';
         $wp_rem_cs_var_tabs_icon = isset($wp_rem_cs_var_tabs_icon) ? $wp_rem_cs_var_tabs_icon : '';
         $wp_rem_cs_var_tab_active = isset($wp_rem_cs_var_tab_active) ? $wp_rem_cs_var_tab_active : '';
-        ?>
-
-        <?php
 
         $activeClass = "";
         if ($wp_rem_cs_var_tab_active == 'yes') {
@@ -98,6 +96,7 @@ if (!function_exists('wp_rem_cs_var_tabs_item_shortcode')) {
 
         $fa_icon = '';
         if ($wp_rem_cs_var_tabs_icon) {
+            wp_enqueue_style('cs_icons_data_css_'.$wp_rem_cs_var_tabs_icon_group );
             $fa_icon = '<i class="' . sanitize_html_class($wp_rem_cs_var_tabs_icon) . '"></i>  ';
         }
         $randid = rand(877, 9999);

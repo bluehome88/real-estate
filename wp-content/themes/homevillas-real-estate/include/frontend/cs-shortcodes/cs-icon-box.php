@@ -43,21 +43,13 @@ if ( ! function_exists('wp_rem_cs_var_icon_boxes_shortcode') ) {
         $wp_rem_cs_icon_box_content_align = isset($wp_rem_cs_icon_box_content_align) ? $wp_rem_cs_icon_box_content_align : '';
         $wp_rem_cs_icon_box_content_color = isset($wp_rem_cs_icon_box_content_color) ? $wp_rem_cs_icon_box_content_color : '';
 
-
-
-
         if ( $wp_rem_cs_var_icon_box_view == 'award' ) {
             $wp_rem_cs_icon_box_content_align = '';
         }
-
-
-        $icon_box_list_class = 'cs-icon-boxes-list';
+$icon_box_list_class = 'cs-icon-boxes-list';
         if ( $wp_rem_cs_var_icon_box_view == 'modern' ) {
-            //$wp_rem_cs_icon_box_content_align = '';
             $icon_box_list_class = 'icons-boxes-list';
         }
-
-
         $column_class = '';
         if ( isset($wp_rem_cs_var_column_size) && $wp_rem_cs_var_column_size != '' ) {
             if ( function_exists('wp_rem_cs_var_custom_column_class') ) {
@@ -70,9 +62,7 @@ if ( ! function_exists('wp_rem_cs_var_icon_boxes_shortcode') ) {
 
             $title_subtitle_style = 'style="color:' . esc_html($wp_rem_cs_icon_box_content_color) . ' !important;"';
         }
-
         $wp_rem_cs_section_title .= wp_rem_title_sub_align($wp_rem_cs_var_icon_boxes_title, $wp_rem_cs_var_icon_boxes_element_sub_title, $wp_rem_cs_var_icon_boxes_element_alignment, $wp_rem_cs_icon_box_content_color);
-
         if ( $wp_rem_cs_section_title != '' || $content != '' ) {
             if ( isset($column_class) && $column_class <> '' ) {
                 $html .= '<div class="' . esc_html($column_class) . '">';
@@ -113,6 +103,7 @@ if ( ! function_exists('wp_rem_cs_var_icon_boxes_item_shortcode') ) {
             'icon_boxes_style' => '',
             'wp_rem_cs_var_icon_box_title' => '',
             'wp_rem_cs_var_icon_boxes_icon' => '',
+            'wp_rem_cs_var_icon_boxes_icon_group' => 'default',
             'wp_rem_cs_var_link_url' => '',
             'wp_rem_cs_var_icon_box_icon_type' => '',
             'wp_rem_cs_var_icon_box_image' => '',
@@ -134,6 +125,9 @@ if ( ! function_exists('wp_rem_cs_var_icon_boxes_item_shortcode') ) {
         $has_shadow = '';
         if ( $wp_rem_cs_var_icon_box_view == 'boxed' ) {
             $has_shadow = 'has-shadow';
+        }
+        if ( $wp_rem_cs_var_icon_box_view == 'boxed-v2' ) {
+            $wp_rem_cs_var_icon_box_view = 'boxed advance';
         }
         if ( isset($wp_rem_cs_var_icon_box_column) && $wp_rem_cs_var_icon_box_column != '' ) {
             $number_col = 12 / $wp_rem_cs_var_icon_box_column;
@@ -173,6 +167,7 @@ if ( ! function_exists('wp_rem_cs_var_icon_boxes_item_shortcode') ) {
                 $html .= '<div class="icon-boxes ' . esc_html($wp_rem_cs_var_icon_box_view) . ' ' . $has_shadow . ' ' . esc_html($wp_rem_cs_icon_box_content_align) . '">';
             }
             if ( $wp_rem_cs_var_icon_boxes_icon != '' && $wp_rem_cs_var_icon_box_icon_type == 'icon' ) {
+                wp_enqueue_style('cs_icons_data_css_'.$wp_rem_cs_var_icon_boxes_icon_group );
                 $html .= '<div class="img-holder">';
                 if ( $wp_rem_cs_var_link_url != '' ) {
                     $html .= '<a href="' . esc_url($wp_rem_cs_var_link_url) . '">';

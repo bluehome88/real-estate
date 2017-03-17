@@ -3018,7 +3018,7 @@ if($slide->isStaticSlide()){
 						</div>					
 
 						<!-- BORDER COLOR -->					
-						<input type="text" class="rs-layer-input-field  my-color-field" data-editing="Shape Border Color" title="<?php _e("Border Color",'revslider'); ?>" style="width:150px" name="adshape-border-color" value="rgba(0,0,0,0.5)" />
+						<input type="text" class="rs-layer-input-field  my-color-field" data-editing="Shape Border Color" title="<?php _e("Border Color",'revslider'); ?>" style="width:150px" data-mode="single" name="adshape-border-color" value="rgba(0,0,0,0.5)" />
 						<span class="rs-layer-toolbar-space" style="margin-right:15px"></span>					
 						
 

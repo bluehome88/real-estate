@@ -175,7 +175,7 @@ class Wp_rem_cs_recentposts extends WP_Widget {
 		        </div>
 		    <?php } ?>
 		    <div class="text-holder">
-			<h6><a href="<?php echo esc_url(get_permalink()); ?>"><?php the_title(); ?></a></h6>
+			<h6><a href="<?php echo esc_url(get_permalink()); ?>"><?php echo wp_trim_words(get_the_title(),6); ?></a></h6>
 			<div class="post-option">
 			    <span class="post-date">
 				<a href="<?php echo esc_url(get_month_link(get_the_time('Y'), get_the_time('m'))); ?>"><?php echo get_the_date('j F Y'); ?></a>

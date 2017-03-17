@@ -511,6 +511,10 @@ if ( ! function_exists( 'wp_rem_cs_sidebar_layout_options' ) ) {
                     'classic'=>wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_page_header_view_classic' ),
                     'fancy'=>wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_page_header_view_fancy' ),
                     'default'=>wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_page_header_view_default_v2' ),
+                    'advance'=>wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_page_header_view_advance' ),
+                    'advance_v2'=>wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_page_header_view_advance_v2' ),
+                    'modern_v2'=>wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_page_header_view_modern_v2' ),
+                    
                 ),
             ),
         );
@@ -544,8 +548,23 @@ if ( ! function_exists( 'wp_rem_cs_sidebar_layout_options' ) ) {
         );
 
         $wp_rem_cs_var_html_fields->wp_rem_cs_var_checkbox_field( $wp_rem_cs_var_opt_array );
+        
         $wp_rem_cs_var_opt_array = array(
-            'name' => wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_page_hide_header_footer' ),
+            'name' => wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_page_hide_header' ),
+            'desc' => '',
+            'hint_text' => '',
+            'echo' => true,
+            'field_params' => array(
+                'std' => '',
+                'id' => 'page_header_hidden',
+                'return' => true,
+            ),
+        );
+
+        $wp_rem_cs_var_html_fields->wp_rem_cs_var_checkbox_field( $wp_rem_cs_var_opt_array );
+        
+        $wp_rem_cs_var_opt_array = array(
+            'name' => wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_page_hide_footer' ),
             'desc' => '',
             'hint_text' => '',
             'echo' => true,

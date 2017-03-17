@@ -18,7 +18,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Login_Frontend') ) {
          */
         public function __construct() {
             add_shortcode($this->PREFIX, array( $this, 'wp_rem_login_shortcode_callback' ));
-            add_action($this->PREFIX, array( $this, 'wp_rem_login_callback' ));
+            add_action($this->PREFIX, array( $this, 'wp_rem_login_callback' ), 11, 1);
         }
 
         public function wp_nav_menu_items_callback($items, $args) {
@@ -51,8 +51,8 @@ if ( ! class_exists('Wp_rem_Shortcode_Login_Frontend') ) {
          * Login hook calling shortcode
          */
 
-        public function wp_rem_login_callback() {
-            echo do_shortcode('[' . $this->PREFIX . ']');
+        public function wp_rem_login_callback($view = '') {
+            echo do_shortcode('[' . $this->PREFIX . ' header_view=' . $view . ']');
         }
 
         /*
@@ -66,6 +66,8 @@ if ( ! class_exists('Wp_rem_Shortcode_Login_Frontend') ) {
             wp_rem_socialconnect_scripts(); // social login script
             $defaults = array( 'column_size' => '1/1', 'title' => '', 'register_text' => '', 'register_role' => 'contributor', 'wp_rem_type' => '', 'wp_rem_login_txt' => '', 'login_btn_class' => '' );
             extract(shortcode_atts($defaults, $atts));
+
+            $header_view = isset($atts['header_view']) ? $atts['header_view'] : '';
 
             $user_disable_text = wp_rem_plugin_text_srt('wp_rem_login_register_disabled');
             $wp_rem_sitekey = isset($wp_rem_plugin_options['wp_rem_sitekey']) ? $wp_rem_plugin_options['wp_rem_sitekey'] : '';
@@ -105,16 +107,25 @@ if ( ! class_exists('Wp_rem_Shortcode_Login_Frontend') ) {
             }
             $output = '';
             if ( is_user_logged_in() ) {
-                $output .= $this->wp_rem_profiletop_menu();
+                $output .= $this->wp_rem_profiletop_menu('', $header_view);
             } else {
+                wp_enqueue_script('wp-rem-login-script');
                 $role = $register_role;
                 $wp_rem_type = isset($wp_rem_type) ? $wp_rem_type : '';
                 $wp_rem_login_class = 'login';
                 $isRegistrationOn = get_option('users_can_register');
+
+                $sign_in_label = wp_rem_plugin_text_srt('wp_rem_login_register_sign_in');
+                $register_label = wp_rem_plugin_text_srt('wp_rem_register_register');
+                if ( $header_view == 'advance_v2' ) {
+                    $sign_in_label = '';
+                    $register_label = '';
+                }
+
                 $output .= '<i class="icon-user2"></i>';
-                $output .= '<a id="btn-header-main-login" data-target="#sign-in" data-toggle="modal" class="cs-popup-login-btn login-popup-btn wp-rem-open-signin-button user-tab-login" href="#user-login-tab-' . $rand_id . '">' . wp_rem_plugin_text_srt('wp_rem_login_register_sign_in') . '</a>';
+                $output .= '<a id="btn-header-main-login" data-target="#sign-in" data-toggle="modal" class="cs-popup-login-btn login-popup-btn wp-rem-open-signin-button user-tab-login" href="#user-login-tab-' . $rand_id . '">' . $sign_in_label . '</a>';
                 $output .= '<span>/</span>';
-                $output .= '<a class="cs-color cs-popup-joinus-btn login-popup-btn wp-rem-open-register-button user-tab-register" data-target="#sign-in" data-toggle="modal" href="#user-register-' . $rand_id . '">' . wp_rem_plugin_text_srt('wp_rem_register_register') . '</a>';
+                $output .= '<a class="cs-color cs-popup-joinus-btn login-popup-btn wp-rem-open-register-button user-tab-register" data-target="#sign-in" data-toggle="modal" href="#user-register-' . $rand_id . '">' . $register_label . '</a>';
                 $login_btn_class_str = '';
                 if ( $login_btn_class != '' ) {
                     $login_btn_class_str = 'class="' . $login_btn_class . '"';
@@ -155,7 +166,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Login_Frontend') ) {
                                         <div class="login-detail">
                                             <h2>' . wp_rem_plugin_text_srt('wp_rem_login_register_need_more_help') . '</h2>
                                             <p>' . wp_rem_plugin_text_srt('wp_rem_login_register_can_login') . '</p>
-                                            <a href="#">contact us</a>
+                                            <a href="#">' . wp_rem_plugin_text_srt('wp_rem_register_contact_us_string') . '</a>
                                         </div>
                                     </div></div>';
                 $output_html .= '<p class="wp-rem-dev-login-top-msg" style="display: none;"></p>';
@@ -173,7 +184,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Login_Frontend') ) {
                 $twitter_login = isset($wp_rem_plugin_options['wp_rem_twitter_api_switch']) ? $wp_rem_plugin_options['wp_rem_twitter_api_switch'] : '';
                 $facebook_login = isset($wp_rem_plugin_options['wp_rem_facebook_login_switch']) ? $wp_rem_plugin_options['wp_rem_facebook_login_switch'] : '';
                 $google_login = isset($wp_rem_plugin_options['wp_rem_google_login_switch']) ? $wp_rem_plugin_options['wp_rem_google_login_switch'] : '';
-                
+
                 $output_html .= '<div class="flex-user-form">';
                 $output_html .= do_action('login_form', array( 'form_rand_id' => $rand_id ));
                 $output_html .= ob_get_clean();
@@ -222,13 +233,8 @@ if ( ! class_exists('Wp_rem_Shortcode_Login_Frontend') ) {
                     $output_html .= '</div>';
                     $output_html .= '<ul class="login-switches">';
                     $output_html .= '<li>';
-                    $output_html .= '<a class="demo-login-member-' . $rand_id . '" href="javascript:void(0)" onclick="javascript:wp_rem_demo_user_login(\'' . $wp_rem_demo_member_detail_user . '\',\'.demo-login-member-' . $rand_id . '\')" '
-                            . '><i class="icon-user-secret"></i>' . wp_rem_plugin_text_srt('wp_rem_register_login_buyer_rent')
-                            . '</a>';
-                    $output_html .= '</li>';
-                    $output_html .= '<li>';
                     $output_html .= '<a class="demo-login-agency-' . $rand_id . '" href="javascript:void(0)" onclick="javascript:wp_rem_demo_user_login(\'' . $wp_rem_demo_agency_detail_user . '\',\'.demo-login-agency-' . $rand_id . '\')" '
-                            . '><i class="icon-location_city"></i>' . wp_rem_plugin_text_srt('wp_rem_register_login_sell_let_out')
+                            . '><i class="icon-location_city"></i>' . wp_rem_plugin_text_srt('wp_rem_register_login_demo_user')
                             . '</a>';
                     $output_html .= '</li>';
                     $output_html .= '</ul>';
@@ -361,9 +367,6 @@ if ( ! class_exists('Wp_rem_Shortcode_Login_Frontend') ) {
 				</div>
 			</div>';
                 }
-
-
-
                 $output_html .='<div class="forget-password"><i class="icon-help"></i><a data-id="' . $rand_id . '" class="cs-forgot-switch">' . wp_rem_plugin_text_srt('wp_rem_register_forgot_password') . '</a></div>';
                 $output_html .='</form>';
                 $output_html .= '</div>';
@@ -377,7 +380,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Login_Frontend') ) {
                 $output_html .= '<div id="user-register-' . $rand_id . '" class="tab-pane fade">';
 
                 $output_html .= $this->wp_rem_registration_tab($rand_id);
-                
+
                 $output_html .='
                 </div>';
                 //End Signup Tab
@@ -476,7 +479,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Login_Frontend') ) {
                 ob_start();
                 $output_html .= '<div class="flex-user-form">';
                 if ( class_exists('wp_rem') ) {
-                   $output_html .= do_action('login_form', array( 'form_rand_id' => $rand_id ));
+                    $output_html .= do_action('login_form', array( 'form_rand_id' => $rand_id ));
                 }
                 $output_html .= ob_get_clean();
                 $key = wp_rem_get_input('key', NULL, 'STRING');
@@ -486,43 +489,6 @@ if ( ! class_exists('Wp_rem_Shortcode_Login_Frontend') ) {
                 }
 
                 $output_html .='<form method="post" class="wp-user-form demo_test aaa" id="wp_signup_form_' . $rand_ids . '" enctype="multipart/form-data">';
-                $output_html .= '<div class="input-filed member-user-type-field"><h5>' . wp_rem_plugin_text_srt('wp_rem_login_register_want_to') . '</h5><ul>';
-                $output_html .= '<li><div class="checkbox">';
-                $output_html .= $wp_rem_form_fields_frontend->wp_rem_form_radio_render(
-                        array(
-                            'simple' => true,
-                            'cust_id' => 'wp_rem_member_user_type_buyer',
-                            'cust_name' => 'wp_rem_member_user_type' . $rand_ids . '',
-                            'std' => 'buyer',
-                            'return' => true,
-                            'classes' => 'wp_rem_member_user_type',
-                            'extra_atr' => '',
-                        )
-                );
-                $output_html .= '<label for="' . esc_attr('wp_rem_member_user_type_buyer') . '">' . wp_rem_plugin_text_srt('wp_rem_member_rent_property') . '</label>';
-                $output_html .= '</div></li>';
-
-
-                $output_html .= '<li><div class="checkbox">';
-                $output_html .= $wp_rem_form_fields_frontend->wp_rem_form_radio_render(
-                        array(
-                            'simple' => true,
-                            'cust_id' => 'wp_rem_member_user_reseller',
-                            'cust_name' => 'wp_rem_member_user_type' . $rand_ids . '',
-                            'std' => 'reseller',
-                            'return' => true,
-                            'classes' => 'wp_rem_member_user_type',
-                            'extra_atr' => 'checked',
-                        )
-                );
-                $output_html .= '<label for="' . esc_attr('wp_rem_member_user_reseller') . '">' . wp_rem_plugin_text_srt('wp_rem_member_sell_property') . '</label>';
-                $output_html .= '</div></li>';
-
-                $output_html .= '</ul>';
-
-                $output_html .='</div>';
-
-
 
                 $output_html .='<div class="input-filed wp-rem-profile-type-display">';
                 $output_html .='<i class="icon-business_center"></i>';
@@ -540,6 +506,9 @@ if ( ! class_exists('Wp_rem_Shortcode_Login_Frontend') ) {
                     'extra_atr' => ' data-placeholder="' . wp_rem_plugin_text_srt('wp_rem_member_member_type') . '"',
                 );
                 $output_html .= $wp_rem_form_fields_frontend->wp_rem_form_select_render($wp_rem_opt_array);
+                $output_html .= '<script type="text/javascript">
+                        chosen_selectionbox();
+                    </script>';
                 $output_html .='</div>';
 
                 $output_html .='<div class="input-filed">';
@@ -598,22 +567,22 @@ if ( ! class_exists('Wp_rem_Shortcode_Login_Frontend') ) {
                         }
                     }
                 }
-				if( !empty($member_type_array)){
-					$output_html .='<div class="input-filed member-type-field" style="display:none;">';
-					$output_html .='<i class="icon- icon-envelope3"></i>';
-					$wp_rem_opt_array = array(
-						'std' => '',
-						'classes' => 'chosen-single',
-						'id' => 'member_type' . $rand_ids,
-						'options' => $member_type_array,
-						'return' => true,
-						'description' => '',
-						'name' => '',
-						'extra_atr' => ' data-placeholder="' . wp_rem_plugin_text_srt('wp_rem_register_member_type') . '"',
-					);
-					$output_html .= $wp_rem_form_fields_frontend->wp_rem_form_multiselect_render($wp_rem_opt_array);
-					$output_html .= '</div>';
-				}
+                if ( ! empty($member_type_array) ) {
+                    $output_html .='<div class="input-filed member-type-field" style="display:none;">';
+                    $output_html .='<i class="icon- icon-envelope3"></i>';
+                    $wp_rem_opt_array = array(
+                        'std' => '',
+                        'classes' => 'chosen-single',
+                        'id' => 'member_type' . $rand_ids,
+                        'options' => $member_type_array,
+                        'return' => true,
+                        'description' => '',
+                        'name' => '',
+                        'extra_atr' => ' data-placeholder="' . wp_rem_plugin_text_srt('wp_rem_register_member_type') . '"',
+                    );
+                    $output_html .= $wp_rem_form_fields_frontend->wp_rem_form_multiselect_render($wp_rem_opt_array);
+                    $output_html .= '</div>';
+                }
                 $output_html .= '<script>jQuery(window).load(function($){'
                         . 'if (jQuery(".chosen-select, .chosen-select-deselect, .chosen-select-no-single, .chosen-select-no-results, .chosen-select-width").length != "") {
                                 var config = {
@@ -752,7 +721,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Login_Frontend') ) {
                                         <div class="register_content">' . do_shortcode($content . $register_text) . '</div>';
 
                 $output_html .='</div>';
-                $output_html .='</div>';//end flex-user-form
+                $output_html .='</div>'; //end flex-user-form
             } else {
                 $output_html .='<div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 register-page">
                                             <div class="cs-user-register">
@@ -1036,7 +1005,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Login_Frontend') ) {
         /**
          * Start Function how to add user profile menu in top position
          */
-        public function wp_rem_profiletop_menu($uid = '') {
+        public function wp_rem_profiletop_menu($uid = '', $header_view = '') {
             global $post, $cs_plugin_options, $current_user, $wp_roles, $userdata, $wp_rem_member_profile, $wp_rem_plugin_options;
             if ( is_user_logged_in() ) {
 
@@ -1056,7 +1025,6 @@ if ( ! class_exists('Wp_rem_Shortcode_Login_Frontend') ) {
                 $wp_rem_profile_image = $wp_rem_member_profile->member_get_profile_image($uid);
                 $wp_rem_user_type = get_user_meta($current_user->ID, 'wp_rem_user_type', true);
                 $member_profile_type = get_post_meta($user_company, 'wp_rem_member_profile_type', true);
-                $member_user_type = get_post_meta($user_company, 'wp_rem_member_user_type', true);
                 $user_roles = isset($current_user->roles) ? $current_user->roles : '';
                 $dashboard_page_link = wp_rem_user_dashboard_page_url();
                 $wp_rem_property_add_url = $dashboard_page_link != '' ? add_query_arg(array( 'tab' => 'add-property' ), $dashboard_page_link) : '#';
@@ -1076,15 +1044,18 @@ if ( ! class_exists('Wp_rem_Shortcode_Login_Frontend') ) {
                                     }
                                     echo '<div class="img-holder"><figure class="profile-image"><img src="' . esc_url($wp_rem_profile_image) . '" alt="' . wp_rem_plugin_text_srt('wp_rem_member_profile_image') . '"></figure></div>';
                                 }
-                                ?>
-                                <span class="user-full-name"><?php echo esc_html($fullName) ?></span>
-                                <i class="icon-caret-down"></i>
+
+                                if ( $header_view != 'advance_v2' ) {
+                                    ?>
+                                    <span class="user-full-name"><?php echo esc_html($fullName) ?></span>
+                                    <i class="icon-caret-down"></i>
+                                <?php } ?>
                             </a>
                             <?php if ( ($user_roles != '' && in_array("wp_rem_member", $user_roles) ) ) {
                                 ?>
                                 <ul>
                                     <?php if ( true === Wp_rem_Member_Permissions::check_permissions('properties') ) { ?>
-                                                                                                            <!--<li class="user-add-property"><a href="<?php echo esc_url_raw($wp_rem_property_add_url) ?>" ><i class="icon-add-properties"></i> <?php echo wp_rem_plugin_text_srt('wp_rem_login_register_add_new_add'); ?> </a></li>-->
+                                            <!--<li class="user-add-property"><a href="<?php echo esc_url_raw($wp_rem_property_add_url) ?>" ><i class="icon-add-properties"></i> <?php echo wp_rem_plugin_text_srt('wp_rem_login_register_add_new_add'); ?> </a></li>-->
                                         <?php
                                     }
                                     $dashboard_url = '';
@@ -1118,7 +1089,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Login_Frontend') ) {
                                             $enquiries_url = 'javascript:void(0)';
                                         }
                                         ?>
-                                        <li class="user_dashboard_ajax" id="wp_rem_member_enquiries" data-queryvar="dashboard=enquiries"><a href="<?php echo wp_rem_allow_special_char($enquiries_url); ?>"><i class="icon-contact_mail"></i><?php echo wp_rem_plugin_text_srt('wp_rem_login_register_enquiries') ?></a></li>
+                                        <li class="user_dashboard_ajax" id="wp_rem_member_enquiries" data-queryvar="dashboard=enquiries"><a href="<?php echo wp_rem_allow_special_char($enquiries_url); ?>"><i class="icon-question_answer"></i><?php echo wp_rem_plugin_text_srt('wp_rem_login_register_enquiries') ?></a></li>
                                         <?php
                                     }
 
@@ -1131,7 +1102,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Login_Frontend') ) {
                                             $arrange_viewings_url = 'javascript:void(0)';
                                         }
                                         ?>
-                                        <li class="user_dashboard_ajax" id="wp_rem_member_viewings" data-queryvar="dashboard=viewings"><a href="<?php echo wp_rem_allow_special_char($arrange_viewings_url); ?>"><i class="icon-contact_mail"></i><?php echo wp_rem_plugin_text_srt('wp_rem_member_register_arrange_viewings') ?></a></li>
+                                        <li class="user_dashboard_ajax" id="wp_rem_member_viewings" data-queryvar="dashboard=viewings"><a href="<?php echo wp_rem_allow_special_char($arrange_viewings_url); ?>"><i class="icon-layers3"></i><?php echo wp_rem_plugin_text_srt('wp_rem_member_register_arrange_viewings') ?></a></li>
                                         <?php
                                     }
 
@@ -1159,6 +1130,23 @@ if ( ! class_exists('Wp_rem_Shortcode_Login_Frontend') ) {
                                         <li class="user_dashboard_ajax" id="wp_rem_member_packages" data-queryvar="dashboard=packages"><a href="<?php echo wp_rem_allow_special_char($package_url); ?>"><i class="icon-dropbox2"></i><?php echo wp_rem_plugin_text_srt('wp_rem_packages') ?></a></li>
                                         <?php
                                     }
+									
+									$notes_url = $this->wp_rem_dashboar_top_menu_url('dashboard=prop_notes');
+									if ( isset($notes_url) && $notes_url != '' ) {
+										$notes_url = $notes_url;
+									} else {
+										$notes_url = 'javascript:void(0)';
+									}
+									$hidden_property_url = $this->wp_rem_dashboar_top_menu_url('dashboard=hidden_properties');
+									if ( isset($hidden_property_url) && $hidden_property_url != '' ) {
+										$hidden_property_url = $hidden_property_url;
+									} else {
+										$hidden_property_url = 'javascript:void(0)';
+									}
+									?>
+									<li class="user_dashboard_ajax" id="wp_rem_member_prop_notes" data-queryvar="dashboard=prop_notes"><a href="<?php echo wp_rem_allow_special_char($notes_url); ?>"><i class="icon-book2"></i><?php echo wp_rem_plugin_text_srt('wp_rem_prop_notes_notes') ?></a></li>
+									<li class="user_dashboard_ajax" id="wp_rem_member_hidden_properties" data-queryvar="dashboard=hidden_properties"><a href="<?php echo wp_rem_allow_special_char($hidden_property_url); ?>"><i class="icon-block"></i><?php echo wp_rem_plugin_text_srt('wp_rem_hidden_properties') ?></a></li>
+									<?php
                                     if ( true === Wp_rem_Member_Permissions::check_permissions('company_profile') ) {
                                         $company_profile_url = '';
                                         $company_profile_url = $this->wp_rem_dashboar_top_menu_url('dashboard=account');
@@ -1172,7 +1160,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Login_Frontend') ) {
                                     <?php } ?>
 
                                     <?php
-                                    if ( $member_profile_type == 'company' && $wp_rem_user_type == 'supper-admin' && $member_user_type != 'buyer' ) {
+                                    if ( $member_profile_type == 'company' && $wp_rem_user_type == 'supper-admin' ) {
                                         $team_members_url = '';
                                         $team_members_url = $this->wp_rem_dashboar_top_menu_url('dashboard=team_members');
                                         if ( isset($team_members_url) && $team_members_url != '' ) {

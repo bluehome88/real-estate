@@ -31,7 +31,7 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
              * Theme Options
              */
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_save_msg'] = esc_html__('Saving changes...', 'homevillas-real-estate');
-			
+
             $wp_rem_cs_var_static_text['wp_rem_pur_code_verfiy_txt'] = esc_html__('Verify Purchased Code', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_pur_code_item_pur_code'] = esc_html__('Item Purchase Code', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_pur_code_verfiy_btn'] = esc_html__('Verify', 'homevillas-real-estate');
@@ -39,7 +39,7 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_pur_code_cannot_be_blank'] = esc_html__('Field cannot be blank.', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_pur_code_is_not_correct'] = esc_html__('Purchase code is not correct.', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_pur_code_verifiying'] = esc_html__('verifiying...', 'homevillas-real-estate');
-			
+
             $wp_rem_cs_var_static_text['wp_rem_cs_var_save_msg'] = esc_html__('Save All Settings', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_reset_msg'] = esc_html__('Reset All Options', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_please_select'] = esc_html__('Please Select', 'homevillas-real-estate');
@@ -129,6 +129,8 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_std_default'] = esc_html__('default', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_modern'] = esc_html__('Modern', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_logo'] = esc_html__('Logo', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_sticky_logo'] = esc_html__('Sticky Logo', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_sticky_logo_hint'] = esc_html__('Upload your custom sticky logo in .png .jpg .gif formats only.', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['toggle_sidebar'] = esc_html__('Toggle Sidebar', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['toggle_sidebar_hint'] = esc_html__('Select Toggle sidebar for header', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_header_background'] = esc_html__('Header background image', 'homevillas-real-estate');
@@ -157,6 +159,8 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['header_top_strip_lang_hint'] = esc_html__('Enable/Disable Header Top Strip Phone', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['header_top_strip_menu'] = esc_html__('Menu', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['header_top_strip_menu_hint'] = esc_html__('Enable/Disable Header Top Strip Menu', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['footer_style_real_estate'] = esc_html__('Footer Style', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['footer_style_real_estate_hint'] = esc_html__('Select footer style from this dropdown', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['header_style_real_estate'] = esc_html__('Header Style', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['header_style_real_estate_hint'] = esc_html__('Select header style from this dropdown', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['header_style_real_estate_default'] = esc_html__('Default', 'homevillas-real-estate');
@@ -164,6 +168,10 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['header_style_real_estate_classic'] = esc_html__('Classic', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['header_style_real_estate_fancy'] = esc_html__('Fancy', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['header_style_real_estate_default_v2'] = esc_html__('Default v2', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['header_style_real_estate_advance'] = esc_html__('Advance', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['header_style_real_estate_advance_v2'] = esc_html__('Advance V2', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['header_style_real_estate_modern_v2'] = esc_html__('Modern V2', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_header_full_width'] = esc_html__('Header Full Width', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['header_sticky_switch'] = esc_html__('Sticky Header', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['header_sticky_switch_hint'] = esc_html__('By turning this option as "ON" your website header will stick to top as you scroll down.', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['header_top_strip_social_network'] = esc_html__('Social Links', 'homevillas-real-estate');
@@ -184,7 +192,7 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_logo_width'] = esc_html__('Logo Width', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_logo_width_hint'] = esc_html__('Set exact logo width otherwise logo will not display normally.', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_contact_us_btn'] = esc_html__('Contact us area', 'homevillas-real-estate');
-            $wp_rem_cs_var_static_text['wp_rem_cs_var_contact_us_btn_hint'] = esc_html__('Enter the text or html for contact us area that appears in header right', 'homevillas-real-estate'); 
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_contact_us_btn_hint'] = esc_html__('Enter the text or html for contact us area that appears in header right', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_add_villa_btn_text'] = esc_html__('Create property text', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_add_villa_btn_text_hint'] = esc_html__('Enter text for create property button', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_add_villa_btn_link'] = esc_html__('Create property link', 'homevillas-real-estate');
@@ -198,7 +206,7 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_logo_margin_right'] = esc_html__('Logo margin right', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_logo_margin_right_hint'] = esc_html__('Logo spacing margin from right.', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_logo_margin_left'] = esc_html__('Logo margin left', 'homevillas-real-estate');
-            $wp_rem_cs_var_static_text['wp_rem_cs_var_logo_margin_left_hint'] = esc_html__('Logo spacing margin from left', 'homevillas-real-estate'); 
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_logo_margin_left_hint'] = esc_html__('Logo spacing margin from left', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_map_style'] = esc_html__('Map Style', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_blog_search_result'] = esc_html__('Blog Search Result', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_blog_search_result_hint'] = esc_html__('Select Page for Blog Search Result', 'homevillas-real-estate');
@@ -263,11 +271,13 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             /*
              * Footer Options
              */
-            $wp_rem_cs_var_static_text['wp_rem_cs_var_footer_options'] = esc_html__('Footer options', 'homevillas-real-estate'); 
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_footer_options'] = esc_html__('Footer options', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_footer_widgets'] = esc_html__('Footer Widgets', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_footer_widgets_hint'] = esc_html__('enable/disable footer widget area', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_copy_write_section'] = esc_html__('Copyright Section', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_copy_write_section_hint'] = esc_html__('enable/disable Copyright Section', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_copy_write_text_switch'] = esc_html__('Copyright Text', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_copy_write_text_switch_hint'] = esc_html__('Enable/Disable copyright text from footer', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_copyright_text'] = esc_html__('Copyright Text', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_copyright_text_hint'] = esc_html__('write your own copyright text', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_copyright_text_value'] = esc_html__('2015 wp_rem_cs Name All rights reserved. Design by Chimp Studio', 'homevillas-real-estate');
@@ -289,17 +299,25 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_footer_background_hint'] = esc_html__('Upload Bakcground Image for footer', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_custom_css'] = esc_html__('Custom Css', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_custom_css_hint'] = esc_html__('If you want to overwrite or add any new style then you can use this section to add CSS classes', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_footer_all_rights_reserved'] = esc_html__('All Rights Reserved.', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_footer_all_rights_reserved_chimpstudio'] = esc_html__('chimpstudio', 'homevillas-real-estate');
             /*
              * Colors
              */
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_general_color'] = esc_html__('General Colors', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_color'] = esc_html__('Theme Color', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_color_hint'] = esc_html__('Choose theme skin color', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_second_theme_color'] = esc_html__('Theme Color 2', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_second_theme_color_hint'] = esc_html__('Choose theme 2 skin color', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_text_color'] = esc_html__('Body Text Color', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_text_color_hint'] = esc_html__('Choose text color', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_header_color'] = esc_html__('Header colors', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_default_header_colors'] = esc_html__('Default Header Colors', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_default_header_colors_hint'] = esc_html__('Change Header background color', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_sticky_header_colors'] = esc_html__('Sticky Background Color', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_sticky_header_colors_hint'] = esc_html__('Change sticky header background color', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_sticky_header_text_colors'] = esc_html__('Sticky Menu Text Color', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_sticky_header_text_colors_hint'] = esc_html__('Change sticky menu text color', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_menu_link_color'] = esc_html__('Menu Link color', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_menu_link_color_hint'] = esc_html__('Change Header Menu Link color', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_menu_hover_color'] = esc_html__('Menu Hover / Active Link color', 'homevillas-real-estate');
@@ -348,8 +366,8 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             /*
              * Custom Font
              */
-			$wp_rem_cs_var_static_text['wp_rem_cs_var_browse'] = esc_html__('Browse', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_custom_font_name'] = esc_html__('Font Name', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_browse'] = esc_html__('Browse', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_custom_font_name'] = esc_html__('Font Name', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_custom_font_woff'] = esc_html__('Custom Font .woff', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_custom_font_woff_hint'] = esc_html__('Upload Your Custom Font file in .woff format', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_custom_font_ttf'] = esc_html__('Custom Font .ttf', 'homevillas-real-estate');
@@ -358,18 +376,18 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_custom_font_svg_hint'] = esc_html__('Upload Your Custom Font file in .svg format', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_custom_font_eot'] = esc_html__('Custom Font .eot', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_custom_font_eot_hint'] = esc_html__('Upload Your Custom Font file in .eot format', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_custom_fonts'] = esc_html__('Custom Fonts', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_custom_fonts'] = esc_html__('Custom Fonts', 'homevillas-real-estate');
             /*
              * Google Fonts
              */
-			$wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_google_fonts_type'] = esc_html__('Fonts Type', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_google_fonts_type_hint'] = esc_html__('Choose google/custom fonts type from this dropdown', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_google_fonts_option'] = esc_html__('Google Fonts', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_custom_fonts_option'] = esc_html__('Custom Fonts', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_google_fonts_type'] = esc_html__('Fonts Type', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_google_fonts_type_hint'] = esc_html__('Choose google/custom fonts type from this dropdown', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_google_fonts_option'] = esc_html__('Google Fonts', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_custom_fonts_option'] = esc_html__('Custom Fonts', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_content_font'] = esc_html__('Content Font', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_content_font_discription'] = esc_html__('Set fonts for Body text', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_content_google_font_discription'] = esc_html__('Set google fonts for Body text', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_custom_content_font_discription'] = esc_html__('Set custom fonts for Body text', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_content_google_font_discription'] = esc_html__('Set google fonts for Body text', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_custom_content_font_discription'] = esc_html__('Set custom fonts for Body text', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_font_attribute'] = esc_html__('Font Attribute', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_font_attribute_hint'] = esc_html__('Set Font Attribute', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_size'] = esc_html__('Size', 'homevillas-real-estate');
@@ -490,7 +508,7 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_typo_font'] = esc_html__('Typography / Fonts', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_custom_font'] = esc_html__('Custom Font', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_google_font_tab_label'] = esc_html__('Fonts', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_google_font'] = esc_html__('Google Fonts', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_google_font'] = esc_html__('Google Fonts', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_sidebar'] = esc_html__('Sidebar', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_footer_sidebar'] = esc_html__('Footer sidebar', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_theme_option_maintaince_mode'] = esc_html__('MAINTENANCE MODE', 'homevillas-real-estate');
@@ -539,12 +557,12 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_posted_by'] = esc_html__('BY', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_ago'] = esc_html__('ago', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_logout'] = esc_html__('Log Out', 'homevillas-real-estate');
-			
-			/*
+
+            /*
              * Use this filter to add more strings from Add on.
              */
             $wp_rem_cs_var_static_text = apply_filters('wp_rem_cs_theme_option_strings', $wp_rem_cs_var_static_text);
-			
+
             return $wp_rem_cs_var_static_text;
         }
 
@@ -570,9 +588,10 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_import_widgets'] = esc_html__('Import Widgets', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_show_widget_settings'] = esc_html__('Show Widget Settings', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_font_family'] = esc_html__('Font Family', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_cs_var_google_font_family'] = esc_html__('Google Font Family', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_cs_var_custom_font_family'] = esc_html__('Custom Font Family', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_cs_var_custom_font_family_hint'] = esc_html__('Set custom fonts for Body text', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_google_font_family'] = esc_html__('Google Font Family', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_custom_font_family'] = esc_html__('Custom Font Family', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_custom_font_weight'] = esc_html__('Custom Font Weight', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_custom_font_family_hint'] = esc_html__('Set custom fonts for Body text', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_browse'] = esc_html__('Browse', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_add_sidebar'] = esc_html__('Add Sidebar', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_already_added_sidebar'] = esc_html__('Added Sidebars', 'homevillas-real-estate');
@@ -599,8 +618,8 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_default_font'] = esc_html__(' Default Font', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_sticky_text'] = esc_html__('STICKY POST', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['select_header_style'] = esc_html__('Header Style', 'homevillas-real-estate');
-			
-			/*
+
+            /*
              * Use this filter to add more strings from Add on.
              */
             $wp_rem_cs_var_static_text = apply_filters('wp_rem_cs_theme_option_field_strings', $wp_rem_cs_var_static_text);
@@ -719,10 +738,11 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_notifications'] = esc_html__('Wp Rem Notifications', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_shortlists'] = esc_html__('Wp Rem Shortlists', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_wp_rem'] = esc_html__('WP Real Estate Manager', 'homevillas-real-estate');
+			$wp_rem_cs_var_static_text['wp_rem_cs_var_icon_manager'] = esc_html__('Cs Icons Manager', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_loco_translate'] = esc_html__('Loco translate', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_wrong'] = esc_html__('Something went wrong with the plugin API', 'homevillas-real-estate');
-			
-			/*
+
+            /*
              * Use this filter to add more strings from Add on.
              */
             $wp_rem_cs_var_static_text = apply_filters('wp_rem_cs_plugin_activation_strings', $wp_rem_cs_var_static_text);
@@ -731,6 +751,25 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
 
         public function wp_rem_cs_short_code_strings() {
             global $wp_rem_cs_var_static_text;
+            
+            
+            /*
+             * Tweets Strings
+             */
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_minute_ago'] = esc_html__('About a Minute Ago', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_minutes_ago'] = esc_html__('%d Minutes Ago', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_hour_ago'] = esc_html__('About an Hour Ago', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_hours_ago'] = esc_html__('%d Hours Ago', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_day_ago'] = esc_html__('About a Day Ago', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_days_ago'] = esc_html__('%d Days Ago', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_week_ago'] = esc_html__('About a Week Ago', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_weeks_ago'] = esc_html__('%d Weeks Ago', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_month_ago'] = esc_html__('About a Month Ago', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_months_ago'] = esc_html__('%d Months Ago', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_year_ago'] = esc_html__('About a year Ago', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_years_ago'] = esc_html__('%d years Ago', 'homevillas-real-estate');
+            
+            
             // promobox classic view
             $wp_rem_cs_var_static_text['wp_rem_cs_var_promobox_app_store_image'] = esc_html__('App Store Image', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_promobox_app_store_url'] = esc_html__('App Store URL', 'homevillas-real-estate');
@@ -769,6 +808,8 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_element_sub_title'] = esc_html__('Element Sub Title', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_element_sub_title_hint'] = esc_html__('Enter element sub title here.', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_excerpt_length'] = esc_html__('Excerpt Length', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_element_title_bottom_spacing'] = esc_html__('Element Title Bottom Spacing', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_element_title_bottom_spacing_hint'] = esc_html__('Set element title bottom spacing(without px).', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_title'] = esc_html__('Title', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_title_hint'] = esc_html__('Enter title here.', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_title_color'] = esc_html__('Title Color', 'homevillas-real-estate');
@@ -779,9 +820,9 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_team_sc_views_hint'] = esc_html__('Choose team views here.', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_team_medium'] = esc_html__('Medium', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_team_grid'] = esc_html__('Grid', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_cs_var_team_classic'] = esc_html__('Classic', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_cs_var_team_grid_classic'] = esc_html__('Grid Classic', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_cs_var_team_grid_classic_with_slider'] = esc_html__('Grid Classic with Slider', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_team_classic'] = esc_html__('Classic', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_team_grid_classic'] = esc_html__('Grid Classic', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_team_grid_classic_with_slider'] = esc_html__('Grid Classic with Slider', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_team_small'] = esc_html__('Small', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_team_phone'] = esc_html__('Phone', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_team_phone_hint'] = esc_html__('Enter your contact number', 'homevillas-real-estate');
@@ -1021,9 +1062,13 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_client_style_hint_text'] = esc_html__('Select the style for clients logos', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_client_view'] = esc_html__('Client View', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_client_view_hint_text'] = esc_html__('Select the view for clients logos', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_client_view_default'] = esc_html__('Default', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_client_view_simple'] = esc_html__('Simple', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_client_view_medern'] = esc_html__('Modern', 'homevillas-real-estate');
-             $wp_rem_cs_var_static_text['wp_rem_cs_var_client_view_medern_with_border'] = esc_html__('Modern with Border', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_client_view_advance'] = esc_html__('Advance', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_client_view_classic'] = esc_html__('Classic', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_client_view_slider'] = esc_html__('Slider', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_client_view_medern_with_border'] = esc_html__('Modern with Border', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_client_url'] = esc_html__('Client Url', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_client_url_hint_text'] = esc_html__('Enter Url for Client logo', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_client_image'] = esc_html__('Client Image', 'homevillas-real-estate');
@@ -1100,7 +1145,7 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_infobox_title_color_hint'] = esc_html__('Set the Color for Title', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_infobox_content_color'] = esc_html__('Content color', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_infobox_content_color_hint'] = esc_html__('Set the Color for Content', 'homevillas-real-estate');
-            $wp_rem_cs_var_static_text['wp_rem_cs_var_infobox_icon'] = esc_html__('Info Box Font awesome Icon', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_infobox_icon'] = esc_html__('Info Box Icon', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_infobox_icon_hint'] = esc_html__('Select the Icons you would like to show in infobox section.', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_price_table_icon'] = esc_html__('Icon', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_price_table_icon_hint'] = esc_html__('Select the icons you would like to show in price table.', 'homevillas-real-estate');
@@ -1128,7 +1173,6 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_error_message_hint'] = esc_html__('Enter Error Message In any case Mail Not Submited.', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_contact_us'] = esc_html__('Contact Us', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_contact_full_name'] = esc_html__('Name', 'homevillas-real-estate');
-            
             $wp_rem_cs_var_static_text['wp_rem_cs_var_contact_first_name'] = esc_html__('Name', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_contact_first_name_placeholder'] = esc_html__('First Name & Last Name', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_contact_last_name'] = esc_html__('Subject', 'homevillas-real-estate');
@@ -1138,8 +1182,6 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_contact_phone_number'] = esc_html__('Phone Number', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_contact_phone_number_placeholder'] = esc_html__('773.702.8650', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_contact_button_text'] = esc_html__('Send A message', 'homevillas-real-estate');
-            
-            
             $wp_rem_cs_var_static_text['wp_rem_cs_var_contact_phone'] = esc_html__('Phone', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_make_model'] = esc_html__('Make/Model', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_contact_email_should_not_be_empty'] = esc_html__('Email should not be empty.', 'homevillas-real-estate');
@@ -1163,7 +1205,6 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_tabs_fancy_remove'] = esc_html__('Remove', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_tabs_fancy_remove'] = esc_html__('Remove', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_tabs_fancy_tabs_fancy'] = esc_html__('Fancy Tab', 'homevillas-real-estate');
-
             $wp_rem_cs_var_static_text['wp_rem_cs_var_faqs_fancy_active'] = esc_html__('Select Faq Parent', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_faqs_fancy_active_hint'] = esc_html__('Select Faq Pareent from dropdown', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_faqs_fancy_item_text'] = esc_html__('Enter Faq Title', 'homevillas-real-estate');
@@ -1174,11 +1215,6 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_faqs_fancy_remove'] = esc_html__('Remove', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_faqs_fancy_remove'] = esc_html__('Remove', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_faqs_fancy_tabs_fancy'] = esc_html__('Fancy Faq', 'homevillas-real-estate');
-
-
-
-
-
             $wp_rem_cs_var_static_text['wp_rem_cs_var_tabs_tabs_style'] = esc_html__('Tab Style', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_tabs_vertical_style'] = esc_html__('Vertical', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_tabs_horizontal_style'] = esc_html__('Horizontal', 'homevillas-real-estate');
@@ -1350,8 +1386,8 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_testimonial_desc_color'] = esc_html__('Description Color', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_testimonial_field_author'] = esc_html__('Author', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_testimonial_field_address'] = esc_html__('Address', 'homevillas-real-estate');
-
-
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_testimonial_field_link'] = esc_html__('Link', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_testimonial_field_link_hint'] = esc_html__('Enter testimonial author link here.', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_testimonial_field_author_hint'] = esc_html__('Enter testimonial author name here.', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_testimonial_field_position'] = esc_html__('Address', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_testimonial_field_position_hint'] = esc_html__('Enter address of author here.', 'homevillas-real-estate');
@@ -1390,6 +1426,7 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_blog_design_simple'] = esc_html__('Simple', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_blog_design_classic'] = esc_html__('Classic', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_blog_design_medium_default'] = esc_html__('Medium Default', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_blog_design_medium_list'] = esc_html__('Medium List', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_blog_read_article'] = esc_html__('Read Article', 'homevillas-real-estate');
             // Author widget	    
             $wp_rem_cs_var_static_text['wp_rem_cs_var_author_widget_name'] = esc_html__('CS : Author', 'homevillas-real-estate');
@@ -1481,6 +1518,7 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_icon_box_style_reward'] = esc_html__('Awards', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_icon_box_style_boxed'] = esc_html__('Boxed', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_icon_box_style_classic'] = esc_html__('Classic', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_icon_box_style_box_v2'] = esc_html__('Boxed v2', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_icon_box_alignment'] = esc_html__('Alignment', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_icon_box_alignment_left'] = esc_html__('Left', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_icon_box_alignment_right'] = esc_html__('Right', 'homevillas-real-estate');
@@ -1507,8 +1545,8 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_twitter_view'] = esc_html__('View', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_twitter_view_option_1'] = esc_html__('Modern', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_twitter_view_option_2'] = esc_html__('Fancy', 'homevillas-real-estate');
-            $wp_rem_cs_var_static_text['wp_rem_cs_var_twitter_text_color'] = esc_html__('Text Color', 'homevillas-real-estate');
-            $wp_rem_cs_var_static_text['wp_rem_cs_var_twitter_text_color_hint'] = esc_html__('Set text color here', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_twitter_text_color'] = esc_html__('Background Color', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_twitter_text_color_hint'] = esc_html__('Set twitter section background color here', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_twitter_tweets_num'] = esc_html__('No of Tweets', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_twitter_tweets_num_hint'] = esc_html__('Enter no of tweets here', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_twitter_class'] = esc_html__('Class', 'homevillas-real-estate');
@@ -1532,7 +1570,7 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_price_plan_style_hint'] = esc_html__('Choose multi price table style here', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_price_plan_style_classic'] = esc_html__('Classic', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_price_plan_style_advanced'] = esc_html__('Advance', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_cs_var_price_plan_style_modren'] = esc_html__('Modern', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_price_plan_style_modren'] = esc_html__('Modern', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_price_table_sc'] = esc_html__('Price Table', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_price_table_add'] = esc_html__('Add Price Table', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_price_table_edit_option'] = esc_html__('Pricing Tables OPTIONS', 'homevillas-real-estate');
@@ -1542,10 +1580,7 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_price_table_title_color_hint'] = esc_html__('Set price-table title color from here', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_price_table_price_color'] = esc_html__('Price Color', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_price_table_price_image'] = esc_html__('Image', 'homevillas-real-estate');
-
             $wp_rem_cs_var_static_text['wp_rem_cs_var_price_table_price_color_hint'] = esc_html__('Set Price color from here', 'homevillas-real-estate');
-
-
             $wp_rem_cs_var_static_text['wp_rem_cs_var_price_table_price'] = esc_html__('Price', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_price_table_price_hint'] = esc_html__('Add price without symbol', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_price_table_currency'] = esc_html__('Currency Symbols', 'homevillas-real-estate');
@@ -1563,8 +1598,8 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_price_table_button_bg_color'] = esc_html__('Button Background Color', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_price_table_button_bg_color_hint'] = esc_html__('Set button background color with color picker', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_price_table_featured'] = esc_html__('Featured on/off', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_cs_var_price_table_image_icon'] = esc_html__('Image/Icon', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_cs_var_price_table_image_icon_hint'] = esc_html__('Select price table image/icon option from this dropdown.', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_price_table_image_icon'] = esc_html__('Image/Icon', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_price_table_image_icon_hint'] = esc_html__('Select price table image/icon option from this dropdown.', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_price_table_featured_hint'] = esc_html__('Price table featured optiton enable/disbale with this dropdown', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_price_table_description'] = esc_html__('Content', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_price_table_description_hint'] = esc_html__('Features can be add easily in input with this shortcode 
@@ -1613,8 +1648,8 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_cats_more'] = esc_html__('More', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_cats_more_on_off'] = esc_html__('More Link On/OFF', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_cats_more_on_off_hint'] = esc_html__('Choose more link On/OFF here.', 'homevillas-real-estate');
-			
-			/*
+
+            /*
              * Use this filter to add more strings from Add on.
              */
             $wp_rem_cs_var_static_text = apply_filters('wp_rem_cs_short_code_strings', $wp_rem_cs_var_static_text);
@@ -1685,9 +1720,9 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_cat_link'] = esc_html__('View all link', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_icon_text'] = esc_html__('Please enter text for icon', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_url_field'] = esc_html__('Subject', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_cs_var_social_icon_url'] = esc_html__('Social Icon Link', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_cs_var_social_icon_choose_str'] = esc_html__('Choose Icon', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_cs_var_social_icon_image_choose_str'] = esc_html__('Choose Image', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_social_icon_url'] = esc_html__('Social Icon Link', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_social_icon_choose_str'] = esc_html__('Choose Icon', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_social_icon_image_choose_str'] = esc_html__('Choose Image', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_url_hint'] = esc_html__('Enter image Url here', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_default'] = esc_html__('Default', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_style'] = esc_html__('Style', 'homevillas-real-estate');
@@ -1821,7 +1856,7 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_var_contact_email'] = esc_html__('Email', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_var_contact_address'] = esc_html__('Address', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_var_contact_phone'] = esc_html__('Phone', 'homevillas-real-estate');
-
+            $wp_rem_cs_var_static_text['wp_rem_var_widget_contact_info_show_icon'] = esc_html__('Show Icon', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_posts_view'] = esc_html__('CS : Posts Views', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_posts_view_des'] = esc_html__('Posts view from category.', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_video_posts'] = esc_html__('CS : Video Posts', 'homevillas-real-estate');
@@ -1900,12 +1935,10 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_name'] = esc_html__('NAME *', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_phone'] = esc_html__('Phone *', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_phone_place'] = esc_html__('00 123 456', 'homevillas-real-estate');
-
             $wp_rem_cs_var_static_text['wp_rem_cs_var_website'] = esc_html__('Website', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_website_placeholder'] = esc_html__('https://www.systeminfo.com', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_email_placeholder'] = esc_html__('info@example.com', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_comment_text_here'] = esc_html__('your comment here', 'homevillas-real-estate');
-
             $wp_rem_cs_var_static_text['wp_rem_cs_var_website'] = esc_html__('Website', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_text_here'] = esc_html__('Text here..', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_text_email'] = esc_html__('EMAIL *', 'homevillas-real-estate');
@@ -1918,7 +1951,7 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_widget_setting'] = esc_html__('Widget Setting Export', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_select_all'] = esc_html__('Select All', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_unselect_all'] = esc_html__('Un-Select All', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_cs_var_generate_widget_settings'] = esc_html__('Generate Widget Settings', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_generate_widget_settings'] = esc_html__('Generate Widget Settings', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_clear_current'] = esc_html__('Clear Current Widgets Before Import', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_all_active'] = esc_html__('All active widgets will be moved to inactive', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_put_file'] = esc_html__('Put File URL that contains widget settings', 'homevillas-real-estate');
@@ -2022,13 +2055,11 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             // Front End Mega Menu.
             $wp_rem_cs_var_static_text['wp_rem_cs_var_menu_view_more'] = esc_html__('View more...', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_menu_view_less'] = esc_html__('View less', 'homevillas-real-estate');
-
             $wp_rem_cs_var_static_text['wp_rem_cs_var_faqs_fancy_item_text'] = esc_html__('Enter Faq Title', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_faqs_fancy_active'] = esc_html__('Select Faq Parent', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_faqs_fancy_descr'] = esc_html__('Enter Faq Descreption', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_faqs_fancy_add_btn'] = esc_html__('Add Faq Title', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_faqs_fancy_add_faq'] = esc_html__('Add Content', 'homevillas-real-estate');
-
             $wp_rem_cs_var_static_text['wp_rem_cs_var_promo_box_styles'] = esc_html__('Styles', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_icon_box_styles_hint'] = esc_html__('Choose styles for icon box.', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_promo_box_styles_hint'] = esc_html__('Choose styles for promo box.', 'homevillas-real-estate');
@@ -2040,28 +2071,29 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings') ) {
             $wp_rem_cs_var_static_text['wp_rem_cs_var_testimonial_style_fancy'] = esc_html__('Fancy', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_testimonial_style_modern'] = esc_html__('Modern', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_cs_var_testimonial_style_advance'] = esc_html__('Advance', 'homevillas-real-estate');
-             $wp_rem_cs_var_static_text['wp_rem_cs_var_testimonial_style_classic'] = esc_html__('Classic', 'homevillas-real-estate');
-              $wp_rem_cs_var_static_text['wp_rem_cs_var_testimonial_style_simple'] = esc_html__('Simple', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_plugin_option_map_custom_style'] = esc_html__('Map Custom Style', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_testimonial_style_advance_v1'] = esc_html__('Advance V1', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_testimonial_style_classic'] = esc_html__('Classic', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_cs_var_testimonial_style_simple'] = esc_html__('Simple', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_plugin_option_map_custom_style'] = esc_html__('Map Custom Style', 'homevillas-real-estate');
             $wp_rem_cs_var_static_text['wp_rem_plugin_option_map_custom_style_desc'] = __('Add Map Custom Style code. You can find all styles from here %s', 'homevillas-real-estate');
-			
-			$wp_rem_cs_var_static_text['wp_rem_price_plan_most_popular'] = esc_html__('Most Popular', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_price_plan_btn1_txt'] = esc_html__('Button 1 Text', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_price_plan_btn1_txt_hint'] = esc_html__('Enter Button 1 Text', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_price_plan_btn1_lnk'] = esc_html__('Button 1 Link', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_price_plan_btn1_lnk_hint'] = esc_html__('Enter Button 1 Link', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_price_plan_btn2_txt'] = esc_html__('Button 2 Text', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_price_plan_btn2_txt_hint'] = esc_html__('Enter Button 2 Text', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_price_plan_btn2_lnk'] = esc_html__('Button 2 Link', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_price_plan_btn2_lnk_hint'] = esc_html__('Enter Button 2 Link', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_price_plan_cmpre_btn_txt'] = esc_html__('Compare Button Text', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_price_plan_cmpre_btn_txt_hint'] = esc_html__('Enter Compare Button Text', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_price_plan_cmpre_btn_lnk'] = esc_html__('Compare Button Link', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_price_plan_cmpre_btn_lnk_hint'] = esc_html__('Enter Compare Button Link', 'homevillas-real-estate');
-
-			$wp_rem_cs_var_static_text['wp_rem_team_member_frontend_phone'] = esc_html__('Phone', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_team_member_frontend_email'] = esc_html__('Email', 'homevillas-real-estate');
-			$wp_rem_cs_var_static_text['wp_rem_team_member_frontend_view_profile'] = esc_html__('View Profile', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_price_plan_most_popular'] = esc_html__('Most Popular', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_price_plan_btn1_txt'] = esc_html__('Button 1 Text', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_price_plan_btn1_txt_hint'] = esc_html__('Enter Button 1 Text', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_price_plan_btn1_lnk'] = esc_html__('Button 1 Link', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_price_plan_btn1_lnk_hint'] = esc_html__('Enter Button 1 Link', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_price_plan_btn2_txt'] = esc_html__('Button 2 Text', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_price_plan_btn2_txt_hint'] = esc_html__('Enter Button 2 Text', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_price_plan_btn2_lnk'] = esc_html__('Button 2 Link', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_price_plan_btn2_lnk_hint'] = esc_html__('Enter Button 2 Link', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_price_plan_cmpre_btn_txt'] = esc_html__('Compare Button Text', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_price_plan_cmpre_btn_txt_hint'] = esc_html__('Enter Compare Button Text', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_price_plan_cmpre_btn_lnk'] = esc_html__('Compare Button Link', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_price_plan_cmpre_btn_lnk_hint'] = esc_html__('Enter Compare Button Link', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_team_member_frontend_phone'] = esc_html__('Phone', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_team_member_frontend_email'] = esc_html__('Email', 'homevillas-real-estate');
+            $wp_rem_cs_var_static_text['wp_rem_team_member_frontend_view_profile'] = esc_html__('View Profile', 'homevillas-real-estate');
+			$wp_rem_cs_var_static_text['wp_rem_maintenance_field_select_page'] = esc_html__('Please Select a Page', 'homevillas-real-estate');
+			$wp_rem_cs_var_static_text['wp_rem_no_title'] = esc_html__('No Title', 'homevillas-real-estate');
             /*
              * Use this filter to add more strings from Add on.
              */

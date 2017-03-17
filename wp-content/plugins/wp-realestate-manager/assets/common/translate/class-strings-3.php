@@ -249,8 +249,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_3') ) {
             $wp_rem_static_text['wp_rem_package'] = esc_html__('Package', 'wp-rem');
             $wp_rem_static_text['wp_rem_package_expiry'] = esc_html__('Package Expiry Date', 'wp-rem');
             $wp_rem_static_text['wp_rem_package_no_of_properties'] = esc_html__('No. of Properties', 'wp-rem');
-            $wp_rem_static_text['wp_rem_package_property_expiry'] = esc_html__('Property Expiry', 'wp-rem');
-            $wp_rem_static_text['wp_rem_package_no_of_services'] = esc_html__('Number of Services', 'wp-rem');
+            $wp_rem_static_text['wp_rem_package_property_expiry'] = esc_html__('Property Expiry', 'wp-rem'); 
             $wp_rem_static_text['wp_rem_package_no_of_pictures'] = esc_html__('Number of Pictures', 'wp-rem');
             $wp_rem_static_text['wp_rem_package_no_of_documents'] = esc_html__('Number of Documents', 'wp-rem');
             $wp_rem_static_text['wp_rem_package_no_of_tags'] = esc_html__('Number of Tags', 'wp-rem');
@@ -296,8 +295,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_3') ) {
             $wp_rem_static_text['wp_rem_member_days'] = esc_html__('Days', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_properties_duration'] = esc_html__('Properties Duration', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_featured'] = esc_html__('Featured Properties', 'wp-rem');
-            $wp_rem_static_text['wp_rem_member_top_categoriy'] = esc_html__('Top Category Properties', 'wp-rem');
-            $wp_rem_static_text['wp_rem_member_no_services'] = esc_html__('Number of Services', 'wp-rem');
+            $wp_rem_static_text['wp_rem_member_top_categoriy'] = esc_html__('Top Category Properties', 'wp-rem'); 
             $wp_rem_static_text['wp_rem_member_no_pictures'] = esc_html__('Number of Pictures', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_no_documents'] = esc_html__('Number of Documents', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_no_tags'] = esc_html__('Number of Tags', 'wp-rem');
@@ -318,7 +316,6 @@ if ( ! class_exists('wp_rem_plugin_all_strings_3') ) {
             $wp_rem_static_text['wp_rem_member_name'] = esc_html__('Name', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_profile_image'] = esc_html__('Profile Image', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_public_profile'] = esc_html__('Public Profile', 'wp-rem');
-            $wp_rem_static_text['wp_rem_member_user_type'] = esc_html__('User Type', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_team_member'] = esc_html__('Team Member', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_roles'] = esc_html__('Roles & Permission', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_update'] = esc_html__('Update', 'wp-rem');
@@ -464,7 +461,6 @@ if ( ! class_exists('wp_rem_plugin_all_strings_3') ) {
             $wp_rem_static_text['wp_rem_member_add_list_property_days'] = esc_html__('Days', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_add_list_featured_property'] = esc_html__('Featured Properties', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_add_list_top_cat_property'] = esc_html__('Top Category Properties', 'wp-rem');
-            $wp_rem_static_text['wp_rem_member_add_list_no_of_services'] = esc_html__('Number of Services', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_add_list_no_of_pictures'] = esc_html__('Number of Pictures', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_add_list_no_of_docs'] = esc_html__('Number of Documents', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_add_list_no_of_tags'] = esc_html__('Number of Tags', 'wp-rem');
@@ -474,13 +470,14 @@ if ( ! class_exists('wp_rem_plugin_all_strings_3') ) {
             $wp_rem_static_text['wp_rem_member_add_list_social_reach'] = esc_html__('Social Impressions Reach', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_add_list_cancel'] = esc_html__('Cancel', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_add_list_choose_pkg'] = esc_html__('Choose Package', 'wp-rem');
-
+            $wp_rem_static_text['wp_rem_property_recent_heading'] = esc_html__('Similar Properties', 'wp-rem'); 
             $wp_rem_static_text['wp_rem_properties_show_more'] = esc_html__('Show More Property', 'wp-rem');
             $wp_rem_static_text['wp_rem_properties_properties_found'] = esc_html__('Property(s) Found', 'wp-rem');
             $wp_rem_static_text['wp_rem_properties_sort_by'] = esc_html__('Sort By', 'wp-rem');
             $wp_rem_static_text['wp_rem_properties_prev'] = esc_html__('Prev', 'wp-rem');
             $wp_rem_static_text['wp_rem_properties_next'] = esc_html__('Next', 'wp-rem');
             $wp_rem_static_text['wp_rem_properties_price_on_request'] = esc_html__('Price On Request', 'wp-rem');
+			$wp_rem_static_text['wp_rem_properties_hidden_text'] = esc_html__('Hidden', 'wp-rem');
             $wp_rem_static_text['wp_rem_properties_featured'] = esc_html__('Featured', 'wp-rem');
             $wp_rem_static_text['wp_rem_properties_members'] = esc_html__('Member: %s', 'wp-rem');
             $wp_rem_static_text['wp_rem_properties_draw_search'] = esc_html__('Draw your search', 'wp-rem');
@@ -522,6 +519,8 @@ if ( ! class_exists('wp_rem_plugin_all_strings_3') ) {
             $wp_rem_static_text['wp_rem_property_monthly_price'] = esc_html__('Monthly Calculated Price is %s', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_weekly_price'] = esc_html__('Weekly Calculated Price is %s', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_property_features'] = esc_html__('Property Features', 'wp-rem');
+			$wp_rem_static_text['wp_rem_property_property_amenities'] = esc_html__('Amenities', 'wp-rem');
+			$wp_rem_static_text['wp_rem_property_property_key_detail'] = esc_html__('Key Details', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_list_property_features'] = esc_html__('Please list the key features of your property this is a good oppurtunity to sell your property!', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_select_unselect'] = esc_html__('Select/Unselect all', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_price_s'] = esc_html__('Price: %s', 'wp-rem');
@@ -644,6 +643,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_3') ) {
             $wp_rem_static_text['wp_rem_func_draw_area'] = esc_html__('Drawn Area', 'wp-rem');
             $wp_rem_static_text['wp_rem_func_show_with_in'] = esc_html__('Show with in', 'wp-rem');
             $wp_rem_static_text['wp_rem_func_miles'] = esc_html__('Miles', 'wp-rem');
+			$wp_rem_static_text['wp_rem_func_miles_m'] = esc_html__('Mil', 'wp-rem');
             $wp_rem_static_text['wp_rem_func_my_location'] = esc_html__('My location', 'wp-rem');
             $wp_rem_static_text['wp_rem_func_my_location_of'] = esc_html__('of', 'wp-rem');
             $wp_rem_static_text['wp_rem_func_previous'] = esc_html__('Previous', 'wp-rem');

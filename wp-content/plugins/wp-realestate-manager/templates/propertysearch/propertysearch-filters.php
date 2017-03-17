@@ -62,7 +62,7 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
                                 array(
                                     'cust_name' => 'search_title',
                                     'classes' => 'input-field',
-                                    'extra_atr' => 'placeholder="' .  wp_rem_plugin_text_srt('wp_rem_property_search_flter_wt_looking_for'). '"',
+                                    'extra_atr' => 'placeholder="' . wp_rem_plugin_text_srt('wp_rem_property_search_flter_wt_looking_for') . '"',
                                 )
                         );
                         ?>  
@@ -84,34 +84,35 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
                     }
                     ?>
                     <ul>
-						<?php
-						$number_option_flag = 1;
-						foreach ($property_types_array as $key => $value) {
-							?>
-							<li>
-								<?php
-								$checked = '';
-								if (( (isset($_REQUEST['property_type']) && $_REQUEST['property_type'] != '') && $_REQUEST['property_type'] == $key ) || $property_type_slug == $key) {
-									$checked = 'checked="checked"';
-								}
-								$wp_rem_form_fields_frontend->wp_rem_form_radio_render(
-										array(
-											'simple' => true,
-											'cust_id' => 'search_form_property_type' . $number_option_flag,
-											'cust_name' => 'property_type',
-											'std' => $key,
-											'extra_atr' => $checked . ' onchange="wp_rem_property_type_search_fields(this,\'' . $property_short_counter . '\',\'' . $propertysearch_price_switch . '\'); wp_rem_property_type_cate_fields(this,\'' . $property_short_counter . '\',\'' . $propertysearch_categories_switch . '\'); "',
-										)
-								);
-								?>
-								<label for="<?php echo force_balance_tags('search_form_property_type' . $number_option_flag) ?>"><?php echo force_balance_tags($value); ?></label>
-								<?php ?>
-							</li>
-							<?php
-							$number_option_flag ++;
-						}
-						?>
-					</ul> 
+                        <?php
+                        $number_option_flag = 1;
+                        foreach ($property_types_array as $key => $value) {
+                            ?>
+                            <li>
+                                <?php
+                                $checked = '';
+                                if (( (isset($_REQUEST['property_type']) && $_REQUEST['property_type'] != '') && $_REQUEST['property_type'] == $key ) || $property_type_slug == $key) {
+                                    $checked = 'checked="checked"';
+                                }
+                                $wp_rem_form_fields_frontend->wp_rem_form_radio_render(
+                                        array(
+                                            'simple' => true,
+                                            'cust_id' => 'search_form_property_type' . $number_option_flag,
+                                            'cust_name' => 'property_type',
+                                            'std' => $key,
+                                            'force_std' => true,
+                                            'extra_atr' => $checked . ' onchange="wp_rem_property_type_search_fields(this,\'' . $property_short_counter . '\',\'' . $propertysearch_price_switch . '\'); wp_rem_property_type_cate_fields(this,\'' . $property_short_counter . '\',\'' . $propertysearch_categories_switch . '\'); "',
+                                        )
+                                );
+                                ?>
+                                <label for="<?php echo force_balance_tags('search_form_property_type' . $number_option_flag) ?>"><?php echo force_balance_tags($value); ?></label>
+                                <?php ?>
+                            </li>
+                            <?php
+                            $number_option_flag ++;
+                        }
+                        ?>
+                    </ul> 
                 </div>
             <?php } ?>
             <?php if ($propertysearch_location_switch == 'yes') { ?>
@@ -128,20 +129,23 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
             if ($propertysearch_categories_switch == 'yes' && !empty($property_cats_array)) {
                 ?>
                 <div id="property_type_cate_fields_<?php echo wp_rem_allow_special_char($property_short_counter); ?>" class="property-category-fields field-holder select-dropdown has-icon">
-					<label>
-						<i class="icon-home"></i>
-						<?php
-						$wp_rem_opt_array = array(
-							'std' => '',
-							'id' => 'property_category',
-							'classes' => 'chosen-select',
-							'cust_name' => 'property_category',
-							'options' => $property_cats_array,
-						);
-						$wp_rem_form_fields_frontend->wp_rem_form_select_render($wp_rem_opt_array);
-						?>
-					</label>
-				</div>
+                    <label>
+                        <i class="icon-home"></i>
+                        <?php
+                        $wp_rem_opt_array = array(
+                            'std' => '',
+                            'id' => 'property_category',
+                            'classes' => 'chosen-select',
+                            'cust_name' => 'property_category',
+                            'options' => $property_cats_array,
+                        );
+                        if (count($property_cats_array) <= 6) {
+                            $wp_rem_opt_array['classes'] = 'chosen-select-no-single';
+                        }
+                        $wp_rem_form_fields_frontend->wp_rem_form_select_render($wp_rem_opt_array);
+                        ?>
+                    </label>
+                </div>
             <?php } ?>
             <div class="field-holder search-btn">
                 <div class="search-btn-loader-<?php echo wp_rem_allow_special_char($property_short_counter); ?> input-button-loader">
@@ -159,14 +163,39 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
             </div>
         </div>
         <?php
-        if ($property_type_slug != '' && $propertysearch_advance_filter_switch == 'yes') {
-            $property_price_array = $wp_rem_search_fields->wp_rem_properties_price_field_options($property_type_slug);
+        if ($property_type_slug != '' && $propertysearch_advance_filter_switch == 'yes') { 
+            $args = array(
+                'name' => $property_type_slug,
+                'post_type' => 'property-type',
+                'post_status' => 'publish',
+                'numberposts' => 1,
+            );
+            $my_posts = get_posts($args);
+            if ($my_posts) {
+                $property_type_id = $my_posts[0]->ID;
+            }
+
+            $wp_rem_price_minimum_options = get_post_meta($property_type_id, 'wp_rem_price_minimum_options', true);
+            $wp_rem_price_minimum_options = (!empty($wp_rem_price_minimum_options) ) ? $wp_rem_price_minimum_options : 1;
+            $wp_rem_price_max_options = get_post_meta($property_type_id, 'wp_rem_price_max_options', true);
+            $wp_rem_price_max_options = (!empty($wp_rem_price_max_options) ) ? $wp_rem_price_max_options : 50; //50000;
+            $wp_rem_price_interval = get_post_meta($property_type_id, 'wp_rem_price_interval', true);
+            $wp_rem_price_interval = (!empty($wp_rem_price_interval) ) ? $wp_rem_price_interval : 50;
+            $price_type_options = array();
+            $wp_rem_price_interval = (int) $wp_rem_price_interval;
+            $price_counter = $wp_rem_price_minimum_options;
+            $property_price_array = '';
+            $property_price_array[''] = wp_rem_plugin_text_srt('wp_rem_search_filter_min_price');
+            while ($price_counter <= $wp_rem_price_max_options) {
+                $property_price_array[$price_counter] = $price_counter;
+                $price_counter = $price_counter + $wp_rem_price_interval;
+            }
             ?>
             <?php if (($propertysearch_categories_switch == 'yes' ) || ($propertysearch_price_switch == 'yes' && !empty($property_price_array)) || $propertysearch_advance_filter_switch == 'yes') { ?>
                 <div id="property_type_fields_<?php echo wp_rem_allow_special_char($property_short_counter); ?>" class="search-advanced-fields" style="display:none;">
 
                     <?php if ($propertysearch_price_switch == 'yes' && !empty($property_price_array)) { ?>
-                        <div class="field-holder select-dropdown has-icon">
+                         <div class="field-holder select-dropdown has-icon">
                             <label>
                                 <i class="icon-dollar"></i>
                                 <?php

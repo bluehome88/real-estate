@@ -193,6 +193,7 @@ if (!function_exists('wp_rem_cs_var_page_builder_icon_box')) {
                                             'award' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_icon_box_style_reward'),
                                             'boxed' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_icon_box_style_boxed'),
                                             'classic' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_icon_box_style_classic'),
+                                            'boxed-v2' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_icon_box_style_box_v2'),
                                         ),
                                         'return' => true,
                                     ),
@@ -301,6 +302,7 @@ if (!function_exists('wp_rem_cs_var_page_builder_icon_box')) {
                                     $defaults = array(
                                         'wp_rem_cs_var_icon_box_title' => '',
                                         'wp_rem_cs_var_icon_boxes_icon' => '',
+                                        'wp_rem_cs_var_icon_boxes_icon_group' => 'default',
                                         'wp_rem_cs_var_link_url' => '',
                                         'wp_rem_cs_var_icon_box_icon_type' => '',
                                         'wp_rem_cs_var_icon_box_image' => ''
@@ -408,7 +410,7 @@ if (!function_exists('wp_rem_cs_var_page_builder_icon_box')) {
                                                     ?>
                                                 </div>
                                                 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                                                    <?php echo wp_rem_cs_var_icomoon_icons_box($wp_rem_cs_var_icon_boxes_icon, esc_attr($rand_id), 'wp_rem_cs_var_icon_boxes_icon'); ?>
+                                                    <?php echo apply_filters( 'cs_icons_fields', $wp_rem_cs_var_icon_boxes_icon, esc_attr($rand_id), 'wp_rem_cs_var_icon_boxes_icon', $wp_rem_cs_var_icon_boxes_icon_group); ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -570,6 +572,9 @@ if (!function_exists('wp_rem_cs_save_page_builder_data_icon_box_callback')) {
                         }
                         if (isset($data['wp_rem_cs_var_icon_boxes_icon'][$counters['wp_rem_cs_counter_icon_boxes_node']]) && $data['wp_rem_cs_var_icon_boxes_icon'][$counters['wp_rem_cs_counter_icon_boxes_node']] != '') {
                             $shortcode_item .= 'wp_rem_cs_var_icon_boxes_icon="' . htmlspecialchars($data['wp_rem_cs_var_icon_boxes_icon'][$counters['wp_rem_cs_counter_icon_boxes_node']], ENT_QUOTES) . '" ';
+                        }
+                        if (isset($data['wp_rem_cs_var_icon_boxes_icon_group'][$counters['wp_rem_cs_counter_icon_boxes_node']]) && $data['wp_rem_cs_var_icon_boxes_icon_group'][$counters['wp_rem_cs_counter_icon_boxes_node']] != '') {
+                            $shortcode_item .= 'wp_rem_cs_var_icon_boxes_icon_group="' . htmlspecialchars($data['wp_rem_cs_var_icon_boxes_icon_group'][$counters['wp_rem_cs_counter_icon_boxes_node']], ENT_QUOTES) . '" ';
                         }
                         if (isset($data['wp_rem_cs_var_icon_box_icon_type'][$counters['wp_rem_cs_counter_icon_boxes_node']]) && $data['wp_rem_cs_var_icon_box_icon_type'][$counters['wp_rem_cs_counter_icon_boxes_node']] != '') {
                             $shortcode_item .= 'wp_rem_cs_var_icon_box_icon_type="' . htmlspecialchars($data['wp_rem_cs_var_icon_box_icon_type'][$counters['wp_rem_cs_counter_icon_boxes_node']], ENT_QUOTES) . '" ';
@@ -804,7 +809,7 @@ if (!function_exists('wp_rem_cs_shortcode_sub_element_ui_icon_box_callback')) {
                             ?>
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                            <?php echo wp_rem_cs_var_icomoon_icons_box('', $rand_id, 'wp_rem_cs_var_icon_boxes_icon'); ?>
+                            <?php echo apply_filters( 'cs_icons_fields','', $rand_id, 'wp_rem_cs_var_icon_boxes_icon'); ?>
                         </div>
                     </div>
 

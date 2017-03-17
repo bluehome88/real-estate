@@ -71,6 +71,7 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_testimonial') ) {
         }
         global $wp_rem_cs_var_static_text;
         $rand_string = rand(123456, 987654);
+        $rand_num = rand(12345, 9876);
         $strings = new wp_rem_cs_theme_all_strings;
         $strings->wp_rem_cs_short_code_strings();
         ?>
@@ -154,8 +155,10 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_testimonial') ) {
                                             'fancy' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_testimonial_style_fancy'),
                                             'modern' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_testimonial_style_modern'),
                                             'advance' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_testimonial_style_advance'),
+                                            'advance-v1' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_testimonial_style_advance_v1'),
                                             'classic' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_testimonial_style_classic'),
                                             'simple' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_testimonial_style_simple'),
+                                            'default' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_testimonial_view_default'),
                                         ),
                                         'return' => true,
                                     ),
@@ -164,10 +167,13 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_testimonial') ) {
                                 ?>
                                 <script>
                                     function testimonial_view($wp_rem_cs_var_testimonial_view) {
-                                        if ($wp_rem_cs_var_testimonial_view == 'modern' || $wp_rem_cs_var_testimonial_view == 'advance') {
-                                            jQuery('.bg_dynamic_fields').hide();
+                                        if ($wp_rem_cs_var_testimonial_view == 'modern' || $wp_rem_cs_var_testimonial_view == 'advance' || $wp_rem_cs_var_testimonial_view == 'advance-v1') {
+                                            jQuery('.bg_dynamic_fields_<?php echo intval($rand_num); ?>').hide();
+                                            jQuery('.url_dynamic_fields_<?php echo intval($rand_num); ?>').show();
+
                                         } else {
-                                            jQuery('.bg_dynamic_fields').show();
+                                            jQuery('.bg_dynamic_fields_<?php echo intval($rand_num); ?>').show();
+                                            jQuery('.url_dynamic_fields_<?php echo intval($rand_num); ?>').hide();
                                         }
                                     }
                                 </script>
@@ -226,6 +232,7 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_testimonial') ) {
                                         'wp_rem_cs_var_testimonial_author_image_array' => '',
                                         'wp_rem_cs_var_testimonial_author_address' => '',
                                         'wp_rem_cs_var_testimonial_background_image_array' => '',
+                                        'wp_rem_cs_var_testimonial_link' => '',
                                     );
                                     foreach ( $defaults as $key => $values ) {
                                         if ( isset($testimonial['atts'][$key]) ) {
@@ -239,6 +246,7 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_testimonial') ) {
                                     $wp_rem_cs_var_testimonial_background_image_array = isset($wp_rem_cs_var_testimonial_background_image_array) ? $wp_rem_cs_var_testimonial_background_image_array : '';
                                     $wp_rem_cs_var_testimonial_author_address = isset($wp_rem_cs_var_testimonial_author_address) ? $wp_rem_cs_var_testimonial_author_address : '';
                                     $wp_rem_cs_var_testimonial_content = isset($wp_rem_cs_var_testimonial_content) ? $wp_rem_cs_var_testimonial_content : '';
+                                    $wp_rem_cs_var_testimonial_link = isset($wp_rem_cs_var_testimonial_link) ? $wp_rem_cs_var_testimonial_link : '';
                                     ?>
                                     <div class='cs-wrapp-clone cs-shortcode-wrapp cs-pbwp-content' id="wp_rem_cs_infobox_<?php echo wp_rem_cs_allow_special_char($rand_string); ?>">
                                         <header>
@@ -292,7 +300,7 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_testimonial') ) {
                                         $wp_rem_cs_var_html_fields->wp_rem_cs_var_text_field($wp_rem_cs_opt_array);
 
                                         $bg_hide_string = '';
-                                        if ( $wp_rem_cs_var_testimonial_view == 'modern' || $wp_rem_cs_var_testimonial_view == 'advance' ) {
+                                        if ( $wp_rem_cs_var_testimonial_view == 'modern' || $wp_rem_cs_var_testimonial_view == 'advance' || $wp_rem_cs_var_testimonial_view == 'advance-v1' ) {
                                             $bg_hide_string = 'style="display:none;"';
                                         }
                                         $wp_rem_cs_opt_array = array(
@@ -304,7 +312,7 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_testimonial') ) {
                                             'echo' => true,
                                             'array' => true,
                                             'main_wraper' => true,
-                                            'main_wraper_class' => 'bg_dynamic_fields',
+                                            'main_wraper_class' => 'bg_dynamic_fields_' . intval($rand_num),
                                             'main_wraper_extra' => $bg_hide_string,
                                             'prefix' => '',
                                             'field_params' => array(
@@ -337,6 +345,27 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_testimonial') ) {
                                             ),
                                         );
                                         $wp_rem_cs_var_html_fields->wp_rem_cs_var_upload_file_field($wp_rem_cs_opt_array);
+
+                                        $url_hide_string = ' style="display:none;"';
+                                        if ( $wp_rem_cs_var_testimonial_view == 'modern' || $wp_rem_cs_var_testimonial_view == 'advance' || $wp_rem_cs_var_testimonial_view == 'advance-v1' ) {
+                                            $url_hide_string = ' style="display:block;"';
+                                        }
+                                        echo '<div class="url_dynamic_fields_' . intval($rand_num) . '"' . $url_hide_string . ' >';
+                                        $wp_rem_cs_opt_array = array(
+                                            'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_testimonial_field_link'),
+                                            'desc' => '',
+                                            'hint_text' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_testimonial_field_link_hint'),
+                                            'echo' => true,
+                                            'classes' => 'txtfield',
+                                            'field_params' => array(
+                                                'std' => esc_attr($wp_rem_cs_var_testimonial_link),
+                                                'cust_id' => '',
+                                                'cust_name' => 'wp_rem_cs_var_testimonial_link[]',
+                                                'return' => true,
+                                            ),
+                                        );
+                                        $wp_rem_cs_var_html_fields->wp_rem_cs_var_text_field($wp_rem_cs_opt_array);
+                                        echo '</div>';
                                         ?>
                                     </div>
                                     <?php
@@ -435,7 +464,7 @@ if ( ! function_exists('wp_rem_cs_save_page_builder_data_testimonial_callback') 
         $counters = $args['counters'];
         $widget_type = $args['widget_type'];
         $column = $args['column'];
-		$shortcode_data = '';
+        $shortcode_data = '';
         if ( $widget_type == "testimonial" || $widget_type == "cs_testimonial" ) {
             $shortcode = $shortcode_item = $shortcode_image_item = '';
             $page_element_size = $data['testimonial_element_size'][$counters['wp_rem_cs_global_counter_testimonial']];
@@ -465,6 +494,9 @@ if ( ! function_exists('wp_rem_cs_save_page_builder_data_testimonial_callback') 
                         }
                         if ( isset($data['wp_rem_cs_var_testimonial_background_image_array'][$counters['wp_rem_cs_counter_testimonial_node']]) && $data['wp_rem_cs_var_testimonial_background_image_array'][$counters['wp_rem_cs_counter_testimonial_node']] != '' ) {
                             $shortcode_item .= 'wp_rem_cs_var_testimonial_background_image_array="' . $data['wp_rem_cs_var_testimonial_background_image_array'][$counters['wp_rem_cs_counter_testimonial_node']] . '" ';
+                        }
+                        if ( isset($data['wp_rem_cs_var_testimonial_link'][$counters['wp_rem_cs_counter_testimonial_node']]) && $data['wp_rem_cs_var_testimonial_link'][$counters['wp_rem_cs_counter_testimonial_node']] != '' ) {
+                            $shortcode_item .= 'wp_rem_cs_var_testimonial_link="' . htmlspecialchars($data['wp_rem_cs_var_testimonial_link'][$counters['wp_rem_cs_counter_testimonial_node']], ENT_QUOTES) . '" ';
                         }
                         $shortcode_item .= ']';
                         if ( isset($data['wp_rem_cs_var_testimonial_content'][$counters['wp_rem_cs_counter_testimonial_node']]) && $data['wp_rem_cs_var_testimonial_content'][$counters['wp_rem_cs_counter_testimonial_node']] != '' ) {

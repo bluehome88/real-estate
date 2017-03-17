@@ -26,7 +26,13 @@ if ( ! function_exists('wp_rem_cs_body_classes') ) {
             $page_footrer_hidden = get_post_meta($page_id, 'wp_rem_cs_var_page_footer_hidden', true);
             $page_footrer_hidden = isset($page_footrer_hidden) ? $page_footrer_hidden : '';
             if ( isset($page_footrer_hidden) && $page_footrer_hidden == 'on' ) {
-               $classes[] = 'header-footer-hidden';
+               $classes[] = 'wp-rem-footer-hidden';
+            }
+            
+            $page_header_hidden = get_post_meta($page_id, 'wp_rem_cs_var_page_header_hidden', true);
+            $page_header_hidden = isset($page_header_hidden) ? $page_header_hidden : '';
+            if ( isset($page_header_hidden) && $page_header_hidden == 'on' ) {
+               $classes[] = 'wp-rem-header-hidden';
             }
         }
         // Adds a class of hfeed to non-singular pages.

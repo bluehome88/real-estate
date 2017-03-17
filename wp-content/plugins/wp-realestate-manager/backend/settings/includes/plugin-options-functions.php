@@ -116,20 +116,20 @@ if ( ! function_exists('wp_rem_pl_opt_backup_generate') ) {
 if ( ! function_exists('wp_rem_get_settings_demo') ) {
 
     function wp_rem_get_settings_demo($wp_rem_demo_file = '') {
-        // global $wp_filesystem;
-        // $backup_url = '';
-        // if ( false === ($creds = request_filesystem_credentials($backup_url, '', false, false, array()) ) ) {
-        //     return true;
-        // }
-        // if ( ! WP_Filesystem($creds) ) {
-        //     request_filesystem_credentials($backup_url, '', true, false, array());
-        //     return true;
-        // }
+        global $wp_filesystem;
+        $backup_url = '';
+        if ( false === ($creds = request_filesystem_credentials($backup_url, '', false, false, array()) ) ) {
+            return true;
+        }
+        if ( ! WP_Filesystem($creds) ) {
+            request_filesystem_credentials($backup_url, '', true, false, array());
+            return true;
+        }
         $wp_rem_upload_dir = wp_rem::plugin_dir() . 'backend/settings/demo/';
         $wp_rem_filename = trailingslashit($wp_rem_upload_dir) . $wp_rem_demo_file;
         $wp_rem_demo_data = array();
         if ( is_file($wp_rem_filename) ) {
-            $get_options_file = file_get_contents($wp_rem_filename);
+            $get_options_file = $wp_filesystem->get_contents($wp_rem_filename);
 
             $wp_rem_demo_data = $get_options_file;
         }
@@ -504,7 +504,7 @@ if ( ! function_exists("wp_rem_get_lk_page") ) {
         curl_setopt($ch, CURLINFO_HEADER_OUT, true);
         if ( is_string($ref) && $ref != '' )
             curl_setopt($ch, CURLOPT_REFERER, $ref);
-        curl_setopt($ch, CURLOPT_USERMEMBER, (( isset($advSettings['UA']) && $advSettings['UA'] != '') ? $advSettings['UA'] : "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.44 Safari/537.36"));
+        curl_setopt($ch, CURLOPT_REFERER, (( isset($advSettings['UA']) && $advSettings['UA'] != '') ? $advSettings['UA'] : "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.44 Safari/537.36"));
 
         if ( $fields != '' ) {
             curl_setopt($ch, CURLOPT_POST, true);
@@ -1080,4 +1080,129 @@ if ( ! function_exists('update_fixed_price_opt') ) {
         return $post;
     }
 
+}
+
+
+if ( ! function_exists('wp_rem_load_all_pages_callback') ) {
+	add_action('wp_ajax_wp_rem_load_all_pages', 'wp_rem_load_all_pages_callback');
+    function wp_rem_load_all_pages_callback() {
+		$args = isset($_POST['args']) ? $_POST['args'] : '';
+		$new_args = json_decode(stripslashes($args), true);
+		$wp_rem_output = wp_dropdown_pages($new_args);
+		$wp_rem_output .= '<script type="text/javascript">
+			jQuery(document).ready(function () {
+				chosen_selectionbox();
+			});
+		</script>';
+		echo json_encode(array('html' => $wp_rem_output));
+		die;
+    }
+}
+
+if ( ! function_exists('wp_rem_load_all_agencies_options_callback') ) {
+	add_action('wp_ajax_wp_rem_load_all_agencies_options', 'wp_rem_load_all_agencies_options_callback');
+    function wp_rem_load_all_agencies_options_callback() {
+		global $wp_rem_plugin_options, $wp_rem_form_fields;
+		
+		$selected_val = wp_rem_get_input('selected_val', '', 'STRING');
+		
+		$wp_rem_agency_list = array('' => wp_rem_plugin_text_srt('wp_rem_plugin_options_slct_agency'));
+        $args = array(
+            'orderby' => 'nicename',
+            'role' => 'wp_rem_member',
+            'meta_query' =>
+            array(
+                array(
+                    'relation' => 'AND',
+                    array(
+                        'key' => 'wp_rem_user_type',
+                        'value' => 'supper-admin',
+                        'compare' => '=',
+                    ),
+                )
+            )
+        );
+
+        $wp_rem_users = get_users($args);
+        foreach ($wp_rem_users as $user) {
+            $wp_rem_company_id = get_user_meta($user->ID, 'wp_rem_company', true);
+            $profile_type = get_post_meta($wp_rem_company_id, 'wp_rem_member_profile_type', true);
+            if ($profile_type != '' && $profile_type == 'company') {
+                $wp_rem_agency_list[$user->ID] = $user->display_name;
+            }
+        }
+		
+		$wp_rem_opt_array = array(
+			'std' => $selected_val,
+			'id' => 'demo_user_agency',
+			'options' => $wp_rem_agency_list,
+			'classes' => 'chosen-select',
+			'return' => true,
+			
+		);
+		$wp_rem_output = $wp_rem_form_fields->wp_rem_form_select_render($wp_rem_opt_array);
+		
+		$wp_rem_output .= '<script type="text/javascript">
+			jQuery(document).ready(function () {
+				chosen_selectionbox();
+			});
+		</script>';
+		echo json_encode(array('html' => $wp_rem_output));
+		die;
+    }
+}
+
+if ( ! function_exists('wp_rem_load_all_members_options_callback') ) {
+	add_action('wp_ajax_wp_rem_load_all_members_options', 'wp_rem_load_all_members_options_callback');
+    function wp_rem_load_all_members_options_callback() {
+		global $wp_rem_plugin_options, $wp_rem_form_fields;
+		
+		$selected_val = wp_rem_get_input('selected_val', '', 'STRING');
+		
+		$wp_rem_member_list = array('' => wp_rem_plugin_text_srt('wp_rem_plugin_options_slct_member'));
+        $args = array(
+            'orderby' => 'nicename',
+            'role' => 'wp_rem_member',
+            'meta_query' =>
+            array(
+                array(
+                    'relation' => 'AND',
+                    array(
+                        'key' => 'wp_rem_user_type',
+                        'value' => 'supper-admin',
+                        'compare' => '=',
+                    ),
+                )
+            )
+        );
+
+        $wp_rem_users = get_users($args);
+        foreach ($wp_rem_users as $user) {
+            $wp_rem_company_id = get_user_meta($user->ID, 'wp_rem_company', true);
+            $profile_type = get_post_meta($wp_rem_company_id, 'wp_rem_member_profile_type', true);
+            if ($profile_type != '' && $profile_type == 'company') {
+                $wp_rem_agency_list[$user->ID] = $user->display_name;
+            } else {
+                $wp_rem_member_list[$user->ID] = $user->display_name;
+            }
+        }
+		
+		$wp_rem_opt_array = array(
+			'std' => $selected_val,
+			'id' => 'demo_user_member',
+			'options' => $wp_rem_member_list,
+			'classes' => 'chosen-select',
+			'return' => true,
+			
+		);
+		$wp_rem_output = $wp_rem_form_fields->wp_rem_form_select_render($wp_rem_opt_array);
+		
+		$wp_rem_output .= '<script type="text/javascript">
+			jQuery(document).ready(function () {
+				chosen_selectionbox();
+			});
+		</script>';
+		echo json_encode(array('html' => $wp_rem_output));
+		die;
+    }
 }

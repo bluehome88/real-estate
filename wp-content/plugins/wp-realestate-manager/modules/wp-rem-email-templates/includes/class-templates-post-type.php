@@ -6,7 +6,7 @@
  * @package	Homevillas
  */
 // Direct access not allowed.
-if (!defined('ABSPATH')) {
+if ( ! defined('ABSPATH') ) {
     exit;
 }
 
@@ -21,42 +21,42 @@ class Wp_rem_Email_Templates_Post {
      * Put hooks in place and activate.
      */
     public function __construct() {
-        add_action('init', array($this, 'init'), 1);
+        add_action('init', array( $this, 'init' ), 1);
     }
 
     public function init() {
-        
+
         $this->register_emails_post_type();
         $this->register_email_post_taxonomy();
         $this->load_email_template_options();
-        add_action('save_post', array($this, 'save_templates_meta'));
-        if (is_admin()) {
-            add_action('add_meta_boxes', array($this, 'templates_meta_box'));
-            add_filter('post_row_actions', array($this, 'remove_quick_edit'), 10, 2);
-            add_action('admin_head', array($this, 'custom_admin_css_callback'));
-            add_filter('manage_posts_columns', array($this, 'remove_post_columns_callback'));
-            add_filter('manage_edit-jh-templates_columns', array($this, 'columns'), 15);
-            add_action('manage_jh-templates_posts_custom_column', array($this, 'custom_columns'), 15, 2);
-			add_action('admin_menu', array( $this, 'admin_menu_position' ));
-			add_action('restrict_manage_posts', array( $this, 'wp_rem_filter_email_templates_by_taxonomy' ));
-			add_filter('parse_query', array( $this, 'wp_rem_filter_email_templates_by_taxonomy_query' ));
-		}
+        add_action('save_post', array( $this, 'save_templates_meta' ));
+        if ( is_admin() ) {
+            add_action('add_meta_boxes', array( $this, 'templates_meta_box' ));
+            add_filter('post_row_actions', array( $this, 'remove_quick_edit' ), 10, 2);
+            add_action('admin_head', array( $this, 'custom_admin_css_callback' ));
+            add_filter('manage_posts_columns', array( $this, 'remove_post_columns_callback' ));
+            add_filter('manage_edit-jh-templates_columns', array( $this, 'columns' ), 15);
+            add_action('manage_jh-templates_posts_custom_column', array( $this, 'custom_columns' ), 15, 2);
+            add_action('admin_menu', array( $this, 'admin_menu_position' ));
+            add_action('restrict_manage_posts', array( $this, 'wp_rem_filter_email_templates_by_taxonomy' ));
+            add_filter('parse_query', array( $this, 'wp_rem_filter_email_templates_by_taxonomy_query' ));
+        }
     }
-	
-	/**
-	* Start Function how position admin menu
-	*/
-	public function admin_menu_position() {
-	   global $menu, $submenu;
-	   foreach ( $menu as $key => $menu_item ) {
-		if ( isset($menu_item[2]) && $menu_item[2] == 'edit.php?post_type=jh-templates' ) {
-			$menu[$key][0] = wp_rem_plugin_text_srt('wp_rem_rem_alerts_email');
-		 }
-		if ( isset($submenu['edit.php?post_type=jh-templates'][10]) ) {
-			 unset($submenu['edit.php?post_type=jh-templates'][10]);
-		 }
-	   }
-	}
+
+    /**
+     * Start Function how position admin menu
+     */
+    public function admin_menu_position() {
+        global $menu, $submenu;
+        foreach ( $menu as $key => $menu_item ) {
+            if ( isset($menu_item[2]) && $menu_item[2] == 'edit.php?post_type=jh-templates' ) {
+                $menu[$key][0] = wp_rem_plugin_text_srt('wp_rem_rem_alerts_email');
+            }
+            if ( isset($submenu['edit.php?post_type=jh-templates'][10]) ) {
+                unset($submenu['edit.php?post_type=jh-templates'][10]);
+            }
+        }
+    }
 
     /**
      * Load email template types.
@@ -77,9 +77,9 @@ class Wp_rem_Email_Templates_Post {
     public function remove_post_columns_callback($columns) {
         global $post;
 
-        if (isset($post) && $post->post_type == 'jh-templates') {
-			// Remove the checkbox and date column
-            unset( $columns['cb'] );
+        if ( isset($post) && $post->post_type == 'jh-templates' ) {
+            // Remove the checkbox and date column
+            unset($columns['cb']);
             unset($columns['date']);
         }
         return $columns;
@@ -91,11 +91,11 @@ class Wp_rem_Email_Templates_Post {
     }
 
     public function custom_columns($column, $post_id) {
-        if ($column == 'help') {
+        if ( $column == 'help' ) {
             $description = get_post_meta($post_id, 'description', true);
-            if ($description != '') {
-				echo force_balance_tags($description);
-			} else {
+            if ( $description != '' ) {
+                echo force_balance_tags($description);
+            } else {
                 echo esc_html('&ndash;');
             }
         }
@@ -106,8 +106,8 @@ class Wp_rem_Email_Templates_Post {
      */
     public function custom_admin_css_callback() {
         global $post;
-        if (isset($post) && $post->post_type == 'jh-templates') {
-			wp_enqueue_style('wp_rem_email_templates_css', WP_REM_EMAIL_TEMPLATES_PLUGIN_URL . '/assets/css/wp-rem-email-templates.css');
+        if ( isset($post) && $post->post_type == 'jh-templates' ) {
+            wp_enqueue_style('wp_rem_email_templates_css', WP_REM_EMAIL_TEMPLATES_PLUGIN_URL . '/assets/css/wp-rem-email-templates.css');
         }
     }
 
@@ -116,7 +116,7 @@ class Wp_rem_Email_Templates_Post {
      */
     public function remove_quick_edit($actions) {
         global $post;
-        if ($post->post_type == 'jh-templates') {
+        if ( $post->post_type == 'jh-templates' ) {
             unset($actions['inline hide-if-no-js']);
             unset($actions['trash']);
             unset($actions['duplicate_post']);
@@ -130,17 +130,17 @@ class Wp_rem_Email_Templates_Post {
     public function save_templates_meta($post_id = '') {
         global $post;
 
-        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) {
             return;
         }
-        if (is_admin()) {
+        if ( is_admin() ) {
 
-            foreach ($_POST as $key => $value) {
-                if (strstr($key, 'jh_')) {
+            foreach ( $_POST as $key => $value ) {
+                if ( strstr($key, 'jh_') ) {
                     update_post_meta($post_id, $key, $value);
                 }
             }
-            if (!empty($_POST)) {
+            if ( ! empty($_POST) ) {
                 $value = (isset($_POST['jh_email_notification']) && $_POST['jh_email_notification'] == 1) ? $_POST['jh_email_notification'] : 0;
                 update_post_meta($post_id, 'jh_email_notification', $value);
             }
@@ -175,14 +175,14 @@ class Wp_rem_Email_Templates_Post {
             'publicly_queryable' => false,
             'show_ui' => true,
             'menu_position' => 28,
-			'menu_icon' => 'dashicons-email',
+            'menu_icon' => 'dashicons-email',
             'query_var' => false,
-            'rewrite' => array('slug' => 'jh-templates'),
+            'rewrite' => array( 'slug' => 'jh-templates' ),
             'capability_type' => 'post',
             'create_posts' => false,
             'has_archive' => false,
             'hierarchical' => false,
-            'supports' => array('title', 'editor')
+            'supports' => array( 'title', 'editor' )
         );
 
         // Register custom post type.
@@ -213,7 +213,7 @@ class Wp_rem_Email_Templates_Post {
             'show_ui' => false,
             'show_admin_column' => true,
             //'query_var'         => true,
-            'rewrite' => array('slug' => 'email-template-group'),
+            'rewrite' => array( 'slug' => 'email-template-group' ),
         );
         register_taxonomy('email_template_group', 'jh-templates', $args);
     }
@@ -223,29 +223,26 @@ class Wp_rem_Email_Templates_Post {
      */
 
     public function templates_meta_box() {
-        add_action('edit_form_after_title', array($this, 'render_email_template_type_meta_box'));
-        add_meta_box('jh_email_template_variables', wp_rem_plugin_text_srt('wp_rem_template_post_template_variables'), array($this, 'template_variables'), 'jh-templates', 'side', 'core');
-        add_meta_box('jh_email_template_config', wp_rem_plugin_text_srt('wp_rem_template_post_template_options'), array($this, 'email_template_type_options'), 'jh-templates', 'side', 'core');
-        add_action('admin_menu', array($this, 'remove_post_boxes'));
-        add_action('do_meta_boxes', array($this, 'remove_post_boxes'));
+        add_action('edit_form_after_title', array( $this, 'render_email_template_type_meta_box' ));
+        add_meta_box('jh_email_template_variables', wp_rem_plugin_text_srt('wp_rem_template_post_template_variables'), array( $this, 'template_variables' ), 'jh-templates', 'side', 'core');
+        add_meta_box('jh_email_template_config', wp_rem_plugin_text_srt('wp_rem_template_post_template_options'), array( $this, 'email_template_type_options' ), 'jh-templates', 'side', 'core');
+        add_action('admin_menu', array( $this, 'remove_post_boxes' ));
+        add_action('do_meta_boxes', array( $this, 'remove_post_boxes' ));
     }
 
     public function email_template_type_meta_box() {
-        global $post, $wp_rem_html_fields, $wp_rem_plugin_options;
+        global $post, $wp_rem_html_fields, $wp_rem_form_fields, $wp_rem_plugin_options;
         $jh_from = isset($wp_rem_plugin_options['wp_rem_smtp_sender_email']) ? $wp_rem_plugin_options['wp_rem_smtp_sender_email'] : '';
-        if ($post->post_type == 'jh-templates') {
+        if ( $post->post_type == 'jh-templates' ) {
             $email_template_type = get_post_meta($post->ID, 'jh_email_template_type', true);
-
-            //$jh_from = get_post_meta($post->ID, 'jh_from', true);
             $jh_subject = get_post_meta($post->ID, 'jh_subject', true);
             $jh_recipients = get_post_meta($post->ID, 'jh_recipients', true);
             $is_recipients_enabled = get_post_meta($post->ID, 'is_recipients_enabled', true);
             $ecipients_enabled = '';
-            if ($is_recipients_enabled == false) {
+            if ( $is_recipients_enabled == false ) {
                 $ecipients_enabled = 'disabled';
             }
             ?>
-
             <div class="jh-email-helper-variables">
                 <div class="jh-form-elements">
                     <div style="display:none;">
@@ -253,33 +250,61 @@ class Wp_rem_Email_Templates_Post {
                             <label><?php echo wp_rem_plugin_text_srt('wp_rem_template_post_template_type'); ?></label>
                         </div>
                         <div class="jh-field">
-                            <select name="jh_email_template_type" class="slct_jh_email_template_type">
-                                <?php foreach (self::$email_template_options['types'] as $key => $type): ?>
-                                    <?php if ($type != 'general') : ?>
-                                        <option value="<?php echo $type; ?>" <?php echo ( $email_template_type == $type ? 'selected="selected"' : '' ); ?>><?php echo ucfirst($type); ?></option>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                            </select>
+                            <?php
+                            $template_type_array = array();
+                            foreach ( self::$email_template_options['types'] as $key => $type ):
+                                $template_type_array[$type] = ucfirst($type);
+                            endforeach;
+                            $wp_rem_opt_array = array(
+                                'std' => ($email_template_type),
+                                'cust_name' => 'jh_email_template_type',
+                                'classes' => 'slct_jh_email_template_type',
+                                'return' => false,
+                                'options' => $template_type_array,
+                            );
+                            $wp_rem_form_fields->wp_rem_form_select_render($wp_rem_opt_array);
+                            ?>
                         </div>
                     </div>
                     <h3><?php echo esc_attr($post->post_title); ?></h3>
-
                     <div class="email-template-fields">
                         <div class="jh-field subject">
-                            <input type="text" name="jh_subject" value="<?php echo esc_attr($jh_subject); ?>" placeholder="<?php echo wp_rem_plugin_text_srt('wp_rem_template_post_subject'); ?>">
+                            <?php
+                            $wp_rem_opt_array = array(
+                                'std' => esc_attr($jh_subject),
+                                'cust_name' => 'jh_subject',
+                                'return' => false,
+                                'extra_atr' => ' placeholder="' . wp_rem_plugin_text_srt('wp_rem_template_post_subject') . '" ',
+                            );
+                            $wp_rem_html_fields->wp_rem_form_text_render($wp_rem_opt_array);
+                            ?>
                         </div>
                         <div class="jh-field">
-                            <input title="<?php echo wp_rem_plugin_text_srt('wp_rem_template_post_from_title'); ?>"type="text" name="jh_from" value="<?php echo esc_attr($jh_from); ?>" placeholder="<?php echo wp_rem_plugin_text_srt('wp_rem_template_post_from'); ?>" disabled>
+                            <?php
+                            $wp_rem_opt_array = array(
+                                'std' => esc_attr($jh_from),
+                                'cust_name' => 'jh_from',
+                                'return' => false,
+                                'extra_atr' => ' placeholder="' . wp_rem_plugin_text_srt('wp_rem_template_post_from') . '" disabled title="' . wp_rem_plugin_text_srt('wp_rem_template_post_from_title') . '"',
+                            );
+                            $wp_rem_html_fields->wp_rem_form_text_render($wp_rem_opt_array);
+                            ?>
                         </div>
-
                         <div class="jh-field last">
-                            <input type="text" name="jh_recipients" value="<?php echo esc_attr($jh_recipients); ?>" placeholder="<?php echo wp_rem_plugin_text_srt('wp_rem_template_post_recipient'); ?>" <?php echo $ecipients_enabled; ?>>
+                            <?php
+                            $wp_rem_opt_array = array(
+                                'std' => esc_attr($jh_recipients),
+                                'cust_name' => 'jh_recipients',
+                                'return' => false,
+                                'extra_atr' => ' placeholder="' . wp_rem_plugin_text_srt('wp_rem_template_post_recipient') . '" ' . $ecipients_enabled . ' ',
+                            );
+                            $wp_rem_html_fields->wp_rem_form_text_render($wp_rem_opt_array);
+                            ?>
                         </div>
                     </div>
 
                 </div>
             </div>
-
             <script tyep="text/javascript">
                 var default_templates = <?php echo json_encode(self::$email_template_options["templates"]); ?>;
                 (function ($) {
@@ -339,11 +364,11 @@ class Wp_rem_Email_Templates_Post {
                 <!--<h2><?php echo wp_rem_plugin_text_srt('wp_rem_template_post_template_variables'); ?></h2>-->
             <p><?php echo wp_rem_plugin_text_srt('wp_rem_template_post_click_variable_add'); ?></p>
 
-            <?php foreach (self::$email_template_options['variables'] as $group_name => $tags): ?>
+            <?php foreach ( self::$email_template_options['variables'] as $group_name => $tags ): ?>
                 <div class="<?php echo str_replace(' ', '-', strtolower($group_name)) . '-variables-list'; ?> variables-list">
                     <h4><?php echo ucfirst($group_name); ?></h4>
                     <ul class="jh-var-list">
-                        <?php foreach ($tags as $key => $tag_details): ?>
+                        <?php foreach ( $tags as $key => $tag_details ): ?>
                             <li><a class="add-email-var" data-variable="<?php echo $tag_details['tag']; ?>" title="<?php echo $tag_details['display_text']; ?>"><?php echo '[' . $tag_details['tag'] . ']'; ?></a></li>
                         <?php endforeach; ?>
                     </ul>
@@ -357,22 +382,22 @@ class Wp_rem_Email_Templates_Post {
     }
 
     public function email_template_type_options() {
-        global $post;
+        global $wp_rem_form_fields,$post;
         $jh_email_notification = get_post_meta($post->ID, 'jh_email_notification', true);
         $jh_email_type = get_post_meta($post->ID, 'jh_email_type', true);
         $checked = 'checked';
         $plain_text_checked = $html_checked = '';
         $notification_value = 1;
-        if ($jh_email_notification == 1) {
+        if ( $jh_email_notification == 1 ) {
             $checked = 'checked';
             $notification_value = 1;
-        } else if ($jh_email_notification == 0 && $jh_email_notification != '') {
+        } else if ( $jh_email_notification == 0 && $jh_email_notification != '' ) {
             $checked = 'unchecked';
             $notification_value = 0;
         }
-        if ($jh_email_type == 'plain_text') {
+        if ( $jh_email_type == 'plain_text' ) {
             $plain_text_checked = 'checked';
-        } else if ($jh_email_type == 'html') {
+        } else if ( $jh_email_type == 'html' ) {
             $html_checked = 'checked';
         } else {
             $html_checked = 'checked';
@@ -386,12 +411,47 @@ class Wp_rem_Email_Templates_Post {
                     </div>
                     <div class="jh-label">
                         <label><b><?php echo wp_rem_plugin_text_srt('wp_rem_template_post_anable_disable_notifi'); ?></b></label>&nbsp;&nbsp;&nbsp;
-                        <input type="checkbox" id="jh_email_notification" name="jh_email_notification" value="<?php echo $notification_value; ?>" <?php echo $checked; ?>>
+                        <?php
+                        $wp_rem_opt_array = array(
+                            'std' => esc_attr($notification_value),
+                            'id' => 'jh_email_notification',
+                            'cust_name' => 'jh_email_notification',
+                            'return' => false,
+                            'cust_type' => 'checkbox',
+                            'extra_atr' => ' ' . $checked . '',
+                            'prefix_on'=> false,
+                        );
+                        $wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+                        ?>
                     </div>
                     <div class="jh-label">
                         <label><b><?php echo wp_rem_plugin_text_srt('wp_rem_template_post_email_type'); ?></b></label>&nbsp;&nbsp;&nbsp;
-                        <input type="radio" id="plain_text" name="jh_email_type" value="plain_text" <?php echo $plain_text_checked; ?>> <label for="plain_text"><?php echo wp_rem_plugin_text_srt('wp_rem_template_post_plain_text'); ?></label>  &nbsp;&nbsp;
-                        <input type="radio" id="html" name="jh_email_type" value="html" <?php echo $html_checked; ?>> <label for="html"><?php echo wp_rem_plugin_text_srt('wp_rem_template_post_html'); ?></label>
+                        <?php
+                        $wp_rem_opt_array = array(
+                            'std' => 'plain_text',
+                            'id' => 'plain_text',
+                            'cust_name' => 'jh_email_type',
+                            'return' => false,
+                            'cust_type' => 'radio',
+                            'extra_atr' => ' ' . $plain_text_checked . '',
+                            'prefix_on'=> false,
+                        );
+                        $wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+                        ?>
+                        <label for="plain_text"><?php echo wp_rem_plugin_text_srt('wp_rem_template_post_plain_text'); ?></label>  &nbsp;&nbsp;
+                        <?php
+                        $wp_rem_opt_array = array(
+                            'std' => 'html',
+                            'id' => 'html',
+                            'cust_name' => 'jh_email_type',
+                            'return' => false,
+                            'cust_type' => 'radio',
+                            'extra_atr' => ' ' . $html_checked . '',
+                            'prefix_on'=> false,
+                        );
+                        $wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+                        ?>
+                        <label for="html"><?php echo wp_rem_plugin_text_srt('wp_rem_template_post_html'); ?></label>
                     </div>
                     <div class="clear"></div>
 
@@ -404,36 +464,36 @@ class Wp_rem_Email_Templates_Post {
     public function remove_post_boxes() {
         remove_meta_box('mymetabox_revslider_0', 'jh-templates', 'normal');
     }
-	
-	public function wp_rem_filter_email_templates_by_taxonomy() {
-		global $typenow;
-		$post_type = 'jh-templates'; // change to your post type
-		$taxonomy  = 'email_template_group'; // change to your taxonomy
-		if ($typenow == $post_type) {
-			$selected      = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : '';
-			$info_taxonomy = get_taxonomy($taxonomy);
-			wp_dropdown_categories(array(
-				'show_option_all' => wp_rem_plugin_text_srt('wp_rem_template_all_email_types'),
-				'taxonomy'        => $taxonomy,
-				'name'            => $taxonomy,
-				'orderby'         => 'name',
-				'selected'        => $selected,
-				'show_count'      => false,
-				'hide_empty'      => true,
-			));
-		};
-	}
-	
-	public function wp_rem_filter_email_templates_by_taxonomy_query($query) {
-		global $pagenow;
-		$post_type = 'jh-templates'; // change to your post type
-		$taxonomy  = 'email_template_group'; // change to your taxonomy
-		$q_vars    = &$query->query_vars;
-		if ( $pagenow == 'edit.php' && isset($q_vars['post_type']) && $q_vars['post_type'] == $post_type && isset($q_vars[$taxonomy]) && is_numeric($q_vars[$taxonomy]) && $q_vars[$taxonomy] != 0 ) {
-			$term = get_term_by('id', $q_vars[$taxonomy], $taxonomy);
-			$q_vars[$taxonomy] = $term->slug;
-		}
-	}
+
+    public function wp_rem_filter_email_templates_by_taxonomy() {
+        global $typenow;
+        $post_type = 'jh-templates'; // change to your post type
+        $taxonomy = 'email_template_group'; // change to your taxonomy
+        if ( $typenow == $post_type ) {
+            $selected = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : '';
+            $info_taxonomy = get_taxonomy($taxonomy);
+            wp_dropdown_categories(array(
+                'show_option_all' => wp_rem_plugin_text_srt('wp_rem_template_all_email_types'),
+                'taxonomy' => $taxonomy,
+                'name' => $taxonomy,
+                'orderby' => 'name',
+                'selected' => $selected,
+                'show_count' => false,
+                'hide_empty' => true,
+            ));
+        };
+    }
+
+    public function wp_rem_filter_email_templates_by_taxonomy_query($query) {
+        global $pagenow;
+        $post_type = 'jh-templates'; // change to your post type
+        $taxonomy = 'email_template_group'; // change to your taxonomy
+        $q_vars = &$query->query_vars;
+        if ( $pagenow == 'edit.php' && isset($q_vars['post_type']) && $q_vars['post_type'] == $post_type && isset($q_vars[$taxonomy]) && is_numeric($q_vars[$taxonomy]) && $q_vars[$taxonomy] != 0 ) {
+            $term = get_term_by('id', $q_vars[$taxonomy], $taxonomy);
+            $q_vars[$taxonomy] = $term->slug;
+        }
+    }
 
 }
 

@@ -38,11 +38,41 @@ if ( ! class_exists('Wp_rem_Member_Member') ) {
 
             $website_url = get_post_meta($post->ID, 'wp_rem_website', true);
             $phone_number = get_post_meta($post->ID, 'wp_rem_phone_number', true);
+
+            $company_ID = get_user_meta(get_current_user_id(), 'wp_rem_company', true);
+            $team_args = array(
+                'role' => 'wp_rem_member',
+                'meta_query' => array(
+                    array(
+                        'key' => 'wp_rem_company',
+                        'value' => $company_ID,
+                        'compare' => '='
+                    ),
+                    array(
+                        'relation' => 'OR',
+                        array(
+                            'key' => 'wp_rem_user_status',
+                            'compare' => 'NOT EXISTS',
+                            'value' => 'completely'
+                        ),
+                        array(
+                            'key' => 'wp_rem_user_status',
+                            'value' => 'deleted',
+                            'compare' => '!='
+                        ),
+                    ),
+                ),
+            );
+            $team_members = get_users($team_args);
+            $has_border = ' has-border';
+            if ( isset($team_members) && $team_members != '' && sizeof($team_members) > 0 ) {
+                $has_border = '';
+            }
             ?>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="row">
                     <div class="user-profile">
-                        <div class="element-title has-border">
+                        <div class="element-title<?php echo wp_rem_allow_special_char($has_border); ?>">
                             <h4><?php echo wp_rem_plugin_text_srt('wp_rem_member_team_members') ?></h4>
                             <div class="team-option">
                                 <a href="javascript:void(0);" class="add-more add_team_member"><?php echo wp_rem_plugin_text_srt('wp_rem_member_add_members'); ?></a>
@@ -231,31 +261,6 @@ if ( ! class_exists('Wp_rem_Member_Member') ) {
                                     </div>
                                     <div class="team-list">
                                         <?php
-                                        $company_ID = get_user_meta(get_current_user_id(), 'wp_rem_company', true);
-                                        $team_args = array(
-                                            'role' => 'wp_rem_member',
-                                            'meta_query' => array(
-                                                array(
-                                                    'key' => 'wp_rem_company',
-                                                    'value' => $company_ID,
-                                                    'compare' => '='
-                                                ),
-												array(
-													'relation' => 'OR',
-													array(
-														'key' => 'wp_rem_user_status',
-														'compare' => 'NOT EXISTS',
-														'value' => 'completely'
-													),
-													array(
-														'key' => 'wp_rem_user_status',
-														'value' => 'deleted',
-														'compare' => '!='
-													),
-												), 
-                                            ),
-                                        );
-                                        $team_members = get_users($team_args);
                                         if ( isset($team_members) && $team_members != '' && sizeof($team_members) > 0 ) {
                                             ?>
 

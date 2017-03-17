@@ -4,7 +4,7 @@
  *
  * @package WordPress
  * @subpackage wp_rem_cs
- * @since Auto Mobile 1.0
+ * @since Homevillas 1.0
  */
 if ( ! get_option('wp_rem_cs_var_options') ) {
     $wp_rem_cs_activation_data = theme_default_options();
@@ -31,7 +31,6 @@ if ( ! function_exists('create_property_button') ) {
 
     function create_property_button() {
         global $wp_rem_cs_var_options;
-
         $property_btn_text = isset($wp_rem_cs_var_options['wp_rem_cs_var_add_villa_text']) ? $wp_rem_cs_var_options['wp_rem_cs_var_add_villa_text'] : '';
         $property_btn_link = isset($wp_rem_cs_var_options['wp_rem_cs_var_add_villa_url']) ? $wp_rem_cs_var_options['wp_rem_cs_var_add_villa_url'] : '';
         $property_btn_switch = isset($wp_rem_cs_var_options['wp_rem_cs_var_add_villa_swicth']) ? $wp_rem_cs_var_options['wp_rem_cs_var_add_villa_swicth'] : '';
@@ -191,6 +190,7 @@ if ( ! function_exists('wp_rem_cs_header_view_modern') ) {
     function wp_rem_cs_header_view_modern() {
         global $wp_rem_cs_var_options, $wp_rem_cs_var_form_fields, $wp_rem_plugin_options;
         $wp_rem_cs_custom_logo = isset($wp_rem_cs_var_options['wp_rem_cs_var_custom_logo']) ? $wp_rem_cs_var_options['wp_rem_cs_var_custom_logo'] : '';
+        $wp_rem_cs_var_sticky_logo = isset($wp_rem_cs_var_options['wp_rem_cs_var_sticky_logo']) ? $wp_rem_cs_var_options['wp_rem_cs_var_sticky_logo'] : '';
         $wp_rem_cs_logo_height = isset($wp_rem_cs_var_options['wp_rem_cs_var_logo_height']) ? $wp_rem_cs_var_options['wp_rem_cs_var_logo_height'] : '';
         $wp_rem_cs_logo_width = isset($wp_rem_cs_var_options['wp_rem_cs_var_logo_width']) ? $wp_rem_cs_var_options['wp_rem_cs_var_logo_width'] : '';
         $wp_rem_cs_autosidebar = isset($wp_rem_cs_var_options['wp_rem_cs_var_autosidebar']) ? $wp_rem_cs_var_options['wp_rem_cs_var_autosidebar'] : '';
@@ -198,6 +198,10 @@ if ( ! function_exists('wp_rem_cs_header_view_modern') ) {
         $sticky_header_class = '';
         if ( isset($wp_rem_cs_var_sticky_header) && $wp_rem_cs_var_sticky_header == 'on' ) {
             $sticky_header_class = 'sticky-header';
+        }
+        $sticky_logo_class = '';
+        if ( ( isset($wp_rem_cs_var_sticky_header) && $wp_rem_cs_var_sticky_header == 'on' ) && ( ! empty($wp_rem_cs_var_sticky_logo) ) ) {
+            $sticky_logo_class = ' sticky-logo';
         }
         $style_string = '';
         if ( '' !== $wp_rem_cs_logo_width || '' !== $wp_rem_cs_logo_height ) {
@@ -217,10 +221,13 @@ if ( ! function_exists('wp_rem_cs_header_view_modern') ) {
                     <div class="wide">
                         <div class="row">
                             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                                <div class="logo">
+                                <div class="logo<?php echo esc_html($sticky_logo_class); ?>">
                                     <figure> 
                                         <a href="<?php echo esc_url(home_url('/')) ?>"> <?php if ( $wp_rem_cs_custom_logo != '' ) { ?>
                                                 <img src="<?php echo esc_url($wp_rem_cs_custom_logo) ?>" <?php echo wp_rem_cs_allow_special_char($style_string); ?> alt="<?php esc_html(bloginfo('name')) ?>">
+                                                <?php if ( ! empty($sticky_logo_class) ) { ?>
+                                                    <img src="<?php echo esc_url($wp_rem_cs_var_sticky_logo) ?>" style="display:none;" alt="<?php esc_html(bloginfo('name')) ?>">
+                                                <?php } ?>
                                                 <?php
                                             } else {
                                                 ?>
@@ -271,6 +278,11 @@ if ( ! function_exists('wp_rem_cs_header_view_classic') ) {
         $wp_rem_cs_logo_width = isset($wp_rem_cs_var_options['wp_rem_cs_var_logo_width']) ? $wp_rem_cs_var_options['wp_rem_cs_var_logo_width'] : '';
         $wp_rem_cs_autosidebar = isset($wp_rem_cs_var_options['wp_rem_cs_var_autosidebar']) ? $wp_rem_cs_var_options['wp_rem_cs_var_autosidebar'] : '';
         $wp_rem_cs_var_sticky_header = isset($wp_rem_cs_var_options['wp_rem_cs_var_sticky_header']) ? $wp_rem_cs_var_options['wp_rem_cs_var_sticky_header'] : '';
+        $wp_rem_cs_var_sticky_logo = isset($wp_rem_cs_var_options['wp_rem_cs_var_sticky_logo']) ? $wp_rem_cs_var_options['wp_rem_cs_var_sticky_logo'] : '';
+        $sticky_logo_class = '';
+        if ( ( isset($wp_rem_cs_var_sticky_header) && $wp_rem_cs_var_sticky_header == 'on' ) && ( ! empty($wp_rem_cs_var_sticky_logo) ) ) {
+            $sticky_logo_class = ' sticky-logo';
+        }
         $sticky_header_class = '';
         $home_class = '';
         if ( ! is_front_page() ) {
@@ -318,10 +330,13 @@ if ( ! function_exists('wp_rem_cs_header_view_classic') ) {
                 </div>
                 <div class="nav-area <?php echo esc_html($sticky_header_class); ?>">
                     <div class="container">
-                        <div class="logo">
+                        <div class="logo<?php echo esc_html($sticky_logo_class); ?>">
                             <figure> 
                                 <a href="<?php echo esc_url(home_url('/')) ?>"> <?php if ( $wp_rem_cs_custom_logo != '' ) { ?>
                                         <img src="<?php echo esc_url($wp_rem_cs_custom_logo) ?>" <?php echo wp_rem_cs_allow_special_char($style_string); ?> alt="<?php esc_html(bloginfo('name')) ?>">
+                                        <?php if ( ! empty($sticky_logo_class) ) { ?>
+                                            <img src="<?php echo esc_url($wp_rem_cs_var_sticky_logo) ?>" style="display:none;" alt="<?php esc_html(bloginfo('name')) ?>">
+                                        <?php } ?>
                                         <?php
                                     } else {
                                         ?>
@@ -354,6 +369,11 @@ if ( ! function_exists('wp_rem_cs_header_view_fancy') ) {
         $wp_rem_cs_logo_width = isset($wp_rem_cs_var_options['wp_rem_cs_var_logo_width']) ? $wp_rem_cs_var_options['wp_rem_cs_var_logo_width'] : '';
         $wp_rem_cs_autosidebar = isset($wp_rem_cs_var_options['wp_rem_cs_var_autosidebar']) ? $wp_rem_cs_var_options['wp_rem_cs_var_autosidebar'] : '';
         $wp_rem_cs_var_sticky_header = isset($wp_rem_cs_var_options['wp_rem_cs_var_sticky_header']) ? $wp_rem_cs_var_options['wp_rem_cs_var_sticky_header'] : '';
+        $wp_rem_cs_var_sticky_logo = isset($wp_rem_cs_var_options['wp_rem_cs_var_sticky_logo']) ? $wp_rem_cs_var_options['wp_rem_cs_var_sticky_logo'] : '';
+        $sticky_logo_class = '';
+        if ( ( isset($wp_rem_cs_var_sticky_header) && $wp_rem_cs_var_sticky_header == 'on' ) && ( ! empty($wp_rem_cs_var_sticky_logo) ) ) {
+            $sticky_logo_class = ' sticky-logo';
+        }
         $sticky_header_class = '';
         $home_class = '';
         if ( isset($wp_rem_cs_var_sticky_header) && $wp_rem_cs_var_sticky_header == 'on' ) {
@@ -376,10 +396,13 @@ if ( ! function_exists('wp_rem_cs_header_view_fancy') ) {
                 <div class="top-header">
                     <div class="container">
                         <div class="row">
-                            <div class="logo">
+                            <div class="logo<?php echo esc_html($sticky_logo_class); ?>">
                                 <figure> 
                                     <a href="<?php echo esc_url(home_url('/')) ?>"> <?php if ( $wp_rem_cs_custom_logo != '' ) { ?>
                                             <img src="<?php echo esc_url($wp_rem_cs_custom_logo) ?>" <?php echo wp_rem_cs_allow_special_char($style_string); ?> alt="<?php esc_html(bloginfo('name')) ?>">
+                                            <?php if ( ! empty($sticky_logo_class) ) { ?>
+                                                <img src="<?php echo esc_url($wp_rem_cs_var_sticky_logo) ?>" style="display:none;" alt="<?php esc_html(bloginfo('name')) ?>">
+                                            <?php } ?>
                                             <?php
                                         } else {
                                             ?>
@@ -417,12 +440,103 @@ if ( ! function_exists('wp_rem_cs_header_view_default') ) {
     function wp_rem_cs_header_view_default() {
         global $wp_rem_cs_var_options, $wp_rem_cs_var_form_fields, $wp_rem_plugin_options;
         $wp_rem_cs_custom_logo = isset($wp_rem_cs_var_options['wp_rem_cs_var_custom_logo']) ? $wp_rem_cs_var_options['wp_rem_cs_var_custom_logo'] : '';
+        $wp_rem_cs_var_header_full_width = isset($wp_rem_cs_var_options['wp_rem_cs_var_header_full_width']) ? $wp_rem_cs_var_options['wp_rem_cs_var_header_full_width'] : '';
         $wp_rem_cs_logo_height = isset($wp_rem_cs_var_options['wp_rem_cs_var_logo_height']) ? $wp_rem_cs_var_options['wp_rem_cs_var_logo_height'] : '';
         $wp_rem_cs_logo_width = isset($wp_rem_cs_var_options['wp_rem_cs_var_logo_width']) ? $wp_rem_cs_var_options['wp_rem_cs_var_logo_width'] : '';
         $wp_rem_cs_autosidebar = isset($wp_rem_cs_var_options['wp_rem_cs_var_autosidebar']) ? $wp_rem_cs_var_options['wp_rem_cs_var_autosidebar'] : '';
         $wp_rem_cs_var_sticky_header = isset($wp_rem_cs_var_options['wp_rem_cs_var_sticky_header']) ? $wp_rem_cs_var_options['wp_rem_cs_var_sticky_header'] : '';
-        $sticky_header_class = '';
+        $wp_rem_cs_var_sticky_logo = isset($wp_rem_cs_var_options['wp_rem_cs_var_sticky_logo']) ? $wp_rem_cs_var_options['wp_rem_cs_var_sticky_logo'] : '';
+
+
+
+
+        $sticky_logo_class = '';
+        if ( ( isset($wp_rem_cs_var_sticky_header) && $wp_rem_cs_var_sticky_header == 'on' ) && ( ! empty($wp_rem_cs_var_sticky_logo) ) ) {
+            $sticky_logo_class = ' sticky-logo';
+        }
         $home_class = '';
+        if ( ! is_front_page() ) {
+            $home_class = ' no-transparent ';
+        }
+
+        $sticky_header_class = '';
+        if ( isset($wp_rem_cs_var_sticky_header) && $wp_rem_cs_var_sticky_header == 'on' ) {
+            $sticky_header_class = ' sticky-header';
+        }
+        $style_string = '';
+        if ( '' !== $wp_rem_cs_logo_width || '' !== $wp_rem_cs_logo_height ) {
+            $style_string = 'style="';
+            if ( '' !== $wp_rem_cs_logo_width ) {
+                $style_string .= 'width:' . absint($wp_rem_cs_logo_width) . 'px;';
+            }
+            if ( '' !== $wp_rem_cs_logo_height ) {
+                $style_string .= 'height:' . absint($wp_rem_cs_logo_height) . 'px;';
+            }
+            $style_string .= '"';
+        }
+        $container_class = 'container-fluid';
+        if ( isset($wp_rem_cs_var_header_full_width) && $wp_rem_cs_var_header_full_width == 'off' ) {
+            $container_class = 'container';
+        }
+        ?>
+        <header id="header" class="default default-v2<?php echo esc_html($home_class); ?>">
+            <div class="main-header <?php echo esc_html($sticky_header_class); ?>">
+                <div class="<?php echo wp_rem_cs_allow_special_char($container_class); ?>">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
+                            <div class="logo<?php echo esc_html($sticky_logo_class); ?>">
+                                <figure> 
+                                    <a href="<?php echo esc_url(home_url('/')) ?>"> <?php if ( $wp_rem_cs_custom_logo != '' ) { ?>
+                                            <img src="<?php echo esc_url($wp_rem_cs_custom_logo) ?>" <?php echo wp_rem_cs_allow_special_char($style_string); ?> alt="<?php esc_html(bloginfo('name')) ?>">
+                                            <?php if ( ! empty($sticky_logo_class) ) { ?>
+                                                <img src="<?php echo esc_url($wp_rem_cs_var_sticky_logo) ?>" style="display:none;" alt="<?php esc_html(bloginfo('name')) ?>">
+                                            <?php } ?>
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo-classic.png') ?>" <?php echo wp_rem_cs_allow_special_char($style_string); ?> alt="<?php esc_html(bloginfo('name')) ?>">
+                                        <?php }
+                                        ?>
+                                    </a> 
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-6 col-xs-12">
+                            <div class="main-nav">
+                                <?php wp_rem_cs_header_main_menu(); ?> 
+                            </div>
+                            <?php if ( (isset($wp_rem_plugin_options['wp_rem_create_listing_button']) && $wp_rem_plugin_options['wp_rem_create_listing_button'] != 'off' ) || (isset($wp_rem_plugin_options['wp_rem_user_dashboard_switchs']) && $wp_rem_plugin_options['wp_rem_user_dashboard_switchs'] != 'off') ) { ?>
+                                <div class="contact-holder">
+                                    <?php if ( $wp_rem_plugin_options['wp_rem_user_dashboard_switchs'] != 'off' && $wp_rem_plugin_options['wp_rem_user_dashboard_switchs'] != '' ) { ?>
+                                        <div class="login-option"><?php do_action('wp_rem_login'); ?></div>
+                                    <?php } ?>
+                                    <?php do_action('wp_rem_create_property_button'); ?>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <?php
+    }
+
+}
+if ( ! function_exists('wp_rem_cs_header_view_advance') ) {
+
+    function wp_rem_cs_header_view_advance() {
+        global $wp_rem_cs_var_options, $wp_rem_cs_var_form_fields, $wp_rem_plugin_options;
+        $wp_rem_cs_custom_logo = isset($wp_rem_cs_var_options['wp_rem_cs_var_custom_logo']) ? $wp_rem_cs_var_options['wp_rem_cs_var_custom_logo'] : '';
+        $wp_rem_cs_logo_height = isset($wp_rem_cs_var_options['wp_rem_cs_var_logo_height']) ? $wp_rem_cs_var_options['wp_rem_cs_var_logo_height'] : '';
+        $wp_rem_cs_logo_width = isset($wp_rem_cs_var_options['wp_rem_cs_var_logo_width']) ? $wp_rem_cs_var_options['wp_rem_cs_var_logo_width'] : '';
+        $wp_rem_cs_autosidebar = isset($wp_rem_cs_var_options['wp_rem_cs_var_autosidebar']) ? $wp_rem_cs_var_options['wp_rem_cs_var_autosidebar'] : '';
+        $wp_rem_cs_var_sticky_header = isset($wp_rem_cs_var_options['wp_rem_cs_var_sticky_header']) ? $wp_rem_cs_var_options['wp_rem_cs_var_sticky_header'] : '';
+        $wp_rem_cs_var_sticky_logo = isset($wp_rem_cs_var_options['wp_rem_cs_var_sticky_logo']) ? $wp_rem_cs_var_options['wp_rem_cs_var_sticky_logo'] : '';
+        $sticky_logo_class = '';
+        if ( ( isset($wp_rem_cs_var_sticky_header) && $wp_rem_cs_var_sticky_header == 'on' ) && ( ! empty($wp_rem_cs_var_sticky_logo) ) ) {
+            $sticky_logo_class = ' sticky-logo';
+        }
+        $sticky_header_class = '';
         if ( isset($wp_rem_cs_var_sticky_header) && $wp_rem_cs_var_sticky_header == 'on' ) {
             $sticky_header_class = ' sticky-header';
         }
@@ -438,38 +552,222 @@ if ( ! function_exists('wp_rem_cs_header_view_default') ) {
             $style_string .= '"';
         }
         ?>
-        <header id="header" class="default default-v2">
-            <div class="main-header <?php echo esc_html($sticky_header_class); ?>">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
-                            <div class="logo">
-                                <figure> 
-                                    <a href="<?php echo esc_url(home_url('/')) ?>"> <?php if ( $wp_rem_cs_custom_logo != '' ) { ?>
-                                            <img src="<?php echo esc_url($wp_rem_cs_custom_logo) ?>" <?php echo wp_rem_cs_allow_special_char($style_string); ?> alt="<?php esc_html(bloginfo('name')) ?>">
-                                            <?php
-                                        } else {
+        <header id="header" class="advance">
+            <div class="main-header<?php echo esc_html($sticky_header_class); ?>">
+                <div class="top-header">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                                <div class="logo<?php echo esc_html($sticky_logo_class); ?>">
+                                    <figure> 
+                                        <a href="<?php echo esc_url(home_url('/')) ?>"> <?php if ( $wp_rem_cs_custom_logo != '' ) { ?>
+                                                <img src="<?php echo esc_url($wp_rem_cs_custom_logo) ?>" <?php echo wp_rem_cs_allow_special_char($style_string); ?> alt="<?php esc_html(bloginfo('name')) ?>">
+                                                <?php if ( ! empty($sticky_logo_class) ) { ?>
+                                                    <img src="<?php echo esc_url($wp_rem_cs_var_sticky_logo) ?>" style="display:none;" alt="<?php esc_html(bloginfo('name')) ?>">
+                                                <?php } ?>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo-classic.png') ?>" <?php echo wp_rem_cs_allow_special_char($style_string); ?> alt="<?php esc_html(bloginfo('name')) ?>">
+                                            <?php }
                                             ?>
-                                            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo-classic.png') ?>" <?php echo wp_rem_cs_allow_special_char($style_string); ?> alt="<?php esc_html(bloginfo('name')) ?>">
-                                        <?php }
-                                        ?>
-                                    </a> 
-                                </figure>
+                                        </a> 
+                                    </figure>
+                                </div>
+                                <div class="main-nav">
+                                    <?php wp_rem_cs_header_main_menu(); ?>  
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                <div class="user-option">
+                                    <div class="login-area">
+                                        <div class="login-option"> 
+                                            <?php
+                                            if ( $wp_rem_plugin_options['wp_rem_user_dashboard_switchs'] != 'off' && $wp_rem_plugin_options['wp_rem_user_dashboard_switchs'] != '' ) {
+                                                do_action('wp_rem_login');
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <?php do_action('wp_rem_create_property_button'); ?>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-10 col-md-10 col-sm-6 col-xs-12">
-                            <div class="main-nav">
-                                <?php wp_rem_cs_header_main_menu(); ?> 
-                            </div>
-                            <div class="contact-holder">
-                                <div class="login-option">
-                                    <?php
-                                    if ( $wp_rem_plugin_options['wp_rem_user_dashboard_switchs'] != 'off' && $wp_rem_plugin_options['wp_rem_user_dashboard_switchs'] != '' ) {
-                                        do_action('wp_rem_login');
-                                    }
-                                    ?>
+                    </div>
+                </div>
+        </header>
+        <?php
+    }
+
+}
+
+if ( ! function_exists('wp_rem_cs_header_view_advance_v2') ) {
+
+    function wp_rem_cs_header_view_advance_v2() {
+        global $wp_rem_cs_var_options, $wp_rem_cs_var_form_fields, $wp_rem_plugin_options;
+        $wp_rem_cs_custom_logo = isset($wp_rem_cs_var_options['wp_rem_cs_var_custom_logo']) ? $wp_rem_cs_var_options['wp_rem_cs_var_custom_logo'] : '';
+        $wp_rem_cs_logo_height = isset($wp_rem_cs_var_options['wp_rem_cs_var_logo_height']) ? $wp_rem_cs_var_options['wp_rem_cs_var_logo_height'] : '';
+        $wp_rem_cs_logo_width = isset($wp_rem_cs_var_options['wp_rem_cs_var_logo_width']) ? $wp_rem_cs_var_options['wp_rem_cs_var_logo_width'] : '';
+        $wp_rem_cs_autosidebar = isset($wp_rem_cs_var_options['wp_rem_cs_var_autosidebar']) ? $wp_rem_cs_var_options['wp_rem_cs_var_autosidebar'] : '';
+        $wp_rem_cs_var_sticky_header = isset($wp_rem_cs_var_options['wp_rem_cs_var_sticky_header']) ? $wp_rem_cs_var_options['wp_rem_cs_var_sticky_header'] : '';
+        $wp_rem_cs_var_sticky_logo = isset($wp_rem_cs_var_options['wp_rem_cs_var_sticky_logo']) ? $wp_rem_cs_var_options['wp_rem_cs_var_sticky_logo'] : '';
+
+
+        $wp_rem_cs_var_header_full_width = isset($wp_rem_cs_var_options['wp_rem_cs_var_header_full_width']) ? $wp_rem_cs_var_options['wp_rem_cs_var_header_full_width'] : '';
+        $container_class = 'container-fluid';
+        if ( isset($wp_rem_cs_var_header_full_width) && $wp_rem_cs_var_header_full_width == 'off' ) {
+            $container_class = 'container';
+        }
+
+
+        $sticky_logo_class = '';
+        if ( ( isset($wp_rem_cs_var_sticky_header) && $wp_rem_cs_var_sticky_header == 'on' ) && ( ! empty($wp_rem_cs_var_sticky_logo) ) ) {
+            $sticky_logo_class = ' sticky-logo';
+        }
+        $sticky_header_class = '';
+        if ( isset($wp_rem_cs_var_sticky_header) && $wp_rem_cs_var_sticky_header == 'on' ) {
+            $sticky_header_class = ' sticky-header';
+        }
+        $style_string = '';
+        if ( '' !== $wp_rem_cs_logo_width || '' !== $wp_rem_cs_logo_height ) {
+            $style_string = 'style="';
+            if ( '' !== $wp_rem_cs_logo_width ) {
+                $style_string .= 'width:' . absint($wp_rem_cs_logo_width) . 'px;';
+            }
+            if ( '' !== $wp_rem_cs_logo_height ) {
+                $style_string .= 'height:' . absint($wp_rem_cs_logo_height) . 'px;';
+            }
+            $style_string .= '"';
+        }
+        ?>
+        <header id="header" class="advance v2">
+            <div class="main-header<?php echo esc_html($sticky_header_class); ?>">
+                <div class="top-header">
+                    <div class="<?php echo wp_rem_cs_allow_special_char($container_class); ?>">
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                                <div class="logo<?php echo esc_html($sticky_logo_class); ?>">
+                                    <figure> 
+                                        <a href="<?php echo esc_url(home_url('/')) ?>"> <?php if ( $wp_rem_cs_custom_logo != '' ) { ?>
+                                                <img src="<?php echo esc_url($wp_rem_cs_custom_logo) ?>" <?php echo wp_rem_cs_allow_special_char($style_string); ?> alt="<?php esc_html(bloginfo('name')) ?>">
+                                                <?php if ( ! empty($sticky_logo_class) ) { ?>
+                                                    <img src="<?php echo esc_url($wp_rem_cs_var_sticky_logo) ?>" style="display:none;" alt="<?php esc_html(bloginfo('name')) ?>">
+                                                <?php } ?>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo-classic.png') ?>" <?php echo wp_rem_cs_allow_special_char($style_string); ?> alt="<?php esc_html(bloginfo('name')) ?>">
+                                            <?php }
+                                            ?>
+                                        </a> 
+                                    </figure>
                                 </div>
-                                <?php do_action('wp_rem_create_property_button'); ?>
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-sm-6 col-xs-12">
+                                <div class="main-nav">
+                                    <?php wp_rem_cs_header_main_menu(); ?>  
+                                </div>
+                                <div class="user-option">
+                                    <?php do_action('wp_rem_before_contact_in_header'); ?>
+                                    <div class="login-area">
+                                        <div class="login-option"> 
+                                            <?php
+                                            if ( $wp_rem_plugin_options['wp_rem_user_dashboard_switchs'] != 'off' && $wp_rem_plugin_options['wp_rem_user_dashboard_switchs'] != '' ) {
+                                                do_action('wp_rem_login', 'advance_v2');
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <?php do_action('wp_rem_create_property_button', 'false'); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </header>
+        <?php
+    }
+
+}
+
+
+
+if ( ! function_exists('wp_rem_cs_header_view_modern_v2') ) {
+
+    function wp_rem_cs_header_view_modern_v2() {
+        global $wp_rem_cs_var_options, $wp_rem_cs_var_form_fields, $wp_rem_plugin_options;
+        $wp_rem_cs_custom_logo = isset($wp_rem_cs_var_options['wp_rem_cs_var_custom_logo']) ? $wp_rem_cs_var_options['wp_rem_cs_var_custom_logo'] : '';
+        $wp_rem_cs_logo_height = isset($wp_rem_cs_var_options['wp_rem_cs_var_logo_height']) ? $wp_rem_cs_var_options['wp_rem_cs_var_logo_height'] : '';
+        $wp_rem_cs_logo_width = isset($wp_rem_cs_var_options['wp_rem_cs_var_logo_width']) ? $wp_rem_cs_var_options['wp_rem_cs_var_logo_width'] : '';
+        $wp_rem_cs_autosidebar = isset($wp_rem_cs_var_options['wp_rem_cs_var_autosidebar']) ? $wp_rem_cs_var_options['wp_rem_cs_var_autosidebar'] : '';
+        $wp_rem_cs_var_sticky_header = isset($wp_rem_cs_var_options['wp_rem_cs_var_sticky_header']) ? $wp_rem_cs_var_options['wp_rem_cs_var_sticky_header'] : '';
+        $wp_rem_cs_var_sticky_logo = isset($wp_rem_cs_var_options['wp_rem_cs_var_sticky_logo']) ? $wp_rem_cs_var_options['wp_rem_cs_var_sticky_logo'] : '';
+        $sticky_logo_class = '';
+        if ( ( isset($wp_rem_cs_var_sticky_header) && $wp_rem_cs_var_sticky_header == 'on' ) && ( ! empty($wp_rem_cs_var_sticky_logo) ) ) {
+            $sticky_logo_class = ' sticky-logo';
+        }
+        $sticky_header_class = '';
+        $home_class = '';
+        if ( ! is_front_page() ) {
+            $home_class = ' no-transparent ';
+        }
+        if ( isset($wp_rem_cs_var_sticky_header) && $wp_rem_cs_var_sticky_header == 'on' ) {
+            $sticky_header_class = ' sticky-header';
+        }
+        $style_string = '';
+        if ( '' !== $wp_rem_cs_logo_width || '' !== $wp_rem_cs_logo_height ) {
+            $style_string = 'style="';
+            if ( '' !== $wp_rem_cs_logo_width ) {
+                $style_string .= 'width:' . absint($wp_rem_cs_logo_width) . 'px;';
+            }
+            if ( '' !== $wp_rem_cs_logo_height ) {
+                $style_string .= 'height:' . absint($wp_rem_cs_logo_height) . 'px;';
+            }
+            $style_string .= '"';
+        }
+        ?>
+        <header id="header" class="modern transparent<?php
+        echo wp_rem_cs_allow_special_char($sticky_header_class);
+        echo wp_rem_cs_allow_special_char($home_class);
+        ?>">
+            <div class="main-header">
+                <div class="top-header">
+                    <div class="wide">
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                                <div class="logo<?php echo esc_html($sticky_logo_class); ?>">
+                                    <figure> 
+                                        <a href="<?php echo esc_url(home_url('/')) ?>"> <?php if ( $wp_rem_cs_custom_logo != '' ) { ?>
+                                                <img src="<?php echo esc_url($wp_rem_cs_custom_logo) ?>" <?php echo wp_rem_cs_allow_special_char($style_string); ?> alt="<?php esc_html(bloginfo('name')) ?>">
+                                                <?php if ( ! empty($sticky_logo_class) ) { ?>
+                                                    <img src="<?php echo esc_url($wp_rem_cs_var_sticky_logo) ?>" style="display:none;" alt="<?php esc_html(bloginfo('name')) ?>">
+                                                <?php } ?>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo-classic.png') ?>" <?php echo wp_rem_cs_allow_special_char($style_string); ?> alt="<?php esc_html(bloginfo('name')) ?>">
+                                            <?php }
+                                            ?>
+                                        </a> 
+                                    </figure>
+                                </div>
+                                <div class="main-nav">
+                                    <?php wp_rem_cs_header_main_menu(); ?>   
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                <div class="user-option">
+                                    <div class="login-area">
+                                        <div class="login-option"> 
+                                            <?php
+                                            if ( $wp_rem_plugin_options['wp_rem_user_dashboard_switchs'] != 'off' && $wp_rem_plugin_options['wp_rem_user_dashboard_switchs'] != '' ) {
+                                                do_action('wp_rem_login');
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <?php do_action('wp_rem_create_property_button'); ?>
+                                </div>
                             </div>
                         </div>
                     </div>

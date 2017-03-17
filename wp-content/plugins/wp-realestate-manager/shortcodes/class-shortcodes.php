@@ -125,12 +125,6 @@ if (!class_exists('wp_rem_shortcode_functions')) {
             <div class="cs-page-composer-shortcode"></div>
             </div>
             <?php
-            if (isset($shortcode) && $shortcode <> '' && $wp_rem_insert_btn && get_post_type() != 'properties') {
-                ?>
-                <a class="button" href="javascript:_createpop('composer-<?php echo esc_js($rand) ?>', 'filter')">
-                    <i class="icon-plus-circle"></i> <?php echo wp_rem_plugin_text_srt('wp_rem_shortcodes_insert_shortcode'); ?></a>
-                <?php
-            }
         }
 
         public function wp_rem_page_composer_elements($element, $icon) {

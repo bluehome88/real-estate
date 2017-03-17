@@ -64,25 +64,25 @@ if ( ! class_exists('wp_rem_navbar_element') ) {
 			?>
 			<ul>
 				<?php if ( $property_content != '' ) { ?>
-					<li><a href="#property-detail"><i class="icon-home"></i><?php echo wp_rem_plugin_text_srt('wp_rem_subnav_item_1'); ?></a></li>
+					<li><a href="#property-detail"><?php echo wp_rem_plugin_text_srt('wp_rem_property_property_key_detail'); ?></a></li>
 				<?php } ?>
 				<?php if ( ( ! empty($features_list) || $type_features_not_selected == 'on') && $wp_rem_enable_features_element != 'off' ) { ?>
-					<li><a href="#features"><i class="icon-star"></i><?php echo wp_rem_plugin_text_srt('wp_rem_subnav_item_2'); ?></a></li>
+					<li><a href="#features"><?php echo wp_rem_plugin_text_srt('wp_rem_property_property_amenities'); ?></a></li>
 				<?php } ?>
 				<?php if ( (isset($wp_rem_property_video) && $wp_rem_property_video != '') && $wp_rem_enable_video_element != 'off' ) { ?>
-					<li><a href="#video"><i class="icon-video_library"></i><?php echo wp_rem_plugin_text_srt('wp_rem_subnav_item_3'); ?></a></li>
+					<li><a href="#video"><?php echo wp_rem_plugin_text_srt('wp_rem_subnav_item_3'); ?></a></li>
 				<?php } ?>
 				<?php if ( is_array($terms) && $access_token != '' && $lat != '' && $long != '' && $wp_rem_enable_yelp_places_element != 'off' ) { ?>
-					<li><a href="#best-of-yelp-module"><i class="icon-yelp2"></i><?php echo wp_rem_plugin_text_srt('wp_rem_subnav_item_4'); ?></a></li>
+					<li><a href="#best-of-yelp-module"><?php echo wp_rem_plugin_text_srt('wp_rem_subnav_item_4'); ?></a></li>
 				<?php } ?>
 				<?php if ( (is_array($wp_rem_apartments) && $wp_rem_apartments != '') && $wp_rem_enable_appartment_for_sale_element != 'off' ) { ?>
-					<li><a href="#apartments"><i class="icon-grid_on"></i><?php echo wp_rem_plugin_text_srt('wp_rem_subnav_item_5'); ?></a></li>
+					<li><a href="#apartments"><?php echo wp_rem_plugin_text_srt('wp_rem_subnav_item_5'); ?></a></li>
 				<?php } ?>
 				<?php if ( (isset($wp_rem_attachments) && ! empty($wp_rem_attachments) && $wp_rem_attachments_options == 'on') && $wp_rem_enable_file_attachments_element != 'off' ) { ?>
-					<li><a href="#attachments"><i class="icon-file-pdf"></i><?php echo wp_rem_plugin_text_srt('wp_rem_subnav_item_6'); ?></a></li>
+					<li><a href="#attachments"><?php echo wp_rem_plugin_text_srt('wp_rem_subnav_item_6'); ?></a></li>
 				<?php } ?>
 				<?php if ( count($floor_plans) > 0 && $wp_rem_enable_floot_plan_element != 'off' ) { ?>
-					<li><a href="#floor-plans"><i class="icon-area-graph"></i><?php echo wp_rem_plugin_text_srt('wp_rem_subnav_item_7'); ?></a></li>
+					<li><a href="#floor-plans"><?php echo wp_rem_plugin_text_srt('wp_rem_subnav_item_7'); ?></a></li>
 						<?php } ?>
 			</ul>
 			<?php

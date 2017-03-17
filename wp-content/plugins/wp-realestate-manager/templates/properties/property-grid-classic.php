@@ -98,6 +98,8 @@ if ( $property_loop_obj->have_posts() ) {
                 while ( $property_top_categries_loop_obj->have_posts() ) : $property_top_categries_loop_obj->the_post();
                     global $post, $wp_rem_member_profile, $wp_rem_shortcode_properties_frontend;
                     $property_id = $post;
+                    $pro_is_compare = apply_filters('wp_rem_is_compare', $property_id, $compare_property_switch);
+
                     $Wp_rem_Locations = new Wp_rem_Locations();
                     $get_property_location = $Wp_rem_Locations->get_element_property_location($property_id, $property_location_options);
                     $wp_rem_property_username = get_post_meta($property_id, 'wp_rem_property_username', true);
@@ -115,7 +117,7 @@ if ( $property_loop_obj->have_posts() ) {
                     if ( $count_all > $gallery_pics_allowed ) {
                         $count_all = $gallery_pics_allowed;
                     }
-                    
+
 
                     // checking review in on in property type
                     $wp_rem_property_type = isset($wp_rem_property_type) ? $wp_rem_property_type : '';
@@ -132,7 +134,7 @@ if ( $property_loop_obj->have_posts() ) {
                     if ( $wp_rem_property_price_options == 'price' ) {
                         $wp_rem_property_price = get_post_meta($property_id, 'wp_rem_property_price', true);
                     } else if ( $wp_rem_property_price_options == 'on-call' ) {
-                        $wp_rem_property_price = 'Price On Request';
+                        $wp_rem_property_price = wp_rem_plugin_text_srt('wp_rem_properties_price_on_request');
                     }
                     // get all categories
                     $wp_rem_cate = '';
@@ -156,7 +158,7 @@ if ( $property_loop_obj->have_posts() ) {
                     }
                     ?>
                     <div class="<?php echo esc_html($columns_class); ?>">
-                        <div class="<?php echo esc_html($main_class); ?>">
+                        <div class="<?php echo esc_html($main_class); ?> <?php echo esc_html($pro_is_compare); ?>">
                             <div class="img-holder">
                                 <figure>
                                     <a href="<?php the_permalink(); ?>">
@@ -185,23 +187,32 @@ if ( $property_loop_obj->have_posts() ) {
                                         <?php } ?>
                                         <?php echo fetch_property_open_house_grid_view_callback($property_id); ?>
                                         <div class="caption-inner">
-                                            <?php if ( $wp_rem_cate_str != '' ) { ?>
-                                                <span class="rent-label"><?php echo wp_rem_allow_special_char($wp_rem_cate_str); ?></span>
-                                            <?php } ?>
-                                            <?php if ( $count_all > 0 ) {
+                                            <?php
+                                            $property_video_url = get_post_meta($property_id, 'wp_rem_property_video', true);
+                                            $property_video_url = isset($property_video_url) ? $property_video_url : '';
+                                            if ( $property_video_url != '' ) {
+                                                $property_video_url = str_replace("player.vimeo.com/video", "vimeo.com", $property_video_url)
                                                 ?>
-                                                <span class="capture-count"><i class="icon-camera6"></i><?php echo $count_all; ?></span>
+                                                <a class="property-video-btn" rel="prettyPhoto" href="<?php echo esc_url($property_video_url); ?>"><i class="icon-film2"></i><div class="info-content"><span><?php echo wp_rem_plugin_text_srt('wp_rem_subnav_item_3'); ?></span></div></a>
+                                                    <?php
+                                            }
+                                            if ( $count_all > 0 ) {
+                                                ?>
+                                                <ul id="galley-img<?php echo absint($property_id) ?>" class="galley-img">
+                                                <li><a  href="javascript:void(0)" class="rem-pretty-photos" data-id="<?php echo absint($property_id) ?>" ><span class="capture-count"><i class="icon-camera6"></i><?php echo absint($count_all); ?></span><div class="info-content"><span><?php echo wp_rem_plugin_text_srt('wp_rem_element_tooltip_icon_camera'); ?></span></div></a> </li>   
+                                            </ul>
                                             <?php } ?>
+                                            <?php do_action('wp_rem_compare_btn', $property_id, $compare_property_switch); ?>    
                                         </div>
                                     </figcaption>
                                 </figure>
                             </div>
                             <div class="text-holder">
                                 <?php if ( ! empty($get_property_location) ) { ?>
-                                <ul class="location-list">
-                                    <li><i class="icon-map-marker"></i><span><?php echo esc_html(implode(' / ', $get_property_location)); ?></span></li>
-                                </ul>
-                            <?php } ?>
+                                    <ul class="location-list">
+                                        <li><i class="icon-map-marker"></i><span><?php echo esc_html(implode(' / ', $get_property_location)); ?></span></li>
+                                    </ul>
+                                <?php } ?>
                                 <?php
                                 $favourite_label = '';
                                 $favourite_label = '';
@@ -215,9 +226,8 @@ if ( $property_loop_obj->have_posts() ) {
                                 do_action('wp_rem_favourites_frontend_button', $property_id, $book_mark_args, $figcaption_div);
                                 ?>
                                 <div class="post-title">
-                                    <h5><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(get_the_title($property_id)); ?></a></h5>
+                                    <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(get_the_title($property_id)); ?></a></h4>
                                 </div>
-								<?php do_action('wp_rem_compare_btn', $property_id, $compare_property_switch);   ?>
                                 <span class ="property-price">
 
                                     <?php
@@ -248,6 +258,7 @@ if ( $property_loop_obj->have_posts() ) {
             while ( $property_loop_obj->have_posts() ) : $property_loop_obj->the_post();
                 global $post, $wp_rem_member_profile;
                 $property_id = $post;
+                $pro_is_compare = apply_filters('wp_rem_is_compare', $property_id, $compare_property_switch);
 
                 $Wp_rem_Locations = new Wp_rem_Locations();
                 $get_property_location = $Wp_rem_Locations->get_element_property_location($property_id, $property_location_options);
@@ -282,7 +293,7 @@ if ( $property_loop_obj->have_posts() ) {
                 if ( $wp_rem_property_price_options == 'price' ) {
                     $wp_rem_property_price = get_post_meta($property_id, 'wp_rem_property_price', true);
                 } else if ( $wp_rem_property_price_options == 'on-call' ) {
-                    $wp_rem_property_price = 'Price On Request';
+                    $wp_rem_property_price = wp_rem_plugin_text_srt('wp_rem_properties_price_on_request');
                 }
                 // get all categories
                 $wp_rem_cate = '';
@@ -306,7 +317,7 @@ if ( $property_loop_obj->have_posts() ) {
                 }
                 ?>
                 <div class="<?php echo esc_html($columns_class); ?>">
-                    <div class="<?php echo esc_html($main_class); ?>">
+                    <div class="<?php echo esc_html($main_class); ?> <?php echo esc_html($pro_is_compare); ?>">
                         <div class="img-holder">
                             <figure>
                                 <a href="<?php the_permalink(); ?>">
@@ -338,14 +349,23 @@ if ( $property_loop_obj->have_posts() ) {
                                     <?php } ?>
                                     <?php echo fetch_property_open_house_grid_view_callback($property_id); ?>
                                     <div class="caption-inner">
-                                        <?php if ( $wp_rem_cate_str != '' ) { ?>
-                                            <span class="rent-label"><?php echo wp_rem_allow_special_char($wp_rem_cate_str); ?></span>
-                                        <?php } ?>
-                                        <?php if ( $count_all > 0 ) {
+                                        <?php
+                                        $property_video_url = get_post_meta($property_id, 'wp_rem_property_video', true);
+                                        $property_video_url = isset($property_video_url) ? $property_video_url : '';
+                                        if ( $property_video_url != '' ) {
+                                            $property_video_url = str_replace("player.vimeo.com/video", "vimeo.com", $property_video_url)
                                             ?>
+                                            <a class="property-video-btn" rel="prettyPhoto" href="<?php echo esc_url($property_video_url); ?>"><i class="icon-film2"></i><div class="info-content"><span><?php echo wp_rem_plugin_text_srt('wp_rem_subnav_item_3'); ?></span></div></a>
+                                                <?php
+                                        }
 
-                                            <span class="capture-count"><i class="icon-camera6"></i><?php echo $count_all; ?></span>
+                                        if ( $count_all > 0 ) {
+                                            ?>
+                                            <ul id="galley-img<?php echo absint($property_id) ?>" class="galley-img">
+                                                <li><a  href="javascript:void(0)" class="rem-pretty-photos" data-id="<?php echo absint($property_id) ?>" ><span class="capture-count"><i class="icon-camera6"></i><?php echo absint($count_all); ?></span><div class="info-content"><span><?php echo wp_rem_plugin_text_srt('wp_rem_element_tooltip_icon_camera'); ?></span></div></a> </li>   
+                                            </ul>
                                         <?php } ?>
+                                        <?php do_action('wp_rem_compare_btn', $property_id, $compare_property_switch); ?>    
                                     </div>
                                 </figcaption>
                             </figure>
@@ -376,9 +396,9 @@ if ( $property_loop_obj->have_posts() ) {
                             do_action('wp_rem_favourites_frontend_button', $property_id, $book_mark_args, $figcaption_div);
                             ?>
                             <div class = "post-title">
-                                <h5><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(get_the_title($property_id)); ?></a></h5>
+                                <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(get_the_title($property_id)); ?></a></h4>
                             </div>
-							<?php if ( ! empty($get_property_location) ) { ?>
+                            <?php if ( ! empty($get_property_location) ) { ?>
                                 <ul class="location-list">
                                     <li><i class="icon-map-marker"></i><span><?php echo esc_html(implode(' / ', $get_property_location)); ?></span></li>
                                 </ul>
@@ -390,10 +410,11 @@ if ( $property_loop_obj->have_posts() ) {
                                 ?>
                                 <ul class="post-category-list">
                                     <?php echo wp_rem_allow_special_char($cus_fields['content']); ?>
-                                    <li><i class="icon-eye3"></i><?php echo get_post_meta( $property_id, 'wp_rem_property_views_count', true ); ?></li>
+                                    <li><i class="icon-eye3"></i><?php echo get_post_meta($property_id, 'wp_rem_property_views_count', true); ?></li>
                                 </ul>
                             <?php } ?>
-							<?php do_action('wp_rem_compare_btn', $property_id, $compare_property_switch);   ?>
+
+
                         </div>
                     </div>
                 </div>
@@ -413,6 +434,11 @@ if ( $property_loop_obj->have_posts() ) {
     <?php
 } else {
     echo '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-property-match-error"><h6><i class="icon-warning"></i><strong> ' . wp_rem_plugin_text_srt('wp_rem_property_slider_sorry') . '</strong>&nbsp; ' . wp_rem_plugin_text_srt('wp_rem_property_slider_doesn_match') . ' </h6></div>';
+    if ( isset($atts['property_recent_switch']) && $atts['property_recent_switch'] == 'yes' ) {
+        set_query_var('recent_property_args', $recent_property_args);
+        set_query_var('atts', $atts);
+        wp_rem_get_template_part('property', 'recent', 'properties');
+    }
 }
 ?>
 <!--Wp-rem Element End-->

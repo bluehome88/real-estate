@@ -120,7 +120,6 @@ if (!isset($_GET['page_id_all']))
                                     $cat = get_the_category($post_id);
                                     $cat_id = isset($cat[0]->cat_ID) ? $cat[0]->cat_ID : '';
                                     $cat_meta = get_term_meta($cat_id, 'cat_meta_data', true);
-                                    $cat_icon = isset($cat_meta['cat_icon']) ? $cat_meta['cat_icon'] : '';
                                     $post_style = get_post_meta($post_id, 'wp_rem_cs_var_post_style', true);
                                     $gallery_images = get_post_meta($post->ID, 'wp_rem_cs_var_post_detail_page_gallery', true);
                                     ?>

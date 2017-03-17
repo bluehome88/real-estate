@@ -67,7 +67,7 @@ if (!class_exists('Wp_rem_Post_Property_Types')) {
         }
 
         function wp_rem_submit_meta_box($post, $args = array()) {
-            global $action, $post, $wp_rem_plugin_static_text;
+            global $action, $post, $wp_rem_plugin_static_text, $wp_rem_form_fields;
 
 
             $post_type = $post->post_type;
@@ -138,32 +138,81 @@ if (!class_exists('Wp_rem_Post_Property_Types')) {
                         if (!in_array($post->post_status, array('publish', 'future', 'private')) || 0 == $post->ID) {
                             if ($can_publish) :
                                 if (!empty($post->post_date_gmt) && time() < strtotime($post->post_date_gmt . ' +0000')) :
-                                    ?>
-                                    <input name="original_publish" type="hidden" id="original_publish" value="<?php echo esc_html('wp_rem_schedule'); ?>" />
+                                    $wp_rem_opt_array = array(
+										'std' => wp_rem_plugin_text_srt( 'wp_rem_schedule' ),
+										'cust_id' => 'original_publish',
+										'cust_name' => 'original_publish',
+										'cust_type' => 'hidden',
+										'classes' => '',
+									);
+									$wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+									?>
                                     <?php submit_button(esc_html('wp_rem_schedule'), 'primary button-large', 'publish', false, array('accesskey' => 'p')); ?>
                                 <?php else : ?>
-                                    <input name="original_publish" type="hidden" id="original_publish" value="<?php echo wp_rem_plugin_text_srt('wp_rem_publish'); ?>" />
+									<?php
+									$wp_rem_opt_array = array(
+										'std' => wp_rem_plugin_text_srt( 'wp_rem_publish' ),
+										'cust_id' => 'original_publish',
+										'cust_name' => 'original_publish',
+										'cust_type' => 'hidden',
+										'classes' => '',
+									);
+									$wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+									?>
                                     <?php submit_button(wp_rem_plugin_text_srt('wp_rem_publish'), 'primary button-large', 'publish', false, array('accesskey' => 'p')); ?>
                                 <?php
                                 endif;
                             else :
-                                ?>
-                                <input name="original_publish" type="hidden" id="original_publish" value="<?php echo wp_rem_plugin_text_srt('wp_rem_submit_for_review'); ?>" />
+                                $wp_rem_opt_array = array(
+									'std' => wp_rem_plugin_text_srt( 'wp_rem_submit_for_review' ),
+									'cust_id' => 'original_publish',
+									'cust_name' => 'original_publish',
+									'cust_type' => 'hidden',
+									'classes' => '',
+								);
+								$wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+								?>
                                 <?php submit_button(wp_rem_plugin_text_srt('wp_rem_submit_for_review'), 'primary button-large', 'publish', false, array('accesskey' => 'p')); ?>
                             <?php
                             endif;
                         } else {
 
                             if (isset($_GET['action']) && $_GET['action'] == 'edit') {
-                                ?>
-                                <input name="original_publish" type="hidden" id="original_publish" value="<?php echo wp_rem_plugin_text_srt('wp_rem_update'); ?>" />
-                                <input name="save" type="submit" class="button button-primary button-large" id="publish" accesskey="p" value="<?php echo wp_rem_plugin_text_srt('wp_rem_update'); ?>" />
-                                <?php
-                            } else {
-                                ?>
-                                <input name="original_publish" type="hidden" id="original_publish" value="<?php echo wp_rem_plugin_text_srt('wp_rem_publish'); ?>">
-                                <input type="submit" name="publish" id="publish" class="button button-primary button-large" value="<?php echo wp_rem_plugin_text_srt('wp_rem_publish'); ?>" accesskey="p">
-                                <?php
+								$wp_rem_opt_array = array(
+									'std' => wp_rem_plugin_text_srt( 'wp_rem_update' ),
+									'cust_id' => 'original_publish',
+									'cust_name' => 'original_publish',
+									'cust_type' => 'hidden',
+									'classes' => '',
+								);
+								$wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+								$wp_rem_opt_array = array(
+									'std' => wp_rem_plugin_text_srt( 'wp_rem_update' ),
+									'cust_id' => 'publish',
+									'cust_name' => 'save',
+									'cust_type' => 'submit',
+									'classes' => 'button button-primary button-large',
+									'extra_attr' => ' accesskey="p"',
+								);
+								$wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+							} else {
+								$wp_rem_opt_array = array(
+									'std' => wp_rem_plugin_text_srt( 'wp_rem_publish' ),
+									'cust_id' => 'original_publish',
+									'cust_name' => 'original_publish',
+									'cust_type' => 'hidden',
+									'classes' => '',
+								);
+								$wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+								$wp_rem_opt_array = array(
+									'std' => wp_rem_plugin_text_srt( 'wp_rem_publish' ),
+									'cust_id' => 'publish',
+									'cust_name' => 'submit',
+									'cust_type' => 'submit',
+									'classes' => 'button button-primary button-large',
+									'extra_attr' => ' accesskey="p"',
+								);
+								$wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
                             }
                         }
                         ?>

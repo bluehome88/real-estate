@@ -14,12 +14,12 @@ if ( ! function_exists( 'wp_rem_cs_var_heading' ) ) {
             'column_size' => '1/1',
             'wp_rem_cs_heading_title' => '',
             'wp_rem_cs_heading_subtitle' => '',
-            'wp_rem_var_heading_align' => '',
+            'wp_rem_var_heading_align' => 'center',
             'wp_rem_cs_heading_color' => '#000',
             'class' => 'cs-heading-shortcode',
             'wp_rem_cs_heading_style' => '1',
             'wp_rem_cs_heading_size' => '',
-            'wp_rem_cs_letter_space' => '',
+            'wp_rem_cs_letter_space' => '0',
             'wp_rem_cs_line_height' => '',
             'wp_rem_cs_font_weight'=>'',
             'wp_rem_cs_heading_font_style' => '',
@@ -75,14 +75,14 @@ if ( ! function_exists( 'wp_rem_cs_var_heading' ) ) {
             }
         } else {
             if($wp_rem_cs_heading_title <> ''){
-            $html .= '<h' . esc_html($wp_rem_cs_heading_style) . ' style="color:' . esc_html( $wp_rem_cs_heading_color ) . ' !important; font-size: ' . esc_html( $wp_rem_cs_heading_size ) . 'px !important; letter-spacing: ' . esc_html( $wp_rem_cs_letter_space ) . 'px !important; line-height: ' . esc_html( $wp_rem_cs_line_height ) . 'px !important; font-weight: ' . esc_html( $wp_rem_cs_font_weight ) . ' !important; text-align:' . esc_html( $wp_rem_cs_heading_align ) . ';' . esc_html( $he_font_style ) . ';">' . esc_html( $wp_rem_cs_heading_title ) . '</h' . esc_html($wp_rem_cs_heading_style) . '>';
+            $html .= '<h' . esc_html($wp_rem_cs_heading_style) . ' style="color:' . esc_html( $wp_rem_cs_heading_color ) . ' !important; font-size: ' . esc_html( $wp_rem_cs_heading_size ) . 'px !important; letter-spacing: ' . esc_html( $wp_rem_cs_letter_space ) . 'px !important; line-height: ' . esc_html( $wp_rem_cs_line_height ) . 'px !important; font-weight: ' . esc_html( $wp_rem_cs_font_weight ) . ' !important; text-align:' . esc_html( $wp_rem_var_heading_align ) . ';' . esc_html( $he_font_style ) . ';">' . esc_html( $wp_rem_cs_heading_title ) . '</h' . esc_html($wp_rem_cs_heading_style) . '>';
             }
             if($wp_rem_cs_heading_subtitle <> ''){
                  $style_subtitle = '';
                  if(isset($wp_rem_cs_heading_color) && $wp_rem_cs_heading_color <> ''){
                     $style_subtitle = ' style="color: ' . esc_html( $wp_rem_cs_heading_color ) . ' !important;"'; 
                  }
-                $html .= '<p'.esc_html($style_subtitle).'>'.esc_html($wp_rem_cs_heading_subtitle).'</p>';
+                $html .= '<p' . $style_subtitle . '>'.esc_html($wp_rem_cs_heading_subtitle).'</p>';
             }
             
         }

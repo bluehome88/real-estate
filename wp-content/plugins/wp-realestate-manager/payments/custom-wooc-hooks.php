@@ -1,4 +1,5 @@
 <?php
+
 ob_start();
 
 if ( ! class_exists('Payment_Processing') ) {
@@ -19,7 +20,7 @@ if ( ! class_exists('Payment_Processing') ) {
 			add_filter('woocommerce_payment_complete_order_status', array( $this, 'custom_payment_complete_order_status' ), 10, 2);
 			add_filter('woocommerce_billing_fields', array( $this, 'woocommerce_billing_fields_callback' ), 10, 1);
 			add_filter('woocommerce_shipping_fields', array( $this, 'woocommerce_shipping_fields_callback' ), 10, 1);
-                        add_filter('woocommerce_cart_calculate_fees', array( $this, 'woocommerce_cart_calculate_fees_callback' ), 10, 1);
+			add_filter('woocommerce_cart_calculate_fees', array( $this, 'woocommerce_cart_calculate_fees_callback' ), 10, 1);
 		}
 
 		public function processing_payment($payment_args) {
@@ -52,7 +53,7 @@ if ( ! class_exists('Payment_Processing') ) {
 			update_post_meta($post_id, '_price', $price);
 			update_post_meta($post_id, 'rcv_parameters', $payment_args);
 			update_post_meta($post_id, '_virtual', 'yes');
-                        update_post_meta($post_id, '_visibility', 'hidden' );
+			update_post_meta($post_id, '_visibility', 'hidden');
 
 			$woocommerce->cart->empty_cart();
 			$woocommerce->cart->add_to_cart($post_id, 1);
@@ -60,7 +61,11 @@ if ( ! class_exists('Payment_Processing') ) {
 			$checkout_url = $woocommerce->cart->get_checkout_url();
 
 			echo "<script>window.top.location.href='$checkout_url';</script>";
-			exit;
+			if ( isset($is_json) && $is_json == 'true' ) {
+				// do nothing
+			} else {
+				exit;
+			}
 		}
 
 		public function custom_order_status_cancelled($order_id) {
@@ -71,16 +76,16 @@ if ( ! class_exists('Payment_Processing') ) {
 				$_REQUEST['payment_status'] = 'Cancelled';
 				$_REQUEST['payment_source'] = 'wooC';
 				$redirect_url = add_query_arg($_REQUEST, $wp_rem_plugin_options['wp_rem_dir_paypal_ipn_url']);
-                                
+
 				$order = new WC_Order($order_id);
 				foreach ( $order->get_items() as $item ) {
 					wp_delete_post($item['product_id']);
 				}
 				wp_delete_post($order_id);
-                                $return_url = get_option('wooCommerce_current_page');
-                                if( !isset( $return_url ) || $return_url == ''){
-                                    $return_url = site_url();
-                                }
+				$return_url = get_option('wooCommerce_current_page');
+				if ( ! isset($return_url) || $return_url == '' ) {
+					$return_url = site_url();
+				}
 				wp_redirect($return_url);
 			}
 		}
@@ -98,17 +103,17 @@ if ( ! class_exists('Payment_Processing') ) {
 					'status_code' => 200,
 					'status_message' => wp_rem_plugin_text_srt('wp_rem_wooc_hooks_order_received'),
 				);
-                                $return_url = get_option('wooCommerce_current_page');
-                                if( !isset( $return_url ) || $return_url == ''){
-                                    $return_url = site_url();
-                                }
+				$return_url = get_option('wooCommerce_current_page');
+				if ( ! isset($return_url) || $return_url == '' ) {
+					$return_url = site_url();
+				}
 				update_option('custom_order_status_array', $order_status_array);
-				wp_redirect( $return_url );
+				wp_redirect($return_url);
 			}
 		}
 
 		public function action_woocommerce_new_order($order_id) {
-                        global  $woocommerce;
+			global $woocommerce;
 			$order = new WC_Order($order_id);
 			foreach ( $order->get_items() as $item ) {
 				$product_id = $item['product_id'];
@@ -119,10 +124,10 @@ if ( ! class_exists('Payment_Processing') ) {
 				update_post_meta($order_id, '_rcv_parameters', $rcv_parameters);
 			}
 			$current_user = wp_get_current_user();
-			update_post_meta($transaction_id, 'woocommerce_order_id', $order_id );
+			update_post_meta($transaction_id, 'woocommerce_order_id', $order_id);
 			update_post_meta($transaction_id, 'wp_rem_transaction_pay_method', get_post_meta($order_id, '_payment_method', true));
 			update_post_meta($transaction_id, 'wp_rem_currency', get_woocommerce_currency_symbol());
-                        update_post_meta($transaction_id, 'wp_rem_currency_position', wp_rem_get_currency_position());
+			update_post_meta($transaction_id, 'wp_rem_currency_position', wp_rem_get_currency_position());
 			$user_id = get_current_user_id();
 		}
 
@@ -147,21 +152,21 @@ if ( ! class_exists('Payment_Processing') ) {
 			$_REQUEST['order_id'] = $order_id;
 			$_REQUEST['payment_status'] = 'approved';
 			$_REQUEST['payment_source'] = 'WP_REM_WOOCOMMERCE_GATEWAY';
-                        $redirect_url   = $wp_rem_plugin_options['wp_rem_dir_paypal_ipn_url'];
+			$redirect_url = $wp_rem_plugin_options['wp_rem_dir_paypal_ipn_url'];
 			$redirect_url = add_query_arg($_REQUEST, $redirect_url);
 			wp_remote_get($redirect_url);
 		}
 
 		public function custom_payment_complete_order_status($order_status, $order_id) {
-                        if ( $order_status == 'processing' ) {
-                            $wp_rem_plugin_options = get_option('wp_rem_plugin_options');
-                            $_REQUEST['order_id'] = $order_id;
-                            $_REQUEST['payment_status'] = 'approved';
-                            $_REQUEST['payment_source'] = 'WP_REM_WOOCOMMERCE_GATEWAY';
-                            $redirect_url   = $wp_rem_plugin_options['wp_rem_dir_paypal_ipn_url'];
-                            $redirect_url = add_query_arg($_REQUEST, $redirect_url);
-                            wp_remote_get($redirect_url);
-                        }
+			if ( $order_status == 'processing' ) {
+				$wp_rem_plugin_options = get_option('wp_rem_plugin_options');
+				$_REQUEST['order_id'] = $order_id;
+				$_REQUEST['payment_status'] = 'approved';
+				$_REQUEST['payment_source'] = 'WP_REM_WOOCOMMERCE_GATEWAY';
+				$redirect_url = $wp_rem_plugin_options['wp_rem_dir_paypal_ipn_url'];
+				$redirect_url = add_query_arg($_REQUEST, $redirect_url);
+				wp_remote_get($redirect_url);
+			}
 			return 'completed';
 		}
 
@@ -180,61 +185,59 @@ if ( ! class_exists('Payment_Processing') ) {
 		}
 
 		public function remove_raw_data($order_id) {
-                    if ( isset($order_id) && $order_id != '' ) {
-                        $order = new WC_Order($order_id);
-                        foreach ( $order->get_items() as $item ) {
-                                wp_delete_post($item['product_id']);
-                        }
-                    }
+			if ( isset($order_id) && $order_id != '' ) {
+				$order = new WC_Order($order_id);
+				foreach ( $order->get_items() as $item ) {
+					wp_delete_post($item['product_id']);
+				}
+			}
 		}
-                
-                public function woocommerce_billing_fields_callback( $address_fields ){
-                    $address_fields['billing_phone']['required'] = false;
-                    $address_fields['billing_country']['required'] = false;
-                    $address_fields['billing_first_name']['required'] = false;
-                    $address_fields['billing_last_name']['required'] = false;
-                    $address_fields['billing_email']['required'] = false;
-                    $address_fields['billing_address_1']['required'] = false;
-                    $address_fields['billing_city']['required'] = false;
-                    $address_fields['billing_postcode']['required'] = false;
-                    return $address_fields;
-                    
-                }
-                
-                public function woocommerce_shipping_fields_callback( $address_fields ){
-                    $address_fields['order_comments']['required'] = false;
-                    return $address_fields;
-                    
-                }
-                
-                public function woocommerce_order_items_meta_display_callback( $output, $orderObj ){
-                   return $output;
-                }
-                
-                public function woocommerce_cart_calculate_fees_callback( $wooccm_custom_user_charge_man ){
-                    global $woocommerce, $wp_rem_plugin_options;
-                    
-                    $vat_tax            = 0;
-                    if( isset( $wp_rem_plugin_options['wp_rem_vat_switch'] ) && $wp_rem_plugin_options['wp_rem_vat_switch'] == 'on' ){
-                        $vat_tax        = ( isset( $wp_rem_plugin_options['wp_rem_payment_vat'] ) && $wp_rem_plugin_options['wp_rem_payment_vat'] != '' )? $wp_rem_plugin_options['wp_rem_payment_vat'] : 0;
-                    }
-                    if( $vat_tax != 0 ){
-                        $items = $woocommerce->cart->get_cart();
 
-                        foreach ( $items as $item ) {
-                                $product = $item['data']->post;
-                                $product_id = $product->ID;
-                        }
-                        $rcv_parameters         = get_post_meta($product_id, 'rcv_parameters', true );
-                        $wp_rem_transaction_amount  = isset( $rcv_parameters['price'] )? $rcv_parameters['price'] : 0;
+		public function woocommerce_billing_fields_callback($address_fields) {
+			$address_fields['billing_phone']['required'] = false;
+			$address_fields['billing_country']['required'] = false;
+			$address_fields['billing_first_name']['required'] = false;
+			$address_fields['billing_last_name']['required'] = false;
+			$address_fields['billing_email']['required'] = false;
+			$address_fields['billing_address_1']['required'] = false;
+			$address_fields['billing_city']['required'] = false;
+			$address_fields['billing_postcode']['required'] = false;
+			return $address_fields;
+		}
 
-                        $wp_rem_vat_amount = $wp_rem_transaction_amount * ( $vat_tax / 100 );
-                        $vat_amount = WP_REM_FUNCTIONS()->num_format($wp_rem_vat_amount);
-                        
-                        $woocommerce->cart->add_fee( wp_rem_plugin_text_srt('wp_rem_wooc_hooks_vat') .' ('.$vat_tax.'%)', $vat_amount );
-                    }
-                    return $wooccm_custom_user_charge_man;
-                }
+		public function woocommerce_shipping_fields_callback($address_fields) {
+			$address_fields['order_comments']['required'] = false;
+			return $address_fields;
+		}
+
+		public function woocommerce_order_items_meta_display_callback($output, $orderObj) {
+			return $output;
+		}
+
+		public function woocommerce_cart_calculate_fees_callback($wooccm_custom_user_charge_man) {
+			global $woocommerce, $wp_rem_plugin_options;
+
+			$vat_tax = 0;
+			if ( isset($wp_rem_plugin_options['wp_rem_vat_switch']) && $wp_rem_plugin_options['wp_rem_vat_switch'] == 'on' ) {
+				$vat_tax = ( isset($wp_rem_plugin_options['wp_rem_payment_vat']) && $wp_rem_plugin_options['wp_rem_payment_vat'] != '' ) ? $wp_rem_plugin_options['wp_rem_payment_vat'] : 0;
+			}
+			if ( $vat_tax != 0 ) {
+				$items = $woocommerce->cart->get_cart();
+
+				foreach ( $items as $item ) {
+					$product = $item['data']->post;
+					$product_id = $product->ID;
+				}
+				$rcv_parameters = get_post_meta($product_id, 'rcv_parameters', true);
+				$wp_rem_transaction_amount = isset($rcv_parameters['price']) ? $rcv_parameters['price'] : 0;
+
+				$wp_rem_vat_amount = $wp_rem_transaction_amount * ( $vat_tax / 100 );
+				$vat_amount = WP_REM_FUNCTIONS()->num_format($wp_rem_vat_amount);
+
+				$woocommerce->cart->add_fee(wp_rem_plugin_text_srt('wp_rem_wooc_hooks_vat') . ' (' . $vat_tax . '%)', $vat_amount);
+			}
+			return $wooccm_custom_user_charge_man;
+		}
 
 	}
 

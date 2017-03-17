@@ -16,9 +16,71 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
             add_action('wp_ajax_nopriv_wp_rem_property_type_search_fields', array( $this, 'wp_rem_property_type_search_fields_callback' ));
             add_action('wp_ajax_wp_rem_property_type_cate_fields', array( $this, 'wp_rem_property_type_cate_fields_callback' ));
             add_action('wp_ajax_nopriv_wp_rem_property_type_cate_fields', array( $this, 'wp_rem_property_type_cate_fields_callback' ));
+			
+			add_action('wp_ajax_wp_rem_property_type_price_type_field', array( $this, 'wp_rem_property_type_price_type_field_callback' ));
+            add_action('wp_ajax_nopriv_wp_rem_property_type_price_type_field', array( $this, 'wp_rem_property_type_price_type_field_callback' ));
+        }
+		
+		public function wp_rem_property_type_price_type_field_callback() {
+            global $wp_rem_form_fields_frontend, $wp_rem_plugin_options;
+            $property_short_counter = wp_rem_get_input('property_short_counter', 0);
+            $property_type_slug = wp_rem_get_input('property_type_slug', NULL, 'STRING');
+            $price_type_switch = wp_rem_get_input('price_type_switch', NULL, 'STRING');
+            $search_view = wp_rem_get_input('view', NULL, 'STRING');
+            $search_view = isset($search_view) ? $search_view : '';
+			
+			$property_type_id = $this->wp_rem_property_type_id_by_slug($property_type_slug);
+			$property_type_price_type = get_post_meta($property_type_id, 'wp_rem_property_type_price_type', true);
+			
+			$price_type_options = array(
+                'variant_week' => wp_rem_plugin_text_srt('wp_rem_list_meta_per_week'),
+                'variant_month' => wp_rem_plugin_text_srt('wp_rem_list_meta_per_cm'),
+            );
+			if ( $property_type_price_type == 'fixed' ) {
+                $price_type_options = isset($wp_rem_plugin_options['fixed_price_opt']) ? $wp_rem_plugin_options['fixed_price_opt'] : '';
+            }
+			$price_types = array( '' => wp_rem_plugin_text_srt('wp_rem_advance_search_select_price_types_all') );
+			$price_types = array_merge($price_types, $price_type_options);
+			
+            $json = array();
+            $json['type'] = "error";
+            if ( $property_type_slug != '' ) {
+                ob_start();
+				if ( isset($price_type_switch) && $price_type_switch == 'yes' && !empty($price_type_options) ) { ?> 
+					<strong class="search_title"><?php echo wp_rem_plugin_text_srt('wp_rem_advance_search_select_price_type_label'); ?></strong>
+                    <label>
+						<?php
+                        $wp_rem_opt_array = array(
+							'std' => '',
+							'cust_id' => 'price_type',
+							'cust_name' => 'price_type',
+							'classes' => 'chosen-select',
+							'options' => $price_types,
+						);
+						if ( count($price_types) <= 6 ) {
+							$wp_rem_opt_array['classes'] = 'chosen-select-no-single';
+						}
+						$wp_rem_form_fields_frontend->wp_rem_form_select_render($wp_rem_opt_array);
+                        ?>
+                    </label>
+                <?php } ?>
+
+                <?php
+                ?>
+                <script type="text/javascript">
+                    chosen_selectionbox();
+                </script>
+                <?php
+                $content = ob_get_clean();
+                $json['type'] = "success";
+                $json['html'] = $content;
+            }
+            echo json_encode($json);
+            wp_die();
         }
 
         public function wp_rem_property_type_features($list_type_slug = '', $property_short_counter) {
+            global $wp_rem_form_fields_frontend;
             $property_type_id = $this->wp_rem_property_type_id_by_slug($list_type_slug);
             $property_type_features = get_post_meta($property_type_id, 'feature_lables', true);
             $feature_icons = get_post_meta($property_type_id, 'wp_rem_feature_icon', true);
@@ -38,17 +100,34 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                                     $feature_name = isset($feature) ? $feature : '';
                                     $feature_icon = isset($feature_icons[$feat_key]) ? $feature_icons[$feat_key] : '';
                                     $count_feature_properties = $this->property_search_features_properties($list_type_slug, $feature_name);
-                                    $html .= '
-									<li class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-										<div class="checkbox">
-											<input type="checkbox" class="search-feature-' . $property_short_counter . '" id="check-' . $feature_counter . '" value="' . $feature_name . '">
-											<label for="check-' . $feature_counter . '">' . $feature_name . ' (' . $count_feature_properties . ')</label>
-										</div>
-									</li>';
+                                    $html .= '<li class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                                        <div class="checkbox">';
+                                    $html .=$wp_rem_form_fields_frontend->wp_rem_form_text_render(
+                                            array(
+                                                'std' => esc_attr($feature_name),
+                                                'cust_id' => 'check-' . $feature_counter . '',
+                                                'return' => true,
+                                                'classes' => 'search-feature-' . $property_short_counter . '',
+                                                'cust_type' => 'checkbox',
+                                                'prefix_on' => false,
+                                            )
+                                    );
+                                    $html .= '    <label for="check-' . $feature_counter . '">' . $feature_name . ' (' . $count_feature_properties . ')</label>
+                                                        </div>
+                                                </li>';
                                     $feature_counter ++;
                                 }
                             }
-                            $html .= '<li class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="display:none;"><input type="hidden" id="search-property-features-' . $property_short_counter . '" name="features" value=""></li>';
+                            $html .= '<li class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="display:none;">';
+                            $html .= $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
+                                    array(
+                                        'return' => true,
+                                        'cust_name' => 'features',
+                                        'cust_id' => 'search-property-features-' . $property_short_counter . '',
+                                        'std' => '',
+                                    )
+                            );
+                            $html .= '</li>';
                             echo wp_rem_allow_special_char($html);
                             ?>
                             <script type="text/javascript">
@@ -83,7 +162,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
 
             if ( $property_type_slug != '' && $feature_name != '' ) {
                 $args['post_type'] = 'properties';
-                $args['posts_per_page'] = -1;
+                $args['posts_per_page'] = 1;
                 $args['fields'] = 'ids'; // only load ids
                 $args['meta_query']['relation'] = 'AND';
                 $args['meta_query'][] = array(
@@ -203,6 +282,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                                 </ul>
                             </div>
                             <div class="select-categories"> 
+
                                 <ul>
                                     <li>
                                         <?php
@@ -245,6 +325,17 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
             $property_short_counter = wp_rem_get_input('property_short_counter', 0);
             $property_type_slug = wp_rem_get_input('property_type_slug', NULL, 'STRING');
             $cats_switch = wp_rem_get_input('cats_switch', NULL, 'STRING');
+            $search_view = wp_rem_get_input('view', NULL, 'STRING');
+            $search_view = isset($search_view) ? $search_view : '';
+
+            $wp_rem_search_label_color = wp_rem_get_input('color', NULL, 'STRING');
+            $wp_rem_search_label_color = isset($wp_rem_search_label_color) ? $wp_rem_search_label_color : '';
+
+
+            if ( isset($wp_rem_search_label_color) && $wp_rem_search_label_color != '' && $wp_rem_search_label_color != 'none' ) {
+                $label_style_colr = 'style="color:' . $wp_rem_search_label_color . ' !important"';
+            }
+
             $json = array();
             $json['type'] = "error";
             if ( $property_type_slug != '' ) {
@@ -253,9 +344,15 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                 $property_cats_array = $this->wp_rem_property_type_categories_options($property_type_slug);
 
                 if ( isset($cats_switch) && $cats_switch == 'yes' && ! empty($property_cats_array) ) {
-                    ?>
+
+                    if ( ! empty($search_view) && $search_view == 'modern' ) {
+                        ?>
+                        <strong class="search-title" <?php echo wp_rem_allow_special_char($label_style_colr); ?>><?php echo wp_rem_plugin_text_srt('wp_rem_property_search_view_enter_property_type_label'); ?></strong>
+                    <?php } ?>    
                     <label>
-                        <i class="icon-home"></i>
+						<?php if ( ! empty($search_view) && $search_view != 'modern-v2' && $search_view != 'fancy-v3' ) { ?>
+							<i class="icon-home"></i>
+						<?php } ?>
                         <?php
                         $wp_rem_opt_array = array(
                             'std' => (isset($_REQUEST['property_category']) && $_REQUEST['property_category'] != '') ? $_REQUEST['property_category'] : '',
@@ -264,6 +361,9 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                             'cust_name' => 'property_category',
                             'options' => $property_cats_array,
                         );
+                        if ( count($property_cats_array) <= 6 ) {
+                            $wp_rem_opt_array['classes'] = 'chosen-select-no-single';
+                        }
                         $wp_rem_form_fields_frontend->wp_rem_form_select_render($wp_rem_opt_array);
                         ?>
                     </label>
@@ -377,7 +477,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                     );
                     ?>
                     <div class="field-holder search-input select-categories <?php echo esc_html($has_icon); ?>">
-                            <!--<h6><?php //echo esc_html($field_label);   ?></h6>-->
+                            <!--<h6><?php //echo esc_html($field_label);          ?></h6>-->
                         <ul class="minimum-loading-list">
                             <li>
                                 <div class="spinner-btn input-group spinner">
@@ -535,7 +635,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                                 'cust_name' => 'from' . $query_str_var_name,
                                 'classes' => '',
                                 'std' => isset($_REQUEST['from' . $query_str_var_name]) ? $_REQUEST['from' . $query_str_var_name] : '',
-                                'extra_atr' => ' placeholder="' . wp_rem_plugin_text_srt('wp_rem_search_fields_date_from'). ' ' . $field_label . '");"',
+                                'extra_atr' => ' placeholder="' . wp_rem_plugin_text_srt('wp_rem_search_fields_date_from') . ' ' . $field_label . '");"',
                             )
                     );
                     ?>
@@ -552,7 +652,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                                 'cust_name' => 'to' . $query_str_var_name,
                                 'classes' => '',
                                 'std' => isset($_REQUEST['to' . $query_str_var_name]) ? $_REQUEST['to' . $query_str_var_name] : '',
-                                'extra_atr' => ' placeholder="' . wp_rem_plugin_text_srt('wp_rem_search_fields_date_to'). ' ' . $field_label . '");"',
+                                'extra_atr' => ' placeholder="' . wp_rem_plugin_text_srt('wp_rem_search_fields_date_to') . ' ' . $field_label . '");"',
                             )
                     );
                     ?>
@@ -780,64 +880,6 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
             return $placeholder;
         }
 
-        public function wp_rem_properties_price_field_options($property_type = '') {
-            // args
-            $default_date_time_formate = 'd-m-Y H:i:s';
-            $args = array(
-                'posts_per_page' => -1,
-                'post_type' => 'properties',
-                'meta_query' => array(
-                    'relation' => 'AND',
-                    array(
-                        'key' => 'wp_rem_property_posted',
-                        'value' => strtotime(date($default_date_time_formate)),
-                        'compare' => '<=',
-                    ),
-                    array(
-                        'key' => 'wp_rem_property_expired',
-                        'value' => strtotime(date($default_date_time_formate)),
-                        'compare' => '>=',
-                    ),
-                    array(
-                        'key' => 'wp_rem_property_status',
-                        'value' => 'active',
-                        'compare' => '=',
-                    ),
-                    array(
-                        'key' => 'wp_rem_property_price',
-                        'value' => '',
-                        'compare' => '!=',
-                    ),
-                    array(
-                        'key' => 'wp_rem_property_price_options',
-                        'value' => 'price',
-                        'compare' => '=',
-                    ),
-                    array(
-                        'key' => 'wp_rem_property_type',
-                        'value' => $property_type,
-                        'compare' => '=',
-                    ),
-                )
-            );
-
-            $property_query = new WP_Query($args);
-            $property_price_options = array();
-            if ( $property_query->have_posts() ):
-                $property_price_options[''] = wp_rem_plugin_text_srt('wp_rem_search_filter_any_price');
-                while ( $property_query->have_posts() ): $property_query->the_post();
-                    // Property price
-                    $property_price = get_post_meta(get_the_ID(), 'wp_rem_property_price', true);
-                    $property_price_options[$property_price] = wp_rem_get_currency($property_price, true);
-
-                endwhile;
-            endif;
-            ksort($property_price_options);
-            $property_price_options = array_filter($property_price_options);
-
-            return $property_price_options;
-        }
-
         public function wp_rem_property_type_categories_options($property_type_slug = '') {
             $property_cats_options = '';
             if ( $property_type_slug != '' ) {
@@ -848,7 +890,9 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                     foreach ( $property_type_cats as $property_type_cat_slug ) {
                         if ( $property_type_cat_slug != '' ) {
                             $term = get_term_by('slug', $property_type_cat_slug, 'property-category');
-                            $property_cats_options[$property_type_cat_slug] = $term->name;
+                            if ( isset($term->name) && ! empty($term->name) ) {
+                                $property_cats_options[$property_type_cat_slug] = $term->name;
+                            }
                         }
                     }
                 }

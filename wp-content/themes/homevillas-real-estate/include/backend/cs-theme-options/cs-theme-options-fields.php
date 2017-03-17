@@ -160,10 +160,17 @@ if ( ! class_exists('wp_rem_cs_var_fields') ) {
                                 if ( is_array($enable_multi) && sizeof($enable_multi) > 1 ) {
                                     $d_enable = in_array($d_val, $enable_multi) ? ' style="display:block;"' : ' style="display:none;"';
                                 } else {
+
+                                    if ( $enable_id == 'wp_rem_cs_var_header_full_width' ) {
+                                        echo $d_val;
+                                        echo $enable_val;
+                                    }
+
+
                                     $d_enable = $d_val == $enable_val ? ' style="display:block;"' : ' style="display:none;"';
                                 }
                                 if ( $default_show == 'yes' ) {
-                                    $d_enable = ' style="display:yes;"';
+                                    $d_enable = ' style="display:block;"';
                                 }
                             }
                             $output .= '<div' . $d_enable . ' ' . $extra_atts . '>';
@@ -452,9 +459,9 @@ if ( ! class_exists('wp_rem_cs_var_fields') ) {
                             $wp_rem_cs_var_all_list = $wp_filesystem->dirlist($wp_rem_cs_var_upload_dir);
 
                             $output .= '<div class="backup_generates_area form-elements" data-ajaxurl="' . esc_url(admin_url('admin-ajax.php')) . '">';
-                            
+
                             $output .= '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">';
-                            
+
                             $wp_rem_cs_var_import_options = wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_import_options');
                             $output .= '
 							<div class="cs-import-help">
@@ -1268,101 +1275,160 @@ if ( ! class_exists('wp_rem_cs_var_fields') ) {
                                             </div>';
                             }
                             break;
+                        case 'custom_page_select':
+
+                            if ( isset($wp_rem_cs_var_options['wp_rem_cs_var_' . $value['id']]) ) {
+                                $select_value = $wp_rem_cs_var_options['wp_rem_cs_var_' . $value['id']];
+                            } else {
+                                $select_value = isset($value['std']) ? $value['std'] : '';
+                            }
+
+                            $output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_opening_field(array(
+                                'id' => 'maintinance_mode_page',
+                                'name' => isset($value['name']) ? $value['name'] : '',
+                                'label_desc' => isset($value['label_desc']) ? $value['label_desc'] : '',
+                                    )
+                            );
+                            $id = isset($value['id']) ? $value['id'] : '';
+                            $output .= '<div class="select-style pages_loader_holder pages-loader-holder" onclick="rem_load_all_pages(\'pages_loader_holder\', \'' . $id . '\', \'' . $select_value . '\');">';
+                            $output .= '<span class="pages-loader"></span>';
+                            $wp_rem_cs_opt_array = array(
+                                'std' => $select_value,
+                                'id' => isset($value['id']) ? $value['id'] : '',
+                                'classes' => isset($value['classes']) ? $value['classes'] : '',
+                                'extra_atr' => isset($value['extra_att']) ? $value['extra_att'] : '',
+                                'return' => true,
+                                'options' => isset($value['options']) ? $value['options'] : '',
+                            );
+                            $output .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_select_render($wp_rem_cs_opt_array);
+                            $output .= '</div>';
+                            $output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_closing_field(array( 'desc' => '' ));
+                            break;
 
                         case 'gfont_select':
-							$output .= '<div class="sidebar-area theme-help ">
+                            $output .= '<div class="sidebar-area theme-help ">
                                     <h4><b>' . esc_attr($value['name']) . '</b>';
                             $output .= wp_rem_cs_var_tooltip_helptext(isset($value['hint_text']) ? $value['hint_text'] : '');
                             $output .= '   </h4></div>';
-							
-							$id = isset($value['id']) ? $value['id'] : '';
-							
-							if ( isset($wp_rem_cs_var_options['wp_rem_cs_var_' . $value['id'] .'_type']) ) {
-                                $fonts_type_select_value = $wp_rem_cs_var_options['wp_rem_cs_var_' . $value['id'] .'_type'];
+
+                            $id = isset($value['id']) ? $value['id'] : '';
+
+                            if ( isset($wp_rem_cs_var_options['wp_rem_cs_var_' . $value['id'] . '_type']) ) {
+                                $fonts_type_select_value = $wp_rem_cs_var_options['wp_rem_cs_var_' . $value['id'] . '_type'];
                             } else {
                                 $fonts_type_select_value = 'google_fonts';
                             }
-							
-							$id = isset($value['id']) ? $value['id'] : '';
-							$wp_rem_cs_opt_array = array(
+
+                            $id = isset($value['id']) ? $value['id'] : '';
+                            $wp_rem_cs_opt_array = array(
                                 'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_google_fonts_type'),
-                                'id' => $id .'_type',
+                                'id' => $id . '_type',
                                 'extra_att' => 'style="width:100%; display:inline-block;"',
                                 'label_desc' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_google_fonts_type_hint'),
                                 'field_params' => array(
                                     'std' => $fonts_type_select_value,
-                                    'id' =>  $id .'_type',
-                                    'classes' => isset($value['classes']) ? $value['classes'] : '' .'_type',
+                                    'id' => $id . '_type',
+                                    'classes' => isset($value['classes']) ? $value['classes'] : '' . '_type',
                                     'return' => true,
                                     'extra_atr' => 'onchange="wp_rem_cs_var_google_fonts_type(this.value, \'' . $value['id'] . '\')"',
                                     "options" => array(
-										'google_fonts' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_google_fonts_option'),
-										'custom_fonts' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_fonts_option'),
-									)
+                                        'google_fonts' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_google_fonts_option'),
+                                        'custom_fonts' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_fonts_option'),
+                                    )
                                 ),
                             );
                             $output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_select_field($wp_rem_cs_opt_array);
 
-							
-							if( $fonts_type_select_value == '' || $fonts_type_select_value == 'google_fonts'){
-								$google_fonts_display = 'style="width:50%; display:inline-block;"';
-								$custom_fonts_display = 'style="display: none;"';
-							}else{
-								$google_fonts_display = 'style="width:50%; display:none;"';
-								$custom_fonts_display = '';
-							}
-							
-							if ( isset($wp_rem_cs_var_options['wp_rem_cs_var_' . $value['id']]) ) {
-								$select_value = $wp_rem_cs_var_options['wp_rem_cs_var_' . $value['id']];
-							} else {
-								$select_value = isset($value['std']) ? $value['std'] : '';
-							}
 
-							//$output .= '<div class="'. $id .'_holder" '. $google_fonts_display .'>';
-								$wp_rem_cs_opt_array = array(
-									'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_google_font_family'),
-									'id' => isset($value['id']) ? 'wp_rem_cs_var_' . $value['id'] . '_select' : '',
-									'extra_att' => $google_fonts_display,
-									'desc' => isset($value['desc']) ? $value['desc'] : '',
-									'hint_text' => isset($value['hint_text']) ? $value['hint_text'] : '',
-									'label_desc' => isset($value['label_desc']) ? $value['label_desc'] : '',
-									'field_params' => array(
-										'std' => $select_value,
-										'id' => $id,
-										'classes' => isset($value['classes']) ? $value['classes'] : '',
-										'return' => true,
-										'extra_atr' => 'onchange="wp_rem_cs_var_google_font_att(\'' . admin_url("admin-ajax.php") . '\',this.value, \'wp_rem_cs_var_' . $value['id'] . '_att\')"',
-										'first_option' => '<option value="">' . wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_default_font') . '</option>',
-										'options' => isset($value['options']) ? $value['options'] : '',
-									),
-								);
-								$output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_select_field($wp_rem_cs_opt_array);
-							//$output .= '</div>';
+                            if ( $fonts_type_select_value == '' || $fonts_type_select_value == 'google_fonts' ) {
+                                $google_fonts_display = 'style="width:50%; display:inline-block;"';
+                                $custom_fonts_display = 'style="display: none;"';
+                            } else {
+                                $google_fonts_display = 'style="width:50%; display:none;"';
+                                $custom_fonts_display = '';
+                            }
 
-							if ( isset($wp_rem_cs_var_options['wp_rem_cs_var_custom_' . $value['id']]) ) {
-								$select_value = $wp_rem_cs_var_options['wp_rem_cs_var_custom_' . $value['id']];
-							} else {
-								$select_value = '';
+                            if ( isset($wp_rem_cs_var_options['wp_rem_cs_var_' . $value['id']]) ) {
+                                $select_value = $wp_rem_cs_var_options['wp_rem_cs_var_' . $value['id']];
+                            } else {
+                                $select_value = isset($value['std']) ? $value['std'] : '';
+                            }
+
+							if( (empty($value['options']) && is_array($value['options'])) || (!is_array($value['options']) && $value['options'] == '') ){
+								$value['options'] = array();
 							}
-							$wp_rem_cs_var_custom_fonts = wp_rem_cs_var_custom_fonts_list();
-							$output .= '<div class="custom_'. $id .'_holder" '. $custom_fonts_display .'>';
-								$wp_rem_cs_opt_array = array(
-									'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_custom_font_family'),
-									'id' => 'custom_'. $id,
-									'extra_att' => 'style="width:100%; display:inline-block;"',
-									'label_desc' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_content_font_discription'),
-									'field_params' => array(
-										'std' => $select_value,
-										'id' => 'custom_'. $id,
-										'classes' => 'custom_'. isset($value['classes']) ? $value['classes'] : '',
-										'return' => true,
-										'first_option' => '<option value="">' . wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_default_font') . '</option>',
-										'options' => $wp_rem_cs_var_custom_fonts,
-									),
-								);
-								$output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_select_field($wp_rem_cs_opt_array);
-							$output .= '</div>';
-						break;
+                            if( !in_array($select_value, $value['options'])){
+								if( !empty($value['options'])){
+									$value['options'][$select_value] = $select_value;
+								}else{
+									$value['options'] = array($select_value => $select_value);
+								}
+							}
+                            $wp_rem_cs_opt_array = array(
+                                'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_google_font_family'),
+                                'id' => isset($value['id']) ? 'wp_rem_cs_var_' . $value['id'] . '_select' : '',
+                                'extra_att' => $google_fonts_display,
+                                'desc' => isset($value['desc']) ? $value['desc'] : '',
+                                'hint_text' => isset($value['hint_text']) ? $value['hint_text'] : '',
+                                'label_desc' => isset($value['label_desc']) ? $value['label_desc'] : '',
+                                'field_params' => array(
+                                    'std' => $select_value,
+                                    'id' => $id,
+                                    'classes' => isset($value['classes']) ? $value['classes'] : '',
+                                    'return' => true,
+                                    'extra_atr' => 'onchange="wp_rem_selected_google_font_att_field(\'' . admin_url("admin-ajax.php") . '\',this.value, \'wp_rem_cs_var_' . $value['id'] . '_att\')"',
+                                    'first_option' => '<option value="">' . wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_default_font') . '</option>',
+                                    'options' => isset($value['options']) ? $value['options'] : '',
+                                ),
+                            );
+                            $output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_select_field($wp_rem_cs_opt_array);
+                            
+
+                            if ( isset($wp_rem_cs_var_options['wp_rem_cs_var_custom_' . $value['id']]) ) {
+                                $select_value = $wp_rem_cs_var_options['wp_rem_cs_var_custom_' . $value['id']];
+                            } else {
+                                $select_value = '';
+                            }
+                            $wp_rem_cs_var_custom_fonts = wp_rem_cs_var_custom_fonts_list();
+                            $output .= '<div class="custom_' . $id . '_holder" ' . $custom_fonts_display . '>';
+                            $wp_rem_cs_opt_array = array(
+                                'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_custom_font_family'),
+                                'id' => 'custom_' . $id,
+                                'extra_att' => 'style="width:50%; display:inline-block;"',
+                                'label_desc' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_content_font_discription'),
+                                'field_params' => array(
+                                    'std' => $select_value,
+                                    'id' => 'custom_' . $id,
+                                    'classes' => 'custom_' . isset($value['classes']) ? $value['classes'] : '',
+                                    'return' => true,
+                                    'first_option' => '<option value="">' . wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_default_font') . '</option>',
+                                    'options' => $wp_rem_cs_var_custom_fonts,
+                                ),
+                            );
+                            $output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_select_field($wp_rem_cs_opt_array);
+
+                            if ( isset($wp_rem_cs_var_options['wp_rem_cs_var_custom_' . $value['id'] . '_weight']) ) {
+                                $font_weight_select_value = $wp_rem_cs_var_options['wp_rem_cs_var_custom_' . $value['id'] . '_weight'];
+                            } else {
+                                $font_weight_select_value = '400';
+                            }
+                            $wp_rem_cs_opt_array = array(
+                                'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_custom_font_weight'),
+                                'desc' => '',
+                                'hint_text' => '',
+                                'label_desc' => '',
+                                'id' => 'custom_' . $id . '_weight',
+                                'extra_att' => 'style="width:50%; display:inline-block;"',
+                                'field_params' => array(
+                                    'std' => $font_weight_select_value,
+                                    'id' => 'custom_' . $id . '_weight',
+                                    'classes' => '',
+                                    'return' => true,
+                                ),
+                            );
+                            $output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_text_field($wp_rem_cs_opt_array);
+                            $output .= '</div>';
+                            break;
                         case 'mailchimp':
 
                             if ( isset($wp_rem_cs_var_options) && $wp_rem_cs_var_options <> '' ) {
@@ -1412,37 +1478,59 @@ if ( ! class_exists('wp_rem_cs_var_fields') ) {
                                 ),
                             );
                             $output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_select_field($wp_rem_cs_opt_array);
-
-
                             $output .= '';
-
                             break;
                         case 'gfont_att_select':
-							$type_id = str_replace('_att', '_type', $value['id']);
-							if ( isset($wp_rem_cs_var_options['wp_rem_cs_var_' . $type_id]) ) {
+                            $type_id = str_replace('_att', '_type', $value['id']);
+                            if ( isset($wp_rem_cs_var_options['wp_rem_cs_var_' . $type_id]) ) {
                                 $fonts_type_select_value = $wp_rem_cs_var_options['wp_rem_cs_var_' . $type_id];
                             } else {
                                 $fonts_type_select_value = 'google_fonts';
                             }
 							
-							if( $fonts_type_select_value == '' || $fonts_type_select_value == 'google_fonts'){
-								$google_fonts_attr_display = 'style="width:50%; display:inline-block;"';
-							}else{
-								$google_fonts_attr_display = 'style="width:50%; display:none;"';
-							}
-							
+							$font_name_id = str_replace('_att', '', $value['id']);
+                            if ( isset($wp_rem_cs_var_options['wp_rem_cs_var_' . $font_name_id]) ) {
+                                $selected_font_name = $wp_rem_cs_var_options['wp_rem_cs_var_' . $font_name_id];
+                            } else {
+                                $selected_font_name = '';
+                            }
+
+                            if ( $fonts_type_select_value == '' || $fonts_type_select_value == 'google_fonts' ) {
+                                $google_fonts_attr_display = 'style="width:50%; display:inline-block;"';
+                            } else {
+                                $google_fonts_attr_display = 'style="width:50%; display:none;"';
+                            }
+
                             if ( isset($wp_rem_cs_var_options['wp_rem_cs_var_' . $value['id']]) && $wp_rem_cs_var_options['wp_rem_cs_var_' . $value['id']] <> '' ) {
                                 $select_value = $wp_rem_cs_var_options['wp_rem_cs_var_' . $value['id']];
-                                $value['options'] = wp_rem_cs_var_get_google_font_attribute('', $wp_rem_cs_var_options[str_replace('_att', '', 'wp_rem_cs_var_' . $value['id'])]);
                             } else {
                                 $select_value = isset($value['std']) ? $value['std'] : '';
                             }
-							
+							if (class_exists('wp_rem_google_fonts_admin_frontend')) {
+								if ( isset($wp_rem_cs_var_options[str_replace('_att', '', 'wp_rem_cs_var_' . $value['id'])]) && $wp_rem_cs_var_options[str_replace('_att', '', 'wp_rem_cs_var_' . $value['id'])] <> '' ) {
+									$fonts_admin_frontend = new wp_rem_google_fonts_admin_frontend();
+									$value['options'] = $fonts_admin_frontend->wp_rem_selected_google_fonts_attributes( $wp_rem_cs_var_options[str_replace('_att', '', 'wp_rem_cs_var_' . $value['id'])]);
+								} 
+							}
+
                             $wp_rem_cs_atts_array = array();
-                            if ( isset($value['options']) && is_array($wp_rem_cs_atts_array) && !empty($value['options'])) {
+                            if ( isset($value['options']) && is_array($wp_rem_cs_atts_array) && ! empty($value['options']) ) {
                                 foreach ( $value['options'] as $wp_rem_cs_att )
                                     $wp_rem_cs_atts_array[$wp_rem_cs_att] = $wp_rem_cs_att;
                             }
+							
+							if( (empty($wp_rem_cs_atts_array) && is_array($wp_rem_cs_atts_array)) || (!is_array($wp_rem_cs_atts_array) && $wp_rem_cs_atts_array == '') ){
+								$wp_rem_cs_atts_array = array();
+							}
+							
+							if( !in_array($select_value, $wp_rem_cs_atts_array) && $selected_font_name != '' ){
+								if(!empty($wp_rem_cs_atts_array)){
+									$wp_rem_cs_atts_array[$select_value] = $select_value;
+								}else{
+									$wp_rem_cs_atts_array = array($select_value => $select_value);
+								}
+							}
+							
                             $wp_rem_cs_opt_array = array(
                                 'name' => isset($value['name']) ? $value['name'] : '',
                                 'id' => isset($value['id']) ? 'wp_rem_cs_var_' . $value['id'] . '_select' : '',
@@ -1456,7 +1544,7 @@ if ( ! class_exists('wp_rem_cs_var_fields') ) {
                                     'classes' => isset($value['classes']) ? $value['classes'] : '',
                                     'return' => true,
                                     'first_option' => '<option value="">' . wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_select_attribute') . '</option>',
-                                    'options' => isset($wp_rem_cs_atts_array) ? $wp_rem_cs_atts_array : '',
+                                    'options' => $wp_rem_cs_atts_array,
                                 ),
                             );
                             $output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_select_field($wp_rem_cs_opt_array);
@@ -1749,348 +1837,6 @@ if ( ! class_exists('wp_rem_cs_var_fields') ) {
                             $output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_upload_file_field($wp_rem_cs_opt_array);
 
                             break;
-						case "upload_custom_fonts":
-							$wp_rem_custom_fonts = isset($wp_rem_cs_var_options['wp_rem_custom_fonts']) ? $wp_rem_cs_var_options['wp_rem_custom_fonts'] : '';
-							
-                            $wp_rem_cs_opt_array = array(
-                                'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_name') . ' *',
-                                'desc' => '',
-                                'field_params' => array(
-                                    'std' => '',
-                                    'cust_id' => 'wp_rem_custom_font_name',
-                                    'cust_name' => 'wp_rem_custom_font_name',
-                                    'classes' => '',
-                                    'return' => true,
-                                ),
-                            );
-                            $output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_text_field($wp_rem_cs_opt_array);
-							
-							// woff Font Field
-							$wp_rem_cs_opt_array = array(
-								'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_woff') . ' *',
-								'id' => 'custom_font_upload',
-								'hint_text' => '',
-								'label_desc' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_woff_hint'),
-							);
-							$output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_opening_field($wp_rem_cs_opt_array);
-							$wp_rem_cs_opt_array = array(
-								'std' => $val,
-								'cust_id' => 'custom_fonts_woff',
-								'cust_name' => 'wp_rem_custom_fonts_woff',
-								'classes' => 'input-medium',
-								'return' => true,
-							);
-							$output .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-							$output .= '
-							<label class="browse-icon">';
-								$wp_rem_cs_opt_array = array(
-									'std' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_browse'),
-									'cust_id' => 'wp_rem_custom_fonts_woff',
-									'cust_name' => 'custom_fonts_woff',
-									'cust_type' => 'button',
-									'classes' => 'rem-custom-font left ',
-									'return' => true,
-								);
-								$output .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-							$output .= '
-							</label>';
-							$output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_closing_field(array());
-							// End woff Font Field
-							
-							// ttf Font Field
-							$wp_rem_cs_opt_array = array(
-								'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_ttf') . ' *',
-								'id' => 'custom_font_upload',
-								'hint_text' => '',
-								'label_desc' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_ttf_hint'),
-							);
-							$output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_opening_field($wp_rem_cs_opt_array);
-							$wp_rem_cs_opt_array = array(
-								'std' => $val,
-								'cust_id' => 'custom_fonts_ttf',
-								'cust_name' => 'wp_rem_custom_fonts_ttf',
-								'classes' => 'input-medium',
-								'return' => true,
-							);
-							$output .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-							$output .= '
-							<label class="browse-icon">';
-								$wp_rem_cs_opt_array = array(
-									'std' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_browse'),
-									'cust_id' => 'wp_rem_custom_fonts_ttf',
-									'cust_name' => 'custom_fonts_ttf',
-									'cust_type' => 'button',
-									'classes' => 'rem-custom-font left ',
-									'return' => true,
-								);
-								$output .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-							$output .= '
-							</label>';
-							$output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_closing_field(array());
-							// End ttf Font Field
-							
-							// svg Font Field
-							$wp_rem_cs_opt_array = array(
-								'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_svg') . ' *',
-								'id' => 'custom_font_upload',
-								'hint_text' => '',
-								'label_desc' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_svg_hint'),
-							);
-							$output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_opening_field($wp_rem_cs_opt_array);
-							$wp_rem_cs_opt_array = array(
-								'std' => $val,
-								'cust_id' => 'custom_fonts_svg',
-								'cust_name' => 'wp_rem_custom_fonts_svg',
-								'classes' => 'input-medium',
-								'return' => true,
-							);
-							$output .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-							$output .= '
-							<label class="browse-icon">';
-								$wp_rem_cs_opt_array = array(
-									'std' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_browse'),
-									'cust_id' => 'wp_rem_custom_fonts_svg',
-									'cust_name' => 'custom_fonts_svg',
-									'cust_type' => 'button',
-									'classes' => 'rem-custom-font left ',
-									'return' => true,
-								);
-								$output .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-							$output .= '
-							</label>';
-							$output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_closing_field(array());
-							// End svg Font Field
-							
-							// eot Font Field
-							$wp_rem_cs_opt_array = array(
-								'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_eot') . ' *',
-								'id' => 'custom_font_upload',
-								'hint_text' => '',
-								'label_desc' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_eot_hint'),
-							);
-							$output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_opening_field($wp_rem_cs_opt_array);
-							$wp_rem_cs_opt_array = array(
-								'std' => $val,
-								'cust_id' => 'custom_fonts_eot',
-								'cust_name' => 'wp_rem_custom_fonts_eot',
-								'classes' => 'input-medium',
-								'return' => true, 
-							);
-							$output .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-							$output .= '
-							<label class="browse-icon">';
-								$wp_rem_cs_opt_array = array(
-									'std' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_browse'),
-									'cust_id' => 'wp_rem_custom_fonts_eot',
-									'cust_name' => 'custom_fonts_eot',
-									'cust_type' => 'button',
-									'classes' => 'rem-custom-font left ',
-									'return' => true,
-								);
-								$output .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-							$output .= '
-							</label>';
-							$output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_closing_field(array());
-							// End eot Font Field
-                            
-                            $output .= '<ul class="wp-rem-list-button-ul">
-                                <li class="wp-rem-list-button">
-                                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"></div>
-                                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                                        <div class="input-element">
-                                            <a href="javascript:void(0);" id="click-more" class="wp-rem-add-more cntrl-add-new-row add-custom-font-button" onclick="javascript:wp_rem_cs_var_add_custom_fonts(\'' . admin_url("admin-ajax.php") . '\')">' . wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_add') . '</a>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>';
-
-
-                            $output .= '<div class="wp-rem-list-wrap wp-rem-custom-fonts-list-wrap wp-rem-parent-edit-wraper">
-							<ul class="wp-rem-list-layout">
-								<li class="wp-rem-list-label">
-									<div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-										<div class="element-label">
-											<label>' . wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_name') . '</label>
-										</div>
-									</div>
-								</li>';
-
-                            $i = 0;
-							
-                            if ( is_array($wp_rem_custom_fonts) && !empty($wp_rem_custom_fonts['name'])) {
-                                foreach ( $wp_rem_custom_fonts['name'] as $key => $wp_rem_custom_font  ) {
-										$font_name = isset($wp_rem_custom_fonts['name'][$key]) ? $wp_rem_custom_fonts['name'][$key] : '';
-										$font_woff = isset($wp_rem_custom_fonts['woff'][$key]) ? $wp_rem_custom_fonts['woff'][$key] : '';
-										$font_ttf = isset($wp_rem_custom_fonts['ttf'][$key]) ? $wp_rem_custom_fonts['ttf'][$key] : '';
-										$font_svg = isset($wp_rem_custom_fonts['svg'][$key]) ? $wp_rem_custom_fonts['svg'][$key] : '';
-										$font_eot = isset($wp_rem_custom_fonts['eot'][$key]) ? $wp_rem_custom_fonts['eot'][$key] : '';
-											
-                                        $wp_rem_cs_rand_num = rand(123456, 987654);
-
-                                        $output .= '<li class="wp-rem-list-item">';
-										$output .= '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-											<div class="input-element">
-												<div class="input-holder">';
-
-													$output .= esc_html($font_name);
-												$output.='</div>
-											</div>
-										</div>';
-										$output .= '<a href="javascript:void(0);" class="wp-rem-remove wp-rem-parent-li-remove"><i class="icon-close2"></i></a>';
-										$output .= '<a href="javascript:void(0);" class="wp-rem-edit wp-rem-parent-li-edit"><i class="icon-edit2"></i></a>';
-
-										$output .= '<div class="parent-li-edit-div" style="display:none;">';
-										
-										$wp_rem_cs_opt_array = array(
-											'name' => wp_rem_cs_var_theme_text_srt( 'wp_rem_cs_var_theme_option_custom_font_name' ) . ' *',
-											'desc' => '',
-											'field_params' => array(
-												'std' => esc_html($font_name),
-												'cust_id' => 'wp_rem_custom_font_name' . absint( $wp_rem_cs_rand_num ),
-												'cust_name' => 'wp_rem_custom_fonts[name][]',
-												'classes' => '',
-												'return' => true,
-											),
-										);
-										$output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_text_field( $wp_rem_cs_opt_array );
-
-										// woff Font Field
-										$wp_rem_cs_opt_array = array(
-											'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_woff') . ' *',
-											'id' => 'custom_font_upload',
-											'hint_text' => '',
-											'label_desc' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_woff_hint'),
-										);
-										$output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_opening_field($wp_rem_cs_opt_array);
-										$wp_rem_cs_opt_array = array(
-											'std' => esc_url($font_woff),
-											'cust_id' => 'custom_fonts_woff' . absint( $wp_rem_cs_rand_num ),
-											'cust_name' => 'wp_rem_custom_fonts[woff][]',
-											'classes' => 'input-medium',
-											'return' => true,
-										);
-										$output .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-										$output .= '
-										<label class="browse-icon">';
-											$wp_rem_cs_opt_array = array(
-												'std' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_browse'),
-												'cust_id' => 'wp_rem_custom_fonts_woff',
-												'cust_name' => 'custom_fonts_woff' . absint( $wp_rem_cs_rand_num ),
-												'cust_type' => 'button',
-												'classes' => 'rem-custom-font left ',
-												'return' => true,
-											);
-											$output .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-										$output .= '
-										</label>';
-										$output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_closing_field(array());
-										// End woff Font Field
-
-										// ttf Font Field
-										$wp_rem_cs_opt_array = array(
-											'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_ttf') . ' *',
-											'id' => 'custom_font_upload',
-											'hint_text' => '',
-											'label_desc' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_ttf_hint'),
-										);
-										$output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_opening_field($wp_rem_cs_opt_array);
-										$wp_rem_cs_opt_array = array(
-											'std' => esc_url($font_ttf),
-											'cust_id' => 'custom_fonts_ttf' . absint( $wp_rem_cs_rand_num ),
-											'cust_name' => 'wp_rem_custom_fonts[ttf][]',
-											'classes' => 'input-medium',
-											'return' => true,
-										);
-										$output .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-										$output .= '
-										<label class="browse-icon">';
-											$wp_rem_cs_opt_array = array(
-												'std' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_browse'),
-												'cust_id' => 'wp_rem_custom_fonts_ttf',
-												'cust_name' => 'custom_fonts_ttf' . absint( $wp_rem_cs_rand_num ),
-												'cust_type' => 'button',
-												'classes' => 'rem-custom-font left ',
-												'return' => true,
-											);
-											$output .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-										$output .= '
-										</label>';
-										$output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_closing_field(array());
-										// End ttf Font Field
-
-										// svg Font Field
-										$wp_rem_cs_opt_array = array(
-											'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_svg') . ' *',
-											'id' => 'custom_font_upload',
-											'hint_text' => '',
-											'label_desc' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_svg_hint'),
-										);
-										$output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_opening_field($wp_rem_cs_opt_array);
-										$wp_rem_cs_opt_array = array(
-											'std' => esc_url($font_svg),
-											'cust_id' => 'custom_fonts_svg' . absint( $wp_rem_cs_rand_num ),
-											'cust_name' => 'wp_rem_custom_fonts[svg][]',
-											'classes' => 'input-medium',
-											'return' => true,
-										);
-										$output .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-										$output .= '
-										<label class="browse-icon">';
-											$wp_rem_cs_opt_array = array(
-												'std' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_browse'),
-												'cust_id' => 'wp_rem_custom_fonts_svg',
-												'cust_name' => 'custom_fonts_svg' . absint( $wp_rem_cs_rand_num ),
-												'cust_type' => 'button',
-												'classes' => 'rem-custom-font left ',
-												'return' => true,
-											);
-											$output .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-										$output .= '
-										</label>';
-										$output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_closing_field(array());
-										// End svg Font Field
-
-										// eot Font Field
-										$wp_rem_cs_opt_array = array(
-											'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_eot') . ' *',
-											'id' => 'custom_font_upload',
-											'hint_text' => '',
-											'label_desc' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_eot_hint'),
-										);
-										$output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_opening_field($wp_rem_cs_opt_array);
-										$wp_rem_cs_opt_array = array(
-											'std' => esc_url($font_eot),
-											'cust_id' => 'custom_fonts_eot' . absint( $wp_rem_cs_rand_num ),
-											'cust_name' => 'wp_rem_custom_fonts[eot][]',
-											'classes' => 'input-medium',
-											'return' => true, 
-										);
-										$output .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-										$output .= '
-										<label class="browse-icon">';
-											$wp_rem_cs_opt_array = array(
-												'std' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_browse'),
-												'cust_id' => 'wp_rem_custom_fonts_eot',
-												'cust_name' => 'custom_fonts_eot' . absint( $wp_rem_cs_rand_num ),
-												'cust_type' => 'button',
-												'classes' => 'rem-custom-font left ',
-												'return' => true,
-											);
-											$output .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-										$output .= '
-										</label>';
-										$output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_closing_field(array());
-										// End eot Font Field
-										$output .= '</div>';
-                                        $output .= '</li>';
-                                }
-                            }
-
-
-                            $output .= '</ul></div>';
-							
-                            break;
-
                         case "sidebar" :
 
                             if ( isset($wp_rem_cs_var_options['wp_rem_cs_var_sidebar']) && sizeof($wp_rem_cs_var_options['wp_rem_cs_var_sidebar']) > 0 ) {
@@ -2426,6 +2172,7 @@ if ( ! class_exists('wp_rem_cs_var_fields') ) {
                                     $display = 'none';
                                 } else {
                                     $network_list = isset($wp_rem_cs_var_options['wp_rem_cs_var_social_net_awesome']) ? $wp_rem_cs_var_options['wp_rem_cs_var_social_net_awesome'] : '';
+                                    $network_list_group = isset($wp_rem_cs_var_options['wp_rem_cs_var_social_net_awesome_group']) ? $wp_rem_cs_var_options['wp_rem_cs_var_social_net_awesome_group'] : '';
                                     $social_net_tooltip = isset($wp_rem_cs_var_options['wp_rem_cs_var_social_net_tooltip']) ? $wp_rem_cs_var_options['wp_rem_cs_var_social_net_tooltip'] : '';
                                     $social_net_icon_path = isset($wp_rem_cs_var_options['wp_rem_cs_var_social_icon_path_array']) ? $wp_rem_cs_var_options['wp_rem_cs_var_social_icon_path_array'] : '';
                                     $social_net_url = isset($wp_rem_cs_var_options['wp_rem_cs_var_social_net_url']) ? $wp_rem_cs_var_options['wp_rem_cs_var_social_net_url'] : '';
@@ -2437,6 +2184,7 @@ if ( ! class_exists('wp_rem_cs_var_fields') ) {
                                 $std = isset($wp_rem_cs_var_options['id']) ? $value['id'] : '';
                                 $display = 'block';
                                 $network_list = isset($wp_rem_cs_var_options['wp_rem_cs_var_social_net_awesome']) ? $wp_rem_cs_var_options['wp_rem_cs_var_social_net_awesome'] : '';
+                                $network_list_group = isset($wp_rem_cs_var_options['wp_rem_cs_var_social_net_awesome_group']) ? $wp_rem_cs_var_options['wp_rem_cs_var_social_net_awesome_group'] : '';
                                 $social_net_tooltip = isset($wp_rem_cs_var_options['wp_rem_cs_var_social_net_tooltip']) ? $wp_rem_cs_var_options['wp_rem_cs_var_social_net_tooltip'] : '';
                                 $social_net_icon_path = isset($wp_rem_cs_var_options['wp_rem_cs_var_social_icon_path_array']) ? $wp_rem_cs_var_options['wp_rem_cs_var_social_icon_path_array'] : '';
                                 $social_net_url = isset($wp_rem_cs_var_options['wp_rem_cs_var_social_net_url']) ? $wp_rem_cs_var_options['wp_rem_cs_var_social_net_url'] : '';
@@ -2492,8 +2240,8 @@ if ( ! class_exists('wp_rem_cs_var_fields') ) {
 								<div id="wp_rem_cs_var_infobox_networks' . $counter . '">
 								  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 									<label>' . wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_social_icon_choose_str') . '</label>';
-                            $output .= '</div>
-								  <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">' . wp_rem_cs_var_icomoon_icons_box("", "networks" . $counter, 'social_net_awesome_input') . '</div>
+                            $output .= '</div>                      
+								  <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">' . apply_filters( 'cs_icons_fields',"", "networks" . $counter, 'social_net_awesome_input') . '</div>
 								</div>
 							</div>';
 
@@ -2630,17 +2378,19 @@ if ( ! class_exists('wp_rem_cs_var_fields') ) {
 
                                         $output .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_upload_file_field($wp_rem_cs_opt_array);
                                         $wp_rem_cs_var_icon = wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_social_icon_choose_str');
+                                        $network_group  = isset( $network_list_group[$i] )? $network_list_group[$i] : 'default';
                                         $output .= '
-											<div class="form-elements">
-												<div id="wp_rem_cs_var_infobox_theme_options' . $i . '">
-												  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-													<label>' . $wp_rem_cs_var_icon . '</label>
-												  </div>
-												  <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-													' . wp_rem_cs_var_icomoon_icons_box($network_list[$i], "theme_options" . $i, 'wp_rem_cs_var_social_net_awesome') . '
-												  </div>
-												</div>
-											</div>';
+                                                    <div class="form-elements">
+                                                            <div id="wp_rem_cs_var_infobox_theme_options' . $i . '">
+                                                              <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                                    <label>' . $wp_rem_cs_var_icon . '</label>
+                                                              </div>
+                                                              <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                                              
+                                                                    ' . apply_filters( 'cs_icons_fields', $network_list[$i], "theme_options" . $i, 'wp_rem_cs_var_social_net_awesome', $network_group ) . '
+                                                              </div>
+                                                            </div>
+                                                    </div>';
 
                                         $wp_rem_cs_opt_array = array(
                                             'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_icon_color'),

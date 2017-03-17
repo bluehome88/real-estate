@@ -222,7 +222,7 @@ if (!function_exists('wp_rem_cs_var_page_builder_list')) {
                                 foreach ($atts_content as $list) {
                                     $rand_id = rand(3333, 99999);
                                     $wp_rem_cs_var_list_text = $list['content'];
-                                    $defaults = array('wp_rem_cs_var_list_item_text' => '', 'wp_rem_cs_var_list_item_icon' => '');
+                                    $defaults = array('wp_rem_cs_var_list_item_text' => '', 'wp_rem_cs_var_list_item_icon' => '', 'wp_rem_cs_var_list_item_icon_group' => '');
                                     foreach ($defaults as $key => $values) {
                                         if (isset($list['atts'][$key]))
                                             $$key = $list['atts'][$key];
@@ -263,7 +263,7 @@ if (!function_exists('wp_rem_cs_var_page_builder_list')) {
                                                     ?>
                                                 </div>
                                                 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                                                    <?php echo wp_rem_cs_var_icomoon_icons_box(esc_html($wp_rem_cs_var_list_item_icon), esc_attr($rand_id), 'wp_rem_cs_var_list_item_icon'); ?>
+                                                    <?php echo apply_filters( 'cs_icons_fields', esc_html($wp_rem_cs_var_list_item_icon), esc_attr($rand_id), 'wp_rem_cs_var_list_item_icon', $wp_rem_cs_var_list_item_icon_group ); ?>
                                                 </div>
                                             </div>
                                             <?php
@@ -389,6 +389,9 @@ if (!function_exists('wp_rem_cs_save_page_builder_data_list_callback')) {
                         }
                         if (isset($data['wp_rem_cs_var_list_item_icon'][$counters['wp_rem_cs_counter_list_node']]) && $data['wp_rem_cs_var_list_item_icon'][$counters['wp_rem_cs_counter_list_node']] != '') {
                             $shortcode_item .= 'wp_rem_cs_var_list_item_icon="' . htmlspecialchars($data['wp_rem_cs_var_list_item_icon'][$counters['wp_rem_cs_counter_list_node']], ENT_QUOTES) . '" ';
+                        }
+                        if (isset($data['wp_rem_cs_var_list_item_icon_group'][$counters['wp_rem_cs_counter_list_node']]) && $data['wp_rem_cs_var_list_item_icon_group'][$counters['wp_rem_cs_counter_list_node']] != '') {
+                            $shortcode_item .= 'wp_rem_cs_var_list_item_icon_group="' . htmlspecialchars($data['wp_rem_cs_var_list_item_icon_group'][$counters['wp_rem_cs_counter_list_node']], ENT_QUOTES) . '" ';
                         }
                         $shortcode_item .= ']';
                         $shortcode_item .= '[/wp_rem_cs_list_item]';
@@ -533,7 +536,7 @@ if (!function_exists('wp_rem_cs_shortcode_sub_element_ui_list_callback')) {
                             ?>
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                            <?php echo wp_rem_cs_var_icomoon_icons_box('', $rand_id, 'wp_rem_cs_var_list_item_icon'); ?>
+                            <?php echo apply_filters( 'cs_icons_fields', '', $rand_id, 'wp_rem_cs_var_list_item_icon'); ?>
                         </div>
                     </div>
                 </div>

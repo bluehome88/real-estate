@@ -35,6 +35,8 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_newsletter') ) {
                 'wp_rem_var_newsletter_align' => '',
                 'wp_rem_cs_var_newsletter_api_key' => '',
                 'wp_rem_var_newsletter_list' => '',
+                'wp_rem_var_newsletter_styles'=>'',
+                'wp_rem_var_newsletter_social_icons'=>'',
             );
             if ( isset($wp_rem_cs_output['0']['atts']) ) {
                 $atts = $wp_rem_cs_output['0']['atts'];
@@ -134,6 +136,51 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_newsletter') ) {
                                 ),
                             );
                             $wp_rem_cs_var_html_fields->wp_rem_cs_var_select_field($wp_rem_opt_array);
+                            
+                            $wp_rem_opt_array = array(
+                                'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_edit_newsletter_styles'),
+                                'desc' => '',
+                                'hint_text' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_edit_newsletter_styles_hint'),
+                                'echo' => true,
+                                'field_params' => array(
+                                    'std' => $wp_rem_var_newsletter_styles,
+                                    'id' => '',
+                                    'cust_name' => 'wp_rem_var_newsletter_styles[]',
+                                    'classes' => 'chosen-select-no-single',
+                                    'options' => array(
+                                        'classic' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_edit_newsletter_styles_classic'),
+                                        'modern' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_edit_newsletter_styles_modern'),
+                                        'boxed' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_newslwtter_styles_boxed'),
+                                    ),
+                                    'return' => true,
+                                ),
+                            );
+                            $wp_rem_cs_var_html_fields->wp_rem_cs_var_select_field($wp_rem_opt_array);
+                            
+                            
+                            $wp_rem_opt_array = array(
+                                'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_element_newsletter_show_icons'),
+                                'desc' => '',
+                                'hint_text' => '',
+                                'echo' => true,
+                                'field_params' => array(
+                                    'std' => $wp_rem_var_newsletter_social_icons,
+                                    'id' => '',
+                                    'cust_name' => 'wp_rem_var_newsletter_social_icons[]',
+                                    'classes' => 'chosen-select-no-single',
+                                    'options' => array(
+                                        'yes' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_element_newsletter_show_icons_yes'),
+                                        'no' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_element_newsletter_show_icons_no'),
+                                        
+                                    ),
+                                    'return' => true,
+                                ),
+                            );
+                            $wp_rem_cs_var_html_fields->wp_rem_cs_var_select_field($wp_rem_opt_array);
+                            
+                            
+                            
+                            
                             
                             $wp_rem_cs_opt_array = array(
                                 'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_edit_newsletter_content'),
@@ -294,6 +341,12 @@ if ( ! function_exists('wp_rem_cs_save_page_builder_data_newsletter_callback') )
                 }
                 if ( isset($_POST['wp_rem_cs_var_newsletter_api_key'][$counters['wp_rem_cs_counter_newsletter']]) && $_POST['wp_rem_cs_var_newsletter_api_key'][$counters['wp_rem_cs_counter_newsletter']] != '' ) {
                     $shortcode .='wp_rem_cs_var_newsletter_api_key="' . htmlspecialchars($_POST['wp_rem_cs_var_newsletter_api_key'][$counters['wp_rem_cs_counter_newsletter']], ENT_QUOTES) . '" ';
+                }
+                if ( isset($_POST['wp_rem_var_newsletter_styles'][$counters['wp_rem_cs_counter_newsletter']]) && $_POST['wp_rem_var_newsletter_styles'][$counters['wp_rem_cs_counter_newsletter']] != '' ) {
+                    $shortcode .='wp_rem_var_newsletter_styles="' . htmlspecialchars($_POST['wp_rem_var_newsletter_styles'][$counters['wp_rem_cs_counter_newsletter']], ENT_QUOTES) . '" ';
+                }
+                if ( isset($_POST['wp_rem_var_newsletter_social_icons'][$counters['wp_rem_cs_counter_newsletter']]) && $_POST['wp_rem_var_newsletter_social_icons'][$counters['wp_rem_cs_counter_newsletter']] != '' ) {
+                    $shortcode .='wp_rem_var_newsletter_social_icons="' . htmlspecialchars($_POST['wp_rem_var_newsletter_social_icons'][$counters['wp_rem_cs_counter_newsletter']], ENT_QUOTES) . '" ';
                 }
                 if ( isset($_POST['wp_rem_var_newsletter_list'][$counters['wp_rem_cs_counter_newsletter']]) && $_POST['wp_rem_var_newsletter_list'][$counters['wp_rem_cs_counter_newsletter']] != '' ) {
                     $shortcode .='wp_rem_var_newsletter_list="' . htmlspecialchars($_POST['wp_rem_var_newsletter_list'][$counters['wp_rem_cs_counter_newsletter']], ENT_QUOTES) . '" ';

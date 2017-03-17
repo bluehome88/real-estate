@@ -4,11 +4,11 @@
  * Start Function how to Remove Extra Variables using Query String
 
  */
-if (!function_exists('cs_remove_qrystr_extra_var')) {
+if ( ! function_exists('cs_remove_qrystr_extra_var') ) {
 
     function cs_remove_qrystr_extra_var($qStr, $key, $withqury_start = 'yes') {
 
-        if (!(strpos($qr_str, '?') !== false)) {
+        if ( ! (strpos($qr_str, '?') !== false) ) {
 
             $qr_str = "?" . $qr_str;
         }
@@ -19,7 +19,7 @@ if (!function_exists('cs_remove_qrystr_extra_var')) {
 
 
 
-        if ($withqury_start == 'no') {
+        if ( $withqury_start == 'no' ) {
 
             $qr_str = str_replace("?", "", $qr_str);
         }
@@ -31,13 +31,464 @@ if (!function_exists('cs_remove_qrystr_extra_var')) {
 
 }
 
+if ( ! function_exists('property_checks_enquire_lists_submit') ) {
+
+    add_action('property_checks_enquire_lists_submit', 'property_checks_enquire_lists_submit', 10);
+
+    function property_checks_enquire_lists_submit($id, $args = array()) {
+        global $current_user, $wp_rem_plugin_options, $Wp_rem_Captcha, $wp_rem_form_fields_frontend;
+        extract($args);
+
+		$html = '';
+		if ( is_user_logged_in() ) {
+			
+			$html .= '
+			<div id="prop-enquiry-pop-list-box" class="enquiry-submit-btn-box" style="display: none;">
+			<input type="hidden" id="prop-enquiry-list-all">
+			<a href="javascript:void(0)" class="prop-enquiry-pop-list-btn" data-target="#sprop-enquiry-popbox-list" data-toggle="modal">Send Enquiry</a>';
+			
+			ob_start();
+            $wp_rem_captcha_switch = '';
+            $wp_rem_captcha_switch = isset($wp_rem_plugin_options['wp_rem_captcha_switch']) ? $wp_rem_plugin_options['wp_rem_captcha_switch'] : '';
+            $wp_rem_sitekey = isset($wp_rem_plugin_options['wp_rem_sitekey']) ? $wp_rem_plugin_options['wp_rem_sitekey'] : '';
+            $wp_rem_secretkey = isset($wp_rem_plugin_options['wp_rem_secretkey']) ? $wp_rem_plugin_options['wp_rem_secretkey'] : '';
+            $wp_rem_property_counter = rand(1234500, 99954321);
+            $user_id = $company_id = 0;
+            $user_id = get_current_user_id();
+            $display_name = '';
+            $phone_number = '';
+            $email_address = '';
+            if ( $user_id != 0 ) {
+                $company_id = get_user_meta($user_id, 'wp_rem_company', true);
+                $user_data = get_userdata($user_id);
+                $display_name = isset($user_data->display_name) ? $user_data->display_name : '';
+                $phone_number = get_post_meta($company_id, 'wp_rem_phone_number', true);
+                $email_address = get_post_meta($company_id, 'wp_rem_email_address', true);
+            }
+            ?>
+            <!-- Modal -->
+            <div class="modal modal-form fade" id="sprop-enquiry-popbox-list" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="enquiry-myModalLabel"><?php echo wp_rem_plugin_text_srt('wp_rem_enquire_arrange_request_inquiry'); ?></h4>
+                        </div>
+                        <div class="modal-body profile-info">
+                            <form id="frm_property<?php echo absint($wp_rem_property_counter); ?>" class="enquiry-request-form" name="form_name" action="javascript:wp_rem_enquire_list_send_message('<?php echo absint($wp_rem_property_counter); ?>');" method="get">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="field-holder">
+                                            <i class="icon-user2"></i>
+                                            <?php
+                                            $wp_rem_opt_array = array(
+                                                'std' => esc_html($display_name),
+                                                'cust_name' => 'user_name',
+                                                'return' => false,
+                                                'classes' => 'input-field',
+                                                'extra_atr' => ' readonly="readonly"',
+                                            );
+                                            $wp_rem_form_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="field-holder">
+                                            <i class="icon-phone4"></i>
+                                            <?php
+                                            $wp_rem_opt_array = array(
+                                                'std' => esc_html($phone_number),
+                                                'cust_name' => 'user_phone',
+                                                'return' => false,
+                                                'classes' => 'input-field',
+                                                'extra_atr' => ' readonly="readonly"',
+                                            );
+                                            $wp_rem_form_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="field-holder">
+                                            <i class="icon-mail"></i>
+                                            <?php
+                                            $wp_rem_opt_array = array(
+                                                'std' => esc_html($email_address),
+                                                'cust_name' => 'user_email',
+                                                'return' => false,
+                                                'classes' => 'input-field',
+                                                'extra_atr' => ' readonly="readonly"',
+                                            );
+                                            $wp_rem_form_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="field-holder">
+                                            <i class="icon-message"></i>
+                                            <?php
+                                            $wp_rem_opt_array = array(
+                                                'std' => '',
+                                                'id' => 'user_message',
+                                                'cust_name' => 'user_message',
+                                                'classes' => 'textarea-field',
+                                                'description' => '',
+                                                'return' => false,
+                                                'name' => wp_rem_plugin_text_srt('wp_rem_author_info_sender_message'),
+                                            );
+                                            $wp_rem_form_fields_frontend->wp_rem_form_textarea_render($wp_rem_opt_array);
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <?php
+                                    if ( $wp_rem_captcha_switch == 'on' ) {
+                                        if ( $wp_rem_sitekey <> '' and $wp_rem_secretkey <> '' ) {
+                                            wp_rem_google_recaptcha_scripts();
+                                            ?>
+                                            <script>
+                                                var recaptcha_enquery;
+                                                var wp_rem_multicap = function () {
+                                                    //Render the recaptcha1 on the element with ID "recaptcha1"
+                                                    recaptcha_enquery = grecaptcha.render('recaptcha_enquery', {
+                                                        'sitekey': '<?php echo ($wp_rem_sitekey); ?>', //Replace this with your Site key
+                                                        'theme': 'light'
+                                                    });
+
+                                                };
+                                            </script>
+                                            <?php
+                                        }
+                                        if ( class_exists('Wp_rem_Captcha') ) {
+                                            $output = '<div class="col-md-12 recaptcha-reload" id="recaptcha_enquery_div">';
+                                            $output .= $Wp_rem_Captcha->wp_rem_generate_captcha_form_callback('recaptcha_enquery', 'true');
+                                            $output .='</div>';
+                                            echo force_balance_tags($output);
+                                        }
+                                    }
+                                    ?>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="field-holder enquiry-request-holder input-button-loader">
+                                            <?php
+                                            $wp_rem_opt_array = array(
+                                                'std' => wp_rem_plugin_text_srt('wp_rem_contact_send_message'),
+                                                'cust_name' => 'message_submit',
+                                                'return' => false,
+                                                'classes' => 'bgcolor',
+                                                'cust_type' => 'submit',
+                                                'force_std' => true,
+                                            );
+                                            $wp_rem_form_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="field-holder">
+                                            <?php wp_rem_term_condition_form_field('term_policy', 'term_policy'); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                                $wp_rem_opt_array = array(
+                                    'std' => '',
+                                    'id' => 'property_id',
+                                    'return' => false,
+                                    'force_std' => true,
+                                );
+                                $wp_rem_form_fields_frontend->wp_rem_form_hidden_render($wp_rem_opt_array);
+
+                                $wp_rem_opt_array = array(
+                                    'std' => intval($user_id),
+                                    'id' => 'enquiry_user',
+                                    'return' => false,
+                                    'force_std' => true,
+                                );
+                                $wp_rem_form_fields_frontend->wp_rem_form_hidden_render($wp_rem_opt_array);
+
+                                $wp_rem_opt_array = array(
+                                    'std' => intval($company_id),
+                                    'id' => 'enquiry_member',
+                                    'return' => false,
+                                    'force_std' => true,
+                                );
+                                $wp_rem_form_fields_frontend->wp_rem_form_hidden_render($wp_rem_opt_array);
+                                ?>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php
+            $wp_rem_cs_inline_script = '
+			function wp_rem_enquire_list_send_message(form_id) {
+				"use strict";
+				var thisObj = jQuery(".enquiry-request-holder");
+				wp_rem_show_loader(".enquiry-request-holder", "", "button_loader", thisObj);
+				var datastring = jQuery("#frm_property" + form_id).serialize() + "&action=wp_rem_send_enquire_listing_submit";
+				jQuery.ajax({
+					type: "POST",
+					url: wp_rem_globals.ajax_url,
+					data: datastring,
+					dataType: "json",
+					success: function(response) {
+						wp_rem_show_response(response, ".enquiry-request-form", thisObj);
+						if (response.type == "success") {
+							jQuery("#frm_property" + form_id + "").trigger("reset");
+						}
+					}
+				});
+			}';
+            wp_rem_cs_inline_enqueue_script($wp_rem_cs_inline_script, 'wp-rem-custom-inline');
+			$html .= ob_get_clean();
+			
+			$html .= '</div>';
+		}
+
+        echo force_balance_tags($html);
+    }
+
+}
+
+if ( ! function_exists('wp_rem_send_enquire_listing_submit_callback') ) {
+	function wp_rem_send_enquire_listing_submit_callback() {
+		global $wp_rem_plugin_options;
+		if ( is_user_logged_in() ) {
+
+			$user_name = wp_rem_get_input('user_name', NULL, 'STRING');
+			$user_phone = wp_rem_get_input('user_phone', NULL, 'STRING');
+			$user_email = wp_rem_get_input('user_email', NULL, 'STRING');
+			$user_message = wp_rem_get_input('user_message', NULL, 'STRING');
+			
+			$enquiry_user = wp_rem_get_input('wp_rem_enquiry_user', 0);
+			$enquiry_member = wp_rem_get_input('wp_rem_enquiry_member', 0);
+				
+			$property_ids = isset($_POST['wp_rem_property_id']) ? $_POST['wp_rem_property_id'] : '';
+			
+			if ($property_ids != '') {
+				
+				$property_ids = explode(',', $property_ids);
+
+				foreach($property_ids as $property_id) {
+					
+					$property_member = get_post_meta($property_id, 'wp_rem_property_member', true);
+					$property_user = wp_rem_user_id_form_company_id($property_member);
+					$property_type_slug = get_post_meta($property_id, 'wp_rem_property_type', true);
+					$property_type_post = get_posts(array( 'posts_per_page' => '1', 'post_type' => 'property-type', 'name' => $property_type_slug, 'post_status' => 'publish' ));
+					$property_type_id = isset($property_type_post[0]->ID) ? $property_type_post[0]->ID : 0;
+					
+
+					if ( $property_member == $enquiry_member ) {
+						$json['type'] = 'error';
+						$json['msg'] = wp_rem_plugin_text_srt('wp_rem_enquiry_own_property_error');
+						echo json_encode($json);
+						exit();
+					}
+
+					if ( empty($user_message) ) {
+						$json['type'] = 'error';
+						$json['msg'] = wp_rem_plugin_text_srt('wp_rem_enquiry_msg_empty');
+						echo json_encode($json);
+						exit();
+					}
+
+					wp_rem_verify_term_condition_form_field('term_policy');
+
+					$wp_rem_captcha_switch = isset($wp_rem_plugin_options['wp_rem_captcha_switch']) ? $wp_rem_plugin_options['wp_rem_captcha_switch'] : '';
+					if ( $wp_rem_captcha_switch == 'on' ) {
+						do_action('wp_rem_verify_captcha_form');
+					}
+					/*
+					 * Add inquery in DB logic
+					 */
+
+					$enquiry_post = array(
+						'post_title' => wp_strip_all_tags(get_the_title($property_id)),
+						'post_content' => '',
+						'post_status' => 'publish',
+						'post_type' => 'property_enquiries',
+						'post_date' => current_time('Y/m/d H:i:s')
+					);
+					//insert Enquiry
+					$enquiry_id = wp_insert_post($enquiry_post);
+					// Update the post into the database
+					$my_post = array(
+						'ID' => $order_id,
+						'post_title' => 'enquiry-' . $enquiry_id,
+						'post_name' => 'enquiry-' . $enquiry_id,
+					);
+					wp_update_post($my_post);
+
+					update_post_meta($enquiry_id, 'wp_rem_user_name', $user_name);
+					update_post_meta($enquiry_id, 'wp_rem_phone_number', $user_phone);
+					update_post_meta($enquiry_id, 'wp_rem_user_email', $user_email);
+					update_post_meta($enquiry_id, 'wp_rem_user_message', $user_message);
+					// Save Viewing Property Fields
+					update_post_meta($enquiry_id, 'wp_rem_property_user', $property_user);
+					update_post_meta($enquiry_id, 'wp_rem_property_member', $property_member);
+					update_post_meta($enquiry_id, 'wp_rem_property_id', $property_id);
+					update_post_meta($enquiry_id, 'wp_rem_property_type_id', $property_type_id);
+					update_post_meta($enquiry_id, 'wp_rem_enquiry_user', $enquiry_user);
+					update_post_meta($enquiry_id, 'wp_rem_enquiry_member', $enquiry_member);
+
+					update_post_meta($enquiry_id, 'wp_rem_enquiry_id', $viewing_id);
+					update_post_meta($enquiry_id, 'wp_rem_enquiry_status', 'Processing');
+					update_post_meta($enquiry_id, 'buyer_read_status', '0');
+					update_post_meta($enquiry_id, 'seller_read_status', '0');
+
+					//do_action('wp_rem_received_enquiry_email', $_POST);
+				}
+				
+				$json['type'] = 'success';
+				$json['msg'] = wp_rem_plugin_text_srt('wp_rem_enquiry_sent_successfully');
+				echo json_encode($json);
+				exit();
+			}
+		} else {
+			$json['type'] = 'error';
+			$json['msg'] = wp_rem_plugin_text_srt('wp_rem_enquire_arrange_login');
+			echo json_encode($json);
+			exit();
+		}
+	}
+	
+	add_action('wp_ajax_nopriv_wp_rem_send_enquire_listing_submit', 'wp_rem_send_enquire_listing_submit_callback');
+    add_action('wp_ajax_wp_rem_send_enquire_listing_submit', 'wp_rem_send_enquire_listing_submit_callback');
+}
+
+if ( ! function_exists('wp_rem_enquiry_check_frontend') ) {
+
+    add_action('wp_rem_enquiry_check_frontend_button', 'wp_rem_enquiry_check_frontend', 10, 2);
+
+    function wp_rem_enquiry_check_frontend($id, $args = array()) {
+        global $current_user;
+        extract($args);
+
+		$html = '';
+		if ( is_user_logged_in() ) {
+			
+			$html .= '
+			<div class="enquiry-list-btn">
+				<input type="checkbox" id="prop-enquiry-list-btn-' . $id . '" data-id="' . $id . '" class="property-enquiry-check dev-property-list-enquiry-check"> <label for="prop-enquiry-list-btn-' . $id . '">' . $enquiry_label . '</label>
+			</div>';
+		}
+
+        echo force_balance_tags($html);
+    }
+
+}
+
+if ( ! function_exists('wp_rem_adding_property_notes') ) {
+
+    add_action('wp_ajax_wp_rem_adding_property_notes', 'wp_rem_adding_property_notes');
+    add_action('wp_ajax_nopriv_wp_rem_adding_property_notes', 'wp_rem_adding_property_notes');
+
+    function wp_rem_adding_property_notes() {
+        global $current_user;
+        $prop_id = isset($_POST['prop_id']) ? $_POST['prop_id'] : '';
+        $prop_notes = isset($_POST['prop_notes']) ? $_POST['prop_notes'] : '';
+
+        if ( strlen($prop_notes) > 499 ) {
+            echo json_encode(array( 'type' => 'error', 'msg' => wp_rem_plugin_text_srt('wp_rem_prop_notes_no_500_words_allow') ));
+            die;
+        }
+
+        $company_id = wp_rem_company_id_form_user_id($current_user->ID);
+
+        $property_notes = get_post_meta($company_id, 'property_notes', true);
+
+        $notes_to_save = array(
+            'property_id' => $prop_id,
+            'notes' => $prop_notes,
+        );
+
+        $property_notes[$prop_id] = $notes_to_save;
+
+        update_post_meta($company_id, 'property_notes', $property_notes);
+
+        echo json_encode(array( 'type' => 'success', 'msg' => wp_rem_plugin_text_srt('wp_rem_prop_notes_saved_msg') ));
+        die;
+    }
+
+}
+
+if ( ! function_exists('wp_rem_notes_frontend_button') ) {
+
+    add_action('wp_rem_notes_frontend_button', 'wp_rem_notes_frontend_button', 10, 2);
+
+    function wp_rem_notes_frontend_button($id, $args = array()) {
+        global $wp_rem_form_fields, $current_user;
+        extract($args);
+
+        $notes_added = false;
+        if ( is_user_logged_in() ) {
+            $company_id = wp_rem_company_id_form_user_id($current_user->ID);
+            $property_notes = get_post_meta($company_id, 'property_notes', true);
+            if ( is_array($property_notes) && ! empty($property_notes) ) {
+                if ( array_key_exists($id, $property_notes) ) {
+                    $notes_added = true;
+                }
+            }
+        }
+
+		if ( is_user_logged_in() ) {
+			if ( true === $notes_added ) {
+				$html = '
+				<div class="notes-btn">
+					<a id="property-note-' . $id . '" data-id="' . $id . '" data-aftericon="' . $after_icon . '" data-afterlabel="' . $after_label . '" class="property-notes">' . $after_label . ' <i class="' . $after_icon . '"></i></a>
+				</div>';
+			} else {
+				$html = '
+				<div class="notes-btn">
+					<a id="property-note-' . $id . '" data-id="' . $id . '" data-aftericon="' . $after_icon . '" data-afterlabel="' . $after_label . '" href="javascript:void(0);" class="property-notes" data-toggle="modal" data-target="#prop-notes-' . $id . '">' . $before_label . ' <i class="' . $before_icon . '"></i></a>
+				</div>
+
+				<div id="prop-notes-' . $id . '" class="modal fade property-notes-modal" role="dialog">
+					<div class="modal-dialog">
+					  <div class="modal-content">
+						<div class="modal-header">
+						  <button type="button" class="close" data-dismiss="modal">&times;</button>
+						  <h4 class="modal-title">' . sprintf(wp_rem_plugin_text_srt('wp_rem_prop_notes_add_notes_for'), wp_trim_words(get_the_title($id), 4, '...')) . '"</h4>
+						</div>
+						<div class="modal-body">';
+				$html .= '';
+				$wp_rem_opt_array = array(
+					'std' => '',
+					'classes' => '',
+					'cust_id' => 'prop-notes-text-' . absint($id),
+					'cust_name' => 'prop-notes-text',
+					'extra_atr' => 'placeholder="' . wp_rem_plugin_text_srt('wp_rem_prop_notes_type_here') . '"',
+					'return' => true,
+				);
+				$html .= $wp_rem_form_fields->wp_rem_form_textarea_render($wp_rem_opt_array);
+				$html .= wp_rem_plugin_text_srt('wp_rem_prop_notes_max_chars_allowed');
+				$html .= '
+						</div>
+						<div class="modal-footer">
+						  <div class="submit-prop-notes-btn">
+							<button data-id="' . $id . '" type="button" class="submit-prop-notes btn bgcolor">' . wp_rem_plugin_text_srt('wp_rem_prop_notes_submit') . '</button>
+						  </div>
+						</div>
+					  </div>
+					</div>
+				</div>';
+			}
+		} else {
+			$html = '
+			<div class="notes-btn">
+				<a id="property-note-' . $id . '" href="javascript:void(0);" class="property-notes dev-prop-notes-login">' . $before_label . ' <i class="' . $before_icon . '"></i></a>
+			</div>';
+		}
+
+        echo force_balance_tags($html);
+    }
+
+}
+
 
 /**
 
  * Start Function how to remove Dupplicate variable value
 
  */
-if (!function_exists('remove_dupplicate_var_val')) {
+if ( ! function_exists('remove_dupplicate_var_val') ) {
 
 
 
@@ -51,11 +502,11 @@ if (!function_exists('remove_dupplicate_var_val')) {
 
         $params = array();
 
-        if (isset($query) && !empty($query)) {
+        if ( isset($query) && ! empty($query) ) {
 
-            foreach ($query as $param) {
+            foreach ( $query as $param ) {
 
-                if (!empty($param)) {
+                if ( ! empty($param) ) {
 
                     $param_array = explode('=', $param);
 
@@ -71,7 +522,7 @@ if (!function_exists('remove_dupplicate_var_val')) {
 
                     $count_str = $count_str - 1;
 
-                    if ($count_str > 0) {
+                    if ( $count_str > 0 ) {
 
                         $old_string = cs_str_replace_limit($new_str, "", $old_string, $count_str);
                     }
@@ -98,23 +549,23 @@ if (!function_exists('remove_dupplicate_var_val')) {
  *
 
  */
-if (!function_exists('cs_str_replace_limit')) {
+if ( ! function_exists('cs_str_replace_limit') ) {
 
 
 
     function cs_str_replace_limit($search, $replace, $string, $limit = 1) {
-        if (is_bool($pos = (strpos($string, $search))))
+        if ( is_bool($pos = (strpos($string, $search))) )
             return $string;
 
         $search_len = strlen($search);
 
-        for ($i = 0; $i < $limit; $i ++) {
+        for ( $i = 0; $i < $limit; $i ++ ) {
 
             $string = substr_replace($string, $replace, $pos, $search_len);
 
 
 
-            if (is_bool($pos = (strpos($string, $search))))
+            if ( is_bool($pos = (strpos($string, $search))) )
                 break;
         }
 
@@ -124,7 +575,7 @@ if (!function_exists('cs_str_replace_limit')) {
 }
 
 
-if (!function_exists('wp_rem_frontend_icomoon_selector')) {
+if ( ! function_exists('wp_rem_frontend_icomoon_selector') ) {
 
     function wp_rem_frontend_icomoon_selector($icon_value = '', $id = '', $name = '', $classes = '') {
 
@@ -153,11 +604,11 @@ if (!function_exists('wp_rem_frontend_icomoon_selector')) {
                     // Set new fonts on fontIconPicker
                     e9_element.setIcons(icomoon_json_icons, icomoon_json_search);
                     // Show success message and disable
-                    $(\'#e9_buttons_' . esc_html($id) . ' button\').removeClass(\'btn-primary\').addClass(\'btn-success\').text(\'' . wp_rem_plugin_text_srt( 'wp_rem_func_loaded_icons' ) . '\').prop(\'disabled\', true);
+                    $(\'#e9_buttons_' . esc_html($id) . ' button\').removeClass(\'btn-primary\').addClass(\'btn-success\').text(\'' . wp_rem_plugin_text_srt('wp_rem_func_loaded_icons') . '\').prop(\'disabled\', true);
                 })
                 .fail(function () {
                     // Show error message and enable
-                    $(\'#e9_buttons_' . esc_html($id) . ' button\').removeClass(\'btn-primary\').addClass(\'btn-danger\').text(\'' . wp_rem_plugin_text_srt( 'wp_rem_func_try_again' ) . '\').prop(\'disabled\', false);
+                    $(\'#e9_buttons_' . esc_html($id) . ' button\').removeClass(\'btn-primary\').addClass(\'btn-danger\').text(\'' . wp_rem_plugin_text_srt('wp_rem_func_try_again') . '\').prop(\'disabled\', false);
                 });
             });
         </script>';
@@ -171,7 +622,7 @@ if (!function_exists('wp_rem_frontend_icomoon_selector')) {
         $wp_rem_var_icomoon .= $wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
         $wp_rem_var_icomoon .= '
         <span id="e9_buttons_' . esc_html($id) . '" style="display:none">
-            <button data-autocomplete="off" type="button" class="btn btn-primary">' . wp_rem_plugin_text_srt( 'wp_rem_func_load_from_icomoon' ) . '</button>
+            <button data-autocomplete="off" type="button" class="btn btn-primary">' . wp_rem_plugin_text_srt('wp_rem_func_load_from_icomoon') . '</button>
         </span>';
 
         return $wp_rem_var_icomoon;
@@ -179,7 +630,7 @@ if (!function_exists('wp_rem_frontend_icomoon_selector')) {
 
 }
 
-if (!function_exists('wp_rem_front_change_password')) {
+if ( ! function_exists('wp_rem_front_change_password') ) {
 
     function wp_rem_front_change_password() {
         global $current_user;
@@ -188,18 +639,18 @@ if (!function_exists('wp_rem_front_change_password')) {
         $new_pass = isset($_POST['new_pass']) ? $_POST['new_pass'] : '';
         $confirm_pass = isset($_POST['confirm_pass']) ? $_POST['confirm_pass'] : '';
 
-        if (!is_user_logged_in()) {
+        if ( ! is_user_logged_in() ) {
             echo wp_rem_plugin_text_srt('wp_rem_functions_php_login_again');
             die;
         }
 
-        if ($old_pass == '' || $new_pass == '' || $confirm_pass == '') {
-           echo wp_rem_plugin_text_srt('wp_rem_functions_php_pass_field_empty');
+        if ( $old_pass == '' || $new_pass == '' || $confirm_pass == '' ) {
+            echo wp_rem_plugin_text_srt('wp_rem_functions_php_pass_field_empty');
             die;
         }
-        if ($user && wp_check_password($old_pass, $user->data->user_pass, $user->ID)) {
+        if ( $user && wp_check_password($old_pass, $user->data->user_pass, $user->ID) ) {
 
-            if ($new_pass !== $confirm_pass) {
+            if ( $new_pass !== $confirm_pass ) {
                 echo wp_rem_plugin_text_srt('wp_rem_functions_php_mismatch_pass_field');
                 die;
             } else {
@@ -224,7 +675,7 @@ if (!function_exists('wp_rem_front_change_password')) {
  * Start Function how to Share Posts
 
  */
-if (!function_exists('wp_rem_addthis_script_init_method')) {
+if ( ! function_exists('wp_rem_addthis_script_init_method') ) {
 
     function wp_rem_addthis_script_init_method() {
 
@@ -241,7 +692,7 @@ if (!function_exists('wp_rem_addthis_script_init_method')) {
  * Start Function how to Get Current User ID
 
  */
-if (!function_exists('wp_rem_get_user_id')) {
+if ( ! function_exists('wp_rem_get_user_id') ) {
 
 
 
@@ -266,13 +717,13 @@ if (!function_exists('wp_rem_get_user_id')) {
  * @time elapsed string
  *
  */
-if (!function_exists('wp_rem_time_elapsed_string')) {
+if ( ! function_exists('wp_rem_time_elapsed_string') ) {
 
 
 
     function wp_rem_time_elapsed_string($ptime) {
 
-        return human_time_diff($ptime, current_time('timestamp')) . " " . wp_rem_plugin_text_srt( 'wp_rem_func_ago' );
+        return human_time_diff($ptime, current_time('timestamp')) . " " . wp_rem_plugin_text_srt('wp_rem_func_ago');
     }
 
 }
@@ -282,12 +733,12 @@ if (!function_exists('wp_rem_time_elapsed_string')) {
  * Start Function how to get Custom Loaction for search element
 
  */
-if (!function_exists('wp_rem_get_custom_locations_property_filter')) {
+if ( ! function_exists('wp_rem_get_custom_locations_property_filter') ) {
 
 
     // field_type value = filter or header
     function wp_rem_get_custom_locations_property_filter($dropdown_start_html = '', $dropdown_end_html = '', $wp_rem_text_ret = false, $property_short_counter, $field_type = 'filter', $dropdown_type = '', $onchange_function = '') {
-        global $wp_rem_plugin_options, $wp_rem_form_fields_frontend; 
+        global $wp_rem_plugin_options, $wp_rem_form_fields_frontend;
         $wp_rem_search_result_page = isset($wp_rem_plugin_options['wp_rem_search_result_page']) ? $wp_rem_plugin_options['wp_rem_search_result_page'] : '';
         $redirecturl = isset($wp_rem_search_result_page) && $wp_rem_search_result_page != '' ? get_permalink($wp_rem_search_result_page) . '' : '';
 
@@ -297,17 +748,17 @@ if (!function_exists('wp_rem_get_custom_locations_property_filter')) {
         $auto_complete = isset($wp_rem_plugin_options['wp_rem_location_autocomplete']) ? $wp_rem_plugin_options['wp_rem_location_autocomplete'] : '';
         $output = '';
         $selected_item = '';
-        if ($dropdown_type == 'list') {
+        if ( $dropdown_type == 'list' ) {
             $output = '';
         } else {
-            $selected_item .= '<option value="">' . wp_rem_plugin_text_srt( 'wp_rem_func_locations_placeholder' ) . '</option>';
+            $selected_item .= '<option value="">' . wp_rem_plugin_text_srt('wp_rem_func_locations_placeholder') . '</option>';
         }
-        $selected_location = ''; 
+        $selected_location = '';
 
         $onchange_str = 'wp_rem_empty_loc_polygon(\'' . esc_html($property_short_counter) . '\');wp_rem_property_content(\'' . esc_html($property_short_counter) . '\')';
-        if ($field_type != 'filter') {
+        if ( $field_type != 'filter' ) {
 
-            if ($redirecturl != '') {
+            if ( $redirecturl != '' ) {
                 $onchange_str = 'wp_rem_page_load(this, \'' . esc_html($redirecturl) . '\')';
             } else {
                 $onchange_str = '';
@@ -315,59 +766,78 @@ if (!function_exists('wp_rem_get_custom_locations_property_filter')) {
         }
 
         wp_enqueue_script('chosen-ajaxify');
+
+        $wp_rem_cs_inline_script = '
+        jQuery(document).ready(function () {
+            function wp_rem_page_load($this, redirecturl) {
+                "use strict";
+                var selected_location = jQuery($this).val();
+                document.location.href = redirecturl + "?location=" + selected_location;
+            }
+        });';
+        wp_rem_cs_inline_enqueue_script($wp_rem_cs_inline_script, 'wp-rem-custom-inline');
+
         $location_slug = '';
-        if (isset($_REQUEST['loc_polygon']) && $_REQUEST['loc_polygon'] != '') {
-            if ($dropdown_type != 'list') {
-                $selected_item .= '<option selected value="">' . wp_rem_plugin_text_srt( 'wp_rem_func_draw_area' ) . '</option>';
+        if ( isset($_REQUEST['loc_polygon']) && $_REQUEST['loc_polygon'] != '' ) {
+            if ( $dropdown_type != 'list' ) {
+                $selected_item .= '<option selected value="">' . wp_rem_plugin_text_srt('wp_rem_func_draw_area') . '</option>';
             }
         } else
-        if (isset($_REQUEST['location']) && $_REQUEST['location'] != '') {
+        if ( isset($_REQUEST['location']) && $_REQUEST['location'] != '' ) {
             $location_slug = $_REQUEST['location'];
-            if ($dropdown_type != 'list') {
+            if ( $dropdown_type != 'list' ) {
                 $selected_item .= '<option selected value="' . $location_slug . '">' . ucwords(str_replace("-", " ", $location_slug)) . '</option>';
             }
         }
-        if ($dropdown_type == 'list') {
+        if ( $dropdown_type == 'list' ) {
             $output .= $selected_item;
             $output .= '';
         } else {
             $location_value = ( isset($_REQUEST['location']) ) ? $_REQUEST['location'] : '';
-            if (isset($_REQUEST['loc_polygon']) && $_REQUEST['loc_polygon'] != '') {
-                $location_value .= wp_rem_plugin_text_srt( 'wp_rem_func_draw_area' );
+            if ( isset($_REQUEST['loc_polygon']) && $_REQUEST['loc_polygon'] != '' ) {
+                $location_value .= wp_rem_plugin_text_srt('wp_rem_func_draw_area');
             }
             $focus_class = '';
             $location_field_text = '';
-           
-			$focus_class = 'wp-rem-focus-out';
-			$location_field_text = 'location-field-text';
-            
+
+            $focus_class = 'wp-rem-focus-out';
+            $location_field_text = 'location-field-text';
+			if( $field_type == 'modern-v2' || $field_type == 'fancy-v3'){
+				$output .= '<div class="field-holder search-input">';
+			}
             $output .= '<div class="wp-rem-locations-fields-group ' . $focus_class . ' wp_rem_searchbox_div" data-locationadminurl="' . esc_url(admin_url("admin-ajax.php")) . '">';
 
             $location_cross_display = ( isset($_REQUEST['location']) ) ? 'block' : 'none';
-            $output .= '<span class="wp-rem-search-location-icon" data-id="' . $property_short_counter . '"><i class="icon-location"></i></span>';
+			if( $field_type != 'modern-v2' && $field_type != 'fancy-v3'){
+				$output .= '<span class="wp-rem-search-location-icon" data-id="' . $property_short_counter . '"><i class="icon-location"></i></span>';
+			}
             $output .= '<span class="wp-rem-input-cross wp-rem-input-cross' . $property_short_counter . '" data-id="' . $property_short_counter . '" style="display:' . $location_cross_display . ';"><i class="icon-cross"></i></span>';
-            $output .= '<span id="wp-rem-radius-location' . $property_short_counter . '" class="wp-rem-radius-location wp-rem-radius-location' . $property_short_counter . '" data-id="' . $property_short_counter . '"><i class="icon-target3"></i></span>';
-            if ($auto_complete == 'on' ) {
+            if( $field_type == 'modern-v2' ){
+				$output .= '<span class="wp-rem-radius-location"><a id="wp-rem-geo-location' . $property_short_counter . '" class="cs-color wp-rem-geo-location' . $property_short_counter . '" href="javascript:void(0)"><i class="icon-target3"></i></a></span>';
+			}elseif($field_type != 'fancy-v3'){
+				$output .= '<span id="wp-rem-radius-location' . $property_short_counter . '" class="wp-rem-radius-location wp-rem-radius-location' . $property_short_counter . '" data-id="' . $property_short_counter . '"><i class="icon-target3"></i></span>';
+			}
+			if ( $auto_complete == 'on' ) {
                 $output .=$wp_rem_form_fields_frontend->wp_rem_form_text_render(
                         array(
                             'cust_name' => 'location',
                             'cust_id' => 'wp-rem-locations-field',
                             'classes' => "wp-rem-location-field " . $location_field_text . ' ' . $location_field_text . $property_short_counter . ' wp-rem-locations-field-geo' . $property_short_counter,
-                            'extra_atr' => 'data-id="' . $property_short_counter . '" placeholder="' . wp_rem_plugin_text_srt( 'wp_rem_func_locations_placeholder' ) . '" autocomplete="off"',
+                            'extra_atr' => 'data-id="' . $property_short_counter . '" placeholder="' . wp_rem_plugin_text_srt('wp_rem_func_locations_placeholder') . '" autocomplete="off"',
                             'std' => $location_value,
                             'return' => true,
                         )
                 );
             } else {
                 $output .=$wp_rem_form_fields_frontend->wp_rem_form_text_render(
-					array(
-						'cust_name' => 'location',
-						'cust_id' => 'wp-rem-locations-field',
-						'classes' => "wp-rem-location-field " . $location_field_text . " " . $location_field_text . $property_short_counter . ' input-field wp-rem-locations-field' . $property_short_counter,
-						'extra_atr' => 'data-id="' . $property_short_counter . '" placeholder="' . wp_rem_plugin_text_srt( 'wp_rem_func_all_locations' ) . '" autocomplete="off"',
-						'std' => $location_value,
-						'return' => true,
-					)
+                        array(
+                            'cust_name' => 'location',
+                            'cust_id' => 'wp-rem-locations-field',
+                            'classes' => "wp-rem-location-field " . $location_field_text . " " . $location_field_text . $property_short_counter . ' input-field wp-rem-locations-field' . $property_short_counter,
+                            'extra_atr' => 'data-id="' . $property_short_counter . '" placeholder="' . wp_rem_plugin_text_srt('wp_rem_func_all_locations') . '" autocomplete="off"',
+                            'std' => $location_value,
+                            'return' => true,
+                        )
                 );
             }
             $search_type = isset($_REQUEST['search_type']) ? $_REQUEST['search_type'] : 'custom';
@@ -375,36 +845,75 @@ if (!function_exists('wp_rem_get_custom_locations_property_filter')) {
             $output .= '</div>';
             $output .= '<div class="wp-rem-all-locations' . $property_short_counter . '">';
             $output .= '</div>';
+			if( $field_type == 'modern-v2' || $field_type == 'fancy-v3'){
+				$output .= '</div>';
+			}
+			
+			if( $field_type == 'fancy-v3' ){
+				$output .= '<div class="fancy-v3-radius-location">';
+					$output .= '<span class="wp-rem-radius-location"><a id="wp-rem-geo-location' . $property_short_counter . '" class="cs-color wp-rem-geo-location' . $property_short_counter . '" href="javascript:void(0)"><i class="icon-target3"></i></a></span>';
+				$output .= '</div>';
+			}
+			
             $radius = isset($_REQUEST['radius']) ? $_REQUEST['radius'] : $default_radius;
-            if ($field_type != 'header') {
-                if ($geo_location_status == 'on') {
-                    $radius_display = 'none';
-                    $output .= '<div class="select-location wp-rem-radius-range' . $property_short_counter . '" style="display:' . $radius_display . '"><div class="select-popup popup-open"> <a href="javascript:void(0);" class="location-close-popup location-close-popup' . $property_short_counter . '" data-id="' . $property_short_counter . '"><i class="icon-cross"></i></a>';
-                    $output .= $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
-                            array(
-                                'simple' => true,
-                                'cust_id' => "range-hidden-wp-rem-radius",
-                                'cust_name' => "radius",
-                                'std' => $radius,
-                                'classes' => "wp-rem-radius",
-                                'return' => true,
-                                'extra_atr' => 'data-id="' . $property_short_counter . '"',
-                            )
-                    );
-                    $output .= '<p>' . wp_rem_plugin_text_srt( 'wp_rem_func_show_with_in' ) . '</p>' .
-                            $wp_rem_form_fields_frontend->wp_rem_form_text_render(
-                                    array(
-                                        'cust_name' => '',
-                                        'cust_id' => 'ex16b' . $property_short_counter,
-                                        'std' => '',
-                                        'return' => true,
-                                    )
-                            )
-                            . '<span id="ex16b' . $property_short_counter . 'CurrentSliderValLabel">' . wp_rem_plugin_text_srt( 'wp_rem_func_miles' ) . ': <span id="ex16b' . $property_short_counter . 'SliderVal">' . $radius . '</span></span>';
+            if ( $field_type != 'header' ) {
+                if ( $geo_location_status == 'on' ) {
+					if( $field_type == 'modern-v2' || $field_type == 'fancy-v3' ){
+						$radius_display = 'block';
+						$output .= '<div class="field-holder search-input">';
+							$output .= '<div class="select-location wp-rem-radius-range' . $property_short_counter . '" style="display:' . $radius_display . '"><div class="select-popup popup-open">';
+							$output .= $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
+									array(
+										'simple' => true,
+										'cust_id' => "range-hidden-wp-rem-radius",
+										'cust_name' => "radius",
+										'std' => $radius,
+										'classes' => "wp-rem-radius",
+										'return' => true,
+										'extra_atr' => 'data-id="' . $property_short_counter . '"',
+									)
+							);
+							$output .= $wp_rem_form_fields_frontend->wp_rem_form_text_render(
+											array(
+												'cust_name' => '',
+												'cust_id' => 'ex16b' . $property_short_counter,
+												'std' => '',
+												'return' => true,
+											)
+									)
+									. '<span id="ex16b' . $property_short_counter . 'CurrentSliderValLabel"><span class="distance" id="ex16b' . $property_short_counter . 'SliderVal">' . $radius . '</span>' . wp_rem_plugin_text_srt('wp_rem_func_miles_m') . '</span>';
 
-                    $output .= '<br><p class="my-location">' . wp_rem_plugin_text_srt( 'wp_rem_func_my_location_of' ) . ' <i class="cs-color icon-location-arrow"></i><a id="wp-rem-geo-location' . $property_short_counter . '" class="cs-color wp-rem-geo-location' . $property_short_counter . '" href="javascript:void(0)">' . wp_rem_plugin_text_srt( 'wp_rem_func_my_location' ) . '</a></p>';
-                    $output .= '</div></div>';
+							$output .= '</div></div>';
+						$output .= '</div>';
+					}else{
+					
+						$radius_display = 'none';
+						$output .= '<div class="select-location wp-rem-radius-range' . $property_short_counter . '" style="display:' . $radius_display . '"><div class="select-popup popup-open"> <a href="javascript:void(0);" class="location-close-popup location-close-popup' . $property_short_counter . '" data-id="' . $property_short_counter . '"><i class="icon-cross"></i></a>';
+						$output .= $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
+								array(
+									'simple' => true,
+									'cust_id' => "range-hidden-wp-rem-radius",
+									'cust_name' => "radius",
+									'std' => $radius,
+									'classes' => "wp-rem-radius",
+									'return' => true,
+									'extra_atr' => 'data-id="' . $property_short_counter . '"',
+								)
+						);
+						$output .= '<p>' . wp_rem_plugin_text_srt('wp_rem_func_show_with_in') . '</p>' .
+								$wp_rem_form_fields_frontend->wp_rem_form_text_render(
+										array(
+											'cust_name' => '',
+											'cust_id' => 'ex16b' . $property_short_counter,
+											'std' => '',
+											'return' => true,
+										)
+								)
+								. '<span id="ex16b' . $property_short_counter . 'CurrentSliderValLabel">' . wp_rem_plugin_text_srt('wp_rem_func_miles') . ': <span id="ex16b' . $property_short_counter . 'SliderVal">' . $radius . '</span></span>';
 
+						$output .= '<br><p class="my-location">' . wp_rem_plugin_text_srt('wp_rem_func_my_location_of') . ' <i class="cs-color icon-location-arrow"></i><a id="wp-rem-geo-location' . $property_short_counter . '" class="cs-color wp-rem-geo-location' . $property_short_counter . '" href="javascript:void(0)">' . wp_rem_plugin_text_srt('wp_rem_func_my_location') . '</a></p>';
+						$output .= '</div></div>';
+					}
                     $output .='<script>
                         jQuery(document).ready(function() {
                         if (jQuery("#ex16b' . $property_short_counter . '").length != "") {
@@ -431,8 +940,8 @@ if (!function_exists('wp_rem_get_custom_locations_property_filter')) {
                 }
             }
         }
-        if ($dropdown_type != 'list') {
-            if (false === ( $wp_rem_location_data = get_transient('wp_rem_location_data') )) {
+        if ( $dropdown_type != 'list' ) {
+            if ( false === ( $wp_rem_location_data = get_transient('wp_rem_location_data') ) ) {
                 $output .= '<script>
 				jQuery(document).ready(function () {
 					jQuery(".chosen-select-location").chosen();
@@ -497,7 +1006,7 @@ if (!function_exists('wp_rem_get_custom_locations_property_filter')) {
                    });
                    
                     $(document).on("click", ".wp-rem-input-cross' . $property_short_counter . '", function () {
-                        var data_id = jQuery(this).data("id");
+						var data_id = jQuery(this).data("id");
                         jQuery(".wp-rem-locations-field"+data_id).val("");
                         jQuery(".wp-rem-locations-field"+data_id).keyup();
                         jQuery(".wp-rem-locations-field-geo"+data_id).val("");
@@ -562,7 +1071,7 @@ if (!function_exists('wp_rem_get_custom_locations_property_filter')) {
                 });
                 
                 </script>';
-        if ($auto_country_detection == 'on' && ( is_home() || is_front_page())) {
+        if ( $auto_country_detection == 'on' && ( is_home() || is_front_page()) ) {
             $output .= '<script>
                 $( window ).load(function() {
 					if(jQuery("input.wp-rem-location-field").length !== 0){
@@ -602,7 +1111,7 @@ if (!function_exists('wp_rem_get_custom_locations_property_filter')) {
 					}
 				});
             </script>';
-        } 
+        }
         echo force_balance_tags($dropdown_start_html . $output . $dropdown_end_html);
     }
 
@@ -612,7 +1121,7 @@ if (!function_exists('wp_rem_get_custom_locations_property_filter')) {
  * Start Function how to Count User Meta 
 
  */
-if (!function_exists('count_usermeta')) {
+if ( ! function_exists('count_usermeta') ) {
 
     function count_usermeta($key, $value, $opr, $return = false) {
 
@@ -626,7 +1135,7 @@ if (!function_exists('count_usermeta')) {
 
 
 
-        if ($return == true) {
+        if ( $return == true ) {
 
             return $users;
         }
@@ -638,7 +1147,7 @@ if (!function_exists('count_usermeta')) {
 /**
  * Start Function how to Save last User login Save
  */
-if (!function_exists('user_last_login')) {
+if ( ! function_exists('user_last_login') ) {
 
     add_action('wp_login', 'user_last_login', 0, 2);
 
@@ -663,7 +1172,7 @@ if (!function_exists('user_last_login')) {
  * Start Function how to Add images sizes and their URL's 
 
  */
-if (!function_exists('wp_rem_get_img_url')) {
+if ( ! function_exists('wp_rem_get_img_url') ) {
 
 
 
@@ -680,14 +1189,14 @@ if (!function_exists('wp_rem_get_img_url')) {
             'wp_rem_media_6' => '-150x113',
         );
 
-        if ($return_sizes == true) {
+        if ( $return_sizes == true ) {
 
             return $wp_rem_img_sizes;
         }
 
         // Register our new path for user images.
 
-        if ($dir_filter == true) {
+        if ( $dir_filter == true ) {
 
             add_filter('upload_dir', 'wp_rem_user_images_custom_wp_rem');
         }
@@ -698,34 +1207,34 @@ if (!function_exists('wp_rem_get_img_url')) {
 
 
 
-        if ((strpos($img_name, $wp_rem_img_sizes['wp_rem_media_1']) !== false) || (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_2']) !== false) || (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_3']) !== false) || (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_4']) !== false) || (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_5']) !== false) || (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_6']) !== false)) {
+        if ( (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_1']) !== false) || (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_2']) !== false) || (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_3']) !== false) || (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_4']) !== false) || (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_5']) !== false) || (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_6']) !== false) ) {
 
-            if (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_1']) !== false) {
+            if ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_1']) !== false ) {
 
                 $img_ext = substr($img_name, ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_1']) + strlen($wp_rem_img_sizes['wp_rem_media_1'])), strlen($img_name));
 
                 $ret_name = substr($img_name, 0, strpos($img_name, $wp_rem_img_sizes['wp_rem_media_1']));
-            } elseif (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_2']) !== false) {
+            } elseif ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_2']) !== false ) {
 
                 $img_ext = substr($img_name, ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_2']) + strlen($wp_rem_img_sizes['wp_rem_media_2'])), strlen($img_name));
 
                 $ret_name = substr($img_name, 0, strpos($img_name, $wp_rem_img_sizes['wp_rem_media_2']));
-            } elseif (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_3']) !== false) {
+            } elseif ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_3']) !== false ) {
 
                 $img_ext = substr($img_name, ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_3']) + strlen($wp_rem_img_sizes['wp_rem_media_3'])), strlen($img_name));
 
                 $ret_name = substr($img_name, 0, strpos($img_name, $wp_rem_img_sizes['wp_rem_media_3']));
-            } elseif (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_4']) !== false) {
+            } elseif ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_4']) !== false ) {
 
                 $img_ext = substr($img_name, ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_4']) + strlen($wp_rem_img_sizes['wp_rem_media_4'])), strlen($img_name));
 
                 $ret_name = substr($img_name, 0, strpos($img_name, $wp_rem_img_sizes['wp_rem_media_4']));
-            } elseif (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_5']) !== false) {
+            } elseif ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_5']) !== false ) {
 
                 $img_ext = substr($img_name, ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_5']) + strlen($wp_rem_img_sizes['wp_rem_media_5'])), strlen($img_name));
 
                 $ret_name = substr($img_name, 0, strpos($img_name, $wp_rem_img_sizes['wp_rem_media_5']));
-            } elseif (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_6']) !== false) {
+            } elseif ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_6']) !== false ) {
 
                 $img_ext = substr($img_name, ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_6']) + strlen($wp_rem_img_sizes['wp_rem_media_6'])), strlen($img_name));
 
@@ -738,9 +1247,9 @@ if (!function_exists('wp_rem_get_img_url')) {
 
             $wp_rem_upload_dir = $wp_rem_upload_dir . $wp_rem_upload_sub_dir;
 
-            if ($ret_name != '') {
+            if ( $ret_name != '' ) {
 
-                if (isset($wp_rem_img_sizes[$size])) {
+                if ( isset($wp_rem_img_sizes[$size]) ) {
 
                     $ret_name = $wp_rem_upload_dir . $ret_name . $wp_rem_img_sizes[$size] . $img_ext;
                 } else {
@@ -750,7 +1259,7 @@ if (!function_exists('wp_rem_get_img_url')) {
             }
         } else {
 
-            if ($img_name != '') {
+            if ( $img_name != '' ) {
 
                 $ret_name = '';
             }
@@ -758,7 +1267,7 @@ if (!function_exists('wp_rem_get_img_url')) {
 
         // Set everything back to normal.
 
-        if ($dir_filter == true) {
+        if ( $dir_filter == true ) {
 
             remove_filter('upload_dir', 'wp_rem_user_images_custom_wp_rem');
         }
@@ -778,7 +1287,7 @@ if (!function_exists('wp_rem_get_img_url')) {
  * Start Function how to  get image
 
  */
-if (!function_exists('wp_rem_get_orignal_image_nam')) {
+if ( ! function_exists('wp_rem_get_orignal_image_nam') ) {
 
 
 
@@ -795,34 +1304,34 @@ if (!function_exists('wp_rem_get_orignal_image_nam')) {
             'wp_rem_media_6' => '-150x113',
         );
 
-        if ((strpos($img_name, $wp_rem_img_sizes['wp_rem_media_1']) !== false) || (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_2']) !== false) || (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_3']) !== false) || (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_4']) !== false) || (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_5']) !== false) || (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_6']) !== false)) {
+        if ( (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_1']) !== false) || (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_2']) !== false) || (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_3']) !== false) || (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_4']) !== false) || (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_5']) !== false) || (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_6']) !== false) ) {
 
-            if (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_1']) !== false) {
+            if ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_1']) !== false ) {
 
                 $img_ext = substr($img_name, ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_1']) + strlen($wp_rem_img_sizes['wp_rem_media_1'])), strlen($img_name));
 
                 $ret_name = substr($img_name, 0, strpos($img_name, $wp_rem_img_sizes['wp_rem_media_1']));
-            } elseif (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_2']) !== false) {
+            } elseif ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_2']) !== false ) {
 
                 $img_ext = substr($img_name, ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_2']) + strlen($wp_rem_img_sizes['wp_rem_media_2'])), strlen($img_name));
 
                 $ret_name = substr($img_name, 0, strpos($img_name, $wp_rem_img_sizes['wp_rem_media_2']));
-            } elseif (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_3']) !== false) {
+            } elseif ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_3']) !== false ) {
 
                 $img_ext = substr($img_name, ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_3']) + strlen($wp_rem_img_sizes['wp_rem_media_3'])), strlen($img_name));
 
                 $ret_name = substr($img_name, 0, strpos($img_name, $wp_rem_img_sizes['wp_rem_media_3']));
-            } elseif (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_4']) !== false) {
+            } elseif ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_4']) !== false ) {
 
                 $img_ext = substr($img_name, ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_4']) + strlen($wp_rem_img_sizes['wp_rem_media_4'])), strlen($img_name));
 
                 $ret_name = substr($img_name, 0, strpos($img_name, $wp_rem_img_sizes['wp_rem_media_4']));
-            } elseif (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_5']) !== false) {
+            } elseif ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_5']) !== false ) {
 
                 $img_ext = substr($img_name, ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_5']) + strlen($wp_rem_img_sizes['wp_rem_media_5'])), strlen($img_name));
 
                 $ret_name = substr($img_name, 0, strpos($img_name, $wp_rem_img_sizes['wp_rem_media_5']));
-            } elseif (strpos($img_name, $wp_rem_img_sizes['wp_rem_media_6']) !== false) {
+            } elseif ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_6']) !== false ) {
 
                 $img_ext = substr($img_name, ( strpos($img_name, $wp_rem_img_sizes['wp_rem_media_6']) + strlen($wp_rem_img_sizes['wp_rem_media_6'])), strlen($img_name));
 
@@ -831,9 +1340,9 @@ if (!function_exists('wp_rem_get_orignal_image_nam')) {
 
             $wp_rem_upload_dir = isset($wp_rem_upload_dir['url']) ? $wp_rem_upload_dir['url'] . '/' : '';
 
-            if ($ret_name != '') {
+            if ( $ret_name != '' ) {
 
-                if (isset($wp_rem_img_sizes[$size])) {
+                if ( isset($wp_rem_img_sizes[$size]) ) {
 
                     $ret_name = $wp_rem_upload_dir . $ret_name . $wp_rem_img_sizes[$size] . $img_ext;
                 } else {
@@ -843,7 +1352,7 @@ if (!function_exists('wp_rem_get_orignal_image_nam')) {
             }
         } else {
 
-            if ($img_name != '') {
+            if ( $img_name != '' ) {
                 $ret_name = '';
             }
         }
@@ -859,7 +1368,7 @@ if (!function_exists('wp_rem_get_orignal_image_nam')) {
  * Start Function how prevent guest not access admin panel
 
  */
-if (!function_exists('redirect_user')) {
+if ( ! function_exists('redirect_user') ) {
 
     add_action('admin_init', 'redirect_user');
 
@@ -867,7 +1376,7 @@ if (!function_exists('redirect_user')) {
 
         $user = wp_get_current_user();
 
-        if ((!defined('DOING_AJAX') || !DOING_AJAX ) && ( empty($user) || in_array("wp_rem_member", (array) $user->roles))) {
+        if ( ( ! defined('DOING_AJAX') || ! DOING_AJAX ) && ( empty($user) || in_array("wp_rem_member", (array) $user->roles)) ) {
 
             wp_safe_redirect(home_url());
 
@@ -887,11 +1396,11 @@ if (!function_exists('redirect_user')) {
  * Start Function how to get using servers and servers protocols
 
  */
-if (!function_exists('wp_rem_server_protocol')) {
+if ( ! function_exists('wp_rem_server_protocol') ) {
 
     function wp_rem_server_protocol() {
 
-        if (is_ssl()) {
+        if ( is_ssl() ) {
             return 'https://';
         }
 
@@ -903,20 +1412,20 @@ if (!function_exists('wp_rem_server_protocol')) {
 /**
  * End Function how to get using servers and servers protocols
  */
-if (!function_exists('getMultipleParameters')) {
+if ( ! function_exists('getMultipleParameters') ) {
 
     function getMultipleParameters($query_string = '') {
 
-        if ($query_string == '')
+        if ( $query_string == '' )
             $query_string = $_SERVER['QUERY_STRING'];
 
         $params = explode('&', $query_string);
-        foreach ($params as $param) {
+        foreach ( $params as $param ) {
 
             $k = $param;
             $v = '';
 
-            if (strpos($param, '=')) {
+            if ( strpos($param, '=') ) {
 
                 list($name, $value) = explode('=', $param);
 
@@ -925,14 +1434,14 @@ if (!function_exists('getMultipleParameters')) {
                 $v = rawurldecode($value);
             }
 
-            if (isset($query[$k])) {
+            if ( isset($query[$k]) ) {
 
-                if (is_array($query[$k])) {
+                if ( is_array($query[$k]) ) {
 
                     $query[$k][] = $v;
                 } else {
 
-                    $query[$k][] = array($query[$k], $v);
+                    $query[$k][] = array( $query[$k], $v );
                 }
             } else {
 
@@ -955,7 +1464,7 @@ if (!function_exists('getMultipleParameters')) {
  * Start Function how to check if Image Exists
 
  */
-if (!function_exists('wp_rem_image_exist')) {
+if ( ! function_exists('wp_rem_image_exist') ) {
 
 
 
@@ -963,17 +1472,17 @@ if (!function_exists('wp_rem_image_exist')) {
 
 
 
-        $img_formats = array("png", "jpg", "jpeg", "gif", "tiff"); //Etc. . . 
+        $img_formats = array( "png", "jpg", "jpeg", "gif", "tiff" ); //Etc. . . 
 
         $path_info = pathinfo($sFilePath);
 
-        if (isset($path_info['extension']) && in_array(strtolower($path_info['extension']), $img_formats)) {
+        if ( isset($path_info['extension']) && in_array(strtolower($path_info['extension']), $img_formats) ) {
 
-            if (!filter_var($sFilePath, FILTER_VALIDATE_URL) === false) {
+            if ( ! filter_var($sFilePath, FILTER_VALIDATE_URL) === false ) {
 
                 $wp_rem_file_response = wp_remote_get($sFilePath);
 
-                if (is_array($wp_rem_file_response) && isset($wp_rem_file_response['headers']['content-type']) && strpos($wp_rem_file_response['headers']['content-type'], 'image') !== false) {
+                if ( is_array($wp_rem_file_response) && isset($wp_rem_file_response['headers']['content-type']) && strpos($wp_rem_file_response['headers']['content-type'], 'image') !== false ) {
 
                     return true;
                 }
@@ -994,7 +1503,7 @@ if (!function_exists('wp_rem_image_exist')) {
  *
 
  */
-if (!function_exists('wp_rem_get_query_whereclase_by_array')) {
+if ( ! function_exists('wp_rem_get_query_whereclase_by_array') ) {
 
 
 
@@ -1004,21 +1513,21 @@ if (!function_exists('wp_rem_get_query_whereclase_by_array')) {
 
         $flag_id = 0;
 
-        if (isset($array) && is_array($array)) {
+        if ( isset($array) && is_array($array) ) {
 
-            foreach ($array as $var => $val) {
+            foreach ( $array as $var => $val ) {
 
                 $string = ' ';
 
                 $string .= ' AND (';
 
-                if (isset($val['key']) || isset($val['value'])) {
+                if ( isset($val['key']) || isset($val['value']) ) {
 
                     $string .= get_meta_condition($val);
                 } else {  // if inner array 
-                    if (isset($val) && is_array($val)) {
+                    if ( isset($val) && is_array($val) ) {
 
-                        foreach ($val as $inner_var => $inner_val) {
+                        foreach ( $val as $inner_var => $inner_val ) {
 
                             $inner_relation = isset($inner_val['relation']) ? $inner_val['relation'] : 'and';
 
@@ -1026,7 +1535,7 @@ if (!function_exists('wp_rem_get_query_whereclase_by_array')) {
 
 
 
-                            if (isset($inner_val) && is_array($inner_val)) {
+                            if ( isset($inner_val) && is_array($inner_val) ) {
 
                                 $string .= "( ";
 
@@ -1034,9 +1543,9 @@ if (!function_exists('wp_rem_get_query_whereclase_by_array')) {
 
                                 $inner_flag = 1;
 
-                                foreach ($inner_val as $inner_val_var => $inner_val_value) {
+                                foreach ( $inner_val as $inner_val_var => $inner_val_value ) {
 
-                                    if (is_array($inner_val_value)) {
+                                    if ( is_array($inner_val_value) ) {
 
                                         $string .= "( ";
 
@@ -1044,7 +1553,7 @@ if (!function_exists('wp_rem_get_query_whereclase_by_array')) {
 
                                         $string .= ' )';
 
-                                        if ($inner_flag != $inner_arr_count)
+                                        if ( $inner_flag != $inner_arr_count )
                                             $string .= ' ' . $inner_relation . ' ';
                                     }
 
@@ -1061,16 +1570,16 @@ if (!function_exists('wp_rem_get_query_whereclase_by_array')) {
 
                 $id_condtion = '';
 
-                if (isset($id) && $flag_id != 0) {
+                if ( isset($id) && $flag_id != 0 ) {
 
                     $id = implode(",", $id);
 
-                    if (empty($id)) {
+                    if ( empty($id) ) {
 
                         $id = 0;
                     }
 
-                    if ($user_meta == true) {
+                    if ( $user_meta == true ) {
 
                         $id_condtion = ' AND user_id IN (' . $id . ')';
                     } else {
@@ -1079,7 +1588,7 @@ if (!function_exists('wp_rem_get_query_whereclase_by_array')) {
                     }
                 }
 
-                if ($user_meta == true) {
+                if ( $user_meta == true ) {
 
                     $id = wp_rem_get_user_id_by_whereclase($string . $id_condtion);
                 } else {
@@ -1101,7 +1610,7 @@ if (!function_exists('wp_rem_get_query_whereclase_by_array')) {
  * Start Function how to get Meta using Conditions
 
  */
-if (!function_exists('get_meta_condition')) {
+if ( ! function_exists('get_meta_condition') ) {
 
 
 
@@ -1120,32 +1629,32 @@ if (!function_exists('get_meta_condition')) {
 
         $type = isset($val['type']) ? $val['type'] : '';
 
-        if ($compare == 'BETWEEN' || $compare == 'between' || $compare == 'Between') {
+        if ( $compare == 'BETWEEN' || $compare == 'between' || $compare == 'Between' ) {
 
             $meta_val1 = '';
 
             $meta_val2 = '';
 
-            if (isset($meta_value) && is_array($meta_value)) {
+            if ( isset($meta_value) && is_array($meta_value) ) {
 
                 $meta_val1 = isset($meta_value[0]) ? $meta_value[0] : '';
 
                 $meta_val2 = isset($meta_value[1]) ? $meta_value[1] : '';
             }
 
-            if ($type != '' && strtolower($type) == 'numeric') {
+            if ( $type != '' && strtolower($type) == 'numeric' ) {
 
                 $string .= " meta_value BETWEEN '" . $meta_val1 . "' AND " . $meta_val2 . " ";
             } else {
 
                 $string .= " meta_value BETWEEN '" . $meta_val1 . "' AND '" . $meta_val2 . "' ";
             }
-        } elseif ($compare == 'like' || $compare == 'LIKE' || $compare == 'Like') {
+        } elseif ( $compare == 'like' || $compare == 'LIKE' || $compare == 'Like' ) {
 
             $string .= " meta_value LIKE '%" . $meta_value . "%' ";
         } else {
 
-            if ($type != '' && strtolower($type) == 'numeric' && $meta_value != '') {
+            if ( $type != '' && strtolower($type) == 'numeric' && $meta_value != '' ) {
 
                 $string .= " meta_value" . $compare . " " . $meta_value . " ";
             } else {
@@ -1169,7 +1678,7 @@ if (!function_exists('get_meta_condition')) {
  * Start Function how to get post id using whereclase Query
 
  */
-if (!function_exists('wp_rem_get_post_id_by_whereclase')) {
+if ( ! function_exists('wp_rem_get_post_id_by_whereclase') ) {
 
 
 
@@ -1186,7 +1695,7 @@ if (!function_exists('wp_rem_get_post_id_by_whereclase')) {
 
 
 
-if (!function_exists('wp_rem_get_user_id_by_whereclase')) {
+if ( ! function_exists('wp_rem_get_user_id_by_whereclase') ) {
 
 
 
@@ -1213,7 +1722,7 @@ if (!function_exists('wp_rem_get_user_id_by_whereclase')) {
  * Start Function how to get post id using whereclase Query
 
  */
-if (!function_exists('wp_rem_get_post_id_whereclause_post')) {
+if ( ! function_exists('wp_rem_get_post_id_whereclause_post') ) {
 
 
 
@@ -1238,7 +1747,7 @@ if (!function_exists('wp_rem_get_post_id_whereclause_post')) {
  * Start Function how to remove Dupplicate variable value
 
  */
-if (!function_exists('remove_dupplicate_var_val')) {
+if ( ! function_exists('remove_dupplicate_var_val') ) {
 
 
 
@@ -1252,11 +1761,11 @@ if (!function_exists('remove_dupplicate_var_val')) {
 
         $params = array();
 
-        if (isset($query) && !empty($query)) {
+        if ( isset($query) && ! empty($query) ) {
 
-            foreach ($query as $param) {
+            foreach ( $query as $param ) {
 
-                if (!empty($param)) {
+                if ( ! empty($param) ) {
 
                     $param_array = explode('=', $param);
 
@@ -1272,7 +1781,7 @@ if (!function_exists('remove_dupplicate_var_val')) {
 
                     $count_str = $count_str - 1;
 
-                    if ($count_str > 0) {
+                    if ( $count_str > 0 ) {
 
                         $old_string = wp_rem_str_replace_limit($new_str, "", $old_string, $count_str);
                     }
@@ -1298,24 +1807,24 @@ if (!function_exists('remove_dupplicate_var_val')) {
  *
 
  */
-if (!function_exists('wp_rem_str_replace_limit')) {
+if ( ! function_exists('wp_rem_str_replace_limit') ) {
 
 
 
     function wp_rem_str_replace_limit($search, $replace, $string, $limit = 1) {
 
-        if (is_bool($pos = (strpos($string, $search))))
+        if ( is_bool($pos = (strpos($string, $search))) )
             return $string;
 
         $search_len = strlen($search);
 
-        for ($i = 0; $i < $limit; $i ++) {
+        for ( $i = 0; $i < $limit; $i ++ ) {
 
             $string = substr_replace($string, $replace, $pos, $search_len);
 
 
 
-            if (is_bool($pos = (strpos($string, $search))))
+            if ( is_bool($pos = (strpos($string, $search))) )
                 break;
         }
 
@@ -1329,7 +1838,7 @@ if (!function_exists('wp_rem_str_replace_limit')) {
  * Start Function how to allow the user for adding special characters
 
  */
-if (!function_exists('wp_rem_allow_special_char')) {
+if ( ! function_exists('wp_rem_allow_special_char') ) {
 
 
 
@@ -1385,7 +1894,7 @@ add_image_size('wp_rem_media_10', 535, 401, true);
  * Start Function how to share the posts
 
  */
-if (!function_exists('wp_rem_social_share')) {
+if ( ! function_exists('wp_rem_social_share') ) {
 
 
 
@@ -1415,52 +1924,52 @@ if (!function_exists('wp_rem_social_share')) {
 
         $pinterst = '';
 
-        if (isset($wp_rem_plugin_options['wp_rem_twitter_share'])) {
+        if ( isset($wp_rem_plugin_options['wp_rem_twitter_share']) ) {
 
             $twitter = $wp_rem_plugin_options['wp_rem_twitter_share'];
         }
 
-        if (isset($wp_rem_plugin_options['wp_rem_facebook_share'])) {
+        if ( isset($wp_rem_plugin_options['wp_rem_facebook_share']) ) {
 
             $facebook = $wp_rem_plugin_options['wp_rem_facebook_share'];
         }
 
-        if (isset($wp_rem_plugin_options['wp_rem_google_plus_share'])) {
+        if ( isset($wp_rem_plugin_options['wp_rem_google_plus_share']) ) {
 
             $google_plus = $wp_rem_plugin_options['wp_rem_google_plus_share'];
         }
 
-        if (isset($wp_rem_plugin_options['wp_rem_tumblr_share'])) {
+        if ( isset($wp_rem_plugin_options['wp_rem_tumblr_share']) ) {
 
             $tumblr = $wp_rem_plugin_options['wp_rem_tumblr_share'];
         }
 
-        if (isset($wp_rem_plugin_options['wp_rem_dribbble_share'])) {
+        if ( isset($wp_rem_plugin_options['wp_rem_dribbble_share']) ) {
 
             $dribbble = $wp_rem_plugin_options['wp_rem_dribbble_share'];
         }
 
-        if (isset($wp_rem_plugin_options['wp_rem_instagram_share'])) {
+        if ( isset($wp_rem_plugin_options['wp_rem_instagram_share']) ) {
 
             $instagram = $wp_rem_plugin_options['wp_rem_instagram_share'];
         }
 
-        if (isset($wp_rem_plugin_options['wp_rem_share_share'])) {
+        if ( isset($wp_rem_plugin_options['wp_rem_share_share']) ) {
 
             $share = $wp_rem_plugin_options['wp_rem_share_share'];
         }
 
-        if (isset($wp_rem_plugin_options['wp_rem_stumbleupon_share'])) {
+        if ( isset($wp_rem_plugin_options['wp_rem_stumbleupon_share']) ) {
 
             $stumbleupon = $wp_rem_plugin_options['wp_rem_stumbleupon_share'];
         }
 
-        if (isset($wp_rem_plugin_options['wp_rem_youtube_share'])) {
+        if ( isset($wp_rem_plugin_options['wp_rem_youtube_share']) ) {
 
             $youtube = $wp_rem_plugin_options['wp_rem_youtube_share'];
         }
 
-        if (isset($wp_rem_plugin_options['wp_rem_pintrest_share'])) {
+        if ( isset($wp_rem_plugin_options['wp_rem_pintrest_share']) ) {
 
             $pinterst = $wp_rem_plugin_options['wp_rem_pintrest_share'];
         }
@@ -1469,61 +1978,61 @@ if (!function_exists('wp_rem_social_share')) {
 
         $html = '';
 
-        if ($twitter == 'on' or $facebook == 'on' or $google_plus == 'on' or $pinterst == 'on' or $tumblr == 'on' or $dribbble == 'on' or $instagram == 'on' or $share == 'on' or $stumbleupon == 'on' or $youtube == 'on') {
+        if ( $twitter == 'on' or $facebook == 'on' or $google_plus == 'on' or $pinterst == 'on' or $tumblr == 'on' or $dribbble == 'on' or $instagram == 'on' or $share == 'on' or $stumbleupon == 'on' or $youtube == 'on' ) {
 
-            if (isset($facebook) && $facebook == 'on') {
+            if ( isset($facebook) && $facebook == 'on' ) {
 
                 $html .='<li><a class="addthis_button_facebook" data-original-title="Facebook"><i class="icon-facebook2"></i></a></li>';
             }
 
-            if (isset($twitter) && $twitter == 'on') {
+            if ( isset($twitter) && $twitter == 'on' ) {
 
                 $html .='<li><a class="addthis_button_twitter" data-original-title="twitter"><i class="icon-twitter2"></i></a></li>';
             }
 
-            if (isset($google_plus) && $google_plus == 'on') {
+            if ( isset($google_plus) && $google_plus == 'on' ) {
 
                 $html .='<li><a class="addthis_button_google" data-original-title="google-plus"><i class="icon-googleplus7"></i></a></li>';
             }
 
-            if (isset($tumblr) && $tumblr == 'on') {
+            if ( isset($tumblr) && $tumblr == 'on' ) {
 
                 $html .='<li><a class="addthis_button_tumblr" data-original-title="Tumblr"><i class="icon-tumblr5"></i></a></li>';
             }
 
-            if (isset($dribbble) && $dribbble == 'on') {
+            if ( isset($dribbble) && $dribbble == 'on' ) {
 
                 $html .='<li><a class="addthis_button_dribbble" data-original-title="Dribbble"><i class="icon-dribbble7"></i></a></li>';
             }
 
-            if (isset($instagram) && $instagram == 'on') {
+            if ( isset($instagram) && $instagram == 'on' ) {
 
                 $html .='<li><a class="addthis_button_instagram" data-original-title="Instagram"><i class="icon-instagram4"></i></a></li>';
             }
 
-            if (isset($stumbleupon) && $stumbleupon == 'on') {
+            if ( isset($stumbleupon) && $stumbleupon == 'on' ) {
 
                 $html .='<li><a class="addthis_button_stumbleupon" data-original-title="stumbleupon"><i class="icon-stumbleupon4"></i></a></li>';
             }
 
-            if (isset($youtube) && $youtube == 'on') {
+            if ( isset($youtube) && $youtube == 'on' ) {
 
                 $html .='<li><a class="addthis_button_youtube" data-original-title="Youtube"><i class="icon-youtube"></i></a></li>';
             }
 
-            if (isset($pinterst) && $pinterst == 'on') {
+            if ( isset($pinterst) && $pinterst == 'on' ) {
 
                 $html .='<li><a class="addthis_button_youtube" data-original-title="Youtube"><i class="icon-pinterest"></i></a></li>';
             }
 
-            if (isset($share) && $share == 'on') {
+            if ( isset($share) && $share == 'on' ) {
 
                 $html .= '<li><a class="cs-more addthis_button_compact at300m"></a></li>';
             }
 
             $html .= '</ul>';
         }
-        if ($echo) {
+        if ( $echo ) {
             echo balanceTags($html, true);
         } else {
             return balanceTags($html, true);
@@ -1537,7 +2046,7 @@ if (!function_exists('wp_rem_social_share')) {
 /**
  * Start Function how to add tool tip text without icon only tooltip string
  */
-if (!function_exists('wp_rem_tooltip_helptext_string')) {
+if ( ! function_exists('wp_rem_tooltip_helptext_string') ) {
 
 
 
@@ -1545,12 +2054,12 @@ if (!function_exists('wp_rem_tooltip_helptext_string')) {
 
         $popover_link = '';
 
-        if (isset($popover_text) && $popover_text != '') {
+        if ( isset($popover_text) && $popover_text != '' ) {
 
             $popover_link = '<br><em><strong>' . $popover_text . '</strong></em>';
         }
 
-        if ($return_html == true) {
+        if ( $return_html == true ) {
 
             return $popover_link;
         } else {
@@ -1570,7 +2079,7 @@ if (!function_exists('wp_rem_tooltip_helptext_string')) {
 
 // Fontawsome icon box for Theme Options
 
-if (!function_exists('wp_rem_iconlist_plugin_options')) {
+if ( ! function_exists('wp_rem_iconlist_plugin_options') ) {
 
 
 
@@ -1652,7 +2161,7 @@ if (!function_exists('wp_rem_iconlist_plugin_options')) {
 
  */
 
-if (!function_exists('wp_rem_info_messages_property')) {
+if ( ! function_exists('wp_rem_info_messages_property') ) {
 
 
 
@@ -1664,21 +2173,21 @@ if (!function_exists('wp_rem_info_messages_property')) {
 
         $class_str = '';
 
-        if ($classes != '') {
+        if ( $classes != '' ) {
 
             $class_str .= ' class="' . $classes . '"';
         }
 
         $before_str = '';
 
-        if ($before != '') {
+        if ( $before != '' ) {
 
             $before_str .= $before;
         }
 
         $after_str = '';
 
-        if ($after != '') {
+        if ( $after != '' ) {
 
             $after_str .= $after;
         }
@@ -1693,7 +2202,7 @@ if (!function_exists('wp_rem_info_messages_property')) {
 
         $output .= $after_str;
 
-        if ($return == true) {
+        if ( $return == true ) {
 
             return force_balance_tags($output);
         } else {
@@ -1714,28 +2223,28 @@ if (!function_exists('wp_rem_info_messages_property')) {
 
 /* define it global */
 
-$umlaut_chars['in'] = array(chr(196), chr(228), chr(214), chr(246), chr(220), chr(252), chr(223));
+$umlaut_chars['in'] = array( chr(196), chr(228), chr(214), chr(246), chr(220), chr(252), chr(223) );
 
-$umlaut_chars['ecto'] = array('Ä', 'ä', 'Ö', 'ö', 'Ü', 'ü', 'ß');
+$umlaut_chars['ecto'] = array( 'Ä', 'ä', 'Ö', 'ö', 'Ü', 'ü', 'ß' );
 
-$umlaut_chars['html'] = array('&Auml;', '&auml;', '&Ouml;', '&ouml;', '&Uuml;', '&uuml;', '&szlig;');
+$umlaut_chars['html'] = array( '&Auml;', '&auml;', '&Ouml;', '&ouml;', '&Uuml;', '&uuml;', '&szlig;' );
 
-$umlaut_chars['feed'] = array('&#196;', '&#228;', '&#214;', '&#246;', '&#220;', '&#252;', '&#223;');
+$umlaut_chars['feed'] = array( '&#196;', '&#228;', '&#214;', '&#246;', '&#220;', '&#252;', '&#223;' );
 
-$umlaut_chars['utf8'] = array(utf8_encode('Ä'), utf8_encode('ä'), utf8_encode('Ö'), utf8_encode('ö'), utf8_encode('Ü'), utf8_encode('ü'), utf8_encode('ß'));
+$umlaut_chars['utf8'] = array( utf8_encode('Ä'), utf8_encode('ä'), utf8_encode('Ö'), utf8_encode('ö'), utf8_encode('Ü'), utf8_encode('ü'), utf8_encode('ß') );
 
-$umlaut_chars['perma'] = array('Ae', 'ae', 'Oe', 'oe', 'Ue', 'ue', 'ss');
+$umlaut_chars['perma'] = array( 'Ae', 'ae', 'Oe', 'oe', 'Ue', 'ue', 'ss' );
 
 
-if (!function_exists('wp_rem_de_DE_umlaut_permalinks')) {
+if ( ! function_exists('wp_rem_de_DE_umlaut_permalinks') ) {
     /* sanitizes the titles to get qualified german permalinks with  correct transliteration */
 
     function wp_rem_de_DE_umlaut_permalinks($title) {
 
         global $umlaut_chars;
 
-        if (seems_utf8($title)) {
-            $invalid_latin_chars = array(chr(197) . chr(146) => 'OE', chr(197) . chr(147) => 'oe', chr(197) . chr(160) => 'S', chr(197) . chr(189) => 'Z', chr(197) . chr(161) => 's', chr(197) . chr(190) => 'z', chr(226) . chr(130) . chr(172) => 'E');
+        if ( seems_utf8($title) ) {
+            $invalid_latin_chars = array( chr(197) . chr(146) => 'OE', chr(197) . chr(147) => 'oe', chr(197) . chr(160) => 'S', chr(197) . chr(189) => 'Z', chr(197) . chr(161) => 's', chr(197) . chr(190) => 'z', chr(226) . chr(130) . chr(172) => 'E' );
             $title = utf8_decode(strtr($title, $invalid_latin_chars));
         }
         $title = str_replace($umlaut_chars['ecto'], $umlaut_chars['perma'], $title);
@@ -1748,7 +2257,7 @@ if (!function_exists('wp_rem_de_DE_umlaut_permalinks')) {
     add_filter('sanitize_title', 'wp_rem_de_DE_umlaut_permalinks');
 }
 
-if (!function_exists('wp_new_user_notification')) :
+if ( ! function_exists('wp_new_user_notification') ) :
 
     function wp_new_user_notification($user_id, $plaintext_pass = ' ') {
 
@@ -1757,7 +2266,7 @@ if (!function_exists('wp_new_user_notification')) :
         $user_login = stripslashes($user->user_login);
         $user_email = stripslashes($user->user_email);
 
-        if (empty($plaintext_pass)) {
+        if ( empty($plaintext_pass) ) {
             return;
         }
 
@@ -1771,7 +2280,7 @@ if (!function_exists('wp_new_user_notification')) :
 
 endif;
 
-if (!function_exists('users_query_vars')) {
+if ( ! function_exists('users_query_vars') ) {
     add_filter('query_vars', 'users_query_vars');
 
     function users_query_vars($vars) {
@@ -1782,7 +2291,7 @@ if (!function_exists('users_query_vars')) {
 
         $author_slug = isset($wp_rem_plugin_options['wp_rem_author_page_slug']) ? $wp_rem_plugin_options['wp_rem_author_page_slug'] : 'user';
 
-        $new_vars = array($author_slug);
+        $new_vars = array( $author_slug );
 
         $vars = $new_vars + $vars;
 
@@ -1790,7 +2299,7 @@ if (!function_exists('users_query_vars')) {
     }
 
 }
-if (!function_exists('wp_rem_user_rewrite_rules')) {
+if ( ! function_exists('wp_rem_user_rewrite_rules') ) {
 
     function wp_rem_user_rewrite_rules($wp_rewrite) {
 
@@ -1804,7 +2313,7 @@ if (!function_exists('wp_rem_user_rewrite_rules')) {
 
     add_filter('generate_rewrite_rules', 'wp_rem_user_rewrite_rules');
 }
-if (!function_exists('wp_rem_location_query_vars')) {
+if ( ! function_exists('wp_rem_location_query_vars') ) {
 
     function wp_rem_location_query_vars($query_vars) {
         $query_vars['location'] = 'location';
@@ -1818,10 +2327,10 @@ if (!function_exists('wp_rem_location_query_vars')) {
 /*
  * TinyMCE EDITOR "Biographical Info" USER PROFILE
  * */
-if (!function_exists('wp_rem_biographical_info_tinymce')) {
+if ( ! function_exists('wp_rem_biographical_info_tinymce') ) {
 
     function wp_rem_biographical_info_tinymce() {
-        if (basename($_SERVER['PHP_SELF']) == 'profile.php' || basename($_SERVER['PHP_SELF']) == 'user-edit.php' && function_exists('wp_tiny_mce')) {
+        if ( basename($_SERVER['PHP_SELF']) == 'profile.php' || basename($_SERVER['PHP_SELF']) == 'user-edit.php' && function_exists('wp_tiny_mce') ) {
             wp_admin_css();
             wp_enqueue_script('utils');
             wp_enqueue_script('editor');
@@ -1850,30 +2359,30 @@ if (!function_exists('wp_rem_biographical_info_tinymce')) {
 
     add_action('admin_head', 'wp_rem_biographical_info_tinymce');
 }
-if (!function_exists('wp_rem_cred_limit_check')) {
+if ( ! function_exists('wp_rem_cred_limit_check') ) {
 
     function wp_rem_cred_limit_check($property_id = '', $index = '', $print_all = false) {
 
         $property_limits = get_post_meta($property_id, 'wp_rem_trans_all_meta', true);
-        if (is_array($property_limits) && sizeof($property_limits) > 0) {
+        if ( is_array($property_limits) && sizeof($property_limits) > 0 ) {
 
-            foreach ($property_limits as $limit_key => $limit_val) {
-                if (isset($limit_val['value']) && isset($limit_val['key']) && $limit_val['key'] == $index) {
+            foreach ( $property_limits as $limit_key => $limit_val ) {
+                if ( isset($limit_val['value']) && isset($limit_val['key']) && $limit_val['key'] == $index ) {
 
                     return $limit_val['value'];
                 }
             }
         }
-        if (empty($property_limits)) {
+        if ( empty($property_limits) ) {
             return 'on';
         }
-        if ($print_all === true) {
+        if ( $print_all === true ) {
             
         }
     }
 
 }
-if (!function_exists('wp_rem_encode_url_string')) {
+if ( ! function_exists('wp_rem_encode_url_string') ) {
 
     function wp_rem_encode_url_string($stringArray) {
         $s = strtr(base64_encode(addslashes(gzcompress(serialize($stringArray), 9))), '+/=', '-_,');
@@ -1881,7 +2390,7 @@ if (!function_exists('wp_rem_encode_url_string')) {
     }
 
 }
-if (!function_exists('wp_rem_decode_url_string')) {
+if ( ! function_exists('wp_rem_decode_url_string') ) {
 
     function wp_rem_decode_url_string($stringArray) {
         $s = unserialize(gzuncompress(stripslashes(base64_decode(strtr($stringArray, '-_,', '+/=')))));
@@ -1889,7 +2398,7 @@ if (!function_exists('wp_rem_decode_url_string')) {
     }
 
 }
-if (!function_exists('wp_rem_properties_map_cords_to_url')) {
+if ( ! function_exists('wp_rem_properties_map_cords_to_url') ) {
 
     function wp_rem_properties_map_cords_to_url() {
         $cords = isset($_POST['pathstr']) ? $_POST['pathstr'] : '';
@@ -1904,7 +2413,7 @@ if (!function_exists('wp_rem_properties_map_cords_to_url')) {
 
         $encode_string = wp_rem_encode_url_string($final_json);
 
-        echo json_encode(array('string' => $encode_string));
+        echo json_encode(array( 'string' => $encode_string ));
         die;
     }
 
@@ -1912,7 +2421,7 @@ if (!function_exists('wp_rem_properties_map_cords_to_url')) {
     add_action('wp_ajax_nopriv_wp_rem_properties_map_cords_to_url', 'wp_rem_properties_map_cords_to_url');
 }
 
-if (!function_exists('array_column')) {
+if ( ! function_exists('array_column') ) {
 
     function array_column($input = null, $columnKey = null, $indexKey = null) {
         // Using func_get_args() in order to check for proper number of
@@ -1920,22 +2429,22 @@ if (!function_exists('array_column')) {
         // does in PHP 5.5.
         $argc = func_num_args();
         $params = func_get_args();
-        if ($argc < 2) {
+        if ( $argc < 2 ) {
             trigger_error("array_column() expects at least 2 parameters, {$argc} given", E_USER_WARNING);
             return null;
         }
-        if (!is_array($params[0])) {
+        if ( ! is_array($params[0]) ) {
             trigger_error(
                     'array_column() expects parameter 1 to be array, ' . gettype($params[0]) . ' given', E_USER_WARNING
             );
             return null;
         }
-        if (!is_int($params[1]) && !is_float($params[1]) && !is_string($params[1]) && $params[1] !== null && !(is_object($params[1]) && method_exists($params[1], '__toString'))
+        if ( ! is_int($params[1]) && ! is_float($params[1]) && ! is_string($params[1]) && $params[1] !== null && ! (is_object($params[1]) && method_exists($params[1], '__toString'))
         ) {
             trigger_error('array_column(): The column key should be either a string or an integer', E_USER_WARNING);
             return false;
         }
-        if (isset($params[2]) && !is_int($params[2]) && !is_float($params[2]) && !is_string($params[2]) && !(is_object($params[2]) && method_exists($params[2], '__toString'))
+        if ( isset($params[2]) && ! is_int($params[2]) && ! is_float($params[2]) && ! is_string($params[2]) && ! (is_object($params[2]) && method_exists($params[2], '__toString'))
         ) {
             trigger_error('array_column(): The index key should be either a string or an integer', E_USER_WARNING);
             return false;
@@ -1943,30 +2452,30 @@ if (!function_exists('array_column')) {
         $paramsInput = $params[0];
         $paramsColumnKey = ($params[1] !== null) ? (string) $params[1] : null;
         $paramsIndexKey = null;
-        if (isset($params[2])) {
-            if (is_float($params[2]) || is_int($params[2])) {
+        if ( isset($params[2]) ) {
+            if ( is_float($params[2]) || is_int($params[2]) ) {
                 $paramsIndexKey = (int) $params[2];
             } else {
                 $paramsIndexKey = (string) $params[2];
             }
         }
         $resultArray = array();
-        foreach ($paramsInput as $row) {
+        foreach ( $paramsInput as $row ) {
             $key = $value = null;
             $keySet = $valueSet = false;
-            if ($paramsIndexKey !== null && array_key_exists($paramsIndexKey, $row)) {
+            if ( $paramsIndexKey !== null && array_key_exists($paramsIndexKey, $row) ) {
                 $keySet = true;
                 $key = (string) $row[$paramsIndexKey];
             }
-            if ($paramsColumnKey === null) {
+            if ( $paramsColumnKey === null ) {
                 $valueSet = true;
                 $value = $row;
-            } elseif (is_array($row) && array_key_exists($paramsColumnKey, $row)) {
+            } elseif ( is_array($row) && array_key_exists($paramsColumnKey, $row) ) {
                 $valueSet = true;
                 $value = $row[$paramsColumnKey];
             }
-            if ($valueSet) {
-                if ($keySet) {
+            if ( $valueSet ) {
+                if ( $keySet ) {
                     $resultArray[$key] = $value;
                 } else {
                     $resultArray[] = $value;
@@ -1978,7 +2487,7 @@ if (!function_exists('array_column')) {
 
 }
 
-if (!function_exists("wp_rem_linkedin_attachment_metas")) {
+if ( ! function_exists("wp_rem_linkedin_attachment_metas") ) {
 
     function wp_rem_linkedin_attachment_metas($contentln, $url) {
         $content_title = '';
@@ -1986,7 +2495,7 @@ if (!function_exists("wp_rem_linkedin_attachment_metas")) {
         $utf = "UTF-8";
         $content_img = '';
         $aprv_me_data = wp_remote_get($url);
-        if (is_array($aprv_me_data)) {
+        if ( is_array($aprv_me_data) ) {
             $aprv_me_data = $aprv_me_data['body']; // use the content
         } else {
             $aprv_me_data = '';
@@ -1995,26 +2504,26 @@ if (!function_exists("wp_rem_linkedin_attachment_metas")) {
         $og_datas = new DOMDocument();
         @$og_datas->loadHTML($aprv_me_data);
         $xpath = new DOMXPath($og_datas);
-        if (isset($contentln['content']['title'])) {
+        if ( isset($contentln['content']['title']) ) {
             $ogmetaContentAttributeNodes_tit = $xpath->query("/html/head/meta[@property='og:title']/@content");
-            foreach ($ogmetaContentAttributeNodes_tit as $ogmetaContentAttributeNode_tit) {
+            foreach ( $ogmetaContentAttributeNodes_tit as $ogmetaContentAttributeNode_tit ) {
                 $content_title = $ogmetaContentAttributeNode_tit->nodeValue;
             }
 
-            if ($content_title != '')
+            if ( $content_title != '' )
                 $contentln['content']['title'] = $content_title;
         }
-        if (isset($contentln['content']['description'])) {
+        if ( isset($contentln['content']['description']) ) {
             $ogmetaContentAttributeNodes_desc = $xpath->query("/html/head/meta[@property='og:description']/@content");
-            foreach ($ogmetaContentAttributeNodes_desc as $ogmetaContentAttributeNode_desc) {
+            foreach ( $ogmetaContentAttributeNodes_desc as $ogmetaContentAttributeNode_desc ) {
                 $content_desc = $ogmetaContentAttributeNode_desc->nodeValue;
             }
 
-            if ($content_desc != '')
+            if ( $content_desc != '' )
                 $contentln['content']['description'] = $content_desc;
         }
 
-        if (isset($contentln['content']['submitted-url']))
+        if ( isset($contentln['content']['submitted-url']) )
             $contentln['content']['submitted-url'] = $url;
 
         return $contentln;
@@ -2022,19 +2531,19 @@ if (!function_exists("wp_rem_linkedin_attachment_metas")) {
 
 }
 
-if (!function_exists('wp_rem_property_string_limit')) {
+if ( ! function_exists('wp_rem_property_string_limit') ) {
 
     function wp_rem_property_string_limit($string, $limit) {
 
         $space = " ";
         $appendstr = " ...";
-        if (mb_strlen($string) <= $limit)
+        if ( mb_strlen($string) <= $limit )
             return $string;
-        if (mb_strlen($appendstr) >= $limit)
+        if ( mb_strlen($appendstr) >= $limit )
             return '';
         $string = mb_substr($string, 0, $limit - mb_strlen($appendstr));
         $rpos = mb_strripos($string, $space);
-        if ($rpos === false)
+        if ( $rpos === false )
             return $string . $appendstr;
         else
             return mb_substr($string, 0, $rpos) . $appendstr;
@@ -2042,7 +2551,7 @@ if (!function_exists('wp_rem_property_string_limit')) {
 
 }
 
-if (!function_exists("wp_rem_fbapp_attachment_metas")) {
+if ( ! function_exists("wp_rem_fbapp_attachment_metas") ) {
 
     function wp_rem_fbapp_attachment_metas($attachment, $url) {
         $name = '';
@@ -2050,7 +2559,7 @@ if (!function_exists("wp_rem_fbapp_attachment_metas")) {
         $content_img = '';
         $utf = "UTF-8";
         $aprv_me_data = wp_remote_get($url);
-        if (is_array($aprv_me_data)) {
+        if ( is_array($aprv_me_data) ) {
             $aprv_me_data = $aprv_me_data['body']; // use the content
         } else {
             $aprv_me_data = '';
@@ -2059,43 +2568,43 @@ if (!function_exists("wp_rem_fbapp_attachment_metas")) {
         $og_datas = new DOMDocument();
         @$og_datas->loadHTML($aprv_me_data);
         $xpath = new DOMXPath($og_datas);
-        if (isset($attachment['name'])) {
+        if ( isset($attachment['name']) ) {
             $ogmetaContentAttributeNodes_tit = $xpath->query("/html/head/meta[@property='og:title']/@content");
 
-            foreach ($ogmetaContentAttributeNodes_tit as $ogmetaContentAttributeNode_tit) {
+            foreach ( $ogmetaContentAttributeNodes_tit as $ogmetaContentAttributeNode_tit ) {
                 $name = $ogmetaContentAttributeNode_tit->nodeValue;
             }
             $name = utf8_decode($name);
-            if ($name != '')
+            if ( $name != '' )
                 $attachment['name'] = $name;
         }
-        if (isset($attachment['actions'])) {
-            if (isset($attachment['actions']['name'])) {
+        if ( isset($attachment['actions']) ) {
+            if ( isset($attachment['actions']['name']) ) {
                 $ogmetaContentAttributeNodes_tit = $xpath->query("/html/head/meta[@property='og:title']/@content");
 
-                foreach ($ogmetaContentAttributeNodes_tit as $ogmetaContentAttributeNode_tit) {
+                foreach ( $ogmetaContentAttributeNodes_tit as $ogmetaContentAttributeNode_tit ) {
                     $name = $ogmetaContentAttributeNode_tit->nodeValue;
                 }
                 $name = utf8_decode($name);
-                if ($name != '')
+                if ( $name != '' )
                     $attachment['actions']['name'] = $name;
             }
-            if (isset($attachment['actions']['link'])) {
+            if ( isset($attachment['actions']['link']) ) {
                 $attachment['actions']['link'] = $url;
             }
         }
-        if (isset($attachment['description'])) {
+        if ( isset($attachment['description']) ) {
             $ogmetaContentAttributeNodes_desc = $xpath->query("/html/head/meta[@property='og:description']/@content");
-            foreach ($ogmetaContentAttributeNodes_desc as $ogmetaContentAttributeNode_desc) {
+            foreach ( $ogmetaContentAttributeNodes_desc as $ogmetaContentAttributeNode_desc ) {
                 $description_li = $ogmetaContentAttributeNode_desc->nodeValue;
             }
-            if (get_option('xyz_smap_utf_decode_enable') == 1)
+            if ( get_option('xyz_smap_utf_decode_enable') == 1 )
                 $description_li = utf8_decode($description_li);
-            if ($description_li != '')
+            if ( $description_li != '' )
                 $attachment['description'] = $description_li;
         }
 
-        if (isset($attachment['link']))
+        if ( isset($attachment['link']) )
             $attachment['link'] = $url;
 
         return $attachment;
@@ -2107,13 +2616,13 @@ if (!function_exists("wp_rem_fbapp_attachment_metas")) {
  * @count Banner Clicks
  *
  */
-if (!function_exists('wp_rem_banner_click_count_plus')) {
+if ( ! function_exists('wp_rem_banner_click_count_plus') ) {
 
     function wp_rem_banner_click_count_plus() {
         $code_id = isset($_POST['code_id']) ? $_POST['code_id'] : '';
         $banner_click_count = get_option("banner_clicks_" . $code_id);
         $banner_click_count = $banner_click_count <> '' ? $banner_click_count : 0;
-        if (!isset($_COOKIE["banner_clicks_" . $code_id])) {
+        if ( ! isset($_COOKIE["banner_clicks_" . $code_id]) ) {
             setcookie("banner_clicks_" . $code_id, 'true', time() + 86400, '/');
             update_option("banner_clicks_" . $code_id, $banner_click_count + 1);
         }
@@ -2124,11 +2633,11 @@ if (!function_exists('wp_rem_banner_click_count_plus')) {
     add_action('wp_ajax_nopriv_wp_rem_banner_click_count_plus', 'wp_rem_banner_click_count_plus');
 }
 
-if (!function_exists('wp_rem_wpml_lang_url')) {
+if ( ! function_exists('wp_rem_wpml_lang_url') ) {
 
     function wp_rem_wpml_lang_url() {
 
-        if (function_exists('icl_object_id')) {
+        if ( function_exists('icl_object_id') ) {
 
             global $sitepress;
 
@@ -2137,10 +2646,10 @@ if (!function_exists('wp_rem_wpml_lang_url')) {
 
             $cs_active_langs = $sitepress->get_active_languages();
 
-            if (is_array($cs_active_langs) && sizeof($cs_active_langs) > 0) {
-                foreach ($cs_server_uri as $uri) {
+            if ( is_array($cs_active_langs) && sizeof($cs_active_langs) > 0 ) {
+                foreach ( $cs_server_uri as $uri ) {
 
-                    if (array_key_exists($uri, $cs_active_langs)) {
+                    if ( array_key_exists($uri, $cs_active_langs) ) {
                         return $uri;
                     }
                 }
@@ -2151,12 +2660,12 @@ if (!function_exists('wp_rem_wpml_lang_url')) {
 
 }
 
-if (!function_exists('wp_rem_wpml_parse_url')) {
+if ( ! function_exists('wp_rem_wpml_parse_url') ) {
 
     function wp_rem_wpml_parse_url($lang = 'en', $url) {
 
         $cs_fir_url = home_url('/');
-        if (strpos($cs_fir_url, '/' . $lang . '/') !== false) {
+        if ( strpos($cs_fir_url, '/' . $lang . '/') !== false ) {
             
         }
         $cs_tail_url = substr($url, strlen($cs_fir_url), strlen($url));
@@ -2167,12 +2676,12 @@ if (!function_exists('wp_rem_wpml_parse_url')) {
     }
 
 }
-if (!function_exists('wp_rem_wpml_ls_filter')) {
+if ( ! function_exists('wp_rem_wpml_ls_filter') ) {
     add_filter('icl_ls_languages', 'wp_rem_wpml_ls_filter');
 
     function wp_rem_wpml_ls_filter($languages) {
         global $sitepress;
-        if (strpos(basename($_SERVER['REQUEST_URI']), 'dashboard') !== false || strpos(basename($_SERVER['REQUEST_URI']), 'tab') !== false) {
+        if ( strpos(basename($_SERVER['REQUEST_URI']), 'dashboard') !== false || strpos(basename($_SERVER['REQUEST_URI']), 'tab') !== false ) {
 
             $cs_request_query = str_replace('?', '', basename($_SERVER['REQUEST_URI']));
 
@@ -2182,12 +2691,12 @@ if (!function_exists('wp_rem_wpml_ls_filter')) {
 
             $query_count = 1;
 
-            if (is_array($cs_request_query)) {
-                foreach ($cs_request_query as $quer) {
-                    if (strpos($quer, 'page_id') !== false || strpos($quer, 'lang') !== false) {
+            if ( is_array($cs_request_query) ) {
+                foreach ( $cs_request_query as $quer ) {
+                    if ( strpos($quer, 'page_id') !== false || strpos($quer, 'lang') !== false ) {
                         continue;
                     }
-                    if ($query_count == 1) {
+                    if ( $query_count == 1 ) {
                         $cs_request_quer .= $quer;
                     } else {
                         $cs_request_quer .= '&' . $quer;
@@ -2196,9 +2705,9 @@ if (!function_exists('wp_rem_wpml_ls_filter')) {
                 }
             }
 
-            if (is_array($languages) && sizeof($languages) > 0) {
-                foreach ($languages as $lang_code => $language) {
-                    if (strpos($languages[$lang_code]['url'], '?') !== false) {
+            if ( is_array($languages) && sizeof($languages) > 0 ) {
+                foreach ( $languages as $lang_code => $language ) {
+                    if ( strpos($languages[$lang_code]['url'], '?') !== false ) {
                         $languages[$lang_code]['url'] = $languages[$lang_code]['url'] . '&' . $cs_request_quer;
                     } else {
                         $languages[$lang_code]['url'] = $languages[$lang_code]['url'] . '?' . $cs_request_quer;
@@ -2210,13 +2719,13 @@ if (!function_exists('wp_rem_wpml_ls_filter')) {
     }
 
 }
-if (!function_exists('wp_rem_array_search_partial')) {
+if ( ! function_exists('wp_rem_array_search_partial') ) {
 
     function wp_rem_array_search_partial($arr, $keyword) {
         $response = array();
-        foreach ($arr as $index => $string) {
-            if (stripos($string, $keyword) !== FALSE)
-                if (stripos($string, $keyword) == 0) {
+        foreach ( $arr as $index => $string ) {
+            if ( stripos($string, $keyword) !== FALSE )
+                if ( stripos($string, $keyword) == 0 ) {
                     $response[] = $string;
                 }
         }
@@ -2224,13 +2733,13 @@ if (!function_exists('wp_rem_array_search_partial')) {
     }
 
 }
-if (!function_exists('wp_rem_dashboard_pagination')) {
+if ( ! function_exists('wp_rem_dashboard_pagination') ) {
 
     function wp_rem_dashboard_pagination($total_pages = 1, $page = 1, $url = '', $to_action = '') {
 
         $query_string = $_SERVER['QUERY_STRING'];
 
-        if ($url != '') {
+        if ( $url != '' ) {
             $base = $url . '' . remove_query_arg('page_id_all', $query_string) . '%_%';
         } else {
             $base = get_permalink() . '?' . remove_query_arg('page_id_all', $query_string) . '%_%';
@@ -2238,8 +2747,8 @@ if (!function_exists('wp_rem_dashboard_pagination')) {
         $wp_rem_pagination = paginate_links(array(
             'base' => $base, // the base URL, including query arg
             'format' => '&page_id_all=%#%', // this defines the query parameter that will be used, in this case "p"
-            'prev_text' => '<i class="icon-angle-left"></i> ' . wp_rem_plugin_text_srt( 'wp_rem_func_previous' ), // text for previous page
-            'next_text' => wp_rem_plugin_text_srt( 'wp_rem_func_next' ) . ' <i class="icon-angle-right"></i>', // text for next page
+            'prev_text' => '<i class="icon-angle-left"></i> ' . wp_rem_plugin_text_srt('wp_rem_func_previous'), // text for previous page
+            'next_text' => wp_rem_plugin_text_srt('wp_rem_func_next') . ' <i class="icon-angle-right"></i>', // text for next page
             'total' => $total_pages, // the total number of pages we have
             'current' => $page, // the current page
             'end_size' => 1,
@@ -2249,13 +2758,13 @@ if (!function_exists('wp_rem_dashboard_pagination')) {
 
         $wp_rem_pages = '';
 
-        if (is_array($wp_rem_pagination) && sizeof($wp_rem_pagination) > 0) {
+        if ( is_array($wp_rem_pagination) && sizeof($wp_rem_pagination) > 0 ) {
 
             $wp_rem_pages .= '<ul class="pagination">';
 
-            foreach ($wp_rem_pagination as $wp_rem_link) {
+            foreach ( $wp_rem_pagination as $wp_rem_link ) {
 
-                if (strpos($wp_rem_link, 'current') !== false) {
+                if ( strpos($wp_rem_link, 'current') !== false ) {
 
                     $wp_rem_pages .= '<li class="active"><a>' . preg_replace("/[^0-9]/", "", $wp_rem_link) . '</a></li>';
                 } else {
@@ -2265,7 +2774,7 @@ if (!function_exists('wp_rem_dashboard_pagination')) {
                     $query_page_num = '';
                     $pagination_dom = new DOMDocument;
                     $pagination_dom->loadHTML($wp_rem_link);
-                    foreach ($pagination_dom->getElementsByTagName('a') as $pagination_node) {
+                    foreach ( $pagination_dom->getElementsByTagName('a') as $pagination_node ) {
                         $page_a_href = $pagination_node->getAttribute('href');
                         $page_a_val = $pagination_node->nodeValue;
 
@@ -2273,10 +2782,10 @@ if (!function_exists('wp_rem_dashboard_pagination')) {
                         $href_query = isset($parse_href['query']) ? $parse_href['query'] : '';
                         $query_page_num = preg_replace("/[^0-9]/", "", $href_query);
                     }
-                    if (!isset($query_page_num) || $query_page_num == '') {
+                    if ( ! isset($query_page_num) || $query_page_num == '' ) {
                         $query_page_num = 1;
                     }
-                    if ($page_a_val != '' && $page_a_href != '') {
+                    if ( $page_a_val != '' && $page_a_href != '' ) {
                         $wp_rem_pages .= '<li><a href="javascript:void(0);" data-id="wp_rem_member_' . $to_action . '" data-pagenum="' . $query_page_num . '" class="user_dashboard_ajax" data-queryvar="dashboard=' . $to_action . '&page_id_all=' . $query_page_num . '">' . $page_a_val . '</a></li>';
                     } else {
                         $wp_rem_pages .= '<li>' . $wp_rem_link . '</li>';
@@ -2292,14 +2801,14 @@ if (!function_exists('wp_rem_dashboard_pagination')) {
 
 }
 
-if (!function_exists('wp_rem_filters_query_args')) {
+if ( ! function_exists('wp_rem_filters_query_args') ) {
 
     function wp_rem_filters_query_args($args = array()) {
 
         $date_range = isset($_POST['date_range']) ? $_POST['date_range'] : '';
 
         // Date range filter query
-        if ($date_range != '' && $date_range != 'undefined') {
+        if ( $date_range != '' && $date_range != 'undefined' ) {
             $new_date_range = explode(' - ', $date_range);
             $start_date = isset($new_date_range[0]) ? str_replace('/', '-', $new_date_range[0]) : '';
             $end_date = isset($new_date_range[1]) ? str_replace('/', '-', $new_date_range[1]) : '';
@@ -2320,11 +2829,11 @@ if (!function_exists('wp_rem_filters_query_args')) {
 
 }
 
-if (!function_exists('wp_rem_property_views_count')) {
+if ( ! function_exists('wp_rem_property_views_count') ) {
 
     function wp_rem_property_views_count($postID) {
         $wp_rem_property_views_count = get_post_meta($postID, "wp_rem_property_views_count", true);
-        if (!isset($_COOKIE["wp_rem_property_views_count" . $postID])) {
+        if ( ! isset($_COOKIE["wp_rem_property_views_count" . $postID]) ) {
             setcookie("wp_rem_property_views_count" . $postID, time() + 86400);
             update_post_meta($postID, 'wp_rem_property_views_count', $wp_rem_property_views_count + 1);
         }
@@ -2332,7 +2841,7 @@ if (!function_exists('wp_rem_property_views_count')) {
 
 }
 
-if (!function_exists('wp_rem_base_query_args')) {
+if ( ! function_exists('wp_rem_base_query_args') ) {
 
     function wp_rem_base_query_args($element_filter_arr = array()) {
         $element_filter_arr[] = array(

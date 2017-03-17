@@ -117,7 +117,7 @@ if ( ! function_exists( 'wp_rem_cs_demo_importer' ) ) {
                                 </ul>
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <a href="http://chimpgroup.com/wp-demo/documentation/documentation/wp_rem_cs-theme-documentation/" class="importer-btn">
+                                        <a href="http://chimpgroup.com/wp-demo/documentation/documentation/wp-real-estate-theme-documentation/" class="importer-btn">
                                             <i class="icon-book3"></i>
                                             <?php _e( 'Online Document', 'wp-rem-frame' ); ?>
                                         </a>	
@@ -143,7 +143,7 @@ if ( ! function_exists( 'wp_rem_cs_demo_importer' ) ) {
                                                             <?php echo $requirement['description']; ?>
                                                             <?php
                                                             if ( ! empty( $requirement['new_version'] ) ) {
-                                                                echo '<br><span class="error">There is a new version ' . $requirement['new_version'] . ' available.</span>';
+                                                                echo '<br><span class="error">'. __( 'There is a new version', 'wp-rem-frame' ) .' ' . $requirement['new_version'] . ' '. __( 'available', 'wp-rem-frame' ) .'.</span>';
                                                             }
                                                             ?>
                                                         </span>
@@ -293,7 +293,7 @@ if ( ! function_exists( 'wp_rem_cs_demo_importer' ) ) {
                                                 <input type="checkbox" id="chk-users" value="users" name="chk-users" class="checkbox-data-import-type" <?php echo $is_wp_rem_cs_installed ? '' : 'disabled="disabled"'; ?>>
                                                 <label for="chk-users" class="checkbox-data-import-type">
                                                     <?php _e( 'Users', 'wp-rem-frame' ); ?>
-                                                    <?php echo $is_wp_rem_cs_installed ? '' : '<br>Please install WP Real Estate Manager Plugin.'; ?>
+                                                    <?php echo $is_wp_rem_cs_installed ? '' : '<br>'. __( 'Please install WP Real Estate Manager Plugin.', 'wp-rem-frame' ); ?>
                                                 </label>
                                             </div>
                                         </li>
@@ -302,7 +302,7 @@ if ( ! function_exists( 'wp_rem_cs_demo_importer' ) ) {
                                                 <input type="checkbox" id="chk-rev-slider" value="rev_slider" name="chk-rev-slider" class="checkbox-data-import-type" <?php echo $is_rev_slider_installed ? '' : 'disabled="disabled"'; ?>>
                                                 <label for="chk-rev-slider" class="checkbox-data-import-type">
                                                     <?php _e( 'Revolution Slider', 'wp-rem-frame' ); ?>
-                                                    <?php echo $is_rev_slider_installed ? '' : '<br>Please install Revolution Slider Plugin'; ?>
+                                                    <?php echo $is_rev_slider_installed ? '' : '<br>'. __( 'Please install Revolution Slider Plugin.', 'wp-rem-frame' ); ?>
                                                 </label>
                                             </div>
                                             <div class="overwrite-options">

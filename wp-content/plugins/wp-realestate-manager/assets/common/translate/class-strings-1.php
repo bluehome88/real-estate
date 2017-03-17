@@ -41,6 +41,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_1') ) {
             $wp_rem_static_text['property_contact_phone'] = esc_html__('Phone Number', 'wp-rem');
             $wp_rem_static_text['property_contact_web'] = esc_html__('Web', 'wp-rem');
             $wp_rem_static_text['property_contact_heading'] = esc_html__('Contact Information', 'wp-rem');
+			$wp_rem_static_text['wp_rem_deals'] = esc_html__('Deals', 'wp-rem');
 
             $wp_rem_static_text['wp_rem_save_settings'] = esc_html__('Save All Settings', 'wp-rem');
             $wp_rem_static_text['wp_rem_reset_options'] = esc_html__('Reset All Options', 'wp-rem');
@@ -261,7 +262,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_1') ) {
 /////// Property Type Suggested Tags
             $wp_rem_static_text['wp_rem_select_cats'] = esc_html__('Select Categories', 'wp-rem');
             $wp_rem_static_text['wp_rem_select_cats_hint'] = esc_html__('Select property type categories from this dropdown.', 'wp-rem');
-            $wp_rem_static_text['wp_rem_add_new_cats_link'] = esc_html__('<a href="%s">Add new Categories</a>', 'wp-rem');
+            $wp_rem_static_text['wp_rem_add_new_cats_link'] = esc_html__('Add new Categories', 'wp-rem');
 
             $wp_rem_static_text['wp_rem_select_suggested_tags'] = esc_html__('Select Tags', 'wp-rem');
             $wp_rem_static_text['wp_rem_select_suggested_tags_hint'] = esc_html__('Select property type suggested tags from this dropdown.', 'wp-rem');
@@ -315,6 +316,8 @@ if ( ! class_exists('wp_rem_plugin_all_strings_1') ) {
             $wp_rem_static_text['wp_rem_property_opening_hours'] = esc_html__('Opening Hours', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_features'] = esc_html__('Features', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_favourite'] = esc_html__('Favourite', 'wp-rem');
+			$wp_rem_static_text['wp_rem_property_save_to_favourite'] = esc_html__('Save to Favourite', 'wp-rem');
+			$wp_rem_static_text['wp_rem_property_remove_to_favourite'] = esc_html__('Removed from Favorites', 'wp-rem');
 			$wp_rem_static_text['wp_rem_property_social_share_text'] = esc_html__('Share', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_featured'] = esc_html__('Featured', 'wp-rem');
 			$wp_rem_static_text['wp_rem_property_price_start_from'] = esc_html__('Start from', 'wp-rem');
@@ -578,8 +581,8 @@ if ( ! class_exists('wp_rem_plugin_all_strings_1') ) {
             $wp_rem_static_text['wp_rem_property_packages_website_link'] = esc_html__('Website Link', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_packages_cover_image'] = esc_html__('Cover Image', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_packages_social_impressions'] = esc_html__('Social Networks Auto-Poster', 'wp-rem');
-			$wp_rem_static_text['wp_rem_property_packages_social_impressions_hint_text'] = esc_html__('Auto property sharing for %s', 'wp-rem');
-			$wp_rem_static_text['wp_rem_property_packages_social_impressions_hint_social_network'] = esc_html__('Social Networks', 'wp-rem');
+            $wp_rem_static_text['wp_rem_property_packages_social_impressions_hint_text'] = esc_html__('Auto property sharing for %s', 'wp-rem');
+            $wp_rem_static_text['wp_rem_property_packages_social_impressions_hint_social_network'] = esc_html__('Social Networks', 'wp-rem');
 			
             $wp_rem_static_text['wp_rem_property_packages_respond_reviews'] = esc_html__('Can respond to reviews', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_packages_24support'] = esc_html__('24 Support', 'wp-rem');
@@ -885,8 +888,18 @@ if ( ! class_exists('wp_rem_plugin_all_strings_1') ) {
             $wp_rem_static_text['wp_rem_shortcode_map_top'] = esc_html__('Top', 'wp-rem');
             $wp_rem_static_text['wp_rem_shortcode_map_bottom'] = esc_html__('Bottom', 'wp-rem');
             $wp_rem_static_text['wp_rem_shortcode_split_map_options'] = esc_html__('SPLIT MAP OPTIONS', 'wp-rem');
-            
-
+            $wp_rem_static_text['wp_rem_shortcode_fixed_map'] = esc_html__('Fixed Map', 'wp-rem');
+			
+			$wp_rem_static_text['wp_rem_property_type_in'] = esc_html__('in', 'wp-rem');
+            $wp_rem_static_text['wp_rem_top_map_draw_btn'] = esc_html__('Draw', 'wp-rem');
+            $wp_rem_static_text['wp_rem_top_map_clear_btn'] = esc_html__('Clear', 'wp-rem');
+			$wp_rem_static_text['wp_rem_mortgage_calculator_month'] = esc_html__('MONTH', 'wp-rem');
+			
+			$wp_rem_static_text['wp_rem_advance_search_select_price_type_label'] = esc_html__('Price Type', 'wp-rem');
+			$wp_rem_static_text['wp_rem_advance_search_select_price_types_all'] = esc_html__('All', 'wp-rem');
+			$wp_rem_static_text['wp_rem_advance_search_select_price_range'] = esc_html__('Price Range', 'wp-rem');
+			$wp_rem_static_text['wp_rem_advance_search_min_price_range'] = esc_html__('Min. Price', 'wp-rem');
+			$wp_rem_static_text['wp_rem_advance_search_max_price_range'] = esc_html__('Max. Price', 'wp-rem');
             /*
              * Use this filter to add more strings from Add on.
              */

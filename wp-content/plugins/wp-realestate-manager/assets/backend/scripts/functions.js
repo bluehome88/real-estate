@@ -39,6 +39,7 @@ jQuery(document).ready(function ($) {
                 .on('select', function () {
                     var attachment = custom_uploader.state().get('selection').first().toJSON();
                     jQuery('#' + id).val(attachment.id);
+                     jQuery('#' + id).change();
                     jQuery('#' + id + '_img').attr('src', attachment.url);
                     jQuery('#' + id + '_box').show();
 
@@ -2242,14 +2243,13 @@ jQuery(document).on('click', 'a[id^="wp-rem-dev-day-off-rem-"]', function () {
     jQuery('#day-remove-' + _this_id).remove();
 });
 
-jQuery(document).on('click', '.wp-rem-dev-insert-off-days .wp-rem-dev-calendar-days .day a', function () {
+jQuery(document).on('click', '.wp-rem-dev-insert-off-days-backend .wp-rem-dev-calendar-days .day a', function () {
     "use strict";
     $ = jQuery;
-
     var adding_off_day,
-            _this_id = $(this).parents('.wp-rem-dev-insert-off-days').data('id'),
-            _ajax_url = $(this).parents('.wp-rem-dev-insert-off-days').data('ajax-url'),
-            _plugin_url = $(this).parents('.wp-rem-dev-insert-off-days').data('plugin-url'),
+            _this_id = $(this).parents('.wp-rem-dev-insert-off-days-backend').data('id'),
+            _ajax_url = $(this).parents('.wp-rem-dev-insert-off-days-backend').data('ajax-url'),
+            _plugin_url = $(this).parents('.wp-rem-dev-insert-off-days-backend').data('plugin-url'),
             _day = $(this).data('day'),
             _month = $(this).data('month'),
             _year = $(this).data('year'),
@@ -2266,7 +2266,7 @@ jQuery(document).on('click', '.wp-rem-dev-insert-off-days .wp-rem-dev-calendar-d
                 off_day_month: _month,
                 off_day_year: _year,
                 property_add_counter: _this_id,
-                action: 'wp_rem_property_off_day_to_list'
+                action: 'wp_rem_property_off_day_to_list_backend'
             },
             dataType: "json"
         }).done(function (response) {
@@ -2389,6 +2389,7 @@ function wp_rem_ft_icon_feature(id) {//begin function
         if (typeof response.icon !== 'undefined') {
             this_loader.html(response.icon);
         }
+        chosen_selectionbox();
     }).fail(function () {
         this_loader.html('');
     });
@@ -3040,3 +3041,69 @@ jQuery(document).on("click", ".wp-rem-element-remove", function () {
         parent_obj.remove();
     });
 });
+
+function wp_rem_load_all_pages( field_id, args ){
+    jQuery('.loader-'+ field_id ).html("<img src='" + wp_rem_globals.plugin_url + "/assets/backend/images/ajax-loader.gif' />").show();
+    var args = jQuery('.args_'+ field_id).text();
+    jQuery.ajax({
+        type: "POST",
+        url: wp_rem_globals.ajax_url,
+        data: 'action=wp_rem_load_all_pages&args='+ args + '&field_id='+ field_id,
+        dataType: "json",
+        success: function (response) {
+            if (typeof response.html !== 'undefined') {
+                jQuery('#'+ field_id +'_holder').html('');
+                jQuery('#'+ field_id +'_holder').html(response.html);
+                jQuery('.loader-'+ field_id ).html('').hide();
+                setTimeout(function() {
+                    jQuery('#'+ field_id).trigger('chosen:open');
+                }, 5);
+            }
+        }
+    });
+}
+
+function wp_rem_load_all_members( field_class, selected_memebr ){
+    jQuery('.'+ field_class + ' .members-loader' ).html("<img src='" + wp_rem_globals.plugin_url + "/assets/backend/images/ajax-loader.gif' />").show();
+    jQuery.ajax({
+        type: "POST",
+        url: wp_rem_globals.ajax_url,
+        data: 'action=wp_rem_load_all_members&selected_member='+ selected_memebr,
+        dataType: "json",
+        success: function (response) {
+            if (typeof response.html !== 'undefined') {
+                jQuery('.'+ field_class).prop("onclick", null);
+                jQuery('.'+ field_class).html('');
+                jQuery('.'+ field_class).html(response.html);
+                jQuery('.'+ field_class + ' .members-loader' ).html('').hide();
+                setTimeout(function() {
+                    jQuery('.'+ field_class + ' #wp_rem_property_member').trigger('chosen:open');
+                }, 5);
+            }
+        }
+    });
+}
+
+
+function wp_rem_load_dropdown_values( field_class, field_id, action ){
+    jQuery('.'+ field_class + ' .select-loader' ).html("<img src='" + wp_rem_globals.plugin_url + "/assets/backend/images/ajax-loader.gif' />").show();
+    var selected_val = jQuery('#wp_rem_'+ field_id).val();
+    jQuery.ajax({
+        type: "POST",
+        url: wp_rem_globals.ajax_url,
+        data: 'action='+ action +'&selected_val='+ selected_val,
+        dataType: "json",
+        success: function (response) {
+            if (typeof response.html !== 'undefined') {
+                jQuery('.'+ field_class).prop("onclick", null);
+                jQuery('.'+ field_class).html('');
+                jQuery('.'+ field_class).html(response.html);
+                jQuery('.'+ field_class + ' .select-loader' ).html('').hide();
+                setTimeout(function() {
+                    jQuery('.'+ field_class + ' #wp_rem_'+ field_id).trigger('chosen:open');
+                }, 5);
+            }
+        }
+    });
+}
+

@@ -72,13 +72,13 @@ if ( ! function_exists('wp_rem_cs_var_team_shortcode') ) {
             $html .= '</div>';
         } elseif ( $wp_rem_cs_var_team_views == 'classic' ) {
             $html .= '<div class="team team-grid classic team-classic-' . absint($team_rand_id) . '">';
-            $html .= '<div class="swiper-container">';
-            $html .= '<div class="swiper-wrapper">';
+            //$html .= '<div class="swiper-container">';
+            //$html .= '<div class="swiper-wrapper">';
             $html .= do_shortcode($content);
-            $html .= '</div>';
-            $html .= '</div>';
-            $html .= '<div class="swiper-button-next">' . wp_rem_cs_var_theme_text_srt('wp_rem_cs_pagination_next') . '</div>';
-            $html .= '<div class="swiper-button-prev">' . wp_rem_cs_var_theme_text_srt('wp_rem_cs_pagination_prev') . '</div>';
+            //$html .= '</div>';
+            //$html .= '</div>';
+            //$html .= '<div class="swiper-button-next">' . wp_rem_cs_var_theme_text_srt('wp_rem_cs_pagination_next') . '</div>';
+            //$html .= '<div class="swiper-button-prev">' . wp_rem_cs_var_theme_text_srt('wp_rem_cs_pagination_prev') . '</div>';
             $html .= '</div>';
         } elseif ( $wp_rem_cs_var_team_views == 'grid-classic' ) {
             $html .= '<div class="team team-grid default">';
@@ -179,7 +179,7 @@ if ( ! function_exists('wp_rem_cs_var_team_item_shortcode') ) {
         $html = '';
 
         $swiper_class = '';
-        if ( $wp_rem_cs_var_team_views == 'classic' || $wp_rem_cs_var_team_views == 'grid-classic-slider' ) {
+        if ( $wp_rem_cs_var_team_views == 'grid-classic-slider' ) {
             $swiper_class = 'swiper-slide ';
         }
         if ( $wp_rem_cs_var_team_views <> 'small' ) {
@@ -272,13 +272,7 @@ if ( ! function_exists('wp_rem_cs_var_team_item_shortcode') ) {
             if ( $wp_rem_cs_var_team_designation <> '' ) {
                 $html .= '<span class="post-designation">' . esc_html($wp_rem_cs_var_team_designation) . '</span>';
             }
-            $html .= '<ul class="post-options">';
-            if ( $wp_rem_cs_var_team_phone <> '' ) {
-                $html .= '<li>' . wp_rem_cs_var_theme_text_srt('wp_rem_team_member_frontend_phone') . ' : ' . wp_rem_cs_allow_special_char($wp_rem_cs_var_team_phone) . '</li>';
-            }if ( $wp_rem_cs_var_team_email <> '' ) {
-                $html .= '<li>' . wp_rem_cs_var_theme_text_srt('wp_rem_team_member_frontend_email') . ' :<a href="mailto:' . wp_rem_cs_allow_special_char($wp_rem_cs_var_team_email) . '"> ' . wp_rem_cs_allow_special_char($wp_rem_cs_var_team_email) . '</a></li>';
-            }
-            $html .= '</ul>';
+            
             $html .= '<div class="social-media">';
             $html .= '<ul>';
             if ( $wp_rem_cs_var_team_facebook <> '' ) {
@@ -293,37 +287,10 @@ if ( ! function_exists('wp_rem_cs_var_team_item_shortcode') ) {
             if ( $content != '' && $content != ' ' ) {
                 $html .= apply_filters('the_content', $content);
             }
-            $html .= '<a href="' . wp_rem_cs_allow_special_char($team_link) . '" class="viewprofile-btn bgcolor">' . wp_rem_cs_var_theme_text_srt('wp_rem_team_member_frontend_view_profile') . '</a>';
+            //$html .= '<a href="' . wp_rem_cs_allow_special_char($team_link) . '" class="viewprofile-btn bgcolor">' . wp_rem_cs_var_theme_text_srt('wp_rem_team_member_frontend_view_profile') . '</a>';
             $html .= '</div>';
             $html .= '</div>';
-            $wp_rem_cs_inline_script = '
-			jQuery(document).ready(function ($) {
-				if ("" != jQuery(".team-classic-' . absint($team_rand_id) . ' .swiper-container").length) {
-					new Swiper(".team-classic-' . absint($team_rand_id) . ' .swiper-container", {
-						nextButton: ".swiper-button-next",
-						prevButton: ".swiper-button-prev",
-						paginationClickable: !0,
-						slidesPerView: 4,
-						autoplay: 3000,
-						speed: 2000,
-						slidesPer: 1,
-						loop: !0,
-						spaceBetween: 30,
-						breakpoints: {
-							1024: {
-								slidesPerView: 3
-							},
-							768: {
-								slidesPerView: 2
-							},
-							480: {
-								slidesPerView: 1
-							}
-						}
-					})
-				}
-			});';
-            wp_rem_cs_inline_enqueue_script($wp_rem_cs_inline_script, 'wp_rem_cs-functions');
+            
         } elseif ( $wp_rem_cs_var_team_views == 'grid-classic' || $wp_rem_cs_var_team_views == 'grid-classic-slider' ) {
             $html .= '<div class="team-holder">';
             if ( $wp_rem_cs_var_team_image <> '' ) {
@@ -371,6 +338,7 @@ if ( ! function_exists('wp_rem_cs_var_team_item_shortcode') ) {
 							paginationClickable: !0,
 							slidesPerView: 4,
 							slidesPer: 1,
+                                                        spaceBetween: 30,
 							loop: !0,
 							autoplay: 3000,
 							speed: 2000,
@@ -382,7 +350,8 @@ if ( ! function_exists('wp_rem_cs_var_team_item_shortcode') ) {
 									slidesPerView: 2
 								},
 								480: {
-									slidesPerView: 1
+									slidesPerView: 1,
+                                                                        spaceBetween: 0
 								}
 							}
 						})

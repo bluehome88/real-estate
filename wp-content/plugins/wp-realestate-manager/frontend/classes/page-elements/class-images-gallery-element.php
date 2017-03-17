@@ -87,6 +87,42 @@ if ( ! class_exists( 'Wp_rem_Images_Gallery_Element' ) ) {
 				</div>
 			<?php
 			}
+                        $wp_rem_cs_inline_script = '
+                        jQuery(document).ready(function () {
+                            if (jQuery(".main-post.slider .gallery-top, .main-post.slider .gallery-thumbs").length != "") {
+                                "use strict";
+                                var galleryTop = new Swiper(".main-post.slider .gallery-top", {
+                                    nextButton: ".main-post.slider .swiper-button-next",
+                                    prevButton: ".main-post.slider .swiper-button-prev",
+                                    spaceBetween: 0,
+                                    loop: true,
+                                    loopedSlides: 15
+                                });
+
+                                var galleryThumbs = new Swiper(".main-post.slider .gallery-thumbs", {
+                                    spaceBetween: 5,
+                                    slidesPerView: 7,
+                                    touchRatio: .2,
+                                    loop: true,
+                                    loopedSlides: 15,
+                                    //looped slides should be the same
+                                    slideToClickedSlide: true,
+                                    breakpoints: {
+                                        1024: {
+                                            slidesPerView: 6,
+                                        },
+                                        600: {
+                                            slidesPerView: 4,
+                                        }
+                                    }
+                                });
+                                galleryTop.params.control = galleryThumbs;
+                                galleryThumbs.params.control = galleryTop;
+                            }
+
+                        });';
+                        wp_rem_cs_inline_enqueue_script($wp_rem_cs_inline_script, 'wp-rem-custom-inline');
+                        
 			echo force_balance_tags( $html );
 		}
 

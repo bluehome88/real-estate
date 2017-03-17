@@ -1047,10 +1047,10 @@ if (!function_exists('wp_rem_cs_column_pb')) {
 			    ?>
 	    		<div class="form-elements elementhiddenn">
                             <?php
-                              $wp_rem_cs_var_opt_array = array(
-							'name' => wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_call_to_action_button_bg' ),
+                              /*$wp_rem_cs_var_opt_array = array(
+							'name' => wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_page_bg_color' ),
 							'desc' => '',
-							'hint_text' => wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_call_to_action_button_bg_hint' ),
+							'hint_text' => wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_page_bg_color_hint' ),
 							'echo' => true,
 							'field_params' => array(
 								'std' => '',
@@ -1061,7 +1061,7 @@ if (!function_exists('wp_rem_cs_column_pb')) {
 							),
 						);
 
-						$wp_rem_cs_var_html_fields->wp_rem_cs_var_text_field( $wp_rem_cs_var_opt_array );
+						$wp_rem_cs_var_html_fields->wp_rem_cs_var_text_field( $wp_rem_cs_var_opt_array );*/
                                                 ?>
 	    		    <ul class="noborder">
 	    			<li class="to-label">
@@ -1731,7 +1731,7 @@ if (!function_exists('wp_rem_cs_blog_slider_image_sizes')) {
 if (!function_exists('wp_rem_shortcode_name')) {
     function wp_rem_shortcode_name( $shortcode ){
         $matches    = array();
-        $pattern = get_shortcode_regex();
+        $pattern    = get_shortcode_regex();
         preg_match_all("/$pattern/s",$shortcode,$matches);
         $shortcode_data = str_replace('wp_rem_cs_', '', $matches[2][0]);
         $shortcode_data = str_replace( 'column', 'flex_column', $shortcode_data );

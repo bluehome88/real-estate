@@ -92,7 +92,7 @@ class WP_Property_Hunt_Employer_UI {
      * Start Function Search Alerts
      */
     public function wp_rem_propertyalerts() {
-        global $post, $wp_rem_form_fields2, $search_keywords, $post_id;
+        global $post, $search_keywords, $post_id;
         $wp_rem_blog_num_post = 10;
 
         $uid = empty($_POST['wp_rem_uid']) ? '' : sanitize_text_field($_POST['wp_rem_uid']);
@@ -328,7 +328,7 @@ class WP_Property_Hunt_Employer_UI {
     }
 
     public function list_member_propertyalerts_callback() {
-        global $post, $wp_rem_form_fields2;
+        global $post;
         $wp_rem_blog_num_post = 10;
 
         $uid = empty($_POST['wp_rem_uid']) ? '' : sanitize_text_field($_POST['wp_rem_uid']);
@@ -377,10 +377,14 @@ class WP_Property_Hunt_Employer_UI {
                 );
                 $property_alerts = new WP_Query($args);
             }
+            $has_border = ' has-border';
+            if ( ! empty($property_alerts) && $property_alerts->have_posts() ) {
+                 $has_border = '';
+            }
             ?>
             <div class="cs-loader"></div>
             <section class="cs-favorite-properties">
-                <div class="element-title">
+                <div class="element-title<?php echo wp_rem_allow_special_char($has_border); ?>">
                     <h4><?php echo wp_rem_plugin_text_srt('wp_rem_notifactn_member_searches_alerts'); ?></h4>
                 </div>
                 <?php

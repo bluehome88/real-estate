@@ -102,6 +102,7 @@ if ( ! function_exists('wp_rem_cs_var_infobox_item_shortcode') ) {
             'wp_rem_cs_var_infobox_element_title' => '',
             'wp_rem_cs_var_infobox_icon' => '',
             'wp_rem_cs_var_icon_box' => '',
+            'wp_rem_cs_var_icon_box_group' => 'default',
             'wp_rem_cs_var_infobox_title' => '',
         );
         extract(shortcode_atts($defaults, $atts));
@@ -111,6 +112,7 @@ if ( ! function_exists('wp_rem_cs_var_infobox_item_shortcode') ) {
         $wp_rem_cs_var_icon_box = isset($wp_rem_cs_var_icon_box) ? $wp_rem_cs_var_icon_box : '';
         $title_color = '';
         $icon_color = '';
+        wp_enqueue_style('cs_icons_data_css_'.$wp_rem_cs_var_icon_box_group );
         if ( isset($wp_rem_cs_var_infobox_title_color) && $wp_rem_cs_var_infobox_title_color != '' ) {
             $title_color = 'style="color:' . esc_html($wp_rem_cs_var_infobox_title_color) . '"';
         }
@@ -122,7 +124,7 @@ if ( ! function_exists('wp_rem_cs_var_infobox_item_shortcode') ) {
             $output .='<ul class="contact-info">';
             $output .= '
                     <li>
-                            <i ' . esc_html($icon_color) . ' class="' . esc_html($wp_rem_cs_var_icon_box) . '"></i>
+                            <i ' . $icon_color . ' class="' . esc_html($wp_rem_cs_var_icon_box) . '"></i>
                             <div class="address-text"><span class="label-title">' . $wp_rem_cs_var_infobox_title . '</span><span class="info-desc">' . do_shortcode($content) . '</span></div>
                     </li>';
             $output .='</ul>';
@@ -135,7 +137,7 @@ if ( ! function_exists('wp_rem_cs_var_infobox_item_shortcode') ) {
         } else {
             $output .= '
                     <li>
-                            <i ' . esc_html($icon_color) . ' class="' . esc_html($wp_rem_cs_var_icon_box) . '"></i>
+                            <i ' . $icon_color . ' class="' . esc_html($wp_rem_cs_var_icon_box) . '"></i>
                             <div class="address-text"><span class="label-title">' . $wp_rem_cs_var_infobox_title . '</span><span class="info-desc">' . do_shortcode($content) . '</span></div>
                     </li>';
         }

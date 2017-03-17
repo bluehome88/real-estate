@@ -3,7 +3,7 @@
  * The template for displaying single member
  *
  */
-global $post, $wp_rem_plugin_options, $wp_rem_theme_options, $Wp_rem_Captcha, $wp_rem_form_fields, $wp_rem_post_property_types;
+global $post, $wp_rem_plugin_options, $wp_rem_theme_options, $Wp_rem_Captcha, $wp_rem_form_fields_frontend, $wp_rem_post_property_types;
 $post_id = $post->ID;
 $wp_rem_user_status = get_post_meta($post_id, 'wp_rem_user_status', true);
 $wp_rem_captcha_switch = '';
@@ -33,6 +33,17 @@ $member_title = '';
 $member_title = get_the_title($post_id);
 $member_link = '';
 $member_link = get_the_permalink($post_id);
+wp_enqueue_script('wp-rem-prettyPhoto');
+wp_enqueue_style('wp-rem-prettyPhoto');
+$wp_rem_cs_inline_script = '
+                jQuery(document).ready(function () {
+                     jQuery("a.property-video-btn[rel^=\'prettyPhoto\']").prettyPhoto({animation_speed:"fast",slideshow:10000, hideflash: true,autoplay:true,autoplay_slideshow:false});
+                });';
+wp_rem_cs_inline_enqueue_script($wp_rem_cs_inline_script, 'wp-rem-custom-inline');
+
+
+
+
 if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
     ?>
     <div class="page-content col-lg-8 col-md-8 col-sm-12 col-xs-12">
@@ -307,16 +318,18 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
             <?php
             if ( $post_count > 0 ) {
                 ?>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="element-title">
-                        <h2><?php echo get_the_title($post_id).' '; echo wp_rem_plugin_text_srt('wp_rem_member_properties'); ?></h2>
+                        <h2><?php
+                            echo get_the_title($post_id) . ' ';
+                            echo wp_rem_plugin_text_srt('wp_rem_member_properties');
+                            ?></h2>
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="real-estate-property">
                         <div class="row">
                             <?php
-                            
                             while ( $custom_query->have_posts() ) : $custom_query->the_post();
                                 global $post;
                                 $property_id = $post->ID;
@@ -386,8 +399,21 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                                             <span class="rent-label"><?php echo wp_rem_allow_special_char($wp_rem_cate_str); ?></span>
                                                         <?php } ?>
                                                         <?php if ( isset($gallery_image_count) && $gallery_image_count > 0 ) { ?>
-                                                            <span class="capture-count"><i class="icon-camera6"></i><?php echo abs($gallery_image_count); ?></span>
-                                                        <?php } ?>
+                                                            <ul id="galley-img<?php echo absint($property_id) ?>" class="galley-img">
+                                                                <li><a  href="javascript:void(0)" class="rem-pretty-photos" data-id="<?php echo absint($property_id) ?>" ><span class="capture-count"><i class="icon-camera6"></i><?php echo absint($gallery_image_count); ?></span><div class="info-content"><span><?php echo wp_rem_plugin_text_srt('wp_rem_element_tooltip_icon_camera'); ?></span></div></a> </li>   
+                                                            </ul>
+                                                            <?php
+                                                        }
+
+                                                        $property_video_url = get_post_meta($property_id, 'wp_rem_property_video', true);
+                                                        $property_video_url = isset($property_video_url) ? $property_video_url : '';
+                                                        if ( $property_video_url != '' ) {
+                                                            $property_video_url = str_replace("player.vimeo.com/video", "vimeo.com", $property_video_url)
+                                                            ?>
+                                                            <a class="property-video-btn" rel="prettyPhoto" href="<?php echo esc_url($property_video_url); ?>"><i class="icon-film2"></i><div class="info-content"><span><?php echo wp_rem_plugin_text_srt('wp_rem_subnav_item_3'); ?></span></div></a>
+                                                            <?php
+                                                        }
+                                                        ?>
                                                     </div>
                                                 </figcaption>
                                             </figure>
@@ -427,7 +453,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                                 <?php
                                             }
                                             if ( isset($wp_rem_property_price_options) && $wp_rem_property_price_options == 'price' ) {
-                                                $wp_rem_property_price = wp_rem_property_price($property_id, $wp_rem_property_price, '<span class="guid-price">', '</span>' );
+                                                $wp_rem_property_price = wp_rem_property_price($property_id, $wp_rem_property_price, '<span class="guid-price">', '</span>');
                                                 ?>
                                                 <span class="property-price"><?php echo force_balance_tags($wp_rem_property_price); ?><small></small></span>
                                             <?php } ?>
@@ -457,7 +483,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                         </div>
                         <?php
                         $property_short_counter = rand(123, 9999);
-                        
+
                         $paging_args = array(
                             'total_posts' => $post_count,
                             'posts_per_page' => $paging_var_perpage,
@@ -489,7 +515,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                             'classes' => 'input-field',
                             'extra_atr' => ' placeholder=" ' . wp_rem_plugin_text_srt('wp_rem_member_contact_your_name') . '"',
                         );
-                        $wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+                        $wp_rem_form_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
                         ?>
                     </div>
                 </div>
@@ -503,7 +529,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                             'classes' => 'input-field',
                             'extra_atr' => ' placeholder=" ' . wp_rem_plugin_text_srt('wp_rem_member_contact_your_email') . '"',
                         );
-                        $wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+                        $wp_rem_form_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
                         ?>
                     </div>
                 </div>
@@ -513,11 +539,13 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                         <?php
                         $wp_rem_opt_array = array(
                             'std' => '',
+                            'id'=>'',
+                            'name'=>'',
                             'cust_name' => 'contact_message_field',
                             'return' => false,
                             'extra_atr' => ' placeholder=" ' . wp_rem_plugin_text_srt('wp_rem_member_contact_your_message') . '"',
                         );
-                        $wp_rem_form_fields->wp_rem_form_textarea_render($wp_rem_opt_array);
+                        $wp_rem_form_fields_frontend->wp_rem_form_textarea_render($wp_rem_opt_array);
                         ?>
                     </div>
                 </div>
@@ -550,9 +578,18 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <?php wp_rem_term_condition_form_field('member_detail_term_policy', 'member_detail_term_policy'); ?>
                     <div class="field-holder">
-
                         <div class="contact-message-submit input-button-loader">
-                            <input id="message_submit" type="submit" name="contact_message_submit" value="<?php echo wp_rem_plugin_text_srt('wp_rem_contact_send_message'); ?>" class="bgcolor" />
+                            <?php
+                            $wp_rem_form_fields_frontend->wp_rem_form_text_render(
+                                    array(
+                                        'cust_id' => 'message_submit',
+                                        'cust_name' => 'contact_message_submit',
+                                        'classes' => 'bgcolor',
+                                        'std' => wp_rem_plugin_text_srt('wp_rem_contact_send_message') . '',
+                                        'cust_type' => "submit",
+                                    )
+                            );
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -652,8 +689,21 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                             <?php } ?>
 
                                             <?php if ( isset($gallery_image_count) && $gallery_image_count > 0 ) { ?>
-                                                <span class="capture-count"><i class="icon-camera6"></i><?php echo abs($gallery_image_count); ?></span>
-                                            <?php } ?>
+                                                <ul id="galley-img<?php echo absint($property_id) ?>" class="galley-img">
+                                                    <li><a  href="javascript:void(0)" class="rem-pretty-photos" data-id="<?php echo absint($property_id) ?>" ><span class="capture-count"><i class="icon-camera6"></i><?php echo absint($gallery_image_count); ?></span><div class="info-content"><span><?php echo wp_rem_plugin_text_srt('wp_rem_element_tooltip_icon_camera'); ?></span></div></a> </li>   
+                                                </ul>
+                                            <?php
+                                            }
+
+                                            $property_video_url = get_post_meta($property_id, 'wp_rem_property_video', true);
+                                            $property_video_url = isset($property_video_url) ? $property_video_url : '';
+                                            if ( $property_video_url != '' ) {
+                                                $property_video_url = str_replace("player.vimeo.com/video", "vimeo.com", $property_video_url)
+                                                ?>
+                                                <a class="property-video-btn" rel="prettyPhoto" href="<?php echo esc_url($property_video_url); ?>"><i class="icon-film2"></i><div class="info-content"><span><?php echo wp_rem_plugin_text_srt('wp_rem_subnav_item_3'); ?></span></div></a>
+                                                <?php
+                                            }
+                                            ?>
                                         </div>
                                     </figcaption>
                                 </figure>
@@ -665,7 +715,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                         if ( $wp_rem_property_nearby_price_options == 'on-call' ) {
                                             echo '<span class="property-price">' . force_balance_tags($wp_rem_property_nearby_price) . '</span>';
                                         } else {
-                                            $property_info_price = wp_rem_property_price($nearby_property_id, $wp_rem_property_nearby_price, '<span class="guid-price">', '</span>' );
+                                            $property_info_price = wp_rem_property_price($nearby_property_id, $wp_rem_property_nearby_price, '<span class="guid-price">', '</span>');
                                             echo '<span class="property-price">' . force_balance_tags($property_info_price) . '</span>';
                                         }
                                         ?>

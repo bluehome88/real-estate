@@ -106,6 +106,7 @@ if ( ! function_exists( 'wp_rem_cs_accordion_item_shortcode' ) ) {
         $defaults = array(
             'wp_rem_cs_var_accordion_title' => 'Title',
             'wp_rem_cs_var_icon_box' => '',
+            'wp_rem_cs_var_icon_box_group' => 'default',
             'wp_rem_cs_var_accordion_active' => 'yes',
         );
         extract( shortcode_atts( $defaults, $atts ) );
@@ -115,6 +116,7 @@ if ( ! function_exists( 'wp_rem_cs_accordion_item_shortcode' ) ) {
         $wp_rem_cs_var_accordion_active = isset( $wp_rem_cs_var_accordion_active ) ? $wp_rem_cs_var_accordion_active : '';
 
         if ( isset( $wp_rem_cs_var_icon_box ) && $wp_rem_cs_var_icon_box != '' ) {
+            wp_enqueue_style('cs_icons_data_css_'.$wp_rem_cs_var_icon_box_group );
             $wp_rem_cs_var_acc_icon = '<i class="' . esc_attr($wp_rem_cs_var_icon_box) . '"></i>';
         }
 

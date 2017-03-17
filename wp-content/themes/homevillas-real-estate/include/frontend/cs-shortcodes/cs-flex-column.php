@@ -91,9 +91,9 @@ if ( ! function_exists( 'wp_rem_cs_var_column' ) ) {
         if ( isset( $wp_rem_cs_var_column_section_title ) && $wp_rem_cs_var_column_section_title != '' ) {
             $title_style = '';
             if ( $wp_rem_cs_var_column_title_color ) {
-                $title_style = 'style="color:' . esc_attr( $wp_rem_cs_var_column_title_color ) . ' !important;"';
+                $title_style = 'style="color:' . ( $wp_rem_cs_var_column_title_color ) . ' !important;"';
             }
-            $html_column .= wp_rem_title_sub_align($wp_rem_cs_var_column_section_title, $wp_rem_cs_var_column_section_subtitle, $wp_rem_var_column_align,$title_style);
+            $html_column .= wp_rem_title_sub_align($wp_rem_cs_var_column_section_title, $wp_rem_cs_var_column_section_subtitle, $wp_rem_var_column_align,$wp_rem_cs_var_column_title_color);
         }
         $html_column .= '<div  class="column-content ' . esc_html( $wp_rem_cs_column_bg_class ) . '" ' . force_balance_tags( $style_string ) . '>';
         $html_column .= do_shortcode( $content );

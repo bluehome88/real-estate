@@ -1153,10 +1153,12 @@ if (class_exists('wp_rem_plugin_options')) {
     add_action('admin_menu', array(&$settings_object, 'wp_rem_register_plugin_settings'));
 }
 
-if (!function_exists('wp_rem_iconlist_plugin_options')) {
 
-    function wp_rem_iconlist_plugin_options($icon_value = '', $id = '', $name = '') {
-        global $wp_rem_form_fields, $wp_rem_plugin_static_text, $wp_rem_;
+
+if (!function_exists('icons_fields_callback')) {
+
+    function icons_fields_callback($icon_value = '', $id = '', $name = '', $group_name = '', $group_value = '') {
+        global $wp_rem_form_fields, $wp_rem_plugin_static_text, $wp_rem_, $wp_rem_Class;
         $wp_rem_icomoon = '
         <script>
             jQuery(document).ready(function ($) {
@@ -1214,5 +1216,7 @@ if (!function_exists('wp_rem_iconlist_plugin_options')) {
 
         return $wp_rem_icomoon;
     }
-
+    add_filter('cs_icons_fields', 'icons_fields_callback', 10, 5 );
 }
+
+

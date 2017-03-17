@@ -6,19 +6,19 @@
 global $post, $wp_rem_plugin_options, $wp_rem_theme_options, $wp_rem_post_property_types;
 $post_id = $post->ID;
 wp_rem_property_views_count($post_id);
-
+$wp_rem_social_network = isset($wp_rem_plugin_options['wp_rem_property_detail_page_social_network']) ? $wp_rem_plugin_options['wp_rem_property_detail_page_social_network'] : '';
 $property_limits = get_post_meta($post_id, 'wp_rem_trans_all_meta', true);
 $wp_rem_property_price_options = get_post_meta($post_id, 'wp_rem_property_price_options', true);
 $wp_rem_property_price = '';
-if ( $wp_rem_property_price_options == 'price' ) {
+if ($wp_rem_property_price_options == 'price') {
     $wp_rem_property_price = get_post_meta($post_id, 'wp_rem_property_price', true);
-} else if ( $wp_rem_property_price_options == 'on-call' ) {
+} else if ($wp_rem_property_price_options == 'on-call') {
     $wp_rem_property_price = wp_rem_plugin_text_srt('wp_rem_nearby_properties_price_on_request');
 }
 $wp_rem_var_post_social_sharing = $wp_rem_plugin_options['wp_rem_social_share'];
-wp_enqueue_script('wp-rem-pretty-photo-script');
+wp_enqueue_script('wp-rem-prettyPhoto');
 wp_enqueue_script('wp-rem-reservation-functions');
-wp_enqueue_style('wp-rem-pretty-photo-css');
+wp_enqueue_style('wp-rem-prettyPhoto');
 // checking review in on in property type
 $wp_rem_property_type = get_post_meta($post_id, 'wp_rem_property_type', true);
 
@@ -31,11 +31,11 @@ $wp_rem_property_member_id = get_post_meta($post_id, 'wp_rem_property_member', t
 $wp_rem_property_member_id = isset($wp_rem_property_member_id) ? $wp_rem_property_member_id : '';
 $wp_rem_post_loc_address_member = get_post_meta($wp_rem_property_member_id, 'wp_rem_post_loc_address_member', true);
 $wp_rem_member_title = '';
-if ( isset($wp_rem_property_member_id) && $wp_rem_property_member_id <> '' ) {
+if (isset($wp_rem_property_member_id) && $wp_rem_property_member_id <> '') {
     $wp_rem_member_title = get_the_title($wp_rem_property_member_id);
 }
 $wp_rem_member_link = 'javascript:void(0)';
-if ( isset($wp_rem_property_member_id) && $wp_rem_property_member_id <> '' ) {
+if (isset($wp_rem_property_member_id) && $wp_rem_property_member_id <> '') {
     $wp_rem_member_link = get_the_permalink($wp_rem_property_member_id);
 }
 
@@ -52,7 +52,7 @@ $wp_rem_post_loc_address_property = get_post_meta($post_id, 'wp_rem_post_loc_add
 $wp_rem_post_loc_latitude = get_post_meta($post_id, 'wp_rem_post_loc_latitude_property', true);
 $wp_rem_post_loc_longitude = get_post_meta($post_id, 'wp_rem_post_loc_longitude_property', true);
 $wp_rem_property_type = isset($wp_rem_property_type) ? $wp_rem_property_type : '';
-if ( $property_type_post = get_page_by_path($wp_rem_property_type, OBJECT, 'property-type') )
+if ($property_type_post = get_page_by_path($wp_rem_property_type, OBJECT, 'property-type'))
     $property_type_id = $property_type_post->ID;
 $property_type_id = isset($property_type_id) ? $property_type_id : '';
 $wp_rem_property_type_feature_img_switch = get_post_meta($property_type_id, 'wp_rem_social_share_element', true);
@@ -89,17 +89,17 @@ $wp_rem_property_is_featured = get_post_meta($post_id, 'wp_rem_property_is_featu
  * Banner slider data end 
  */
 
-if ( $wp_rem_property_type_det_desc_length < 0 ) {
+if ($wp_rem_property_type_det_desc_length < 0) {
     $wp_rem_property_type_det_desc_length = 50;
 }
 
-if ( isset($_GET['price']) && $_GET['price'] == 'yes' ) {
+if (isset($_GET['price']) && $_GET['price'] == 'yes') {
     echo wp_rem_all_currencies();
     echo wp_rem_get_currency(100, true);
 }
 
 $no_image_class = '';
-if ( ! has_post_thumbnail() ) {
+if (!has_post_thumbnail()) {
     $no_image_class = ' no-image';
 }
 
@@ -115,14 +115,14 @@ $wp_rem_cate = '';
 $wp_rem_cate_str = '';
 $wp_rem_property_category = get_post_meta($post_id, 'wp_rem_property_category', true);
 
-if ( ! empty($wp_rem_property_category) && is_array($wp_rem_property_category) ) {
+if (!empty($wp_rem_property_category) && is_array($wp_rem_property_category)) {
     $comma_flag = 0;
-    foreach ( $wp_rem_property_category as $cate_slug => $cat_val ) {
+    foreach ($wp_rem_property_category as $cate_slug => $cat_val) {
         $wp_rem_cate = get_term_by('slug', $cat_val, 'property-category');
 
-        if ( ! empty($wp_rem_cate) ) {
+        if (!empty($wp_rem_cate)) {
             $cate_link = wp_rem_property_category_link($property_type_id, $cat_val);
-            if ( $comma_flag != 0 ) {
+            if ($comma_flag != 0) {
                 $wp_rem_cate_str .= ', ';
             }
             $wp_rem_cate_str = '<a href="' . $cate_link . '">' . $wp_rem_cate->name . '</a>';
@@ -141,16 +141,16 @@ if ( ! empty($wp_rem_property_category) && is_array($wp_rem_property_category) )
                 <div class="row">
                     <?php
                     $member_profile_status = get_post_meta($post_id, 'property_member_status', true);
-                    if ( $member_profile_status == 'active' ) {
+                    if ($member_profile_status == 'active') {
                         ?>
                         <div class="page-content col-lg-8 col-md-8 col-sm-12 col-xs-12">
                             <div class="list-detail-options">
                                 <div class="title-area">
                                     <div class="price-holder">
-                                        <?php if ( $wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price_options != 'none' ) { ?>
+                                        <?php if ($wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price_options != 'none') { ?>
                                             <span class="property-price">
                                                 <?Php
-                                                if ( $wp_rem_property_price_options == 'on-call' ) {
+                                                if ($wp_rem_property_price_options == 'on-call') {
                                                     echo '<span class="new-price text-color">' . force_balance_tags($wp_rem_property_price) . '</span>';
                                                 } else {
                                                     $property_info_price = wp_rem_property_price($post_id, $wp_rem_property_price, '<span class="guid-price">', '</span>');
@@ -160,44 +160,47 @@ if ( ! empty($wp_rem_property_category) && is_array($wp_rem_property_category) )
                                             </span>
                                         <?php } ?>
                                     </div>
-                                    <?php if ( get_the_title($post_id) != '' ) { ?>
+                                    <?php if (get_the_title($post_id) != '') { ?>
                                         <h2><?php the_title(); ?></h2>
                                     <?php } ?>
-                                    <?php if ( isset($wp_rem_post_loc_address_property) && $wp_rem_post_loc_address_property != '' ) { ?>
+                                    <?php if (isset($wp_rem_post_loc_address_property) && $wp_rem_post_loc_address_property != '') { ?>
                                         <address><i class="icon- icon-location-pin2"></i><?php echo esc_html($wp_rem_post_loc_address_property); ?></address>
                                     <?php } ?>
+									<div class="property-data">
+										<ul>
+											<?php if ($wp_rem_property_is_featured == 'on') { ?>
+												<li class="featured-property">
+													<span class="bgcolor"><?php echo wp_rem_plugin_text_srt('wp_rem_property_featured'); ?></span>
+												</li>
+											<?php }
+											?>
+											<li><i class="icon-home"></i><?php echo wp_rem_property_type_link($property_type_id); ?> <?php if( $wp_rem_cate_str != '' ){ echo wp_rem_plugin_text_srt('wp_rem_property_type_in'); } ?></li>
+											<?php if( $wp_rem_cate_str != '' ){ ?>
+												<li><strong><?php echo wp_rem_allow_special_char($wp_rem_cate_str); ?></strong></li>
+											<?php } ?>
+											<li><?php
+												$favourite_label = wp_rem_plugin_text_srt('wp_rem_property_favourite');
+												$favourite_label = wp_rem_plugin_text_srt('wp_rem_property_favourite');
+												$figcaption_div = true;
+												$book_mark_args = array(
+													'before_label' => $favourite_label,
+													'after_label' => $favourite_label,
+													'before_icon' => '<i class="icon-heart-o"></i>',
+													'after_icon' => '<i class="icon-heart5"></i>',
+												);
+												do_action('wp_rem_favourites_frontend_button', $post_id, $book_mark_args, $figcaption_div);
+												?></li>
+										</ul>
+									</div>
+									<?php if( $wp_rem_social_network === 'on'){ ?>
+										<div class="property-social-links">
+											<span class="social-share"><?php echo wp_rem_plugin_text_srt('wp_rem_property_social_share_text') ?></span>
+											<?php do_action('wp_rem_social_sharing'); ?>
+										</div>
+									<?php } ?>
+									<?php do_action('wp_rem_detail_compare_btn', $post_id); ?>
                                 </div>
-                                <?php do_action('wp_rem_enquire_arrange_buttons_element_html', $post_id);  
-                                ?>
-                                <div class="property-data">
-                                    <ul>
-                                        <?php if ( $wp_rem_property_is_featured == 'on' ) { ?>
-                                            <li class="featured-property">
-                                                <span class="bgcolor"><?php echo wp_rem_plugin_text_srt('wp_rem_property_featured'); ?></span>
-                                            </li>
-                                        <?php }
-                                        ?>
-                                        <li><i class="icon-home"></i><?php echo wp_rem_property_type_link($property_type_id); ?></li>
-                                        <li><strong><?php echo wp_rem_allow_special_char($wp_rem_cate_str); ?></strong></li>
-                                        <li><?php
-                                            $favourite_label = wp_rem_plugin_text_srt('wp_rem_property_favourite');
-                                            $favourite_label = wp_rem_plugin_text_srt('wp_rem_property_favourite');
-                                            $figcaption_div = true;
-                                            $book_mark_args = array(
-                                                'before_label' => $favourite_label,
-                                                'after_label' => $favourite_label,
-                                                'before_icon' => '<i class="icon-heart-o"></i>',
-                                                'after_icon' => '<i class="icon-heart5"></i>',
-                                            );
-                                            do_action('wp_rem_favourites_frontend_button', $post_id, $book_mark_args, $figcaption_div);
-                                            ?></li>
-                                    </ul>
-                                </div>
-                                <div class="property-social-links">
-                                    <span class="social-share"><?php echo wp_rem_plugin_text_srt('wp_rem_property_social_share_text') ?></span>
-                                    <?php do_action('wp_rem_social_sharing'); ?>
-                                </div>
-								<?php do_action('wp_rem_detail_compare_btn', $post_id); ?>
+                                <?php do_action('wp_rem_enquire_arrange_buttons_element_html', $post_id); ?>
                             </div>
                             <?php
                             do_action('wp_rem_custom_fields_html', $post_id);
@@ -210,18 +213,18 @@ if ( ! empty($wp_rem_property_category) && is_array($wp_rem_property_category) )
                             $content = str_replace(']]>', ']]&gt;', $content);
                             $wp_rem_property_summary = get_post_meta($post_id, 'wp_rem_property_summary', true);
                             $wp_rem_property_summary = isset($wp_rem_property_summary) ? $wp_rem_property_summary : '';
-                            if ( $wp_rem_property_summary != '' || $content != '' ) {
+                            if ($wp_rem_property_summary != '' || $content != '') {
                                 ?>
                                 <div id="property-detail" class="description-holder">
-                                    <?php if ( $wp_rem_property_summary != '' ) { ?>
+                                    <?php if ($wp_rem_property_summary != '') { ?>
                                         <div class="property-feature">
                                             <div class="element-title">
-                                                <h3><?php echo wp_rem_plugin_text_srt('wp_rem_property_property_features'); ?></h3>
+                                                <h3><?php echo wp_rem_plugin_text_srt('wp_rem_property_property_key_detail'); ?></h3>
                                             </div>
                                             <p><?php echo force_balance_tags(str_replace("<br/>", '</p><p>', str_replace("<br />", '</p><p>', nl2br($wp_rem_property_summary)))); ?></p>
                                         </div>
                                     <?php } ?>
-                                    <?php if ( $content != '' ) { ?>    
+                                    <?php if ($content != '') { ?>    
                                         <div class="property-dsec">
                                             <div class="element-title">
                                                 <h3><?php echo wp_rem_plugin_text_srt('wp_rem_property_property_desc'); ?></h3>
@@ -231,39 +234,34 @@ if ( ! empty($wp_rem_property_category) && is_array($wp_rem_property_category) )
                                     <?php } ?> 
                                 </div>
                             <?php } // DESCRIPTION AND FEATURE CONTENT END  ?> 
-
-
                             <?php
-                            if ( $wp_rem_enable_features_element != 'off' ) {
+                            if ($wp_rem_enable_features_element != 'off') {
                                 do_action('wp_rem_features_element_html', $post_id);
                             }
                             ?>
                             <?php
-                            if ( $wp_rem_enable_appartment_for_sale_element != 'off' ) {
+                            if ($wp_rem_enable_appartment_for_sale_element != 'off') {
                                 do_action('wp_rem_property_apartment_html', $post_id);
                             }
                             ?>
                             <?php
-                            if ( $wp_rem_enable_video_element != 'off' ) {
+                            if ($wp_rem_enable_video_element != 'off') {
                                 do_action('wp_rem_property_video_html', $post_id);
                             }
                             ?>
                             <?php
-                            if ( $wp_rem_enable_file_attachments_element != 'off' ) {
+                            if ($wp_rem_enable_file_attachments_element != 'off') {
                                 do_action('wp_rem_attachments_html', $post_id);
                             }
                             ?>
                             <?php
-                            if ( $wp_rem_enable_yelp_places_element != 'off' ) {
+                            if ($wp_rem_enable_yelp_places_element != 'off') {
                                 do_action('wp_rem_restaurant_yelp_results', $post_id);
-                            }
-                            ?>
-
-                            <?php if ( ! empty($wp_rem_property_type_walkscores_switch) && $wp_rem_property_type_walkscores_switch == 'on' ) : ?>
-                                <?php if ( true || isset($wp_rem_plugin_options['wp_rem_walkscore_api_key']) && $wp_rem_plugin_options['wp_rem_walkscore_api_key'] != '' ) : ?>
+                            } if (!empty($wp_rem_property_type_walkscores_switch) && $wp_rem_property_type_walkscores_switch == 'on') : ?>
+                                <?php if (true || isset($wp_rem_plugin_options['wp_rem_walkscore_api_key']) && $wp_rem_plugin_options['wp_rem_walkscore_api_key'] != '') : ?>
                                     <?php
                                     $response = wp_rem_get_walk_score($wp_rem_post_loc_latitude, $wp_rem_post_loc_longitude, $wp_rem_post_loc_address_property);
-                                    if ( is_array($response) ) {
+                                    if (is_array($response)) {
                                         $response = json_decode($response['body'], true);
                                         ?>
                                         <div class="scoring-holder">
@@ -276,9 +274,9 @@ if ( ! empty($wp_rem_property_category) && is_array($wp_rem_property_category) )
                                                 </div>
                                             </div>
                                             <ul class="scoring-list">
-                                                <?php if ( isset($response['status']) && $response['status'] == 1 ) : ?>
+                                                <?php if (isset($response['status']) && $response['status'] == 1) : ?>
 
-                                                    <?php if ( isset($response['walkscore']) ) : ?>
+                                                    <?php if (isset($response['walkscore'])) : ?>
                                                         <li class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                             <div class="img-holder"> <span class="socres-lable"><?php echo $response['walkscore']; ?></span></div>
                                                             <div class="text-holder">
@@ -291,7 +289,7 @@ if ( ! empty($wp_rem_property_category) && is_array($wp_rem_property_category) )
                                                         </li>
                                                     <?php endif; ?>
 
-                                                    <?php if ( isset($response['transit']) && ! empty($response['transit']['score']) ) : ?>
+                                                    <?php if (isset($response['transit']) && !empty($response['transit']['score'])) : ?>
                                                         <li class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                             <div class="img-holder"> <span class="socres-lable"><?php echo $response['transit']['score']; ?></span> </div>
                                                             <div class="text-holder">
@@ -304,7 +302,7 @@ if ( ! empty($wp_rem_property_category) && is_array($wp_rem_property_category) )
                                                         </li>
                                                     <?php endif; ?>
 
-                                                    <?php if ( isset($response['bike']) && ! empty($response['bike']['score']) ) : ?>
+                                                    <?php if (isset($response['bike']) && !empty($response['bike']['score'])) : ?>
                                                         <li class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                             <div class="img-holder"> <span class="socres-lable"><?php echo $response['bike']['score']; ?></span> </div>
                                                             <div class="text-holder">
@@ -334,10 +332,10 @@ if ( ! empty($wp_rem_property_category) && is_array($wp_rem_property_category) )
                             <?php endif; ?>
 
                             <?php
-                            if ( $wp_rem_enable_floot_plan_element != 'off' ) {
+                            if ($wp_rem_enable_floot_plan_element != 'off') {
                                 $floor_plans = get_post_meta($post_id, 'wp_rem_floor_plans', true);
                                 $floor_plans = empty($floor_plans) ? array() : $floor_plans;
-                                if ( count($floor_plans) > 0 ) :
+                                if (count($floor_plans) > 0) :
                                     ?>
                                     <div class="architecture-holder">
                                         <div class="element-title">
@@ -345,9 +343,9 @@ if ( ! empty($wp_rem_property_category) && is_array($wp_rem_property_category) )
                                         </div>
                                         <?php $active = 'active'; ?>
                                         <ul class="nav nav-tabs">
-                                            <?php foreach ( $floor_plans as $key => $floor_plan ) : ?>
+                                            <?php foreach ($floor_plans as $key => $floor_plan) : ?>
                                                 <?php
-                                                if ( $key == 1 ) {
+                                                if ($key == 1) {
                                                     $active = '';
                                                 }
                                                 ?>
@@ -356,14 +354,14 @@ if ( ! empty($wp_rem_property_category) && is_array($wp_rem_property_category) )
                                         </ul>
                                         <div class="tab-content">
                                             <?php $active = 'active'; ?>
-                                            <?php foreach ( $floor_plans as $key => $floor_plan ) : ?>
+                                            <?php foreach ($floor_plans as $key => $floor_plan) : ?>
                                                 <?php
-                                                if ( $key == 1 ) {
+                                                if ($key == 1) {
                                                     $active = '';
                                                 }
                                                 $floor_plan['floor_plan_desc'] = isset($floor_plan['floor_plan_desc']) ? $floor_plan['floor_plan_desc'] : '';
                                                 $floor_id = '';
-                                                if ( isset($floor_plan['floor_plan_title']) && $floor_plan['floor_plan_title'] != '' ) {
+                                                if (isset($floor_plan['floor_plan_title']) && $floor_plan['floor_plan_title'] != '') {
                                                     $floor_id = 'id="' . sanitize_title($floor_plan['floor_plan_title']) . '"';
                                                 }
                                                 ?>
@@ -379,7 +377,7 @@ if ( ! empty($wp_rem_property_category) && is_array($wp_rem_property_category) )
                             }
                             ?>
                             <?php
-                            if ( isset($wp_rem_plugin_options['wp_rem_property_static_text_block']) && $wp_rem_plugin_options['wp_rem_property_static_text_block'] != '' ) {
+                            if (isset($wp_rem_plugin_options['wp_rem_property_static_text_block']) && $wp_rem_plugin_options['wp_rem_property_static_text_block'] != '') {
                                 $environmental_text = isset($wp_rem_plugin_options['wp_rem_property_static_envior_text']) ? $wp_rem_plugin_options['wp_rem_property_static_envior_text'] : '';
                                 ?>
                                 <div class="element-title">
@@ -394,46 +392,48 @@ if ( ! empty($wp_rem_property_category) && is_array($wp_rem_property_category) )
                         </div>
                         <div class="sidebar col-lg-4 col-md-4 col-sm-12 col-xs-12">
                             <?php do_action('wp_rem_sidebar_gallery_html', $post_id); ?>
-							<?php $sidebar_member_info = isset($wp_rem_plugin_options['wp_rem_property_detail_page_sidebar_member_info']) ? $wp_rem_plugin_options['wp_rem_property_detail_page_sidebar_member_info'] : ''; ?>
-                            <?php if( $sidebar_member_info == 'on' ){ ?>
-								<div class="profile-info boxed">
-									<?php if ( isset($member_image) && $member_image != '' ) { ?>
-										<div class="img-holder">
-											<figure>
-												<a href="<?php echo esc_url($wp_rem_member_link); ?>">
-													<img src="<?php echo esc_url($member_image); ?>" alt="" />
-												</a>
-											</figure>
-										</div>
-									<?php } ?>
-									<div class="text-holder">
-										<?php if ( isset($wp_rem_member_title) && $wp_rem_member_title != '' ) { ?>
-											<a href="<?php echo esc_url($wp_rem_member_link); ?>">
-												<h5><?php echo esc_html($wp_rem_member_title); ?></h5>
-											</a>
-										<?php } ?>
-										<?php if ( isset($wp_rem_member_phone_num) && $wp_rem_member_phone_num != '' ) { ?>
-											<strong><a href="tel:<?php echo esc_html(str_replace(' ', '', $wp_rem_member_phone_num)); ?>"><?php echo esc_html($wp_rem_member_phone_num); ?></a></strong>
-										<?php } ?>
-										<?php if ( isset($wp_rem_post_loc_address_member) && $wp_rem_post_loc_address_member != '' ) { ?>	
-											<ul>
-												<li><?php echo esc_html($wp_rem_post_loc_address_member); ?></li>
-											</ul>
-										<?php } ?>
+                            <?php $sidebar_member_info = isset($wp_rem_plugin_options['wp_rem_property_detail_page_sidebar_member_info']) ? $wp_rem_plugin_options['wp_rem_property_detail_page_sidebar_member_info'] : ''; ?>
+                            <?php if ($sidebar_member_info == 'on') { ?>
+                                <div class="profile-info boxed">
+                                    <?php if (isset($member_image) && $member_image != '') { ?>
+                                        <div class="img-holder">
+                                            <figure>
+                                                <a href="<?php echo esc_url($wp_rem_member_link); ?>">
+                                                    <img src="<?php echo esc_url($member_image); ?>" alt="" />
+                                                </a>
+                                            </figure>
+                                        </div>
+                                    <?php } ?>
+                                    <div class="text-holder">
+                                        <?php if (isset($wp_rem_member_title) && $wp_rem_member_title != '') { ?>
+                                            <a href="<?php echo esc_url($wp_rem_member_link); ?>">
+                                                <h5><?php echo esc_html($wp_rem_member_title); ?></h5>
+                                            </a>
+                                        <?php } ?>
+                                        <?php if (isset($wp_rem_member_phone_num) && $wp_rem_member_phone_num != '') { ?>
+                                            <strong><a href="tel:<?php echo esc_html(str_replace(' ', '', $wp_rem_member_phone_num)); ?>"><?php echo esc_html($wp_rem_member_phone_num); ?></a></strong>
+                                        <?php } ?>
+                                        <?php if (isset($wp_rem_post_loc_address_member) && $wp_rem_post_loc_address_member != '') { ?>	
+                                            <ul>
+                                                <li><?php echo esc_html($wp_rem_post_loc_address_member); ?></li>
+                                            </ul>
+                                        <?php } ?>
 
-										<div class="field-select-holder">
-											<?php echo do_action('wp_rem_opening_hours_element_html', $wp_rem_property_member_id); ?>  
-										</div>
-										<?php
-										$target_class = ' wp-rem-open-signin-tab';
-										if ( is_user_logged_in() ) {
-											$target_class = '';
-										}
-										?>    
-										<a href="javascript:void(0);" class="submit-btn bgcolor<?php echo esc_attr($target_class); ?>" data-toggle="modal" data-target="#enquiry-modal"><?php echo wp_rem_plugin_text_srt('wp_rem_property_contact_member'); ?></a>
-									</div>
-								</div>
-							<?php } ?>
+                                        <div class="field-select-holder">
+                                            <?php echo do_action('wp_rem_opening_hours_element_html', $wp_rem_property_member_id); ?>  
+                                        </div>
+                                        <?php
+										$target_modal = 'sign-in';
+                                        $target_class = ' wp-rem-open-signin-tab';
+                                        if (is_user_logged_in()) {
+                                            $target_class = '';
+											$target_modal = ' data-toggle="modal" data-target="#enquiry-modal"';
+                                        }
+                                        ?>    
+                                        <a href="javascript:void(0);" class="submit-btn bgcolor<?php echo esc_attr($target_class); ?>"<?php echo $target_modal; ?>><?php echo wp_rem_plugin_text_srt('wp_rem_property_contact_member'); ?></a>
+                                    </div>
+                                </div>
+                            <?php } ?>
                             <?php do_action('wp_rem_payment_calculator_html', $post_id); ?>
                         </div>
                         <?php
@@ -454,4 +454,3 @@ if ( ! empty($wp_rem_property_category) && is_array($wp_rem_property_category) )
     </div>
     <?php do_action('wp_rem_nearby_properties_element_html', $post_id); ?>
 </div>
-

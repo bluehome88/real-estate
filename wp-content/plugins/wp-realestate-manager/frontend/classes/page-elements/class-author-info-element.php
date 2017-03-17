@@ -83,12 +83,14 @@ if ( ! class_exists('wp_rem_author_info_element') ) {
                                 </div>
                             <?php } ?>
                             <?php
+							$target_modal = 'sign-in';
                             $target_class = ' wp-rem-open-signin-tab';
                             if ( is_user_logged_in() ) {
                                 $target_class = '';
+								$target_modal = ' data-toggle="modal" data-target="#enquiry-modal"';
                             }
                             ?>
-                            <a href="javascript:void(0);" class="submit-btn bgcolor<?php echo esc_attr($target_class); ?>" data-toggle="modal" data-target="#enquiry-modal"><?php echo wp_rem_plugin_text_srt('wp_rem_author_info_request_details'); ?></a>
+                            <a href="javascript:void(0);" class="submit-btn bgcolor<?php echo esc_attr($target_class); ?>"<?php echo ($target_modal); ?>><?php echo wp_rem_plugin_text_srt('wp_rem_author_info_request_details'); ?></a>
                         </div>
                     </div>
                     <?php

@@ -23,6 +23,7 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Slider_Frontend')) {
                 echo '<div class="' . wp_rem_cs_var_page_builder_element_sizes($page_element_size) . ' ">';
             }
             wp_enqueue_script('wp-rem-property-functions');
+            wp_enqueue_script('wp-rem-matchHeight-script');
             ?>
             <div class="row">
                 <div class="wp-rem-property-content" id="wp-rem-property-content-<?php echo esc_html($property_short_counter); ?>">
@@ -66,7 +67,7 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Slider_Frontend')) {
             $property_type = isset($atts['property_type']) ? $atts['property_type'] : '';
             $property_property_featured = isset($atts['property_featured']) ? $atts['property_featured'] : 'all';
             $property_sort_by = isset($atts['property_sort_by']) ? $atts['property_sort_by'] : 'recent';
-            $posts_per_page = '-1';
+            $posts_per_page = isset($atts['posts_per_page']) ? $atts['posts_per_page'] : '10';
             $content_columns = 'page-content col-lg-12 col-md-12 col-sm-12 col-xs-12'; // if filteration not true
 
             $element_filter_arr = '';
@@ -125,13 +126,15 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Slider_Frontend')) {
             $property_loop_obj = new WP_Query($args);
             ?>
             <div class="<?php echo esc_html($content_columns); ?>">
-                <?php
-                set_query_var('property_loop_obj', $property_loop_obj);
-                set_query_var('property_view', $property_view);
-                set_query_var('property_short_counter', $property_short_counter);
-                set_query_var('atts', $atts);
-                wp_rem_get_template_part('property', 'slider', 'properties');
-                ?>
+				<div class="real-estate-property">
+					<?php
+					set_query_var('property_loop_obj', $property_loop_obj);
+					set_query_var('property_view', $property_view);
+					set_query_var('property_short_counter', $property_short_counter);
+					set_query_var('atts', $atts);
+					wp_rem_get_template_part('property', 'slider', 'properties');
+					?>
+				</div>
             </div>
                 <?php
                 wp_reset_postdata();

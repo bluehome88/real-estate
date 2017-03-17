@@ -20,12 +20,11 @@ class Loco_mvc_AdminRouter extends Loco_hooks_Hookable {
         // currently also the highest (and only) capability
         $cap = 'loco_admin';
         $user = wp_get_current_user();
-        $super = $user->has_cap('manage_options');
+        $super = is_super_admin( $user->ID );
         
-        // avoid admin lockout before permissions can be initialized
-        if( $super && ! $user->has_cap($cap) ){
-            $perms = new Loco_data_Permissions;
-            $perms->reset();
+        // Ensure Loco permissions are set up for the first time, or nobody will have access at all
+        if( ! get_role('translator') || ( $super && ! is_multisite() && ! $user->has_cap($cap) ) ){
+            Loco_data_Permissions::init();
             $user->get_role_caps(); // <- rebuild
         }
 
@@ -56,20 +55,20 @@ class Loco_mvc_AdminRouter extends Loco_hooks_Hookable {
             // translators: Page title for core WordPress translations
             $title = __('Core translations &lsaquo; Loco', 'loco');
             add_submenu_page( 'loco', $title, $label, $cap, 'loco-core', $render );
+            
+            // settings page only for users with manage_options permission in addition to Loco access:
+            if( $user->has_cap('manage_options') ){
+                $title = __('Plugin settings','loco');
+                add_submenu_page( 'loco', $title, __('Settings','loco'), 'manage_options', 'loco-config', $render );
+            }
+            // but all users need access to user preferences which require standard Loco access permission
+            else {
+                $title = __('User options','loco');
+                add_submenu_page( 'loco', $title, __('Settings','loco'), $cap, 'loco-config-user', $render );
+            }
         }
 
-        // settings page only for users with manage_options permission:
-        if( $super ){
-            $title = __('Plugin settings','loco');
-            add_submenu_page( 'loco', $title, __('Settings','loco'), 'manage_options', 'loco-config', $render );
-        }
-        // but all users need access to user preferences which live under this privileged page
-        else if( $user->has_cap($cap) ){
-            $title = __('User options','loco');
-            add_submenu_page( 'loco', $title, __('Settings','loco'), $cap, 'loco-config-user', $render );
-        }
-
-        // legacy link redirect from previous slug
+        // legacy link redirect from previous v1.x slug
         if( isset($_GET['page']) && 'loco-translate' === $_GET['page'] ){
             if( wp_redirect( self::generate('') ) ){
                 exit(0); // <- required to avoid page permissions being checked

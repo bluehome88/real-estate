@@ -124,7 +124,7 @@ if ( $member_loop_obj->have_posts() ) {
                         $address_compl[] = $country_array->name;
                     }
                     $list_args = array(
-                        'posts_per_page' => "-1",
+                        'posts_per_page' => "1",
                         'post_type' => 'properties',
                         'post_status' => 'publish',
                         'meta_query' => array(
@@ -147,7 +147,7 @@ if ( $member_loop_obj->have_posts() ) {
                         ),
                     );
                     $custom_query = new WP_Query($list_args);
-                    $num_of_properties = $custom_query->post_count;
+                    $num_of_properties = $custom_query->found_posts;
                     $member_image_id = get_post_meta($post_id, 'wp_rem_profile_image', true);
                     $member_image = wp_get_attachment_image_src($member_image_id, 'wp_rem_cs_media_4');
                     $wp_rem_phone_number = get_post_meta($post_id, 'wp_rem_phone_number', true);

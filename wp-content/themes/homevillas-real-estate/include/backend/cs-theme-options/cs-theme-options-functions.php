@@ -314,18 +314,18 @@ if ( ! function_exists('wp_rem_cs_var_get_demo_content') ) {
 
 	function wp_rem_cs_var_get_demo_content($wp_rem_cs_var_demo_file = '') {
 
-		// global $wp_filesystem;
+		global $wp_filesystem;
 
 		$backup_url = wp_nonce_url('themes.php?page=wp_rem_settings_page');
-		// if ( false === ( $creds = request_filesystem_credentials($backup_url, '', false, false, array()) ) ) {
+		if ( false === ( $creds = request_filesystem_credentials($backup_url, '', false, false, array()) ) ) {
 
-		// 	return true;
-		// }
+			return true;
+		}
 
-		// if ( ! WP_Filesystem($creds) ) {
-		// 	request_filesystem_credentials($backup_url, '', true, false, array());
-		// 	return true;
-		// }
+		if ( ! WP_Filesystem($creds) ) {
+			request_filesystem_credentials($backup_url, '', true, false, array());
+			return true;
+		}
 
 		$wp_rem_cs_var_upload_dir = get_template_directory() . '/include/backend/cs-theme-options/demo-data/';
 
@@ -335,7 +335,7 @@ if ( ! function_exists('wp_rem_cs_var_get_demo_content') ) {
 
 		if ( is_file($wp_rem_cs_var_filename) ) {
 
-			$get_options_file = file_get_contents($wp_rem_cs_var_filename);
+			$get_options_file = $wp_filesystem->get_contents($wp_rem_cs_var_filename);
 
 			$wp_rem_cs_var_demo_data = $get_options_file;
 		}
@@ -404,4 +404,57 @@ if ( ! function_exists('wp_rem_cs_var_custom_fonts_list') ) {
 		return $custom_fonts;
 	}
 
+}
+
+
+if ( ! function_exists('rem_load_all_pages_callback') ) {
+	add_action('wp_ajax_rem_load_all_pages', 'rem_load_all_pages_callback');
+    function rem_load_all_pages_callback() {
+		global $wp_rem_cs_var_form_fields;
+		
+		$selected_page = isset($_POST['selected_page']) ? $_POST['selected_page'] : '';
+		$args = array(
+			'sort_order' => 'asc',
+			'sort_column' => 'post_title',
+			'hierarchical' => 1,
+			'exclude' => '',
+			'include' => '',
+			'meta_key' => '',
+			'meta_value' => '',
+			'authors' => '',
+			'child_of' => 0,
+			'parent' => -1,
+			'exclude_tree' => '',
+			'number' => '',
+			'offset' => 0,
+			'post_type' => 'page',
+			'post_status' => 'publish'
+		);
+
+		$wp_rem_cs_var_pages = get_pages($args);
+		$wp_rem_cs_var_options_array = array();
+		$wp_rem_cs_var_options_array[] = wp_rem_cs_var_theme_text_srt('wp_rem_maintenance_field_select_page');
+		foreach ( $wp_rem_cs_var_pages as $wp_rem_cs_var_page ) {
+			$wp_rem_cs_var_options_array[$wp_rem_cs_var_page->ID] = isset($wp_rem_cs_var_page->post_title) && ($wp_rem_cs_var_page->post_title != '') ? $wp_rem_cs_var_page->post_title : wp_rem_cs_var_theme_text_srt('wp_rem_no_title');
+		}
+		
+		$wp_rem_cs_opt_array = array(
+			'std' => $select_value,
+			'id' => 'maintinance_mode_page',
+			'classes' => 'chosen-select',
+			'extra_atr' => '',
+			'return' => true,
+			'options' => $wp_rem_cs_var_options_array,
+
+		);
+		$output .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_select_render($wp_rem_cs_opt_array);
+		
+		$output .= '<script type="text/javascript">
+			jQuery(document).ready(function () {
+				chosen_selectionbox();
+			});
+		</script>';
+		echo json_encode(array('html' => $output));
+		die;
+    }
 }

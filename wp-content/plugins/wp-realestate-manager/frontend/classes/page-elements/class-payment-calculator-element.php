@@ -15,11 +15,15 @@ if ( ! class_exists('wp_rem_payment_calculator_element') ) {
 
         public function wp_rem_payment_calculator_html_callback($property_id = '') {
             global $post, $wp_rem_form_fields_frontend, $wp_rem_plugin_options;
-
+            wp_enqueue_script('wp_rem_piechart_frontend');
             $sidebar_calculator = isset($wp_rem_plugin_options['wp_rem_property_detail_page_sidebar_calculator']) ? $wp_rem_plugin_options['wp_rem_property_detail_page_sidebar_calculator'] : '';
             if ( $sidebar_calculator != 'on' ) {
                 return;
             }
+
+
+            $wp_rem_mortgage_static_text_block = isset($wp_rem_plugin_options['wp_rem_mortgage_static_text_block']) ? $wp_rem_plugin_options['wp_rem_mortgage_static_text_block'] : '';
+
             $wp_rem_mortgage_min_year = isset($wp_rem_plugin_options['wp_rem_mortgage_min_year']) && ! empty($wp_rem_plugin_options['wp_rem_mortgage_min_year']) ? $wp_rem_plugin_options['wp_rem_mortgage_min_year'] : '2';
             $wp_rem_mortgage_max_year = isset($wp_rem_plugin_options['wp_rem_mortgage_max_year']) && ! empty($wp_rem_plugin_options['wp_rem_mortgage_max_year']) ? $wp_rem_plugin_options['wp_rem_mortgage_max_year'] : '10';
             if ( $property_id == '' ) {
@@ -122,7 +126,7 @@ if ( ! class_exists('wp_rem_payment_calculator_element') ) {
 
                                 setTimeout(function () {
                                     var total = formatNumber(mortgagePayment(p, r / 12, y * 12), 2);
-                                    jQuery("#totoal_price").html(total + ' / <small>MO</small>');
+                                    jQuery("#totoal_price").html(total + ' / <small><?php echo wp_rem_plugin_text_srt('wp_rem_mortgage_calculator_month'); ?></small>');
                                     if (total > 0) {
                                         jQuery("#demo-pie-1").attr("data-percent", parseInt(total));
                                         var price_pie = p;
@@ -324,7 +328,14 @@ if ( ! class_exists('wp_rem_payment_calculator_element') ) {
                             </div>
                             <a class="get-btn slider-field" onClick="javascript:doCalc('show-loader-btn');" href="javascript:void(0);"><?php echo wp_rem_plugin_text_srt('wp_rem_payment_calculator_get_loan_btn'); ?></a>
                         </form>
-                        <p><?php echo wp_rem_plugin_text_srt('wp_rem_payment_calculator_desc'); ?></p>
+
+                        <?php
+                        if ( isset($wp_rem_mortgage_static_text_block) && ! empty($wp_rem_mortgage_static_text_block) ) {
+                            ?>
+                            <p><?php echo htmlspecialchars_decode($wp_rem_mortgage_static_text_block); ?></p>
+                            <?php
+                        }
+                        ?>
                     </div>
                 </div>
                 <?php

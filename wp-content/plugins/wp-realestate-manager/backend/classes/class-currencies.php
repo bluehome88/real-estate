@@ -16,7 +16,8 @@ if ( ! class_exists('Wp_rem_Currencies') ) {
         }
 
         public function wp_rem_currency_settings_callback($wp_rem_setting_options = array()) {
-
+            global $wp_rem_plugin_options;
+            
             $on_off_option = array( "show" => "on", "hide" => "off" );
             $wp_rem_setting_options[] = array(
                 "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_currency_settings'),
@@ -38,7 +39,7 @@ if ( ! class_exists('Wp_rem_Currencies') ) {
                     $currencies[$key] = $value['name'] . '-' . $value['code'];
                 }
             }
-
+            
             $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_payment_currency_switch'),
                 "desc" => "",
                 "label_desc" => wp_rem_plugin_text_srt('wp_rem_payment_currency_switch_hint'),
@@ -47,32 +48,42 @@ if ( ! class_exists('Wp_rem_Currencies') ) {
                 "type" => "checkbox",
                 "options" => $on_off_option
             );
-            $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_payment_bace_currency'),
-                "desc" => "",
-                "label_desc" => wp_rem_plugin_text_srt('wp_rem_payment_base_currency_hint'),
-                "hint_text" => '',
-                "id" => "currency_type",
-                "std" => "USD",
-                'classes' => 'dropdown chosen-select-no-single ',
-                "type" => "select_values",
-                "options" => $currencies
-            );
-            $currency_sign = $default_currency = wp_rem_get_currency_sign();
-            $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_currency_position'),
-                "desc" => "",
-                "hint_text" => '',
-                "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_currency_position_hint'),
-                "id" => "currency_position",
-                "std" => "on",
-                "classes" => "chosen-select",
-                "type" => "select_values",
-                "options" => array(
-                    'left' => wp_rem_plugin_text_srt('wp_rem_plugin_options_currency_position_left') . '(' . $currency_sign . '99.99)',
-                    'right' => wp_rem_plugin_text_srt('wp_rem_plugin_options_currency_position_right') . '(99.99' . $currency_sign . ')',
-                    'left_space' => wp_rem_plugin_text_srt('wp_rem_plugin_options_currency_position_left_space') . '(' . $currency_sign . ' 99.99)',
-                    'right_space' => wp_rem_plugin_text_srt('wp_rem_plugin_options_currency_position_right_space') . '(99.99 ' . $currency_sign . ')',
-                ),
-            );
+            
+            if( isset( $wp_rem_plugin_options['wp_rem_use_woocommerce_gateway'] ) && $wp_rem_plugin_options['wp_rem_use_woocommerce_gateway'] == 'on' ){
+                
+                $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_payment_bace_currency'),
+                    "label_desc" => wp_rem_plugin_text_srt('wp_rem_payment_base_currency_hint'),
+                    "std" => wp_rem_plugin_text_srt('wp_rem_payment_woocommerce_enable'),
+                    "type" => "paragraph",
+                );
+            } else  {
+                $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_payment_bace_currency'),
+                    "desc" => "",
+                    "label_desc" => wp_rem_plugin_text_srt('wp_rem_payment_base_currency_hint'),
+                    "hint_text" => '',
+                    "id" => "currency_type",
+                    "std" => "USD",
+                    'classes' => 'dropdown chosen-select-no-single ',
+                    "type" => "select_values",
+                    "options" => $currencies
+                );
+                $currency_sign = $default_currency = wp_rem_get_currency_sign();
+                $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_currency_position'),
+                    "desc" => "",
+                    "hint_text" => '',
+                    "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_currency_position_hint'),
+                    "id" => "currency_position",
+                    "std" => "on",
+                    "classes" => "chosen-select",
+                    "type" => "select_values",
+                    "options" => array(
+                        'left' => wp_rem_plugin_text_srt('wp_rem_plugin_options_currency_position_left') . '(' . $currency_sign . '99.99)',
+                        'right' => wp_rem_plugin_text_srt('wp_rem_plugin_options_currency_position_right') . '(99.99' . $currency_sign . ')',
+                        'left_space' => wp_rem_plugin_text_srt('wp_rem_plugin_options_currency_position_left_space') . '(' . $currency_sign . ' 99.99)',
+                        'right_space' => wp_rem_plugin_text_srt('wp_rem_plugin_options_currency_position_right_space') . '(99.99 ' . $currency_sign . ')',
+                    ),
+                );
+            }
             $wp_rem_setting_options[] = array( "name" => "",
                 "desc" => "",
                 "id" => "currency-settings",

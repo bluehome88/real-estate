@@ -86,7 +86,7 @@ if ( ! function_exists( 'wp_rem_cs_var_page_builder_wp_rem_register_user_and_add
 							$wp_rem_opt_array = array(
 								'name' => wp_rem_plugin_text_srt( 'wp_rem_element_sub_title' ),
 								'desc' => '',
-								'hint_text' => wp_rem_plugin_text_srt( 'wp_rem_element_sub_title_hint' ),
+								'label_desc' => wp_rem_plugin_text_srt( 'wp_rem_element_sub_title_hint' ),
 								'echo' => true,
 								'field_params' => array(
 									'std' => $property_subtitle,
@@ -101,7 +101,7 @@ if ( ! function_exists( 'wp_rem_cs_var_page_builder_wp_rem_register_user_and_add
 							$wp_rem_opt_array = array(
 								'name' => wp_rem_plugin_text_srt( 'wp_rem_title_align' ),
 								'desc' => '',
-								'hint_text' => wp_rem_plugin_text_srt( 'wp_rem_title_align_hint' ),
+								'label_desc' => wp_rem_plugin_text_srt( 'wp_rem_title_align_hint' ),
 								'echo' => true,
 								'field_params' => array(
 									'std' => esc_attr( $property_title_alignment ),
@@ -159,7 +159,7 @@ if ( ! function_exists( 'wp_rem_cs_var_page_builder_wp_rem_register_user_and_add
 							$wp_rem_cs_opt_array = array(
 								'name' => '',
 								'desc' => '',
-								'hint_text' => '',
+								'label_desc' => '',
 								'echo' => true,
 								'field_params' => array(
 									'std' => wp_rem_plugin_text_srt( 'wp_rem_save' ),

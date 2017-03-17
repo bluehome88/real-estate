@@ -7,8 +7,8 @@ get_header();
 global $post, $wp_rem_plugin_options, $wp_rem_theme_options, $Wp_rem_Captcha, $wp_rem_form_fields, $wp_rem_post_property_types;
 ;
 $post_id = $post->ID;
-wp_enqueue_script('wp-rem-pretty-photo-script');
-wp_enqueue_style('wp-rem-pretty-photo-css');
+wp_enqueue_script('wp-rem-prettyPhoto');
+wp_enqueue_style('wp-rem-prettyPhoto');
 wp_enqueue_script('map-infobox');
 wp_enqueue_script('map-clusterer');
 

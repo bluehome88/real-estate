@@ -97,6 +97,8 @@ if ( ! class_exists('post_type_property_enquiries') ) {
 						foreach ( $orders_statuses as $orders_status ) {
 							$enquiry_status_options[$orders_status] = $orders_status;
 						}
+						$enquiry_status_options['Closed'] = wp_rem_plugin_text_srt('wp_rem_closed');
+						
 						$wp_rem_opt_array = array(
 							'std' => $status,
 							'id' => 'enquiry_status',
@@ -339,30 +341,68 @@ if ( ! class_exists('post_type_property_enquiries') ) {
 // add analytic for Properties Enquiries
 
 add_filter('views_edit-property_enquiries', function( $views ) {
-	$args = array(
-		'post_type' => 'property_enquiries',
-		'posts_per_page' => "-1",
-	);
-	$custom_query = new WP_Query($args);
+	
 	$total_enquiries = 0;
 	$complete_enquiries = 0;
 	$closed_enquiries = 0;
 	$processing_enquiries = 0;
-
-	while ( $custom_query->have_posts() ) : $custom_query->the_post();
-		global $post;
-		$enquiry_status = get_post_meta($post->ID, 'wp_rem_enquiry_status', true);
-		if ( isset($enquiry_status) && ! empty($enquiry_status) ) {
-			if ( $enquiry_status == 'Completed' ) {
-				$complete_enquiries ++;
-			} else if ( $enquiry_status == 'processing' ) {
-				$processing_enquiries ++;
-			} else if ( $enquiry_status == 'Closed' ) {
-				$closed_enquiries ++;
-			}
-		}
-		$total_enquiries ++;
-	endwhile;
+	
+	$args = array(
+		'post_type' => 'property_enquiries',
+		'posts_per_page' => "1",
+		'post_status' => 'publish',
+	);
+	$total_enquiries_query = new WP_Query($args);
+	$total_enquiries = $total_enquiries_query->found_posts;
+	
+	
+	$args = array(
+		'post_type' => 'property_enquiries',
+		'posts_per_page' => "1",
+		'post_status' => 'publish',
+		'meta_query' => array(
+			array(
+				'key' => 'wp_rem_enquiry_status',
+				'value' => 'Completed',
+				'compare' => '=',
+			),
+		),
+	);
+	$complete_enquiries_query = new WP_Query($args);
+	$complete_enquiries = $complete_enquiries_query->found_posts;
+	
+	$args = array(
+		'post_type' => 'property_enquiries',
+		'posts_per_page' => "1",
+		'post_status' => 'publish',
+		'meta_query' => array(
+			array(
+				'key' => 'wp_rem_enquiry_status',
+				'value' => 'Processing',
+				'compare' => '=',
+			),
+		),
+	);
+	$processing_enquiries_query = new WP_Query($args);
+	$processing_enquiries = $processing_enquiries_query->found_posts;
+	
+	$args = array(
+		'post_type' => 'property_enquiries',
+		'posts_per_page' => "1",
+		'post_status' => 'publish',
+		'meta_query' => array(
+			array(
+				'key' => 'wp_rem_enquiry_status',
+				'value' => 'Closed',
+				'compare' => '=',
+			),
+		),
+	);
+	$closed_enquiries_query = new WP_Query($args);
+	$closed_enquiries = $closed_enquiries_query->found_posts;
+	
+	wp_reset_postdata();
+	
 	echo '
     <ul class="total-wp-rem-property row">
 	<li class="col-lg-3 col-md-3 col-sm-6 col-xs-12"><div class="wp-rem-text-holder"><strong>' . wp_rem_plugin_text_srt('wp_rem_total_enquiries') . '</strong><em>' . $total_enquiries . '</em><i class="icon-question2"></i></div></li>

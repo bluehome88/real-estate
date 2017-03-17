@@ -92,7 +92,7 @@ if ( $member_loop_obj->have_posts() ) {
             $wp_rem_biography = get_post_meta($post_id, 'wp_rem_biography', true);
             $wp_rem_post_loc_address_member = get_post_meta($post_id, 'wp_rem_post_loc_address_member', true);
             $list_args = array(
-                'posts_per_page' => "-1",
+                'posts_per_page' => "1",
                 'post_type' => 'properties',
                 'post_status' => 'publish',
                 'meta_query' => array(
@@ -115,7 +115,7 @@ if ( $member_loop_obj->have_posts() ) {
                 ),
             );
             $custom_query = new WP_Query($list_args);
-            $num_of_properties = $custom_query->post_count;
+            $num_of_properties = $custom_query->found_posts;
             $num_of_branshes = apply_filters('wp_rem_member_branches_count', $post_id);
             ?>
             <div class="member-post">

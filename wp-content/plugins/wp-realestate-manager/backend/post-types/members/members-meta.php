@@ -4,7 +4,7 @@
  * @return
  *
  */
-if (!class_exists('Wp_rem_Members_Meta')) {
+if ( ! class_exists('Wp_rem_Members_Meta') ) {
 
     class Wp_rem_Members_Meta {
 
@@ -12,21 +12,21 @@ if (!class_exists('Wp_rem_Members_Meta')) {
         var $post_id = '';
 
         public function __construct() {
-            add_action('add_meta_boxes', array($this, 'wp_rem_meta_members_add'));
-            add_action('add_meta_boxes', array($this, 'wp_rem_meta_members_add'));
+            add_action('add_meta_boxes', array( $this, 'wp_rem_meta_members_add' ));
+            add_action('add_meta_boxes', array( $this, 'wp_rem_meta_members_add' ));
             //add_action('wp_ajax_wp_rem_update_team_member', array( $this, 'wp_rem_update_team_member' ), 11);
-            add_action('wp_ajax_wp_rem_removed_favourite_backend', array($this, 'wp_rem_removed_favourite'), 11);
+            add_action('wp_ajax_wp_rem_removed_favourite_backend', array( $this, 'wp_rem_removed_favourite' ), 11);
             // Handle AJAX to delete a property alert.
-            add_action('wp_ajax_wp_rem_remove_property_alert', array($this, 'remove_property_alert'));
-            add_action('wp_ajax_nopriv_wp_rem_remove_property_alert', array($this, 'remove_property_alert'));
-            add_action('wp_ajax_wp_rem_remove_team_member', array($this, 'wp_rem_remove_team_member'), 11);
-            add_action('save_post', array($this, 'wp_rem_member_save_opening_hours'), 11);
-            add_action('save_post', array($this, 'wp_rem_member_save_off_days'), 11);
-            add_action('save_post', array($this, 'wp_rem_member_save_member_user_type'), 11);
+            add_action('wp_ajax_wp_rem_remove_property_alert', array( $this, 'remove_property_alert' ));
+            add_action('wp_ajax_nopriv_wp_rem_remove_property_alert', array( $this, 'remove_property_alert' ));
+            add_action('wp_ajax_wp_rem_remove_team_member', array( $this, 'wp_rem_remove_team_member' ), 11);
+            add_action('save_post', array( $this, 'wp_rem_member_save_opening_hours' ), 11);
+            add_action('save_post', array( $this, 'wp_rem_member_save_off_days' ), 11);
+            add_action('save_post', array( $this, 'wp_rem_member_save_member_user_type' ), 11);
         }
 
         function wp_rem_meta_members_add() {
-            add_meta_box('wp_rem_meta_members', wp_rem_plugin_text_srt('wp_rem_company_details'), array($this, 'wp_rem_meta_members'), 'members', 'normal', 'high');
+            add_meta_box('wp_rem_meta_members', wp_rem_plugin_text_srt('wp_rem_company_details'), array( $this, 'wp_rem_meta_members' ), 'members', 'normal', 'high');
         }
 
         /**
@@ -39,7 +39,7 @@ if (!class_exists('Wp_rem_Members_Meta')) {
             $this->post_id = $post_id;
             $member_profile_type = get_post_meta($post_id, 'wp_rem_member_profile_type', true);
             $display_tab = '';
-            if ($member_profile_type == 'company') {
+            if ( $member_profile_type == 'company' ) {
                 $display_tab = 'block';
             } else {
                 $display_tab = 'none';
@@ -63,9 +63,9 @@ if (!class_exists('Wp_rem_Members_Meta')) {
                             <div id="tabbed-content" data-ajax-url="<?php echo esc_url(admin_url('admin-ajax.php')); ?>">
                                 <div id="tab-general">
                                     <?php $this->wp_rem_members_options(); ?>
-                                     <?php echo $this->member_off_days(); ?>
+                                    <?php echo $this->member_off_days(); ?>
                                     <?php echo $this->member_opening_hours(); ?>
-                                   
+
                                 </div>
                                 <div id="tab-user-properties">
                                     <?php $this->wp_rem_user_property_options(); ?>
@@ -99,38 +99,47 @@ if (!class_exists('Wp_rem_Members_Meta')) {
          */
 
         function member_opening_hours() {
-            global $member_add_counter, $wp_rem_html_fields;
+            global $member_add_counter, $wp_rem_html_fields, $wp_rem_form_fields;
             $member_add_counter = rand(10000000, 99999999);
             $html = '';
             $time_list = $this->member_time_list();
             $week_days = $this->member_week_days();
             $time_from_html = '';
             $time_to_html = '';
+            $opening_time = '';
+            $closing_time = '';
             global $post;
             $post_id = $post->ID;
             $get_opening_hours = get_post_meta($post_id, 'wp_rem_opening_hour', true);
-            if ($get_opening_hours == '') {
-                if (is_array($time_list) && sizeof($time_list) > 0) {
-                    foreach ($time_list as $time_key => $time_val) {
-                        $time_from_html .= '<option value="' . $time_key . '">' . date_i18n( 'g:i a', strtotime($time_val)) . '</option>' . "\n";
-                        $time_to_html .= '<option value="' . $time_key . '">' . date_i18n( 'g:i a', strtotime($time_val)) . '</option>' . "\n";
+            if ( $get_opening_hours == '' ) {
+                if ( is_array($time_list) && sizeof($time_list) > 0 ) {
+                    foreach ( $time_list as $time_key => $time_val ) {
+                        $time_from_html .= '<option value="' . $time_key . '">' . date_i18n('g:i a', strtotime($time_val)) . '</option>' . "\n";
+                        $time_to_html .= '<option value="' . $time_key . '">' . date_i18n('g:i a', strtotime($time_val)) . '</option>' . "\n";
+
+                        $time_from[$time_key] = date_i18n('g:i a', strtotime($time_val));
+                        $time_to[$time_key] = date_i18n('g:i a', strtotime($time_val));
                     }
                 }
             }
 
             $days_html = '';
-            if (is_array($week_days) && sizeof($week_days) > 0) {
-                foreach ($week_days as $day_key => $week_day) {
+            if ( is_array($week_days) && sizeof($week_days) > 0 ) {
+                foreach ( $week_days as $day_key => $week_day ) {
                     $day_status = isset($get_opening_hours[$day_key]['day_status']) ? $get_opening_hours[$day_key]['day_status'] : '';
-                    if (isset($get_opening_hours) && is_array($get_opening_hours) && sizeof($get_opening_hours) > 0) {
+                    if ( isset($get_opening_hours) && is_array($get_opening_hours) && sizeof($get_opening_hours) > 0 ) {
                         $opening_time = isset($get_opening_hours[$day_key]['opening_time']) ? $get_opening_hours[$day_key]['opening_time'] : '';
                         $closing_time = isset($get_opening_hours[$day_key]['closing_time']) ? $get_opening_hours[$day_key]['closing_time'] : '';
-                        if (is_array($time_list) && sizeof($time_list) > 0) {
+                        if ( is_array($time_list) && sizeof($time_list) > 0 ) {
                             $time_from_html = '';
                             $time_to_html = '';
-                            foreach ($time_list as $time_key => $time_val) {
-                                $time_from_html .= '<option value="' . $time_key . '"' . ($opening_time == $time_key ? ' selected="selected"' : '') . '>' . date_i18n( 'g:i a', strtotime($time_val)) . '</option>' . "\n";
-                                $time_to_html .= '<option value="' . $time_key . '"' . ($closing_time == $time_key ? ' selected="selected"' : '') . '>' . date_i18n( 'g:i a', strtotime($time_val)) . '</option>' . "\n";
+                            $time_from = $time_to = array();
+                            foreach ( $time_list as $time_key => $time_val ) {
+                                $time_from_html .= '<option value="' . $time_key . '"' . ($opening_time == $time_key ? ' selected="selected"' : '') . '>' . date_i18n('g:i a', strtotime($time_val)) . '</option>' . "\n";
+                                $time_to_html .= '<option value="' . $time_key . '"' . ($closing_time == $time_key ? ' selected="selected"' : '') . '>' . date_i18n('g:i a', strtotime($time_val)) . '</option>' . "\n";
+
+                                $time_from[$time_key] = date_i18n('g:i a', strtotime($time_val));
+                                $time_to[$time_key] = date_i18n('g:i a', strtotime($time_val));
                             }
                         }
                     }
@@ -140,20 +149,39 @@ if (!class_exists('Wp_rem_Members_Meta')) {
 						<div class="day-sec">
 						    <span>' . $week_day . '</span>
 						</div>
-					    <div class="time-sec">
-						<select class="chosen-select " name="wp_rem_opening_hour[' . $day_key . '][opening_time]">
-						    ' . $time_from_html . '
-						</select>
-						    <span class="option-label">' . wp_rem_plugin_text_srt('wp_rem_member_to') . '</span>
-						<select class="chosen-select " name="wp_rem_opening_hour[' . $day_key . '][closing_time]">
-						    ' . $time_to_html . '
-						</select>
-						    <a id="wp-rem-dev-close-time-' . $day_key . '-' . $member_add_counter . '" href="javascript:void(0);" data-id="' . $member_add_counter . '" data-day="' . $day_key . '" title="' . wp_rem_plugin_text_srt('wp_rem_member_close') . '"><i class="icon-close2"></i></a>
+					    <div class="time-sec">';
+                    $wp_rem_opt_array = array(
+                        'std' => $opening_time,
+                        'cust_name' => 'wp_rem_opening_hour[' . $day_key . '][opening_time]',
+                        'classes' => 'chosen-select',
+                        'options' => $time_from,
+                        'return' => true,
+                    );
+                    $days_html .= $wp_rem_form_fields->wp_rem_form_select_render($wp_rem_opt_array);
+
+                    $days_html .= ' <span class="option-label">' . wp_rem_plugin_text_srt('wp_rem_member_to') . '</span> ';
+                    $wp_rem_opt_array = array(
+                        'std' => $closing_time,
+                        'cust_name' => 'wp_rem_opening_hour[' . $day_key . '][closing_time]',
+                        'classes' => 'chosen-select',
+                        'options' => $time_to,
+                        'return' => true,
+                    );
+                    $days_html .= $wp_rem_form_fields->wp_rem_form_select_render($wp_rem_opt_array);
+                    $days_html .= '<a id="wp-rem-dev-close-time-' . $day_key . '-' . $member_add_counter . '" href="javascript:void(0);" data-id="' . $member_add_counter . '" data-day="' . $day_key . '" title="' . wp_rem_plugin_text_srt('wp_rem_member_close') . '"><i class="icon-close2"></i></a>
 					    </div>
 					    <div class="close-time">
-						<a id="wp-rem-dev-open-time-' . $day_key . '-' . $member_add_counter . '" href="javascript:void(0);" data-id="' . $member_add_counter . '" data-day="' . $day_key . '">' . wp_rem_plugin_text_srt('wp_rem_member_close') . ' <span>(' . wp_rem_plugin_text_srt('wp_rem_member_add_opening_hours') . ')</span></a>
-						    <input id="wp-rem-dev-open-day-' . $day_key . '-' . $member_add_counter . '" type="hidden" name="wp_rem_opening_hour[' . $day_key . '][day_status]"' . (isset($day_status) && $day_status == 'on' ? ' value="on"' : '') . '>
-					    </div>
+						<a id="wp-rem-dev-open-time-' . $day_key . '-' . $member_add_counter . '" href="javascript:void(0);" data-id="' . $member_add_counter . '" data-day="' . $day_key . '">' . wp_rem_plugin_text_srt('wp_rem_member_close') . ' <span>(' . wp_rem_plugin_text_srt('wp_rem_member_add_opening_hours') . ')</span></a>';
+                    $wp_rem_opt_array = array(
+                        'std' => (isset($day_status) && $day_status == 'on' ? 'on' : ''),
+                        'cust_id' => 'wp-rem-dev-open-day-' . $day_key . '-' . $member_add_counter,
+                        'cust_name' => 'wp_rem_opening_hour[' . $day_key . '][day_status]',
+                        'cust_type' => 'hidden',
+                        'classes' => '',
+                        'return' => true,
+                    );
+                    $days_html .= $wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+                    $days_html .= '</div>
 					    </div>
 					</li>';
                 }
@@ -193,7 +221,7 @@ if (!class_exists('Wp_rem_Members_Meta')) {
             $time = strtotime('12:00 am');
             $start_time = strtotime($date . ' am');
             $endtime = strtotime(date("Y/m/d h:i a", strtotime('1440 minutes', $start_time)));
-            while ($start_time < $endtime) {
+            while ( $start_time < $endtime ) {
                 $time = date("h:i a", strtotime('+' . $lapse . ' minutes', $time));
                 $hours[$time] = $time;
                 $time = strtotime($time);
@@ -245,8 +273,8 @@ if (!class_exists('Wp_rem_Members_Meta')) {
                     )
             );
             $date_js = '';
-            if (isset($wp_rem_calendar) && !empty($wp_rem_calendar)) {
-                foreach ($wp_rem_calendar as $calender_date) {
+            if ( isset($wp_rem_calendar) && ! empty($wp_rem_calendar) ) {
+                foreach ( $wp_rem_calendar as $calender_date ) {
                     $calender_date = strtotime($calender_date);
                     $dateVal = date("Y, m, d", strtotime('-1 month', $calender_date));
                     $date_js .= '{
@@ -266,15 +294,15 @@ if (!class_exists('Wp_rem_Members_Meta')) {
             $off_days_list = '';
             $get_member_off_days = get_post_meta($post->ID, 'wp_rem_calendar', true);
 
-            if (is_array($get_member_off_days) && sizeof($get_member_off_days)) {
-                foreach ($get_member_off_days as $get_off_day) {
+            if ( is_array($get_member_off_days) && sizeof($get_member_off_days) ) {
+                foreach ( $get_member_off_days as $get_off_day ) {
                     $off_days_list .= $this->append_to_book_days_off($get_off_day);
                 }
             } else {
                 $off_days_list = '<li id="no-book-day-' . $member_add_counter . '" class="no-result-msg">' . wp_rem_plugin_text_srt('wp_rem_member_days_added') . '</li>';
             }
-			
-            wp_enqueue_script('responsive-calendar');
+
+            //wp_enqueue_script('responsive-calendar');
 
             $html .= '
 			<div class="form-elements">
@@ -292,7 +320,7 @@ if (!class_exists('Wp_rem_Members_Meta')) {
 					<div id="wp-rem-dev-loader-' . absint($member_add_counter) . '" class="wp-rem-loader"></div>
 					<a class="book-btn" href="javascript:void(0);">' . wp_rem_plugin_text_srt('wp_rem_member_off_days') . '</a>
 					<div id="wp-rem-dev-cal-holder-' . $member_add_counter . '" class="calendar-holder">
-						<div data-id="' . $member_add_counter . '" class="wp-rem-dev-insert-off-days responsive-calendar" data-ajax-url="' . esc_url(admin_url('admin-ajax.php')) . '" data-plugin-url="' . esc_url(wp_rem::plugin_url()) . '">
+						<div data-id="' . $member_add_counter . '" class="wp-rem-dev-insert-off-days-backend responsive-calendar member-responsive-calendar" data-ajax-url="' . esc_url(admin_url('admin-ajax.php')) . '" data-plugin-url="' . esc_url(wp_rem::plugin_url()) . '">
 							<span class="availability">' . wp_rem_plugin_text_srt('wp_rem_member_availability') . '</span>
 							<div class="controls">
 								<a data-go="prev"><div class="btn btn-primary"><i class="icon-angle-left"></i></div></a>
@@ -314,9 +342,16 @@ if (!class_exists('Wp_rem_Members_Meta')) {
 				</div>
 				<script>
 					jQuery(document).ready(function () {
-						jQuery(".responsive-calendar").responsiveCalendar({
-							monthChangeAnimation: false,
-						});
+						if (jQuery(".responsive-calendar").length != "") {
+							jQuery(".responsive-calendar").responsiveCalendar({
+								time: "' . date('Y-m') . '",
+								monthChangeAnimation: false,
+								"' . date('Y-m-d') . '": {
+									number: 5,
+									url: "https://themeforest.net/user/chimpstudio/portfolio"
+								}
+							});
+						}
 					});
 				</script>
 			</div>';
@@ -328,8 +363,8 @@ if (!class_exists('Wp_rem_Members_Meta')) {
          * @return markup
          */
         public function append_to_book_days_off($get_off_day = '') {
-
-            if ($get_off_day != '') {
+            global $wp_rem_form_fields;
+            if ( $get_off_day != '' ) {
                 $book_off_date = $get_off_day;
             } else {
                 $day = wp_rem_get_input('off_day_day', date('d'), 'STRING');
@@ -346,19 +381,27 @@ if (!class_exists('Wp_rem_Members_Meta')) {
 			<li id="day-remove-' . $rand_numb . '">
 				<div class="open-close-time opening-time">
 					<div class="date-sec">
-						<span>' . $formated_off_date . '</span>
-						<input type="hidden" value="' . $book_off_date . '" name="wp_rem_property_off_days[]">
-					</div>
+						<span>' . $formated_off_date . '</span>';
+            $wp_rem_opt_array = array(
+                'std' => $book_off_date,
+                'cust_id' => '',
+                'cust_name' => 'wp_rem_property_off_days[]',
+                'cust_type' => 'hidden',
+                'classes' => '',
+                'return' => true,
+            );
+            $html .= $wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+            $html .= '</div>
 					<div class="time-sec">
 						<a id="wp-rem-dev-day-off-rem-' . $rand_numb . '" data-id="' . $rand_numb . '" href="javascript:void(0);"><i class="icon-close2"></i></a>
 					</div>
 				</div>
 			</li>';
 
-            if ($get_off_day != '') {
+            if ( $get_off_day != '' ) {
                 return force_balance_tags($html);
             } else {
-                echo json_encode(array('html' => $html));
+                echo json_encode(array( 'html' => $html ));
                 die;
             }
         }
@@ -375,8 +418,6 @@ if (!class_exists('Wp_rem_Members_Meta')) {
 
         public function wp_rem_member_save_member_user_type($member_id = '') {
             global $buyer_permissions;
-            $wp_rem_member_user_type = wp_rem_get_input('wp_rem_member_user_type', '', 'STRING');
-
             $args = array(
                 'role' => 'wp_rem_member',
                 'fields' => 'ids',
@@ -391,9 +432,9 @@ if (!class_exists('Wp_rem_Members_Meta')) {
             $wp_user_query = new WP_User_Query($args);
             $users_array = $wp_user_query->get_results();
 
-            if (!empty($users_array)) {
-                foreach ($users_array as $user_id) {
-                    if ($user_id != '') {
+            if ( ! empty($users_array) ) {
+                foreach ( $users_array as $user_id ) {
+                    if ( $user_id != '' ) {
                         update_user_meta($user_id, 'wp_rem_permissions', $buyer_permissions);
                     }
                 }
@@ -435,20 +476,20 @@ if (!class_exists('Wp_rem_Members_Meta')) {
             );
             $custom_query = new WP_Query($args);
 
-            $all_properties = $custom_query->posts; 
+            $all_properties = $custom_query->posts;
             ?>
             <div id="wp-rem-dev-user-property" class="user-list" data-ajax-url="<?php echo esc_url(admin_url('admin-ajax.php')); ?>">  
-				<div class = "element-title">
-					<h4><?php echo wp_rem_plugin_text_srt('wp_rem_member_user_properties'); ?></h4>
-				</div> 
+                <div class = "element-title">
+                    <h4><?php echo wp_rem_plugin_text_srt('wp_rem_member_user_properties'); ?></h4>
+                </div> 
                 <ul class="panel-group">
                     <?php
-                    if (isset($all_properties) && !empty($all_properties)) {
+                    if ( isset($all_properties) && ! empty($all_properties) ) {
                         ?>
                         <li> <span><?php echo wp_rem_plugin_text_srt('wp_rem_member_properties'); ?></span>
                             <span><?php echo wp_rem_plugin_text_srt('wp_rem_member_posted'); ?></span>
                             <span><?php echo wp_rem_plugin_text_srt('wp_rem_member_expires'); ?></span> </li><?php
-                        foreach ($all_properties as $property_data) {
+                        foreach ( $all_properties as $property_data ) {
                             global $post, $wp_rem_plugin_options;
                             $post = $property_data;
                             setup_postdata($property_data);
@@ -463,19 +504,19 @@ if (!class_exists('Wp_rem_Members_Meta')) {
                                     <a href="javascript:void(0);" data-id="<?php echo absint(get_the_ID()); ?>" class="close-member wp-rem-dev-property-delete"><i class="icon-close2"></i></a>
                                     <div class="panel-heading"> 
                                         <div class="img-holder">
-                                            <?php if (has_post_thumbnail()) { ?>
+                                            <?php if ( has_post_thumbnail() ) { ?>
                                                 <figure>
                                                     <?php the_post_thumbnail('thumbnail'); ?>
                                                 </figure>
                                             <?php } ?>
                                             <strong><a href="<?php echo esc_url(get_the_permalink()); ?>"><?php echo esc_html(get_the_title()); ?></a></strong>
-                                            <?php if (isset($category->name) && $category->name != '') { ?>
+                                            <?php if ( isset($category->name) && $category->name != '' ) { ?>
                                                 <span><?php echo esc_html($category->name); ?></span>
                                             <?php } ?>
                                         </div>
                                         <span class="post-date"><?php echo esc_html($property_post_on != '' ? date_i18n(get_option('date_format'), $property_post_on) : '-' ) ?></span>
                                         <?php
-                                        if ($property_status == 'active' || $property_status == 'awaiting-activation') {
+                                        if ( $property_status == 'active' || $property_status == 'awaiting-activation' ) {
                                             ?>
                                             <span class="expire-date"><?php echo esc_html($property_post_expiry != '' ? date_i18n(get_option('date_format'), $property_post_expiry) : '-' ) ?></span>
                                             <?php
@@ -504,16 +545,16 @@ if (!class_exists('Wp_rem_Members_Meta')) {
                 </ul>
             </div>
             <?php
-        } 
+        }
 
         /**
          * Start Function packages
          */
         public function purchase_package_info_field_show($value = '', $label = '', $value_plus = '') {
 
-            if ($value != '' && $value != 'on') {
+            if ( $value != '' && $value != 'on' ) {
                 $html = '<li><label>' . $label . '</label><span>' . $value . ' ' . $value_plus . '</span></li>';
-            } else if ($value != '' && $value == 'on') {
+            } else if ( $value != '' && $value == 'on' ) {
                 $html = '<li><label>' . $label . '</label><span><i class="icon-check"></i></span></li>';
             } else {
                 $html = '<li><label>' . $label . '</label><span><i class="icon-minus"></i></span></li>';
@@ -558,10 +599,10 @@ if (!class_exists('Wp_rem_Members_Meta')) {
                 </div>
             </div>
             <div class="user-packages-list">
-                <?php if (isset($pkg_query) && $pkg_query != '' && $pkg_query->have_posts()) : ?>
+                <?php if ( isset($pkg_query) && $pkg_query != '' && $pkg_query->have_posts() ) : ?>
                     <div class="all-pckgs-sec">
                         <?php
-                        while ($pkg_query->have_posts()) : $pkg_query->the_post();
+                        while ( $pkg_query->have_posts() ) : $pkg_query->the_post();
                             $transaction_package = get_post_meta(get_the_ID(), 'wp_rem_transaction_package', true);
                             $transaction_expiry_date = get_post_meta(get_the_ID(), 'wp_rem_transaction_expiry_date', true);
                             $transaction_properties = get_post_meta(get_the_ID(), 'wp_rem_transaction_properties', true);
@@ -603,42 +644,42 @@ if (!class_exists('Wp_rem_Members_Meta')) {
                                                 $trans_packg_list_expire = get_post_meta($package_id, 'wp_rem_transaction_property_expiry', true);
                                                 $wp_rem_property_ids = get_post_meta($package_id, 'wp_rem_property_ids', true);
 
-                                                if (empty($wp_rem_property_ids)) {
+                                                if ( empty($wp_rem_property_ids) ) {
                                                     $wp_rem_property_used = 0;
                                                 } else {
                                                     $wp_rem_property_used = absint(sizeof($wp_rem_property_ids));
                                                 }
 
                                                 $wp_rem_property_remain = '0';
-                                                if ((int) $trans_packg_list_num > (int) $wp_rem_property_used) {
+                                                if ( (int) $trans_packg_list_num > (int) $wp_rem_property_used ) {
                                                     $wp_rem_property_remain = (int) $trans_packg_list_num - (int) $wp_rem_property_used;
                                                 }
 
                                                 $trans_featured_num = get_post_meta($package_id, 'wp_rem_transaction_property_feature_list', true);
                                                 $wp_rem_featured_ids = get_post_meta($package_id, 'wp_rem_featured_ids', true);
-                                                if (empty($wp_rem_featured_ids)) {
+                                                if ( empty($wp_rem_featured_ids) ) {
                                                     $wp_rem_featured_used = 0;
                                                 } else {
                                                     $wp_rem_featured_used = absint(sizeof($wp_rem_featured_ids));
                                                 }
                                                 $wp_rem_featured_remain = '0';
-                                                if ((int) $trans_featured_num > (int) $wp_rem_featured_used) {
+                                                if ( (int) $trans_featured_num > (int) $wp_rem_featured_used ) {
                                                     $wp_rem_featured_remain = (int) $trans_featured_num - (int) $wp_rem_featured_used;
                                                 }
 
                                                 $trans_top_cat_num = get_post_meta($package_id, 'wp_rem_transaction_property_top_cat_list', true);
                                                 $wp_rem_top_cat_ids = get_post_meta($package_id, 'wp_rem_top_cat_ids', true);
 
-                                                if (empty($wp_rem_top_cat_ids)) {
+                                                if ( empty($wp_rem_top_cat_ids) ) {
                                                     $wp_rem_top_cat_used = 0;
                                                 } else {
                                                     $wp_rem_top_cat_used = absint(sizeof($wp_rem_top_cat_ids));
                                                 }
 
                                                 $wp_rem_top_cat_remain = '0';
-                                                if ((int) $trans_top_cat_num > (int) $wp_rem_top_cat_used) {
+                                                if ( (int) $trans_top_cat_num > (int) $wp_rem_top_cat_used ) {
                                                     $wp_rem_top_cat_remain = (int) $trans_top_cat_num - (int) $wp_rem_top_cat_used;
-                                                } 
+                                                }
                                                 $trans_pics_num = get_post_meta($package_id, 'wp_rem_transaction_property_pic_num', true);
                                                 $trans_docs_num = get_post_meta($package_id, 'wp_rem_transaction_property_doc_num', true);
                                                 $trans_tags_num = get_post_meta($package_id, 'wp_rem_transaction_property_tags_num', true);
@@ -657,16 +698,16 @@ if (!class_exists('Wp_rem_Members_Meta')) {
                                                 $html .= $this->purchase_package_info_field_show($trans_packg_list_num, wp_rem_plugin_text_srt('wp_rem_member_package_duration'), wp_rem_plugin_text_srt('wp_rem_member_days'));
                                                 $html .= '<li><label>' . wp_rem_plugin_text_srt('wp_rem_member_properties') . '</label><span>' . absint($wp_rem_property_used) . '/' . absint($trans_packg_list_num) . '</span></li>';
                                                 $html .= $this->purchase_package_info_field_show($trans_packg_list_expire, wp_rem_plugin_text_srt('wp_rem_member_properties_duration'), wp_rem_plugin_text_srt('wp_rem_member_days'));
-                                                if (absint($trans_featured_num) > 0) {
+                                                if ( absint($trans_featured_num) > 0 ) {
                                                     $html .= '<li><label>' . wp_rem_plugin_text_srt('wp_rem_member_featured') . '</label><span>' . absint($wp_rem_featured_used) . '/' . absint($trans_featured_num) . '</span></li>';
                                                 } else {
                                                     $html .= '<li><label>' . wp_rem_plugin_text_srt('wp_rem_member_featured') . '</label><span>0</span></li>';
                                                 }
-                                                if (absint($trans_top_cat_num) > 0) {
+                                                if ( absint($trans_top_cat_num) > 0 ) {
                                                     $html .= '<li><label>' . wp_rem_plugin_text_srt('wp_rem_member_top_categoriy') . '</label><span>' . absint($wp_rem_top_cat_used) . '/' . absint($trans_top_cat_num) . '</span></li>';
                                                 } else {
                                                     $html .= '<li><label>' . wp_rem_plugin_text_srt('wp_rem_member_top_categoriy') . '</label><span>0</span></li>';
-                                                } 
+                                                }
                                                 $html .= $this->purchase_package_info_field_show($trans_pics_num, wp_rem_plugin_text_srt('wp_rem_member_no_pictures'));
                                                 $html .= $this->purchase_package_info_field_show($trans_docs_num, wp_rem_plugin_text_srt('wp_rem_member_no_documents'));
                                                 $html .= $this->purchase_package_info_field_show($trans_tags_num, wp_rem_plugin_text_srt('wp_rem_member_no_tags'));
@@ -676,16 +717,16 @@ if (!class_exists('Wp_rem_Members_Meta')) {
                                                 $html .= $this->purchase_package_info_field_show($trans_social, wp_rem_plugin_text_srt('wp_rem_member_social_impressions'));
 
                                                 $dyn_fields_html = '';
-                                                if (is_array($trans_dynamic_f) && sizeof($trans_dynamic_f) > 0) {
-                                                    foreach ($trans_dynamic_f as $trans_dynamic) {
-                                                        if (isset($trans_dynamic['field_type']) && isset($trans_dynamic['field_label']) && isset($trans_dynamic['field_value'])) {
+                                                if ( is_array($trans_dynamic_f) && sizeof($trans_dynamic_f) > 0 ) {
+                                                    foreach ( $trans_dynamic_f as $trans_dynamic ) {
+                                                        if ( isset($trans_dynamic['field_type']) && isset($trans_dynamic['field_label']) && isset($trans_dynamic['field_value']) ) {
                                                             $d_type = $trans_dynamic['field_type'];
                                                             $d_label = $trans_dynamic['field_label'];
                                                             $d_value = $trans_dynamic['field_value'];
 
-                                                            if ($d_value == 'on' && $d_type == 'single-choice') {
+                                                            if ( $d_value == 'on' && $d_type == 'single-choice' ) {
                                                                 $html .= '<li><label>' . $d_label . '</label><span><i class="icon-check"></i></span></li>';
-                                                            } else if ($d_value != '' && $d_type != 'single-choice') {
+                                                            } else if ( $d_value != '' && $d_type != 'single-choice' ) {
                                                                 $html .= '<li><label>' . $d_label . '</label><span>' . $d_value . '</span></li>';
                                                             } else {
                                                                 $html .= '<li><label>' . $d_label . '</label><span><i class="icon-minus"></i></span></li>';
@@ -730,15 +771,15 @@ if (!class_exists('Wp_rem_Members_Meta')) {
             $response = array();
             $response['status'] = false;
 
-            if ('' != $property_id) {
+            if ( '' != $property_id ) {
                 $member_favourites = get_post_meta($post_id, 'wp_rem_favourites', true);
-                foreach ($member_favourites as $key => $sub_array) {
-                    if ($sub_array['property_id'] == $property_id) {
+                foreach ( $member_favourites as $key => $sub_array ) {
+                    if ( $sub_array['property_id'] == $property_id ) {
                         unset($member_favourites[$key]);
                         $response['status'] = true;
                     }
                 }
-                if (!empty($member_favourites)) {
+                if ( ! empty($member_favourites) ) {
                     $member_favourites = array_values($member_favourites);
                 }
                 update_post_meta($post_id, 'wp_rem_favourites', $member_favourites);
@@ -757,7 +798,7 @@ if (!class_exists('Wp_rem_Members_Meta')) {
         public function remove_property_alert() {
             $status = 0;
             $msg = '';
-            if (isset($_POST['post_id'])) {
+            if ( isset($_POST['post_id']) ) {
                 wp_delete_post($_POST['post_id']);
                 $status = 1;
                 $msg = wp_rem_plugin_text_srt('wp_rem_member_property_alert_delete');
@@ -765,7 +806,7 @@ if (!class_exists('Wp_rem_Members_Meta')) {
                 $msg = wp_rem_plugin_text_srt('wp_rem_member_data_incomplete');
                 $status = 0;
             }
-            echo json_encode(array("msg" => $msg, 'status' => $status));
+            echo json_encode(array( "msg" => $msg, 'status' => $status ));
             wp_die();
         }
 
@@ -784,16 +825,16 @@ if (!class_exists('Wp_rem_Members_Meta')) {
             $wp_rem_public_profile = wp_rem_get_input('wp_rem_public_profile', NULL, 'STRING');
 
             $update_allow = 1;
-            if ($wp_rem_old_user_type == $wp_rem_user_type) {
+            if ( $wp_rem_old_user_type == $wp_rem_user_type ) {
                 $update_allow = 1;
-            } elseif ('supper-admin' == $wp_rem_user_type) {
+            } elseif ( 'supper-admin' == $wp_rem_user_type ) {
                 $update_allow = 1;
-            } elseif ($count_supper_admin > 1) {
+            } elseif ( $count_supper_admin > 1 ) {
                 $update_allow = 1;
             } else {
                 $update_allow = 0;
             }
-            if ($update_allow == 1) {
+            if ( $update_allow == 1 ) {
                 $permissions = wp_rem_get_input('permissions', '', 'ARRAY');
 
                 update_user_meta($user_ID, 'wp_rem_user_type', $wp_rem_user_type);
@@ -816,7 +857,7 @@ if (!class_exists('Wp_rem_Members_Meta')) {
         public function wp_rem_remove_team_member() {
             $count_supper_admin = wp_rem_get_input('count_supper_admin', NULL, 'STRING');
             $user_ID = wp_rem_get_input('wp_rem_user_id', NULL, 'INT');
-            if ($count_supper_admin > 1) {
+            if ( $count_supper_admin > 1 ) {
                 update_user_meta($user_ID, 'wp_rem_user_status', 'deleted');
                 $response_array = array(
                     'type' => 'success',
@@ -833,7 +874,7 @@ if (!class_exists('Wp_rem_Members_Meta')) {
         }
 
         public function wp_rem_member_members() {
-            global $wp_rem_html_fields_frontend, $post, $wp_rem_form_fields_frontend, $post_id, $wp_rem_html_fields;
+            global $wp_rem_html_fields_frontend, $post, $wp_rem_form_fields_frontend, $post_id, $wp_rem_html_fields, $wp_rem_form_fields;
             $company_data = get_post($post_id);
             setup_postdata($company_data);
             ?>
@@ -863,11 +904,11 @@ if (!class_exists('Wp_rem_Members_Meta')) {
                                     'value' => 'deleted',
                                     'compare' => '!='
                                 ),
-                            ), 
+                            ),
                         ),
                     );
                     $team_members = get_users($team_args);
-                    if (isset($team_members) && !empty($team_members)) {
+                    if ( isset($team_members) && ! empty($team_members) ) {
                         ?>
                         <ul class = "panel-group" id = "accordion">
                             <?php echo '<div class="outerwrapp-layer">
@@ -886,13 +927,13 @@ if (!class_exists('Wp_rem_Members_Meta')) {
                             <?php
                             // count the supper admin in complete team
                             $supper_admin_count = 0;
-                            foreach ($team_members as $member_data) {
+                            foreach ( $team_members as $member_data ) {
                                 $selected_user_type = get_user_meta($member_data->ID, 'wp_rem_user_type', true);
-                                if ($selected_user_type == 'supper-admin') {
+                                if ( $selected_user_type == 'supper-admin' ) {
                                     $supper_admin_count ++;
                                 }
                             }
-                            foreach ($team_members as $member_data) {
+                            foreach ( $team_members as $member_data ) {
                                 $selected_user_type = get_user_meta($member_data->ID, 'wp_rem_user_type', true);
                                 $selected_user_type = isset($selected_user_type) && $selected_user_type != '' ? $selected_user_type : 'team-member';
                                 $member_permissions = get_user_meta($member_data->ID, 'wp_rem_permissions', true);
@@ -902,7 +943,7 @@ if (!class_exists('Wp_rem_Members_Meta')) {
                                 $wp_rem_public_profile = get_user_meta($member_data->ID, 'wp_rem_public_profile', true);
 
                                 $profile_url = '';
-                                if (!empty($member_profile_picture)) {
+                                if ( ! empty($member_profile_picture) ) {
                                     $profile_url = wp_get_attachment_url($member_profile_picture);
                                 }
                                 ?>
@@ -911,14 +952,14 @@ if (!class_exists('Wp_rem_Members_Meta')) {
                                     <form name="wp_rem_update_team_member" id="wp_rem_update_team_member<?php echo esc_attr($member_data->ID); ?>" data-id="<?php echo esc_attr($member_data->ID); ?>" method="POST">
                                         <?php
                                         // TOTAL SUPPER ADMIN COUNT
-                                        $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
+                                        $wp_rem_form_fields->wp_rem_form_hidden_render(
                                                 array(
                                                     'cust_name' => 'count_supper_admin',
                                                     'id' => 'count_supper_admin' . $member_data->ID,
                                                     'std' => $supper_admin_count,
                                                 )
                                         );
-                                        $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
+                                        $wp_rem_form_fields->wp_rem_form_hidden_render(
                                                 array(
                                                     'cust_name' => 'wp_rem_old_user_type',
                                                     'id' => 'wp_rem_old_user_type' . $member_data->ID,
@@ -958,7 +999,7 @@ if (!class_exists('Wp_rem_Members_Meta')) {
                                                         <strong><?php echo esc_html($member_data->user_login); ?> </strong> 
                                                     </div>
                                                     <span class="email"><?php echo esc_html($member_data->user_email); ?> </span> 
-                                                    <?php if ($selected_user_type == 'supper-admin') { ?><span class="supper-admin"><?php echo wp_rem_plugin_text_srt('wp_rem_member_super_admin'); ?></span>
+                                                    <?php if ( $selected_user_type == 'supper-admin' ) { ?><span class="supper-admin"><?php echo wp_rem_plugin_text_srt('wp_rem_member_super_admin'); ?></span>
                                                     <?php } ?>
                                                 </a>
                                             </div>
@@ -971,17 +1012,12 @@ if (!class_exists('Wp_rem_Members_Meta')) {
                                                         <label><?php echo wp_rem_plugin_text_srt('wp_rem_member_name'); ?></label>
                                                         <?php
                                                         $wp_rem_opt_array = array(
-                                                            'name' => wp_rem_plugin_text_srt('wp_rem_member_name'),
-                                                            'desc' => '',
-                                                            'echo' => true,
-                                                            'field_params' => array(
-                                                                'std' => esc_html($wp_rem_member_name),
-                                                                'force_std' => true,
-                                                                'cust_id' => 'member_name',
-                                                                'cust_name' => 'wp_rem_member_name',
-                                                            ),
+                                                            'std' => esc_html($member_data->user_login),
+                                                            'force_std' => true,
+                                                            'cust_id' => 'member_name',
+                                                            'cust_name' => 'wp_rem_member_name',
                                                         );
-                                                        $wp_rem_html_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
+                                                        $wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
                                                         ?>
                                                     </div>
                                                 </div>
@@ -990,75 +1026,60 @@ if (!class_exists('Wp_rem_Members_Meta')) {
                                                         <label><?php echo wp_rem_plugin_text_srt('wp_rem_member_email_address'); ?></label>
                                                         <?php
                                                         $wp_rem_opt_array = array(
-                                                            'name' => wp_rem_plugin_text_srt('wp_rem_member_email_address'),
-                                                            'desc' => '',
-                                                            'echo' => true,
-                                                            'field_params' => array(
-                                                                'std' => esc_html($member_data->user_email),
-                                                                'id' => 'email_address',
-                                                            ),
+                                                            'std' => esc_html($member_data->user_email),
+                                                            'force_std' => true,
+                                                            'id' => 'email_address',
                                                         );
-                                                        $wp_rem_html_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
+                                                        $wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
                                                         ?>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <div class = "field-holder">
                                                         <label><?php echo wp_rem_plugin_text_srt('wp_rem_member_phone_number'); ?></label>
-                                                        <?php
-                                                        $wp_rem_opt_array = array(
-                                                            'name' => wp_rem_plugin_text_srt('wp_rem_member_phone_number'),
-                                                            'desc' => '',
-                                                            'echo' => true,
-                                                            'field_params' => array(
-                                                                'id' => '',
-                                                                'std' => esc_html($wp_rem_member_phone_number),
-                                                                'cust_id' => 'member_phone_number',
-                                                                'force_std' => true,
-                                                                'cust_name' => 'wp_rem_member_phone_number',
-                                                            ),
-                                                        );
-                                                        $wp_rem_html_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
-                                                        ?>
+                    <?php
+                    $wp_rem_opt_array = array(
+                        'id' => '',
+                        'std' => esc_html($wp_rem_member_phone_number),
+                        'cust_id' => 'member_phone_number',
+                        'force_std' => true,
+                        'cust_name' => 'wp_rem_member_phone_number',
+                    );
+                    $wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+                    ?>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <div class = "field-holder">
+                                                    <div class="field-holder form-elements">
                                                         <label><?php echo wp_rem_plugin_text_srt('wp_rem_member_profile_image'); ?></label>
-                                                        <?php
-                                                        $wp_rem_opt_array = array(
-                                                            'name' => wp_rem_plugin_text_srt('wp_rem_member_profile_image'),
-                                                            'desc' => '',
-                                                            'hint_text' => '',
-                                                            'echo' => true,
-                                                            'id' => 'member_thumb_' . $member_data->ID,
-                                                            'cust_id' => 'member_thumb',
-                                                            'cust_name' => 'member_thumb',
-                                                            'std' => $profile_url,
-                                                            'classes' => '',
-                                                            'force_std' => true,
-                                                        );
+                    <?php
+                    $wp_rem_opt_array = array(
+                        'id' => 'member_thumb_' . $member_data->ID,
+                        'cust_name' => 'member_thumb',
+                        'std' => $profile_url,
+                        'classes' => '',
+                        'force_std' => true,
+                    );
 
-                                                        $wp_rem_form_fields_frontend->wp_rem_form_fileupload_render($wp_rem_opt_array);
+                    $wp_rem_form_fields->wp_rem_form_fileupload_render($wp_rem_opt_array);
 
+                    $wp_rem_form_fields->wp_rem_form_hidden_render(
+                            array(
+                                'cust_name' => 'wp_rem_member_thumb_id',
+                                'id' => 'wp_rem_member_thumb_id' . $member_data->ID,
+                                'std' => $member_profile_picture,
+                            )
+                    );
 
-                                                        $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
-                                                                array(
-                                                                    'cust_name' => 'wp_rem_member_thumb_id',
-                                                                    'id' => 'wp_rem_member_thumb_id' . $member_data->ID,
-                                                                    'std' => $member_profile_picture,
-                                                                )
-                                                        );
-
-                                                        $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
-                                                                array(
-                                                                    'cust_name' => 'update_from_admin',
-                                                                    'id' => 'update_from_admin' . $member_data->ID,
-                                                                    'std' => 1,
-                                                                )
-                                                        );
-                                                        ?>
+                    $wp_rem_form_fields->wp_rem_form_hidden_render(
+                            array(
+                                'cust_name' => 'update_from_admin',
+                                'id' => 'update_from_admin' . $member_data->ID,
+                                'std' => 1,
+                            )
+                    );
+                    ?>
                                                     </div>
                                                 </div>
 
@@ -1072,17 +1093,12 @@ if (!class_exists('Wp_rem_Members_Meta')) {
                                                             'yes' => 'Yes',
                                                         );
                                                         $wp_rem_opt_array = array(
-                                                            'name' => wp_rem_plugin_text_srt('wp_rem_member_public_profile'),
-                                                            'desc' => '',
-                                                            'echo' => true,
-                                                            'field_params' => array(
-                                                                'std' => $wp_rem_public_profile,
-                                                                'id' => 'public_profile',
-                                                                'classes' => 'chosen-select-no-single',
-                                                                'options' => $user_option,
-                                                            ),
+                                                            'std' => $wp_rem_public_profile,
+                                                            'id' => 'public_profile',
+                                                            'classes' => 'chosen-select-no-single',
+                                                            'options' => $user_option,
                                                         );
-                                                        $wp_rem_html_fields_frontend->wp_rem_form_select_render($wp_rem_opt_array);
+                                                        $wp_rem_form_fields->wp_rem_form_select_render($wp_rem_opt_array);
                                                         ?>
                                                     </div>
                                                 </div>
@@ -1091,68 +1107,63 @@ if (!class_exists('Wp_rem_Members_Meta')) {
                                                     <div class = "field-holder">
                                                         <label><?php echo wp_rem_plugin_text_srt('wp_rem_member_user_type'); ?></label>
 
-                                                        <?php
-                                                        $user_type = array(
-                                                            'supper-admin' => wp_rem_plugin_text_srt('wp_rem_member_super_admin'),
-                                                            'team-member' => wp_rem_plugin_text_srt('wp_rem_member_team_member'),
-                                                        );
-                                                        $wp_rem_opt_array = array(
-                                                            'name' => wp_rem_plugin_text_srt('wp_rem_member_user_type'),
-                                                            'desc' => '',
-                                                            'echo' => true,
-                                                            'field_params' => array(
+                                                            <?php
+                                                            $user_type = array(
+                                                                'supper-admin' => wp_rem_plugin_text_srt('wp_rem_member_super_admin'),
+                                                                'team-member' => wp_rem_plugin_text_srt('wp_rem_member_team_member'),
+                                                            );
+                                                            $wp_rem_opt_array = array(
                                                                 'std' => $selected_user_type,
                                                                 'id' => 'user_type',
                                                                 'classes' => 'chosen-select-no-single',
                                                                 'options' => $user_type,
                                                                 'extra_atr' => 'onchange="wp_rem_user_permission(this, \'add_member_permission' . esc_attr($member_data->ID) . '\', \'supper-admin\');"'
-                                                            ),
-                                                        );
-                                                        $wp_rem_html_fields_frontend->wp_rem_form_select_render($wp_rem_opt_array);
-                                                        ?>
+                                                            );
+                                                            $wp_rem_form_fields->wp_rem_form_select_render($wp_rem_opt_array);
+                                                            ?>
                                                     </div>
                                                 </div>
-                                                <?php
-                                                $permission_display = '';
-                                                if ($selected_user_type == 'supper-admin') {
-                                                    $permission_display = 'display:none';
-                                                }
-                                                ?>
+                                                        <?php
+                                                        $permission_display = '';
+                                                        if ( $selected_user_type == 'supper-admin' ) {
+                                                            $permission_display = 'display:none';
+                                                        }
+                                                        ?>
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 add_member_permission<?php echo esc_attr($member_data->ID); ?>" style="<?php echo esc_html($permission_display); ?>">
                                                     <h6 ><?php echo wp_rem_plugin_text_srt('wp_rem_member_roles'); ?></h6>
-                                                    <?php
-                                                    global $permissions;
-                                                    $permissions_array = $permissions->member_permissions();
-                                                    ?>
+                                                <?php
+                                                global $permissions;
+                                                $permissions_array = $permissions->member_permissions();
+                                                ?>
                                                     <ul class = "checkbox-list">
-                                                        <?php
-                                                        foreach ($permissions_array as $permission_key => $permission_value) {
-                                                            $value = '';
-                                                            if (isset($member_permissions[$permission_key]) && $member_permissions[$permission_key] == 'on') {
-                                                                $value = $member_permissions[$permission_key];
-                                                            } else if ($selected_user_type == 'supper-admin') {  // if user supper admin then show all permission
-                                                                $value = 'on';
-                                                            }
-                                                            $rand = rand(23445, 99);
-                                                            ?>
+                                                    <?php
+                                                    foreach ( $permissions_array as $permission_key => $permission_value ) {
+                                                        $value = '';
+                                                        if ( isset($member_permissions[$permission_key]) && $member_permissions[$permission_key] == 'on' ) {
+                                                            $value = $member_permissions[$permission_key];
+                                                        } else if ( $selected_user_type == 'supper-admin' ) {  // if user supper admin then show all permission
+                                                            $value = 'on';
+                                                        }
+                                                        $rand = rand(23445, 99);
+                                                        ?>
                                                             <li class = "col-lg-6 col-md-6 col-sm-12 col-xs-12" draggable = "true" style = "display: inline-block;">
-                                                                <?php
-                                                                $wp_rem_opt_array = array(
-                                                                    'name' => $permission_value,
-                                                                    'desc' => '',
-                                                                    'echo' => true,
+                                                            <?php
+                                                            $wp_rem_opt_array = array(
+                                                                'name' => $permission_value,
+                                                                'desc' => '',
+                                                                'echo' => true,
+                                                                'simple' => true,
+                                                                'field_params' => array(
+                                                                    'std' => $value,
                                                                     'simple' => true,
-                                                                    'field_params' => array(
-                                                                        'std' => $value,
-                                                                        'simple' => true,
-                                                                        'id' => $permission_key . $rand,
-                                                                        'cust_name' => 'permissions[' . $permission_key . ']',
-                                                                    ),
-                                                                );
-                                                                $wp_rem_html_fields_frontend->wp_rem_form_checkbox_render($wp_rem_opt_array);
-                                                                ?>
+                                                                    'id' => $permission_key . $rand,
+                                                                    'cust_name' => 'permissions[' . $permission_key . ']',
+                                                                ),
+                                                            );
+                                                            $wp_rem_html_fields->wp_rem_custom_checkbox_render($wp_rem_opt_array);
+                                                            ?>
                                                             </li>
-                                                        <?php } ?>
+                                                            <?php } ?>
                                                     </ul>
                                                 </div>
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -1168,54 +1179,54 @@ if (!class_exists('Wp_rem_Members_Meta')) {
                                         </script>
                                     </form>
                                 </li>
-                            <?php } ?>
+                <?php } ?>
                         </ul>
-                        <?php
-                    } else {
-                        echo '<div class="cs-no-record">' . wp_rem_info_messages_property(wp_rem_plugin_text_srt('wp_rem_member_no_team_member_found')) . '</div>';
-                    }
-                    ?>
+                            <?php
+                        } else {
+                            echo '<div class="cs-no-record">' . wp_rem_info_messages_property(wp_rem_plugin_text_srt('wp_rem_member_no_team_member_found')) . '</div>';
+                        }
+                        ?>
                 </div>
             </div>
-            <?php
-        }
+                    <?php
+                }
 
-        public function wp_rem_member_branches() {
-            global $wp_rem_html_fields_frontend, $post, $wp_rem_form_fields_frontend, $post_id, $wp_rem_html_fields;
+                public function wp_rem_member_branches() {
+                    global $wp_rem_html_fields_frontend, $post, $wp_rem_form_fields_frontend, $post_id, $wp_rem_html_fields;
 
-            $company_data = get_post($post_id);
-            setup_postdata($company_data);
-            ?>
+                    $company_data = get_post($post_id);
+                    setup_postdata($company_data);
+                    ?>
             <div class="team-list-holder">
                 <div class = "element-title">
                     <h4><?php echo wp_rem_plugin_text_srt('wp_rem_member_braches'); ?></h4>
                 </div>
                 <div class="team-list">
-                    <?php
-                    // get branches for this agency.
-                    $args = array(
-                        'post_type' => 'branches',
-                        'posts_per_page' => -1,
-                        'post_status' => 'publish',
-                        'fields' => 'ids',
-                        'meta_query' =>
+            <?php
+            // get branches for this agency.
+            $args = array(
+                'post_type' => 'branches',
+                'posts_per_page' => -1,
+                'post_status' => 'publish',
+                'fields' => 'ids',
+                'meta_query' =>
+                array(
+                    array(
+                        'relation' => 'AND',
                         array(
-                            array(
-                                'relation' => 'AND',
-                                array(
-                                    'key' => 'wp_rem_branch_member',
-                                    'value' => $post_id,
-                                    'compare' => '=',
-                                ),
-                            )
-                        )
-                    );
-                    $branches = get_posts($args);
+                            'key' => 'wp_rem_branch_member',
+                            'value' => $post_id,
+                            'compare' => '=',
+                        ),
+                    )
+                )
+            );
+            $branches = get_posts($args);
 
-                    if (isset($branches) && !empty($branches)) {
-                        ?>
+            if ( isset($branches) && ! empty($branches) ) {
+                ?>
                         <ul class = "panel-group" id = "accordion">
-                            <?php echo '<div class="outerwrapp-layer">
+                        <?php echo '<div class="outerwrapp-layer">
                                 <div class="loading_div" id="wp_rem_loading_msg_div"> <i class="icon-circle-o-notch icon-spin"></i> <br>
                                     ' . wp_rem_plugin_text_srt('wp_rem_member_please_wait') . '
                                 </div>
@@ -1232,42 +1243,42 @@ if (!class_exists('Wp_rem_Members_Meta')) {
                                 -->
                             </li>
 
-                            <?php
-                            $args = array(
-                                'post_type' => 'members',
-                                'posts_per_page' => -1,
-                                'post_status' => 'publish',
-                                'fields' => 'ids',
-                                'meta_query' =>
-                                array(
-                                    array(
-                                        'relation' => 'AND',
-                                        array(
-                                            'key' => 'wp_rem_user_status',
-                                            'value' => 'active',
-                                            'compare' => '=',
-                                        ),
-                                    )
-                                )
-                            );
-                            $members = get_posts($args);
-                            $wp_rem_member_list = array();
-                            if (!empty($members)) {
-                                foreach ($members as $member) {
-                                    $wp_rem_member_list[$member] = esc_html(get_the_title($member));
-                                }
-                            }
-                            wp_reset_postdata();
+                <?php
+                $args = array(
+                    'post_type' => 'members',
+                    'posts_per_page' => -1,
+                    'post_status' => 'publish',
+                    'fields' => 'ids',
+                    'meta_query' =>
+                    array(
+                        array(
+                            'relation' => 'AND',
+                            array(
+                                'key' => 'wp_rem_user_status',
+                                'value' => 'active',
+                                'compare' => '=',
+                            ),
+                        )
+                    )
+                );
+                $members = get_posts($args);
+                $wp_rem_member_list = array();
+                if ( ! empty($members) ) {
+                    foreach ( $members as $member ) {
+                        $wp_rem_member_list[$member] = esc_html(get_the_title($member));
+                    }
+                }
+                wp_reset_postdata();
 
-                            foreach ($branches as $branch) {
-                                $branch_member = get_post_meta($branch, 'wp_rem_branch_member', true);
-                                $branche_name = get_post_meta($branch, 'wp_rem_branch_name', true);
-                                $branche_phone = get_post_meta($branch, 'wp_rem_branch_phone', true);
-                                $branche_email = get_post_meta($branch, 'wp_rem_branch_email', true);
-                                $branche_adrss = get_post_meta($branch, 'wp_rem_post_loc_address_branch', true);
-                                $branche_lat = get_post_meta($branch, 'wp_rem_post_loc_latitude_branch', true);
-                                $branche_lng = get_post_meta($branch, 'wp_rem_post_loc_longitude_branch', true);
-                                ?>
+                foreach ( $branches as $branch ) {
+                    $branch_member = get_post_meta($branch, 'wp_rem_branch_member', true);
+                    $branche_name = get_post_meta($branch, 'wp_rem_branch_name', true);
+                    $branche_phone = get_post_meta($branch, 'wp_rem_branch_phone', true);
+                    $branche_email = get_post_meta($branch, 'wp_rem_branch_email', true);
+                    $branche_adrss = get_post_meta($branch, 'wp_rem_post_loc_address_branch', true);
+                    $branche_lat = get_post_meta($branch, 'wp_rem_post_loc_latitude_branch', true);
+                    $branche_lng = get_post_meta($branch, 'wp_rem_post_loc_longitude_branch', true);
+                    ?>
 
                                 <li data-id="<?php echo esc_attr($branch); ?>">
                                     <form name="wp_rem_update_branch" id="wp_rem_update_branch<?php echo esc_attr($branch); ?>" data-id="<?php echo esc_attr($branch); ?>" method="POST">
@@ -1286,104 +1297,104 @@ if (!class_exists('Wp_rem_Members_Meta')) {
                                             <div class = "panel-body">
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <div class = "field-holder">
-                                                        <?php
-                                                        $wp_rem_opt_array = array(
-                                                            'name' => wp_rem_plugin_text_srt('wp_rem_member_member'),
-                                                            'desc' => '',
-                                                            'hint_text' => '',
-                                                            'echo' => true,
-                                                            'field_params' => array(
-                                                                'std' => $branch_member,
-                                                                'id' => 'branch_member',
-                                                                'classes' => 'chosen-select-no-single',
-                                                                'options' => $wp_rem_member_list,
-                                                                'return' => true,
-                                                            ),
-                                                        );
-                                                        $wp_rem_html_fields->wp_rem_select_field($wp_rem_opt_array);
-                                                        ?>
+                    <?php
+                    $wp_rem_opt_array = array(
+                        'name' => wp_rem_plugin_text_srt('wp_rem_member_member'),
+                        'desc' => '',
+                        'hint_text' => '',
+                        'echo' => true,
+                        'field_params' => array(
+                            'std' => $branch_member,
+                            'id' => 'branch_member',
+                            'classes' => 'chosen-select-no-single',
+                            'options' => $wp_rem_member_list,
+                            'return' => true,
+                        ),
+                    );
+                    $wp_rem_html_fields->wp_rem_select_field($wp_rem_opt_array);
+                    ?>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <div class = "field-holder">
-                                                        <?php
-                                                        $wp_rem_opt_array = array(
-                                                            'name' => wp_rem_plugin_text_srt('wp_rem_member_name'),
-                                                            'desc' => '',
-                                                            'echo' => true,
-                                                            'field_params' => array(
-                                                                'id' => 'branch_name',
-                                                                'std' => esc_html($branche_name),
-                                                                'return' => true,
-                                                            ),
-                                                        );
-                                                        $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
-                                                        ?>
+                    <?php
+                    $wp_rem_opt_array = array(
+                        'name' => wp_rem_plugin_text_srt('wp_rem_member_name'),
+                        'desc' => '',
+                        'echo' => true,
+                        'field_params' => array(
+                            'id' => 'branch_name',
+                            'std' => esc_html($branche_name),
+                            'return' => true,
+                        ),
+                    );
+                    $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
+                    ?>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <div class = "field-holder">
-                                                        <?php
-                                                        $wp_rem_opt_array = array(
-                                                            'name' => wp_rem_plugin_text_srt('wp_rem_member_phone'),
-                                                            'desc' => '',
-                                                            'echo' => true,
-                                                            'field_params' => array(
-                                                                'id' => 'phone_number',
-                                                                'std' => esc_html($branche_phone),
-                                                                'return' => true,
-                                                            ),
-                                                        );
-                                                        $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
-                                                        ?>
+                    <?php
+                    $wp_rem_opt_array = array(
+                        'name' => wp_rem_plugin_text_srt('wp_rem_member_phone'),
+                        'desc' => '',
+                        'echo' => true,
+                        'field_params' => array(
+                            'id' => 'phone_number',
+                            'std' => esc_html($branche_phone),
+                            'return' => true,
+                        ),
+                    );
+                    $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
+                    ?>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <div class = "field-holder">
-                                                        <?php
-                                                        $wp_rem_opt_array = array(
-                                                            'name' => wp_rem_plugin_text_srt('wp_rem_member_email'),
-                                                            'desc' => '',
-                                                            'echo' => true,
-                                                            'field_params' => array(
-                                                                'std' => esc_html($branche_email),
-                                                                'id' => 'email_address',
-                                                                'return' => true,
-                                                            ),
-                                                        );
-                                                        $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
-                                                        ?>
+                    <?php
+                    $wp_rem_opt_array = array(
+                        'name' => wp_rem_plugin_text_srt('wp_rem_member_email'),
+                        'desc' => '',
+                        'echo' => true,
+                        'field_params' => array(
+                            'std' => esc_html($branche_email),
+                            'id' => 'email_address',
+                            'return' => true,
+                        ),
+                    );
+                    $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
+                    ?>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <div class = "field-holder">
-                                                        <?php
-                                                        $wp_rem_opt_array = array(
-                                                            'name' => wp_rem_plugin_text_srt('wp_rem_member_address'),
-                                                            'desc' => '',
-                                                            'echo' => true,
-                                                            'field_params' => array(
-                                                                'std' => esc_html($branche_adrss),
-                                                                'id' => 'branch_address',
-                                                                'return' => true,
-                                                            ),
-                                                        );
-                                                        $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
-                                                        ?>
+                    <?php
+                    $wp_rem_opt_array = array(
+                        'name' => wp_rem_plugin_text_srt('wp_rem_member_address'),
+                        'desc' => '',
+                        'echo' => true,
+                        'field_params' => array(
+                            'std' => esc_html($branche_adrss),
+                            'id' => 'branch_address',
+                            'return' => true,
+                        ),
+                    );
+                    $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
+                    ?>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <?php
-                                                    $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
-                                                            array(
-                                                                'cust_name' => 'branch_id',
-                                                                'id' => 'wp_rem_branch_id' . $branch,
-                                                                'std' => $branch,
-                                                            )
-                                                    );
-                                                    ?>
+                    <?php
+                    $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
+                            array(
+                                'cust_name' => 'branch_id',
+                                'id' => 'wp_rem_branch_id' . $branch,
+                                'std' => $branch,
+                            )
+                    );
+                    ?>
                                                     <button name="button" class="btn-submit btn-update" type="button" id="branch_update_form_backend"><?php echo wp_rem_plugin_text_srt('wp_rem_member_update'); ?></button>
                                                 </div>
                                             </div>
@@ -1396,7 +1407,7 @@ if (!class_exists('Wp_rem_Members_Meta')) {
                                         </script>
                                     </form>
                                 </li>
-                            <?php } ?>
+                <?php } ?>
                         </ul>
 
                         <script type="text/javascript">
@@ -1448,304 +1459,265 @@ if (!class_exists('Wp_rem_Members_Meta')) {
                                 });
                             });
                         </script>
-                        <?php
-                    } else {
-                        echo '<div class="cs-no-record">' . wp_rem_info_messages_property(wp_rem_plugin_text_srt('wp_rem_member_no_braches_found')) . '</div>';
-                    }
-                    ?>
+                <?php
+            } else {
+                echo '<div class="cs-no-record">' . wp_rem_info_messages_property(wp_rem_plugin_text_srt('wp_rem_member_no_braches_found')) . '</div>';
+            }
+            ?>
                 </div>
             </div>
-            <?php
-        }
-
-        /**
-         * Start Function How to add form options in  html
-         */
-        function wp_rem_members_options() {
-            global $post, $wp_rem_form_fields, $wp_rem_form_fields, $wp_rem_html_fields, $wp_rem_plugin_options, $display_field;
-            $post_id = $post->ID;
-            $wp_rem_profile_image = get_post_meta($post_id, 'wp_rem_profile_image', true);
-
-            $wp_rem_opt_array = array(
-                'name' => wp_rem_plugin_text_srt('wp_rem_member_profile_image'),
-                'desc' => '',
-                'hint_text' => wp_rem_plugin_text_srt('wp_rem_member_profile_image_error'),
-                'echo' => true,
-                'id' => 'profile_image',
-                'std' => '',
-                'field_params' => array(
-                    'id' => 'profile_image',
-                    'return' => true,
-                ),
-            );
-
-            $wp_rem_html_fields->wp_rem_upload_file_field($wp_rem_opt_array);
-
-            $member_user_type = get_post_meta($post_id, 'wp_rem_member_user_type', true);
-
-            /*
-             * Buyer / Reseller Fields
-             */
-            echo '<div class="form-elements">
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                    <label>' . wp_rem_plugin_text_srt('wp_rem_member_user_type') . '</label>
-                </div>
-                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">';
-            $buyer_checked = $reseller_checked = '';
-            if ($member_user_type == 'buyer') {
-                $display_profie_field = 'none';
-                $buyer_checked = ' checked';
-            } else {
-                $reseller_checked = ' checked';
-                $display_profie_field = 'block';
-            }
-            $wp_rem_opt_array = array(
-                'description' => ' <label for="member_user_type_buyer">' . wp_rem_plugin_text_srt('wp_rem_member_rent_property') . '</label>',
-                'echo' => true,
-                'field_params' => array(
-                    'std' => 'buyer',
-                    'cust_id' => 'member_user_type_buyer',
-                    'cust_name' => 'wp_rem_member_user_type',
-                    'extra_atr' => $buyer_checked . ' class="member_user_type"',
-                    'usermeta' => true,
-                    'return' => true
-                ),
-            );
-            $wp_rem_html_fields->wp_rem_radio_field($wp_rem_opt_array);
-
-            $wp_rem_opt_array = array(
-                'description' => ' <label for="member_user_type_reseller">' . wp_rem_plugin_text_srt('wp_rem_member_sell_property') . '</label>',
-                'echo' => true,
-                'field_params' => array(
-                    'std' => 'reseller',
-                    'cust_id' => 'member_user_type_reseller',
-                    'cust_name' => 'wp_rem_member_user_type',
-                    'extra_atr' => $reseller_checked . ' class="member_user_type"',
-                    'usermeta' => true,
-                    'return' => true
-                ),
-            );
-            $wp_rem_html_fields->wp_rem_radio_field($wp_rem_opt_array);
-            echo '</div>
-            </div>';
-
-            echo '<div class="member-profile-types" style=" display: ' . $display_profie_field . ';">';
-
-            $member_profile_type = get_post_meta($post_id, 'wp_rem_member_profile_type', true);
-            $wp_rem_opt_array = array(
-                'name' => wp_rem_plugin_text_srt('wp_rem_member_profile_type'),
-                'desc' => '',
-                'hint_text' => '',
-                'echo' => true,
-                'field_params' => array(
-                    'std' => $member_profile_type,
-                    'cust_id' => 'member_profile_type_individual',
-                    'cust_name' => 'wp_rem_member_profile_type',
-                    'classes' => 'chosen-select-no-single member_profile_type',
-                    'options' => array(
-                        'individual' => wp_rem_plugin_text_srt('wp_rem_member_profile_individual'),
-                        'company' => wp_rem_plugin_text_srt('wp_rem_member_profile_company'),
-                    ),
-                    'return' => true,
-                ),
-            );
-            $wp_rem_html_fields->wp_rem_select_field($wp_rem_opt_array);
-
-
-
-            if ($member_profile_type == 'company' && $member_user_type != 'buyer') {
-                $display_field = 'block';
-            } else {
-                $display_field = 'none';
-            }
-
-            echo '<div class="member_company_name" style=" display: ' . $display_field . ';">';
-
-            $member_title = isset($wp_rem_plugin_options['member_title']) ? $wp_rem_plugin_options['member_title'] : '';
-            $member_value = isset($wp_rem_plugin_options['member_value']) ? $wp_rem_plugin_options['member_value'] : '';
-
-            $member_type_array = array();
-            $total_count = count($member_value);
-            if ($total_count > 0) {
-                for ($a = 0; $a < $total_count; $a ++) {
-					if( isset($member_value[$a]) && isset($member_title[$a]) ){
-						$member_type_array[$member_value[$a]] = $member_title[$a];
-					}
+                    <?php
                 }
+
+                /**
+                 * Start Function How to add form options in  html
+                 */
+                function wp_rem_members_options() {
+                    global $post, $wp_rem_form_fields, $wp_rem_form_fields, $wp_rem_html_fields, $wp_rem_plugin_options, $display_field;
+                    $post_id = $post->ID;
+                    $wp_rem_profile_image = get_post_meta($post_id, 'wp_rem_profile_image', true);
+
+                    $wp_rem_opt_array = array(
+                        'name' => wp_rem_plugin_text_srt('wp_rem_member_profile_image'),
+                        'desc' => '',
+                        'hint_text' => wp_rem_plugin_text_srt('wp_rem_member_profile_image_error'),
+                        'echo' => true,
+                        'id' => 'profile_image',
+                        'std' => '',
+                        'field_params' => array(
+                            'id' => 'profile_image',
+                            'return' => true,
+                        ),
+                    );
+
+                    $wp_rem_html_fields->wp_rem_upload_file_field($wp_rem_opt_array);
+
+                    $member_user_type = get_post_meta($post_id, 'wp_rem_member_user_type', true);
+
+                    /*
+                     * Buyer / Reseller Fields
+                     */
+                    echo '<div class="form-elements">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <label>' . wp_rem_plugin_text_srt('wp_rem_member_user_type') . '</label>
+                    </div>';
+                    $display_profie_field = 'block';
+                    echo '<div class="member-profile-types" style=" display: ' . $display_profie_field . ';">';
+
+                    $member_profile_type = get_post_meta($post_id, 'wp_rem_member_profile_type', true);
+                    $wp_rem_opt_array = array(
+                        'name' => wp_rem_plugin_text_srt('wp_rem_member_profile_type'),
+                        'desc' => '',
+                        'hint_text' => '',
+                        'echo' => true,
+                        'field_params' => array(
+                            'std' => $member_profile_type,
+                            'cust_id' => 'member_profile_type_individual',
+                            'cust_name' => 'wp_rem_member_profile_type',
+                            'classes' => 'chosen-select-no-single member_profile_type',
+                            'options' => array(
+                                'individual' => wp_rem_plugin_text_srt('wp_rem_member_profile_individual'),
+                                'company' => wp_rem_plugin_text_srt('wp_rem_member_profile_company'),
+                            ),
+                            'return' => true,
+                        ),
+                    );
+                    $wp_rem_html_fields->wp_rem_select_field($wp_rem_opt_array);
+
+                    echo '</div></div>';
+
+                    if ( $member_profile_type == 'company' ) {
+                        $display_field = 'block';
+                    } else {
+                        $display_field = 'none';
+                    }
+
+                    echo '<div class="member_company_name" style=" display: ' . $display_field . ';">';
+
+                    $member_title = isset($wp_rem_plugin_options['member_title']) ? $wp_rem_plugin_options['member_title'] : '';
+                    $member_value = isset($wp_rem_plugin_options['member_value']) ? $wp_rem_plugin_options['member_value'] : '';
+
+                    $member_type_array = array();
+                    $total_count = count($member_value);
+                    if ( $total_count > 0 ) {
+                        for ( $a = 0; $a < $total_count; $a ++  ) {
+                            if ( isset($member_value[$a]) && isset($member_title[$a]) ) {
+                                $member_type_array[$member_value[$a]] = $member_title[$a];
+                            }
+                        }
+                    }
+
+                    $wp_rem_member_type = get_post_meta($post_id, 'wp_rem_member_type', true);
+                    $wp_rem_member_type = isset($wp_rem_member_type) ? $wp_rem_member_type : '';
+                    $wp_rem_opt_array = array(
+                        'name' => wp_rem_plugin_text_srt('wp_rem_member_member_type'),
+                        'desc' => '',
+                        'hint_text' => '',
+                        'echo' => true,
+                        'multi' => true,
+                        'field_params' => array(
+                            'std' => $wp_rem_member_type,
+                            'id' => 'member_type',
+                            'cust_name' => 'wp_rem_member_type',
+                            'classes' => 'chosen-select-no-single',
+                            'options' => $member_type_array,
+                            'return' => true,
+                        ),
+                    );
+                    $wp_rem_html_fields->wp_rem_select_field($wp_rem_opt_array);
+
+                    echo '</div>';
+
+                    $user_status = array(
+                        'pending' => wp_rem_plugin_text_srt('wp_rem_member_pending'),
+                        'active' => wp_rem_plugin_text_srt('wp_rem_member_active'),
+                        'inactive' => wp_rem_plugin_text_srt('wp_rem_member_inactive'),
+                    );
+
+                    $selected_user_status = get_post_meta('wp_rem_user_status', $post_id);
+                    $selected_user_status = ( $selected_user_status == '' ? 'pending' : $selected_user_status );
+
+                    $wp_rem_opt_array = array(
+                        'name' => wp_rem_plugin_text_srt('wp_rem_member_profile_status'),
+                        'desc' => '',
+                        'hint_text' => '',
+                        'echo' => true,
+                        'field_params' => array(
+                            'std' => $selected_user_status,
+                            'id' => 'user_status',
+                            'classes' => 'chosen-select-no-single',
+                            'options' => $user_status,
+                            'return' => true,
+                        ),
+                    );
+                    $wp_rem_html_fields->wp_rem_select_field($wp_rem_opt_array);
+
+
+
+
+                    $wp_rem_opt_array = array(
+                        'name' => wp_rem_plugin_text_srt('wp_rem_member_featured'),
+                        'desc' => '',
+                        'hint_text' => '',
+                        'echo' => true,
+                        'field_params' => array(
+                            'id' => 'member_is_featured',
+                            'classes' => '',
+                            'std' => '',
+                            'description' => '',
+                            'hint' => '',
+                            'return' => true,
+                        ),
+                    );
+
+                    $wp_rem_html_fields->wp_rem_checkbox_field($wp_rem_opt_array);
+
+                    $wp_rem_opt_array = array(
+                        'name' => wp_rem_plugin_text_srt('wp_rem_member_trusted_member'),
+                        'desc' => '',
+                        'hint_text' => '',
+                        'echo' => true,
+                        'field_params' => array(
+                            'id' => 'member_is_trusted',
+                            'classes' => '',
+                            'std' => '',
+                            'description' => '',
+                            'hint' => '',
+                            'return' => true,
+                        ),
+                    );
+
+                    $wp_rem_html_fields->wp_rem_checkbox_field($wp_rem_opt_array);
+
+                    $wp_rem_opt_array = array(
+                        'name' => wp_rem_plugin_text_srt('wp_rem_member_num_of_properties'),
+                        'desc' => '',
+                        'hint_text' => '',
+                        'echo' => true,
+                        'field_params' => array(
+                            'std' => '',
+                            'id' => 'num_of_properties',
+                            'return' => true,
+                        ),
+                    );
+
+                    $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
+
+
+
+                    $wp_rem_opt_array = array(
+                        'name' => wp_rem_plugin_text_srt('wp_rem_phone'),
+                        'desc' => '',
+                        'hint_text' => '',
+                        'echo' => true,
+                        'field_params' => array(
+                            'std' => '',
+                            'id' => 'phone_number',
+                            'return' => true,
+                        ),
+                    );
+
+                    $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
+
+                    $wp_rem_opt_array = array(
+                        'name' => wp_rem_plugin_text_srt('wp_rem_email_address'),
+                        'desc' => '',
+                        'hint_text' => '',
+                        'echo' => true,
+                        'field_params' => array(
+                            'std' => '',
+                            'id' => 'email_address',
+                            'return' => true,
+                        ),
+                    );
+
+                    $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
+
+                    $wp_rem_opt_array = array(
+                        'name' => wp_rem_plugin_text_srt('wp_rem_website'),
+                        'desc' => '',
+                        'hint_text' => '',
+                        'echo' => true,
+                        'field_params' => array(
+                            'std' => '',
+                            'id' => 'website',
+                            'return' => true,
+                        ),
+                    );
+
+                    $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
+
+                    $wp_rem_opt_array = array(
+                        'name' => wp_rem_plugin_text_srt('wp_rem_member_biography'),
+                        'desc' => '',
+                        'hint_text' => '',
+                        'echo' => true,
+                        'field_params' => array(
+                            'std' => '',
+                            'id' => 'biography',
+                            'return' => true,
+                        ),
+                    );
+
+                    $wp_rem_html_fields->wp_rem_textarea_field($wp_rem_opt_array);
+
+//            $wp_rem_html_fields->wp_rem_heading_render(
+//                    array(
+//                        'name' => wp_rem_plugin_text_srt('wp_rem_user_meta_mailing_information'),
+//                        'id' => 'mailing_information',
+//                        'classes' => '',
+//                        'std' => '',
+//                        'description' => '',
+//                        'hint' => ''
+//                    )
+//            );
+
+                    WP_REM_FUNCTIONS()->wp_rem_location_fields('off', '', 'member');
+                }
+
             }
 
-            $wp_rem_member_type = get_post_meta($post_id, 'wp_rem_member_type', true);
-            $wp_rem_member_type = isset($wp_rem_member_type) ? $wp_rem_member_type : '';
-            $wp_rem_opt_array = array(
-                'name' => wp_rem_plugin_text_srt('wp_rem_member_member_type'),
-                'desc' => '',
-                'hint_text' => '',
-                'echo' => true,
-                'multi' => true,
-                'field_params' => array(
-                    'std' => $wp_rem_member_type,
-                    'id' => 'member_type',
-                    'cust_name' => 'wp_rem_member_type',
-                    'classes' => 'chosen-select-no-single',
-                    'options' => $member_type_array,
-                    'return' => true,
-                ),
-            );
-            $wp_rem_html_fields->wp_rem_select_field($wp_rem_opt_array);
-
-            echo '</div>';
-            echo '</div>';
-
-            $user_status = array(
-                'pending' => wp_rem_plugin_text_srt('wp_rem_member_pending'),
-                'active' => wp_rem_plugin_text_srt('wp_rem_member_active'),
-                'inactive' => wp_rem_plugin_text_srt('wp_rem_member_inactive'),
-            );
-
-            $selected_user_status = get_post_meta('wp_rem_user_status', $post_id);
-            $selected_user_status = ( $selected_user_status == '' ? 'pending' : $selected_user_status );
-
-            $wp_rem_opt_array = array(
-                'name' => wp_rem_plugin_text_srt('wp_rem_member_profile_status'),
-                'desc' => '',
-                'hint_text' => '',
-                'echo' => true,
-                'field_params' => array(
-                    'std' => $selected_user_status,
-                    'id' => 'user_status',
-                    'classes' => 'chosen-select-no-single',
-                    'options' => $user_status,
-                    'return' => true,
-                ),
-            );
-            $wp_rem_html_fields->wp_rem_select_field($wp_rem_opt_array);
-
-
-
-
-            $wp_rem_opt_array = array(
-                'name' => wp_rem_plugin_text_srt('wp_rem_member_featured'),
-                'desc' => '',
-                'hint_text' => '',
-                'echo' => true,
-                'field_params' => array(
-                    'id' => 'member_is_featured',
-                    'classes' => '',
-                    'std' => '',
-                    'description' => '',
-                    'hint' => '',
-                    'return' => true,
-                ),
-            );
-
-            $wp_rem_html_fields->wp_rem_checkbox_field($wp_rem_opt_array);
-
-            $wp_rem_opt_array = array(
-                'name' => wp_rem_plugin_text_srt('wp_rem_member_trusted_member'),
-                'desc' => '',
-                'hint_text' => '',
-                'echo' => true,
-                'field_params' => array(
-                    'id' => 'member_is_trusted',
-                    'classes' => '',
-                    'std' => '',
-                    'description' => '',
-                    'hint' => '',
-                    'return' => true,
-                ),
-            );
-
-            $wp_rem_html_fields->wp_rem_checkbox_field($wp_rem_opt_array);
-
-            $wp_rem_opt_array = array(
-                'name' => wp_rem_plugin_text_srt('wp_rem_member_num_of_properties'),
-                'desc' => '',
-                'hint_text' => '',
-                'echo' => true,
-                'field_params' => array(
-                    'std' => '',
-                    'id' => 'num_of_properties',
-                    'return' => true,
-                ),
-            );
-
-            $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
-
-
-
-            $wp_rem_opt_array = array(
-                'name' => wp_rem_plugin_text_srt('wp_rem_phone'),
-                'desc' => '',
-                'hint_text' => '',
-                'echo' => true,
-                'field_params' => array(
-                    'std' => '',
-                    'id' => 'phone_number',
-                    'return' => true,
-                ),
-            );
-
-            $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
-
-            $wp_rem_opt_array = array(
-                'name' => wp_rem_plugin_text_srt('wp_rem_email_address'),
-                'desc' => '',
-                'hint_text' => '',
-                'echo' => true,
-                'field_params' => array(
-                    'std' => '',
-                    'id' => 'email_address',
-                    'return' => true,
-                ),
-            );
-
-            $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
-
-            $wp_rem_opt_array = array(
-                'name' => wp_rem_plugin_text_srt('wp_rem_website'),
-                'desc' => '',
-                'hint_text' => '',
-                'echo' => true,
-                'field_params' => array(
-                    'std' => '',
-                    'id' => 'website',
-                    'return' => true,
-                ),
-            );
-
-            $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
-
-            $wp_rem_opt_array = array(
-                'name' => wp_rem_plugin_text_srt('wp_rem_member_biography'),
-                'desc' => '',
-                'hint_text' => '',
-                'echo' => true,
-                'field_params' => array(
-                    'std' => '',
-                    'id' => 'biography',
-                    'return' => true,
-                ),
-            );
-
-            $wp_rem_html_fields->wp_rem_textarea_field($wp_rem_opt_array);
-
-            $wp_rem_html_fields->wp_rem_heading_render(
-                    array(
-                        'name' => wp_rem_plugin_text_srt('wp_rem_user_meta_mailing_information'),
-                        'id' => 'mailing_information',
-                        'classes' => '',
-                        'std' => '',
-                        'description' => '',
-                        'hint' => ''
-                    )
-            );
-
-            WP_REM_FUNCTIONS()->wp_rem_location_fields('off', '', 'member');
+            global $wp_rem_members_meta;
+            $wp_rem_members_meta = new Wp_rem_Members_Meta();
+            return $wp_rem_members_meta;
         }
-
-    }
-
-    global $wp_rem_members_meta;
-    $wp_rem_members_meta = new Wp_rem_Members_Meta();
-    return $wp_rem_members_meta;
-}

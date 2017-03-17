@@ -486,6 +486,69 @@ if ( ! class_exists('wp_rem_html_fields') ) {
                 return $wp_rem_output;
             }
         }
+		
+		
+		/**
+         * @ render Checkbox field
+         */
+        public function wp_rem_custom_checkbox_render($params = '') {
+            global $post, $pagenow;
+            extract($params);
+            $id = isset( $id ) ? $id : '';
+            $std = isset( $std ) ? $std : '';
+            if ($pagenow == 'post.php') {
+                $wp_rem_value = get_post_meta($post->ID, 'wp_rem_' . $id, true);
+            } else {
+                $wp_rem_value = $std;
+            }
+            if (isset($wp_rem_value) && $wp_rem_value != '') {
+                $value = $wp_rem_value;
+            } else {
+                $value = $std;
+            }
+            $wp_rem_output = '';
+            $wp_rem_styles = '';
+            if (isset($styles) && $styles != '') {
+                $wp_rem_styles = ' style="' . $styles . '"';
+            }
+
+            $cust_id = isset($id) ? ' id="' . $id . '"' : '';
+            $extra_attr = isset($extra_att) ? ' ' . $extra_att . ' ' : '';
+
+            $wp_rem_rand_id = time();
+            $html_id = ' id="wp_rem_' . sanitize_html_class($id) . '"';
+            $btn_name = ' name="wp_rem_' . sanitize_html_class($id) . '"';
+            $html_name = ' name="wp_rem_' . sanitize_html_class($id) . '"';
+            if (isset($array) && $array == true) {
+                $html_id = ' id="wp_rem_' . sanitize_html_class($id) . $wp_rem_rand_id . '"';
+                $btn_name = ' name="wp_rem_' . sanitize_html_class($id) . $wp_rem_rand_id . '"';
+                $html_name = ' name="wp_rem_' . sanitize_html_class($id) . '_array[]"';
+            }
+            if( isset( $field_params['id'] ) && $field_params['id'] != '' ){
+                $checkbox_id    = $html_id = 'wp_rem_' . sanitize_html_class($field_params['id']);
+            }
+            $checked = isset($value) && $value == 'on' ? ' checked="checked"' : '';
+            $wp_rem_output       = '';
+            if( isset( $simple ) && $simple != true ){
+                $wp_rem_output .= '<ul class="form-elements">';
+                $wp_rem_output .= '<li class="to-field has_input">';
+            }
+            $wp_rem_output .= parent::wp_rem_form_checkbox_render($field_params);
+            $wp_rem_output .= '<label for="' . $checkbox_id . '">';
+                $wp_rem_output .= $name;
+            $wp_rem_output .= '</label>';
+            if( isset( $simple ) && $simple != true ){
+                $wp_rem_output .= '<span class="pbwp-box"></span>';
+                $wp_rem_output .= $this->wp_rem_form_description($description);
+                $wp_rem_output .= '</li>';
+                $wp_rem_output .= '</ul>';
+            }
+            if (isset($echo) && $echo == true) {
+                echo force_balance_tags($wp_rem_output);
+            } else {
+                return $wp_rem_output;
+            }
+        }
 
         /**
          * upload media field markup
@@ -739,6 +802,65 @@ if ( ! class_exists('wp_rem_html_fields') ) {
          * select page field markup
          * 
          */
+        public function wp_rem_custom_select_page_field($params = '') {
+            extract($params);
+            $wp_rem_output = '';
+            $wp_rem_output .= '
+			<div class="form-elements">
+				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+					<label>' . esc_attr($name) . '</label>';
+            if ( isset($hint_text) && $hint_text != '' ) {
+                $wp_rem_output .= wp_rem_tooltip_text(esc_html($hint_text));
+            }
+            if ( isset($label_desc) && $label_desc != '' ) {
+                $wp_rem_output .= '<p class="label-desc">' . force_balance_tags($label_desc) . '</p>';
+            }
+            $wp_rem_output .= '
+				</div>
+				<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+					<div class="select-style pages-loader-holder">';
+						$wp_rem_output .= '<div class="args_'. $id.'" style="display:none;">'. json_encode($args) .'</div>';
+						if( $std != '' && is_numeric($std)){
+							$pages = array( $std => get_the_title($std) );
+						}else{
+							$pages = array( '' => wp_rem_plugin_text_srt('wp_rem_options_select_a_page') );
+						}
+						$wp_rem_output .= '<div id="'. $id.'_holder">';
+							$wp_rem_output .= '<div id="'. $id.'" onclick="wp_rem_load_all_pages(\''. $id .'\');">';
+								$wp_rem_output .= '<span class="pages-loader loader-' . $id . '"></span>';
+								$wp_rem_opt_array = array(
+									'std' => $std,
+									'cust_id' => $id,
+									'cust_name' => $id,
+									'classes' => 'chosen-select-no-single',
+									'options' => $pages,
+									'return' => true,
+								);
+								$wp_rem_output .= parent::wp_rem_form_select_render( $wp_rem_opt_array );
+							$wp_rem_output .= '</div>';
+						$wp_rem_output .= '</div>';
+						if ( '' != $desc ) {
+							$wp_rem_output .= '<p>' . esc_html($desc) . '</p>';
+						}
+					$wp_rem_output .= '</div>
+				</div>';
+            if ( isset($split) && $split == true ) {
+                $wp_rem_output .= '<div class="splitter"></div>';
+            }
+            $wp_rem_output .= '
+			</div>';
+
+            if ( isset($echo) && $echo == true ) {
+                echo force_balance_tags($wp_rem_output);
+            } else {
+                return $wp_rem_output;
+            }
+        }
+		
+		/**
+         * select page field markup
+         * 
+         */
         public function wp_rem_select_page_field($params = '') {
             extract($params);
             $wp_rem_output = '';
@@ -756,11 +878,11 @@ if ( ! class_exists('wp_rem_html_fields') ) {
 				</div>
 				<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
 					<div class="select-style">';
-            $wp_rem_output .= wp_dropdown_pages($args);
-            if ( '' != $desc ) {
-                $wp_rem_output .= '<p>' . esc_html($desc) . '</p>';
-            }
-            $wp_rem_output .= '</div>
+						$wp_rem_output .= wp_dropdown_pages($args);
+						if ( '' != $desc ) {
+							$wp_rem_output .= '<p>' . esc_html($desc) . '</p>';
+						}
+					$wp_rem_output .= '</div>
 				</div>';
             if ( isset($split) && $split == true ) {
                 $wp_rem_output .= '<div class="splitter"></div>';

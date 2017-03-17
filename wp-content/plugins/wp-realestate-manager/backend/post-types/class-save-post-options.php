@@ -418,7 +418,7 @@ if ( ! class_exists('Wp_rem_Plugin_Functions') ) {
          * How to create location Fields(fields) Function
          */
         public function wp_rem_location_fields($show_map = 'on', $user = '', $field_postfix = '', $output = true) {
-
+            
             global $wp_rem_plugin_options, $post, $wp_rem_html_fields, $wp_rem_form_fields;
             $wp_rem_map_latitude = isset($wp_rem_plugin_options['wp_rem_default_map_latitude']) ? $wp_rem_plugin_options['wp_rem_default_map_latitude'] : '';
             $wp_rem_map_longitude = isset($wp_rem_plugin_options['wp_rem_default_map_longitude']) ? $wp_rem_plugin_options['wp_rem_default_map_longitude'] : '';
@@ -1296,9 +1296,6 @@ if ( ! class_exists('Wp_rem_Plugin_Functions') ) {
                                                         $wp_rem_opt_array['split'] = $value['split'];
                                                     }
                                                     if ( $show_map == 'on' ) {
-
-
-
                                                         $wp_rem_html_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
                                                     }
                                                     ?>
@@ -1307,7 +1304,7 @@ if ( ! class_exists('Wp_rem_Plugin_Functions') ) {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row hidden">
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="field-holder">
                                             <label><?php echo wp_rem_plugin_text_srt('wp_rem_save_post_location_latitude'); ?></label>

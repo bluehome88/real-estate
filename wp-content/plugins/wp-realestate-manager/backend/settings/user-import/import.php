@@ -390,6 +390,7 @@ class wp_rem_user_import {
      * @since 0.1
      * */
     public function wp_rem_import_user_form() {
+		global $wp_rem_form_fields;
         if (!current_user_can('create_users'))
             wp_die( wp_rem_plugin_text_srt( 'wp_rem_property_users_sufficient_permissions' ) );
         ?>
@@ -455,7 +456,17 @@ class wp_rem_user_import {
                     	<label for="users_csv"><?php echo wp_rem_plugin_text_srt( 'wp_rem_property_users_zip_file' ); ?></label>
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <input type="file" id="users_csv" name="users_csv" value="" class="all-options" /><br />
+						<?php
+						$wp_rem_opt_array = array(
+							'std' => '',
+							'cust_id' => 'users_csv',
+							'cust_name' => 'users_csv',
+							'cust_type' => 'file',
+							'classes' => 'all-options',
+						);
+						$wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+						?>
+                        <br />
                         <span class="description"><?php echo wp_rem_plugin_text_srt( 'wp_rem_import_may_want_to_see'); ?> <a href="<?php echo esc_url(plugin_dir_url(__FILE__) . 'demo/user_data.zip'); ?>"><?php echo wp_rem_plugin_text_srt( 'wp_rem_import_the_demo_file'); ?></a>.</span>
                     </div>
                 </div>
@@ -464,7 +475,17 @@ class wp_rem_user_import {
 						<label for="new_user_notification"><?php echo wp_rem_plugin_text_srt( 'wp_rem_property_users_zip_notification' ); ?></label>
                     </div>
                 	<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <input id="new_user_notification" name="new_user_notification" type="checkbox" value="1" />
+						<?php
+						$wp_rem_opt_array = array( 
+							'cust_id' => 'new_user_notification',
+							'cust_name' => 'new_user_notification',
+							'classes' => '',
+							'std' => '1',
+							'description' => '',
+							'simple' => true,
+						);
+						$wp_rem_form_fields->wp_rem_form_checkbox_render($wp_rem_opt_array);
+						?>
                         <?php echo wp_rem_plugin_text_srt( 'wp_rem_property_users_zip_send_new_users' ) ?>
                     </div>
                 </div>
@@ -473,7 +494,17 @@ class wp_rem_user_import {
 						<label for="new_user_notification"><?php echo wp_rem_plugin_text_srt( 'wp_rem_property_users_password_nag' ); ?></label>
                     </div>
                 	<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <input id="password_nag" name="password_nag" type="checkbox" value="1" />
+						<?php
+						$wp_rem_opt_array = array( 
+							'cust_id' => 'password_nag',
+							'cust_name' => 'password_nag',
+							'classes' => '',
+							'std' => '1',
+							'description' => '',
+							'simple' => true,
+						);
+						$wp_rem_form_fields->wp_rem_form_checkbox_render($wp_rem_opt_array);
+						?>
                         <?php echo wp_rem_plugin_text_srt( 'wp_rem_property_users_password_nag_hint' ) ?>
                     </div>
                 </div>
@@ -482,7 +513,17 @@ class wp_rem_user_import {
 						<label for="new_user_notification"><?php echo wp_rem_plugin_text_srt( 'wp_rem_property_users_update' ); ?></label>
                     </div>
                 	<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <input id="users_update" name="users_update" type="checkbox" value="1" />
+						<?php
+						$wp_rem_opt_array = array( 
+							'cust_id' => 'users_update',
+							'cust_name' => 'users_update',
+							'classes' => '',
+							'std' => '1',
+							'description' => '',
+							'simple' => true,
+						);
+						$wp_rem_form_fields->wp_rem_form_checkbox_render($wp_rem_opt_array);
+						?>
                         <?php echo wp_rem_plugin_text_srt( 'wp_rem_property_users_update_hint' ) ?>
                     </div>
                 </div>
@@ -491,7 +532,16 @@ class wp_rem_user_import {
 					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">&nbsp;</div>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                         <p class="submit">
-                            <input type="submit" name="btn-import-users" class="button-primary" value="<?php echo wp_rem_plugin_text_srt( 'wp_rem_property_users_import_users' ); ?>" />
+							<?php
+							$wp_rem_opt_array = array(
+								'std' => wp_rem_plugin_text_srt( 'wp_rem_property_users_import_users' ),
+								'cust_id' => '',
+								'cust_name' => 'btn-import-users',
+								'cust_type' => 'submit',
+								'classes' => 'button-primary',
+							);
+							$wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+							?>
                         </p>
                     </div>
                 </div>
@@ -504,7 +554,16 @@ class wp_rem_user_import {
                     	<label><?php echo wp_rem_plugin_text_srt( 'wp_rem_property_users_export_all_users' ); ?></label>
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <input type="submit" name="btn-export-users" class="button-primary" value="<?php echo wp_rem_plugin_text_srt( 'wp_rem_property_users_export' ); ?>" />
+						<?php
+						$wp_rem_opt_array = array(
+							'std' => wp_rem_plugin_text_srt( 'wp_rem_property_users_export' ),
+							'cust_id' => '',
+							'cust_name' => 'btn-export-users',
+							'cust_type' => 'submit',
+							'classes' => 'button-primary',
+						);
+						$wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+						?>
                     </div>
                 </div>
             </form>   

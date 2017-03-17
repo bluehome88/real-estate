@@ -22,7 +22,7 @@ if ( ! class_exists('Wp_rem_Shortcodes') ) {
 			$wp_rem_opt_array = array(
 				'name' => wp_rem_plugin_text_srt('wp_rem_element_title'),
 				'desc' => '',
-				'hint_text' => wp_rem_plugin_text_srt('wp_rem_element_title_hint'),
+				'label_desc' => wp_rem_plugin_text_srt('wp_rem_element_title_hint'),
 				'echo' => true,
 				'field_params' => array(
 					'std' => '',
@@ -41,7 +41,7 @@ if ( ! class_exists('Wp_rem_Shortcodes') ) {
 			$wp_rem_opt_array = array(
 				'name' => wp_rem_plugin_text_srt('wp_rem_element_sub_title'),
 				'desc' => '',
-				'hint_text' => wp_rem_plugin_text_srt('wp_rem_element_sub_title_hint'),
+				'label_desc' => wp_rem_plugin_text_srt('wp_rem_element_sub_title_hint'),
 				'echo' => true,
 				'field_params' => array(
 					'std' => '',
@@ -58,7 +58,7 @@ if ( ! class_exists('Wp_rem_Shortcodes') ) {
 			$wp_rem_opt_array = array(
 				'name' => '',
 				'desc' => '',
-				'hint_text' => '',
+				'label_desc' => '',
 				'echo' => true,
 				'field_params' => array(
 					'std' => wp_rem_plugin_text_srt('wp_rem_save'),

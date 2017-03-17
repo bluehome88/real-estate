@@ -23,11 +23,17 @@ function wp_rem_member_favourite(thisObj, property_id, member_id, favourite, fav
                 var msg_obj = {msg : strings.added, type : 'success'};
                 
                 wp_rem_show_response(msg_obj);
+                if (response.property_count !== 'undefined' && response.property_count !== '') {
+                    jQuery(thisObj).parent().find(".likes-count span").text(response.property_count);
+                }
             } else {
                 jQuery(thisObj).removeClass('favourite').addClass('favourite');
                 jQuery(thisObj).html(before_icon + favourite);
                 var msg_obj = {msg : strings.removed, type : 'success'};
                 wp_rem_show_response(msg_obj);
+                if (response.property_count !== 'undefined' && response.property_count !== '') {
+                    jQuery(thisObj).parent().find(".likes-count span").text(response.property_count);
+                }
             }
         }
     });
@@ -38,13 +44,7 @@ function wp_rem_member_favourite(thisObj, property_id, member_id, favourite, fav
  * 
  * Homevillas Member Removed Favourite function
  */
-jQuery(document).ready(function ($) {
-jQuery(document).on("click", ".delete-favourite", function () {
-
-//    if (!confirm(wp_rem_favourites.confirm_msg)) {
-//        e.preventDefault();
-//        return false;
-//    }
+jQuery(document).on("click", ".delete-favourite", function () { 
     var thisObj = jQuery(this);
     var property_id = thisObj.data('id');
     var delete_icon_class = thisObj.find("i").attr('class');
@@ -69,6 +69,9 @@ jQuery(document).on("click", ".delete-favourite", function () {
                     
                     var msg_obj = {msg : response.message, type : 'success'};
                     wp_rem_show_response(msg_obj);
+                    if (response.property_count !== 'undefined' && response.property_count !== '') {
+                        jQuery('.like-btn').find(".likes-count span").text(response.property_count);
+                    }
                 }
             }
         });
@@ -81,5 +84,4 @@ jQuery(document).on("click", ".delete-favourite", function () {
         return false;
     });
     return false;
-});
 });

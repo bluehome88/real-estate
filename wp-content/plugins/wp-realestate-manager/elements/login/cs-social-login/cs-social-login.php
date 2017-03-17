@@ -151,8 +151,8 @@ if ( ! function_exists('wp_rem_social_process_login') ) {
                 $user_login = $user_data->user_login;
                 // update user meta
                 update_user_meta($user_id, 'wp_rem_user_last_activity_date', strtotime(date('d-m-Y H:i:s')));
-                update_user_meta($user_id, 'wp_rem_allow_search', 'yes');
-                update_user_meta($user_id, 'wp_rem_user_status', 'active');
+                //update_user_meta($user_id, 'wp_rem_allow_search', 'yes');
+                //update_user_meta($user_id, 'wp_rem_user_status', 'active');
                 if ( isset($wp_rem_facebook) && $wp_rem_facebook != '' ) {
                     update_user_meta($user_id, 'wp_rem_facebook', $wp_rem_facebook);
                 }
@@ -179,8 +179,8 @@ if ( ! function_exists('wp_rem_social_process_login') ) {
                 $user_login = $user_data->user_login;
                 // update user meta
                 update_user_meta($user_id, 'wp_rem_user_last_activity_date', strtotime(date('d-m-Y H:i:s')));
-                update_user_meta($user_id, 'wp_rem_allow_search', 'yes');
-                update_user_meta($user_id, 'wp_rem_user_status', 'active');
+                //update_user_meta($user_id, 'wp_rem_allow_search', 'yes');
+                //update_user_meta($user_id, 'wp_rem_user_status', 'active');
                 if ( isset($wp_rem_facebook) && $wp_rem_facebook != '' ) {
                     update_user_meta($user_id, 'wp_rem_facebook', $wp_rem_facebook);
                 }
@@ -216,8 +216,7 @@ if ( ! function_exists('wp_rem_social_process_login') ) {
                     ?>
                     <script>
                         location.href = '<?php echo get_home_url(); ?>';
-
-                    </script>
+					</script>
                     <?php
                     wp_die();
                 }
@@ -247,7 +246,17 @@ if ( ! function_exists('wp_rem_social_process_login') ) {
                 update_user_meta($user_id, 'wp_rem_user_last_activity_date', strtotime(date('d-m-Y H:i:s')));
                 update_user_meta($user_id, 'wp_rem_allow_search', 'yes');
                 update_user_meta($user_id, 'wp_rem_user_status', 'active');
-
+				// Update User Profile Status
+				if ( isset($wp_rem_plugin_options['wp_rem_member_review_option']) && $wp_rem_plugin_options['wp_rem_member_review_option'] == 'on' ) {
+                    $wpdb->update(
+                        $wpdb->prefix . 'users', array( 'user_status' => 1 ), array( 'ID' => esc_sql($user_id) )
+                    );
+                } else {
+                    $wpdb->update(
+                        $wpdb->prefix . 'users', array( 'user_status' => 0 ), array( 'ID' => esc_sql($user_id) )
+                    );
+                }
+				
 
                 $company_name = $wp_rem_first_name . ' ' . $wp_rem_last_name;
                 $company_data = array(
@@ -261,15 +270,8 @@ if ( ! function_exists('wp_rem_social_process_login') ) {
                 if ( $company_ID ) {
                     update_user_meta($user_id, 'wp_rem_user_type', 'supper-admin');
                     update_post_meta($company_ID, 'wp_rem_member_profile_type', 'individual');
-
-                    $member_user_type = wp_rem_get_transient_obj('member_user_type');
-                    $member_user_type = ( isset($member_user_type) && $member_user_type != '' ) ? $member_user_type : 'reseller';
-                    update_post_meta($company_ID, 'wp_rem_member_user_type', $member_user_type);
-
-                    if ( $member_user_type == 'buyer' ) {
-                        update_user_meta($user_id, 'wp_rem_permissions', $buyer_permissions);
-                    }
-
+                    update_post_meta($company_ID, 'wp_rem_member_user_type', 'reseller');
+                    
                     if ( isset($wp_rem_member_image_id) && $wp_rem_member_image_id != '' ) {
                         update_post_meta($company_ID, 'wp_rem_profile_image', $wp_rem_member_image_id);
                     }
@@ -289,18 +291,14 @@ if ( ! function_exists('wp_rem_social_process_login') ) {
                 if ( $user_id && is_integer($user_id) ) {
                     update_user_meta($user_id, $wp_rem_provider_identity_key, $wp_rem_provider_identity);
                 }
+				
+				// Update Member Status
                 if ( isset($wp_rem_plugin_options['wp_rem_member_review_option']) && $wp_rem_plugin_options['wp_rem_member_review_option'] == 'on' ) {
-                    $wpdb->update(
-                            $wpdb->prefix . 'users', array( 'user_status' => 1 ), array( 'ID' => esc_sql($user_id) )
-                    );
-                    update_user_meta($user_id, 'wp_rem_user_status', 'active');
+                    update_post_meta($company_ID, 'wp_rem_user_status', 'active');
                 } else {
-                    $wpdb->update(
-                            $wpdb->prefix . 'users', array( 'user_status' => 0 ), array( 'ID' => esc_sql($user_id) )
-                    );
-                    update_user_meta($user_id, 'wp_rem_user_status', 'inactive');
-                }
-            } else {
+                   update_post_meta($company_ID, 'wp_rem_user_status', 'pending');
+				}
+			} else {
                 add_filter('wp_login_errors', 'wp_login_errors');
 
                 return;

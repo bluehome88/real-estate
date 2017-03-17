@@ -36,6 +36,7 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_counter') ) {
             'wp_rem_cs_var_icon_color' => '',
             'wp_rem_cs_var_count_color' => '',
             'wp_rem_cs_var_counters_view' => '',
+            'wp_rem_cs_var_icon_title_color'=>'',
         );
         if ( isset($output['0']['atts']) ) {
             $atts = $output['0']['atts'];
@@ -157,6 +158,7 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_counter') ) {
                                             'default' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_default'),
                                             'modern' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_client_modern'),
                                             'classic' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_client_classic'),
+                                            'classic_v2' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_client_style_classic_v2'),
                                         ),
                                         'return' => true,
                                     ),
@@ -190,14 +192,29 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_counter') ) {
                                 if ( $wp_rem_cs_var_counters_view == 'modern' || $wp_rem_cs_var_counters_view == 'classic' ) {
                                     $style_modern = ' style="display:none;" ';
                                 }
+                                
                                 $icon_style_modern = '';
                                 if ( $wp_rem_cs_var_counters_view == 'modern' ) {
                                     $icon_style_modern = ' style="display:none;" ';
                                 }
+                                
+                                $wp_rem_cs_opt_array = array(
+                                    'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_counter_title_color'),
+                                    'desc' => '',
+                                    'hint_text' => '',
+                                    'echo' => true,
+                                    'field_params' => array(
+                                        'std' => esc_attr($wp_rem_cs_var_icon_title_color),
+                                        'cust_id' => 'wp_rem_cs_var_icon_title_color',
+                                        'classes' => 'bg_color',
+                                        'cust_name' => 'wp_rem_cs_var_icon_title_color[]',
+                                        'return' => true,
+                                    ),
+                                );
 
-
-
-
+                                $wp_rem_cs_var_html_fields->wp_rem_cs_var_text_field($wp_rem_cs_opt_array);
+                                
+                                
                                 echo '<div class="modern-hide-show" ' . $style_modern . '>';
 
                                 $wp_rem_cs_opt_array = array(
@@ -260,6 +277,7 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_counter') ) {
                                     $wp_rem_cs_var_counter_text = $counter['content'];
                                     $defaults = array(
                                         'wp_rem_cs_var_icon' => '',
+                                        'wp_rem_cs_var_icon_group' => 'default',
                                         'wp_rem_cs_var_title' => '',
                                         'wp_rem_cs_var_count' => '',
                                     );
@@ -290,7 +308,8 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_counter') ) {
                                                     ?>
                                                 </div>
                                                 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                                                    <?php echo wp_rem_cs_var_icomoon_icons_box(esc_attr($wp_rem_cs_var_icon), $rand_string, 'wp_rem_cs_var_icon'); ?>
+                                                    <?php //echo wp_rem_cs_var_icomoon_icons_box(esc_attr($wp_rem_cs_var_icon), $rand_string, 'wp_rem_cs_var_icon'); ?>
+                                                    <?php echo apply_filters( 'cs_icons_fields', esc_attr($wp_rem_cs_var_icon), $rand_string, 'wp_rem_cs_var_icon', $wp_rem_cs_var_icon_group ); ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -471,6 +490,9 @@ if ( ! function_exists('wp_rem_cs_save_page_builder_data_counter_callback') ) {
                         if ( isset($data['wp_rem_cs_var_icon'][$counters['wp_rem_cs_counter_counter_node']]) && $data['wp_rem_cs_var_icon'][$counters['wp_rem_cs_counter_counter_node']] != '' ) {
                             $shortcode_item .= 'wp_rem_cs_var_icon="' . htmlspecialchars($data['wp_rem_cs_var_icon'][$counters['wp_rem_cs_counter_counter_node']], ENT_QUOTES) . '" ';
                         }
+                        if ( isset($data['wp_rem_cs_var_icon_group'][$counters['wp_rem_cs_counter_counter_node']]) && $data['wp_rem_cs_var_icon_group'][$counters['wp_rem_cs_counter_counter_node']] != '' ) {
+                            $shortcode_item .= 'wp_rem_cs_var_icon_group="' . htmlspecialchars($data['wp_rem_cs_var_icon_group'][$counters['wp_rem_cs_counter_counter_node']], ENT_QUOTES) . '" ';
+                        }
                         if ( isset($data['wp_rem_cs_var_title'][$counters['wp_rem_cs_counter_counter_node']]) && $data['wp_rem_cs_var_title'][$counters['wp_rem_cs_counter_counter_node']] != '' ) {
                             $shortcode_item .= 'wp_rem_cs_var_title="' . $data['wp_rem_cs_var_title'][$counters['wp_rem_cs_counter_counter_node']] . '" ';
                         }
@@ -498,6 +520,9 @@ if ( ! function_exists('wp_rem_cs_save_page_builder_data_counter_callback') ) {
                 }
                 if ( isset($data['wp_rem_cs_var_counter_col'][$counters['wp_rem_cs_counter_counter']]) && $data['wp_rem_cs_var_counter_col'][$counters['wp_rem_cs_counter_counter']] != '' ) {
                     $section_title .= 'wp_rem_cs_var_counter_col="' . htmlspecialchars($data['wp_rem_cs_var_counter_col'][$counters['wp_rem_cs_counter_counter']], ENT_QUOTES) . '" ';
+                }
+                if ( isset($data['wp_rem_cs_var_icon_title_color'][$counters['wp_rem_cs_counter_counter']]) && $data['wp_rem_cs_var_icon_title_color'][$counters['wp_rem_cs_counter_counter']] != '' ) {
+                    $section_title .= 'wp_rem_cs_var_icon_title_color="' . htmlspecialchars($data['wp_rem_cs_var_icon_title_color'][$counters['wp_rem_cs_counter_counter']], ENT_QUOTES) . '" ';
                 }
                 if ( isset($data['wp_rem_cs_var_icon_color'][$counters['wp_rem_cs_counter_counter']]) && $data['wp_rem_cs_var_icon_color'][$counters['wp_rem_cs_counter_counter']] != '' ) {
                     $section_title .= 'wp_rem_cs_var_icon_color="' . htmlspecialchars($data['wp_rem_cs_var_icon_color'][$counters['wp_rem_cs_counter_counter']], ENT_QUOTES) . '" ';
@@ -615,9 +640,6 @@ if ( ! function_exists('wp_rem_cs_shortcode_sub_element_ui_counter_callback') ) 
                     $('.modern-hide-show-iocn').show();
                 }
             </script>
-
-
-
             <div class='cs-wrapp-clone cs-shortcode-wrapp' id="wp_rem_cs_counter_<?php echo wp_rem_cs_allow_special_char($multiple_counter_count); ?>">
                 <header>
                     <h4><i class='icon-arrows'></i><?php echo wp_rem_cs_var_frame_text_srt('wp_rem_cs_var_multiple_counter'); ?></h4>
@@ -625,10 +647,6 @@ if ( ! function_exists('wp_rem_cs_shortcode_sub_element_ui_counter_callback') ) 
                         echo wp_rem_cs_var_frame_text_srt('wp_rem_cs_var_remove');
                         ?></a>
                 </header>
-
-
-
-
                 <div class="modern-hide-show-iocn">
                     <div class="form-elements" id="<?php echo esc_attr($multiple_counter_count); ?>">
                         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
@@ -640,7 +658,8 @@ if ( ! function_exists('wp_rem_cs_shortcode_sub_element_ui_counter_callback') ) 
                             ?>
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                            <?php echo wp_rem_cs_var_icomoon_icons_box('', $multiple_counter_count, 'wp_rem_cs_var_icon'); ?>
+                            <?php //echo wp_rem_cs_var_icomoon_icons_box('', $multiple_counter_count, 'wp_rem_cs_var_icon'); ?>
+                            <?php echo apply_filters( 'cs_icons_fields', '', $multiple_counter_count, 'wp_rem_cs_var_icon' ); ?>
                         </div>
                     </div>
                 </div>

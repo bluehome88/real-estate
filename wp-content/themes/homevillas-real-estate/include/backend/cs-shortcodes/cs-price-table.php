@@ -298,6 +298,7 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_price_table') ) {
 										'wp_rem_cs_price_table_image_icon' => '',
                                         'wp_rem_cs_var_price_table_image' => '',
 										'wp_rem_cs_price_table_icon_box' => '',
+										'wp_rem_cs_price_table_icon_box_group' => 'default',
                                         'wp_rem_var_price_table_packages_list' => ''
                                     );
                                     foreach ( $defaults as $key => $values ) {
@@ -407,7 +408,7 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_price_table') ) {
 											$wp_rem_cs_var_html_fields->wp_rem_cs_var_upload_file_field($wp_rem_cs_opt_array);
 										echo '</div>';
 										?>
-										<div class="form-elements wp_rem_cs_price_table_icon_<?php echo esc_attr($rand_string); ?>" <?php echo $icon_field_display; ?>>
+					<div class="form-elements wp_rem_cs_price_table_icon_<?php echo esc_attr($rand_string); ?>" <?php echo $icon_field_display; ?>>
                                             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                                 <label><?php echo esc_html(wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_price_table_icon')); ?></label>
                                                 <?php
@@ -417,7 +418,7 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_price_table') ) {
                                                 ?>
                                             </div>
                                             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                                                <?php echo wp_rem_cs_var_icomoon_icons_box($wp_rem_cs_price_table_icon_box, esc_attr($rand_string), 'wp_rem_cs_price_table_icon_box'); ?>
+                                                <?php echo apply_filters( 'cs_icons_fields', $wp_rem_cs_price_table_icon_box, esc_attr($rand_string), 'wp_rem_cs_price_table_icon_box', $wp_rem_cs_price_table_icon_box_group ); ?>
                                             </div>
                                         </div>
 										<?php
@@ -770,11 +771,14 @@ if ( ! function_exists('wp_rem_cs_save_page_builder_data_price_table_callback') 
                         if ( isset($data['wp_rem_var_price_table_packages_list'][$counters['wp_rem_cs_counter_price_table_node']]) && $data['wp_rem_var_price_table_packages_list'][$counters['wp_rem_cs_counter_price_table_node']] != '' ) {
                             $shortcode_item .= 'wp_rem_var_price_table_packages_list="' . htmlspecialchars($data['wp_rem_var_price_table_packages_list'][$counters['wp_rem_cs_counter_price_table_node']], ENT_QUOTES) . '" ';
                         }
-						if ( isset($data['wp_rem_cs_price_table_image_icon'][$counters['wp_rem_cs_counter_price_table_node']]) && $data['wp_rem_cs_price_table_image_icon'][$counters['wp_rem_cs_counter_price_table_node']] != '' ) {
+                        if ( isset($data['wp_rem_cs_price_table_image_icon'][$counters['wp_rem_cs_counter_price_table_node']]) && $data['wp_rem_cs_price_table_image_icon'][$counters['wp_rem_cs_counter_price_table_node']] != '' ) {
                             $shortcode_item .= 'wp_rem_cs_price_table_image_icon="' . htmlspecialchars($data['wp_rem_cs_price_table_image_icon'][$counters['wp_rem_cs_counter_price_table_node']], ENT_QUOTES) . '" ';
                         }
-						if ( isset($data['wp_rem_cs_price_table_icon_box'][$counters['wp_rem_cs_counter_price_table_node']]) && $data['wp_rem_cs_price_table_icon_box'][$counters['wp_rem_cs_counter_price_table_node']] != '' ) {
+                        if ( isset($data['wp_rem_cs_price_table_icon_box'][$counters['wp_rem_cs_counter_price_table_node']]) && $data['wp_rem_cs_price_table_icon_box'][$counters['wp_rem_cs_counter_price_table_node']] != '' ) {
                             $shortcode_item .= 'wp_rem_cs_price_table_icon_box="' . htmlspecialchars($data['wp_rem_cs_price_table_icon_box'][$counters['wp_rem_cs_counter_price_table_node']], ENT_QUOTES) . '" ';
+                        }
+                        if ( isset($data['wp_rem_cs_price_table_icon_box_group'][$counters['wp_rem_cs_counter_price_table_node']]) && $data['wp_rem_cs_price_table_icon_box_group'][$counters['wp_rem_cs_counter_price_table_node']] != '' ) {
+                            $shortcode_item .= 'wp_rem_cs_price_table_icon_box_group="' . htmlspecialchars($data['wp_rem_cs_price_table_icon_box_group'][$counters['wp_rem_cs_counter_price_table_node']], ENT_QUOTES) . '" ';
                         }
 						
                         $shortcode_item .= ']';

@@ -84,6 +84,7 @@ if ( $property_loop_obj->have_posts() ) {
                 while ( $property_top_categries_loop_obj->have_posts() ) : $property_top_categries_loop_obj->the_post();
                     global $post, $wp_rem_member_profile;
                     $property_id = $post;
+					$pro_is_compare = apply_filters('wp_rem_is_compare', $property_id, $compare_property_switch);
 
                     $Wp_rem_Locations = new Wp_rem_Locations();
                     $get_property_location = $Wp_rem_Locations->get_element_property_location($property_id, $property_location_options);
@@ -107,7 +108,7 @@ if ( $property_loop_obj->have_posts() ) {
                     if ( $wp_rem_property_price_options == 'price' ) {
                         $wp_rem_property_price = get_post_meta($property_id, 'wp_rem_property_price', true);
                     } else if ( $wp_rem_property_price_options == 'on-call' ) {
-                        $wp_rem_property_price = 'Price On Request';
+                        $wp_rem_property_price = wp_rem_plugin_text_srt('wp_rem_properties_price_on_request');
                     }
                     // get all categories
                     $wp_rem_cate = '';
@@ -129,7 +130,7 @@ if ( $property_loop_obj->have_posts() ) {
                     }
                     ?>
                     <div class="<?php echo esc_html($columns_class); ?>">
-                        <div class="<?php echo esc_html($main_class); ?>">
+                        <div class="<?php echo esc_html($main_class); ?> <?php echo esc_html( $pro_is_compare ); ?>">
                             <div class="img-holder">
                                 <figure>
                                     <a href="<?php the_permalink(); ?>">
@@ -245,6 +246,7 @@ if ( $property_loop_obj->have_posts() ) {
             while ( $property_loop_obj->have_posts() ) : $property_loop_obj->the_post();
                 global $post, $wp_rem_member_profile;
                 $property_id = $post;
+				$pro_is_compare = apply_filters('wp_rem_is_compare', $property_id, $compare_property_switch);
 
                 $Wp_rem_Locations = new Wp_rem_Locations();
                 $get_property_location = $Wp_rem_Locations->get_element_property_location($property_id, $property_location_options);
@@ -268,7 +270,7 @@ if ( $property_loop_obj->have_posts() ) {
                 if ( $wp_rem_property_price_options == 'price' ) {
                     $wp_rem_property_price = get_post_meta($property_id, 'wp_rem_property_price', true);
                 } else if ( $wp_rem_property_price_options == 'on-call' ) {
-                    $wp_rem_property_price = 'Price On Request';
+                    $wp_rem_property_price = wp_rem_plugin_text_srt('wp_rem_properties_price_on_request');
                 }
                 // get all categories
                 $wp_rem_cate = '';
@@ -290,7 +292,7 @@ if ( $property_loop_obj->have_posts() ) {
                 }
                 ?>
                 <div class="<?php echo esc_html($columns_class); ?>">
-                    <div class="<?php echo esc_html($main_class); ?>">
+                    <div class="<?php echo esc_html($main_class); ?> <?php echo esc_html( $pro_is_compare ); ?>">
                         <div class="img-holder">
                             <figure>
                                 <a href="<?php the_permalink(); ?>">

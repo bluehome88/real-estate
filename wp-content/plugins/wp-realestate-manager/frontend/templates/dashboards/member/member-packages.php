@@ -69,9 +69,14 @@ if ( ! class_exists('Wp_rem_Member_Packages') ) {
 		public function render_view($pkg_query) {
 			global $wp_rem_plugin_options;
 			$wp_rem_currency_sign = wp_rem_get_currency_sign();
-			?>
+                        
+                        $has_border = ' has-border';
+                        if ( isset($pkg_query) && $pkg_query != '' && $pkg_query->have_posts() ) :
+                             $has_border = '';
+                        endif;
+                        ?>
 			<div class="user-packages">
-				<div class="element-title">
+				<div class="element-title<?php echo wp_rem_allow_special_char($has_border); ?>">
 					<h4><?php echo wp_rem_plugin_text_srt('wp_rem_member_pkg_pkgs'); ?></h4>
 				</div>
 			</div>
@@ -152,9 +157,7 @@ if ( ! class_exists('Wp_rem_Member_Packages') ) {
 												$wp_rem_top_cat_remain = '0';
 												if ( (int) $trans_top_cat_num > (int) $wp_rem_top_cat_used ) {
 													$wp_rem_top_cat_remain = (int) $trans_top_cat_num - (int) $wp_rem_top_cat_used;
-												}
-
-												$trans_service_num = get_post_meta($package_id, 'wp_rem_transaction_property_serv_num', true);
+												} 
 												$trans_pics_num = get_post_meta($package_id, 'wp_rem_transaction_property_pic_num', true);
 												$trans_docs_num = get_post_meta($package_id, 'wp_rem_transaction_property_doc_num', true);
 												$trans_tags_num = get_post_meta($package_id, 'wp_rem_transaction_property_tags_num', true);
@@ -182,7 +185,6 @@ if ( ! class_exists('Wp_rem_Member_Packages') ) {
 													$html .= '<li><label>' . wp_rem_plugin_text_srt( 'wp_rem_member_top_categories_properties' ) . '</label><span>0</span></li>';
 												}
 
-												$html .= $this->purchase_package_info_field_show($trans_service_num, wp_rem_plugin_text_srt( 'wp_rem_member_add_list_no_of_services' ));
 												$html .= $this->purchase_package_info_field_show($trans_pics_num, wp_rem_plugin_text_srt( 'wp_rem_member_add_list_no_of_pictures' ));
 												$html .= $this->purchase_package_info_field_show($trans_docs_num, wp_rem_plugin_text_srt( 'wp_rem_member_add_list_no_of_docs' ));
 												$html .= $this->purchase_package_info_field_show($trans_tags_num, wp_rem_plugin_text_srt( 'wp_rem_member_add_list_no_of_tags' ));

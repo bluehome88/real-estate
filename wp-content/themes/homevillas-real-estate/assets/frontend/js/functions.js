@@ -1,17 +1,68 @@
 /* ------------------------------- All Functions Start ------------------------------- */
 
 /* -------------------------------  Document Rready Functions Start ------------------------------- */
-
 jQuery(document).ready(function () {
-	function Classic_Blog_Post() {
-		if ($(".blog.blog-medium.classic .blog-post").length > 0) {
-			$(".blog.blog-medium.classic .blog-post").matchHeight();
-		}	
-	}
-	Classic_Blog_Post();
-	$(window).resize(function(){
-		Classic_Blog_Post();
-	});	
+    
+    
+    
+    if (jQuery(".blog .swiper-container").length != "") {
+
+        var swiper = new Swiper(".blog .swiper-container", {
+
+            slidesPerView: "auto",
+
+            loop: true,
+
+            autoplay: 3500,
+
+            autoplayDisableOnInteraction: false,
+
+            paginationClickable: true,
+
+            nextButton: ".swiper-button-next",
+
+            prevButton: ".swiper-button-prev"
+
+        });
+
+        setTimeout(function() {
+
+            jQuery("li.swiper-loader").fadeOut(200, function() {
+
+                jQuery(this).remove();
+
+            });
+
+        }, 5e3);
+
+    }
+    
+    function Classic_Blog_Post() {
+        if ($(".blog.blog-medium.classic .blog-post").length > 0) {
+            $(".blog.blog-medium.classic .blog-post").matchHeight();
+        }   
+    }
+    Classic_Blog_Post();
+    $(window).resize(function(){
+        Classic_Blog_Post();
+    }); 
+
+    // scroll to section
+    $('body').scrollspy({target: ".main-navigation"});
+    // Add smooth scrolling on all links inside the navbar
+    $(".default-v2 .main-navigation a").on('click', function(event) {
+        // Make sure this.hash has a value before overriding default behavior
+        if (this.hash !== "") {
+          event.preventDefault();
+          var hash = this.hash;
+          $('html, body').animate({
+            scrollTop: $(hash).offset().top - 40
+          }, 800, function(){
+            window.location.hash = hash;
+          });
+        }  // End if
+    });
+
     /*Sticky Nav Bar Function Start*/
     var headerHeight=$("header").height();
     $("header").css('min-height',headerHeight);
@@ -23,6 +74,7 @@ jQuery(document).ready(function () {
             jQuery('.cs-blog-unit .main-navigation>ul>li:last-child').prepend('<a href="#">More</a>');
         }
     }
+
     //=== sticky menu ===
     function StickyHeader (element) { 
         this.thisElement = element; 
@@ -38,13 +90,14 @@ jQuery(document).ready(function () {
     StickyHeader.prototype.stickyActive = function () {
         this.thisElement.css("top", this.wpAdminBar());
         this.thisElement.addClass("sticky-active");
+        this.thisElement.removeClass("stickyAnimate");
         this.thisElement.parents('body').addClass('has-sticky');
-        this.stickyCheck(true);
-        
+        this.stickyCheck(true); 
     }; 
     StickyHeader.prototype.stickyDisable = function () { 
         this.thisElement.css("top", '');
         this.thisElement.removeClass("sticky-active");
+        this.thisElement.removeClass("stickyAnimate");
         this.thisElement.parents('body').removeClass('has-sticky');
         this.stickyCheck(false);
     };
@@ -56,20 +109,28 @@ jQuery(document).ready(function () {
         //=== End of instance of sticky menu =====
         //=== Run this on scroll events.
         var $window=$(window);
-            var stickyEndPoint,
+            var stickyEndPoint,stickyAnimate,
             detailNav;
-            stickyEndPoint = stickyheader.thisElement.offset().top; //target element offset for the sticky instance
-            console.log(stickyEndPoint);
+            stickyAnimate=stickyheader.thisElement.offset().top +  stickyheader.thisElement.outerHeight();//target element offset for the sticky instance
+            stickyEndPoint = stickyAnimate + 20; 
             if ($(".detail-nav").length > 0) {
                detailNav=$(".detail-nav").offset().top;
             }
-
         if($("#wpadminbar").length > 0){
             stickyEndPoint=stickyEndPoint - $("#wpadminbar").height() + 5;
         }
         if($window.width() > 998){
             $window.scroll(function () {
                 var window_top = $window.scrollTop();
+                if ((window_top > stickyAnimate) &&  (stickyheader.isSticky==false) ) {
+                    stickyheader.thisElement.addClass("stickyAnimate");
+                }
+                else if( (window_top < stickyEndPoint) && (stickyheader.isSticky==true)) {
+                    stickyheader.thisElement.addClass("stickyAnimate");
+                }
+                else if( (window_top < stickyAnimate) && (stickyheader.isSticky==false)) {
+                    stickyheader.thisElement.removeClass("stickyAnimate");
+                }
                 if ((window_top > stickyEndPoint) &&  (stickyheader.isSticky==false)) {
                     stickyheader.stickyActive();
                 } else if( (window_top < stickyEndPoint) && (stickyheader.isSticky==true)) {
@@ -78,142 +139,32 @@ jQuery(document).ready(function () {
                 if ((window_top > detailNav) &&  (stickyheader.isSticky==true)) {
                     stickyheader.stickyDisable();
                 }
-                
             });
         }
-
+        // window resize sticky bind or unbind
+        $(window).resize(function(){
+            if($window.width() < 998){
+                stickyheader.stickyDisable();
+                $window.scroll(function () {
+                  stickyheader.stickyDisable();  
+                });
+            }else{
+                var window_top;
+                window_top = $window.scrollTop();
+                if (window_top > stickyEndPoint){
+                    stickyheader.stickyActive();
+                }
+                $window.scroll(function () {
+                    window_top = $window.scrollTop();
+                    if ((window_top > stickyEndPoint) &&  (stickyheader.isSticky==false)) {
+                        stickyheader.stickyActive();
+                    }
+                });
+            }
+        });
+        // window resize sticky bind or unbind
     }
     //=== End Run this on scroll events =====
-
-
-   //  function StickyHeader2() {
-   //      "use strict";
-   //      var $ = jQuery;
-   //      var stickyTop2;
-   //      if ($('#header.modern.sticky-header, #header.default.sticky-header').length) {
-   //          var el2 = $('#header.modern.sticky-header, #header.default.sticky-header');
-   //          var headerHeight2 = $("#header.sticky-header").outerHeight();
-   //          stickyTop2 = $('#header.modern.sticky-header, #header.default.sticky-header').offset().top;
-   //          var stickyHeight2 = $('#header.modern.sticky-header, #header.default.sticky-header').height();
-   //          var AdminBarHeight2 = $("#wpadminbar").height();
-   //          $("#header.sticky-header").height(headerHeight2);
-   //          if ($("#wpadminbar").length > 0) {
-   //              stickyTop2 = stickyTop2 - 32;
-   //          }
-   //          $(window).scroll(function() { // scroll event
-   //              var limit2;
-   //              if ($('.detail-nav').length) {
-   //                  limit2 = $('.detail-nav').offset().top - stickyHeight2;
-   //              }
-   //              var windowTop2 = $(window).scrollTop();
-   //              if (stickyTop2 < windowTop2) {
-   //                  el2.css({
-   //                      "position": "fixed",
-   //                      "width": "100%",
-   //                      "z-index": "999",
-   //                      "top": "0",
-			// 			"-webkit-box-shadow": '0 0 5px rgba(0, 0, 0, .2)',
-			// 			"-moz-box-shadow": '0 0 5px rgba(0, 0, 0, .2)',
-			// 			"box-shadow": '0 0 5px rgba(0, 0, 0, .2)',
-   //                  });
-   //                  $('#header.modern.sticky-header, #header.default.sticky-header').css("margin-top", AdminBarHeight2);
-			// 		$('.wrapper').css("padding-top", stickyHeight2);
-   //              } else {
-   //                  el2.css({
-   //                      "position": "relative",
-   //                      "width": "100%",
-   //                      "z-index": "999",
-   //                      "top": "auto",
-			// 			"-webkit-box-shadow": '0 0 5px rgba(0, 0, 0, 0)',
-			// 			"-moz-box-shadow": '0 0 5px rgba(0, 0, 0, 0)',
-			// 			"box-shadow": '0 0 5px rgba(0, 0, 0, 0)',
-   //                  });
-   //                  $('#header.modern.sticky-header, #header.default.sticky-header').css("margin-top", "0");
-			// 		$('.wrapper').css("padding-top", "0");
-   //              }
-   //              if (limit2 < windowTop2) {
-   //                  var diff2 = limit2 - windowTop2;
-   //                  el2.css({
-   //                      top: diff2
-   //                  });
-   //                  $('#header.modern.sticky-header, #header.default.sticky-header').css("margin-top", "0");
-			// 		$('.wrapper').css("padding-top", "0");
-   //              }
-   //          });
-   //      }
-   //  }
-   // // StickyHeader2();
-   //  $(window).resize(function() {
-   //      //StickyHeader2();
-   //  });
-   //  $(window).scroll(function() {
-   //  });
-
-
-
-    // function StickyHeader() {
-    //     "use strict";
-    //     var $ = jQuery;
-    //     var stickyTop;
-    //     if ($('.sticky-header .main-header .nav-area').length) {
-    //         var el = $('#header.sticky-header .nav-area');
-    //         var headerHeight=$("#header.sticky-header").outerHeight();
-    //         stickyTop = $('.sticky-header .main-header .nav-area').offset().top;
-    //         var stickyHeight = $('.sticky-header .main-header .nav-area').height();
-    //         var AdminBarHeight = $("#wpadminbar").height();
-    //         $("#header.sticky-header").height(headerHeight);
-    //         if($("#wpadminbar").length > 0){
-    //             stickyTop=stickyTop - 32;
-    //         }
-    //         $(window).scroll(function () { // scroll event
-    //             var limit;
-    //             if ($('.detail-nav').length) {
-    //                 limit = $('.detail-nav').offset().top - stickyHeight;
-    //             }
-    //             var windowTop = $(window).scrollTop();
-    //             if (stickyTop < windowTop) {
-    //                 el.css({
-    //                     "position": "fixed",
-    //                     "width": "100%",
-    //                     "z-index": "999",
-    //                     "top": "0"
-    //                 });
-    //                 $('.sticky-header .main-header .nav-area').css("margin-top", AdminBarHeight);
-				// 	if($("#header.classic.sticky-header").length > 0){
-				// 		$('#header.classic.sticky-header .main-header .nav-area').addClass("pinned");
-				// 	}
-    //             } else {
-    //                 el.css({
-    //                     "position": "relative",
-    //                     "width": "100%",
-    //                     "z-index": "999",
-    //                     "top": "auto"
-    //                 });
-    //                 $('.sticky-header .main-header .nav-area').css("margin-top", "0");
-				// 	if($("#header.classic.sticky-header").length > 0){
-				// 		$('#header.classic.sticky-header .main-header .nav-area').removeClass("pinned");
-				// 	}					
-    //             }
-    //             if (limit < windowTop) {
-    //                 var diff = limit - windowTop;
-    //                 el.css({
-    //                     top: diff
-    //                 });
-    //                 $('.sticky-header .main-header .nav-area').css("margin-top", "0");
-    //             }
-    //         });
-    //     }
-    // }
-    //StickyHeader();
-    // $(window).resize(function () {
-    //    // StickyHeader();
-    // });
-    // $(window).scroll(function () {
-    // });
-
-    /* sticky header code end */
-
-
 
     /*Main Navigation Function Start*/
 
@@ -253,7 +204,7 @@ jQuery(document).ready(function () {
 
 
 
-    /*	
+    /*  
 
      
 
@@ -463,7 +414,6 @@ jQuery(document).ready(function () {
 
     });
 
-    // console.log(mySwiper);
 
 
 
@@ -873,14 +823,6 @@ function wp_rem_show_theme_loader(loading_element, loader_data, loader_style, th
 
 }
 
-
-
-
-
-
-
-
-
 jQuery(document).on("submit", ".wp-rem-search-form", function () {
 
 
@@ -953,6 +895,28 @@ jQuery(document).ready(function ($) {
 
     }
 
-
-
+    /*Back To Top Start*/
+    if (jQuery(".btn-top").length > 0) {
+    var scrollTrigger = 100, // px
+        backToTop = function () {
+            var scrollTop = $(window).scrollTop();
+            if (scrollTop > scrollTrigger) {
+                $('.btn-top').addClass('show');
+            } else {
+                $('.btn-top').removeClass('show');
+            }
+        };
+    backToTop();
+    $(window).on('scroll', function () {
+        backToTop();
+    });
+    jQuery(document).on("click", ".back-to-top", function(e) {
+        e.preventDefault();
+        jQuery("html, body").animate({
+            scrollTop: 0
+        }, 800);
+    });
+    /*Back To Top End*/
+    
+    } 
 });

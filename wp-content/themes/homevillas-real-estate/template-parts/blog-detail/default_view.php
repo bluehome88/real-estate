@@ -85,7 +85,6 @@ $cat = '';
 $cat = get_the_category($post->ID);
 $cat_id = isset($cat[0]->cat_ID) ? $cat[0]->cat_ID : '';
 $cat_meta = get_term_meta($cat_id, 'cat_meta_data', true);
-$cat_icon = isset($cat_meta['cat_icon']) ? $cat_meta['cat_icon'] : '';
 $prev_post_url = '';
 $prev_post = get_adjacent_post(false, '', true);
 if ($prev_post) {

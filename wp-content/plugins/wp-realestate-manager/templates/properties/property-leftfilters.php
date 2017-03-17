@@ -24,7 +24,6 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
 
     <div class="wp-rem-filters">
         <?php
-        // print_r($_REQUEST);
         $search_title = isset($_REQUEST['search_title']) ? $_REQUEST['search_title'] : '';
         //echo $property_type = isset($_REQUEST['property_type']) ? $_REQUEST['property_type'] : $property_type;
         $location = isset($_REQUEST['location']) ? $_REQUEST['location'] : '';
@@ -74,19 +73,21 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                 )
         );
         $reset_var = 0;
-        if ( isset($_REQUEST) ) {
-            foreach ( $_REQUEST as $qry_var => $qry_val ) {
-                if ( 'ajax_filter' == $qry_var || 'advanced_search' == $qry_var || 'property_arg' == $qry_var || 'action' == $qry_var || 'alert-frequency' == $qry_var || 'alerts-name' == $qry_var || 'loc_polygon' == $qry_var || 'alerts-email' == $qry_var )
+        if (isset($_REQUEST)) {
+            foreach ($_REQUEST as $qry_var => $qry_val) {
+                if ('ajax_filter' == $qry_var || 'advanced_search' == $qry_var || 'property_arg' == $qry_var || 'action' == $qry_var || 'alert-frequency' == $qry_var || 'alerts-name' == $qry_var || 'loc_polygon' == $qry_var || 'alerts-email' == $qry_var)
                     continue;
-                if ( $qry_val != '' ) {
+                if ($qry_val != '') {
                     $reset_var ++;
                 }
             }
         }
-        if ( isset($reset_var) && $reset_var > 0 ) {
+        if (isset($reset_var) && $reset_var > 0) {
             property_search_keywords($property_totnum, $element_property_search_keyword, $_REQUEST, $atts, $page_url);
         }
-        if ( $notifications_box == 'yes' ) {
+
+
+        if ($notifications_box == 'yes') {
 
             //if ( isset( $reset_var ) && $reset_var > 0 ) {
             ?>    
@@ -183,8 +184,8 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                 <h6><?php echo wp_rem_plugin_text_srt('wp_rem_property_leftflter_property_type'); ?></h6>
                 <ul class="cs-parent-checkbox-list">
                     <?php
-                    if ( $property_type != '' && $property_type != 'all' ) {
-                        if ( $post = get_page_by_path($property_type, OBJECT, 'property-type') ) {
+                    if ($property_type != '' && $property_type != 'all') {
+                        if ($post = get_page_by_path($property_type, OBJECT, 'property-type')) {
                             $property_type_id = $post->ID;
                         } else {
                             $property_type_id = 0;
@@ -208,7 +209,7 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                             </div>
                         </li>
                         <?php
-                        if ( $property_category == '' ) {
+                        if ($property_category == '') {
                             $type_checkbox_display = 'none';
                             $type_label_display = 'block';
                         } else {
@@ -256,13 +257,13 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                         </li>
                     <?php } ?>
                     <?php
-                    if ( $property_category != '' ) {
+                    if ($property_category != '') {
                         $property_type_cats = explode(",", $property_category);
                         $category_list_flag = 1;
                         $checked_cats_counts = count($property_type_cats);
-                        foreach ( $property_type_cats as $property_type_cat ) {
+                        foreach ($property_type_cats as $property_type_cat) {
                             $term = get_term_by('slug', $property_type_cat, 'property-category');
-                            if ( $checked_cats_counts == $category_list_flag ) {
+                            if ($checked_cats_counts == $category_list_flag) {
                                 $cat_checkbox_display = 'none';
                                 $cat_label_display = 'block';
                             } else {
@@ -316,11 +317,11 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
 
 
 
-                <?php if ( $property_type == '' || $property_type == 'all' ) { ?>
+                <?php if ($property_type == '' || $property_type == 'all') { ?>
                     <ul class="cs-checkbox-list">
                         <?php
                         $property_type_flag = 1;
-                        foreach ( $property_types_array as $key => $value ) {
+                        foreach ($property_types_array as $key => $value) {
                             $type_totnum = wp_rem_get_property_type_item_count($left_filter_count_switch, $key, 'wp_rem_property_type', $args_count);
                             ?>
                             <li>
@@ -337,41 +338,42 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                                     );
                                     ?>
                                     <label for="<?php echo force_balance_tags('property_type_' . $property_type_flag) ?>"><?php echo force_balance_tags($value); ?></label>
-                                    <?php if ( $left_filter_count_switch == 'yes' ) { ?><span>(<?php echo esc_html($type_totnum); ?>)</span><?php } ?>
+                                    <?php if ($left_filter_count_switch == 'yes') { ?><span>(<?php echo esc_html($type_totnum); ?>)</span><?php } ?>
                                 </div>
                             </li>
                             <?php $property_type_flag ++; ?>
                         <?php } ?>
                     </ul>
-                <?php } ?>
-                <?php
+                    <?php
+                }
+
                 $property_type_cats = array();
-                if ( $property_type != '' && $property_type != 'all' && $property_category == '' ) {
-                    if ( $post = get_page_by_path($property_type, OBJECT, 'property-type') ) {
+                if ($property_type != '' && $property_type != 'all' && $property_category == '') {
+                    if ($post = get_page_by_path($property_type, OBJECT, 'property-type')) {
                         $property_type_id = $post->ID;
                     } else {
                         $property_type_id = 0;
                     }
                     $property_type_cats = get_post_meta($property_type_id, 'wp_rem_property_type_cats', true);
-                } else if ( $property_type != '' && $property_type != 'all' && $property_category != '' ) {
+                } else if ($property_type != '' && $property_type != 'all' && $property_category != '') {
                     $category_request_val_arr = explode(",", $property_category);
                     $last_checked_cat = end($category_request_val_arr);
                     $term = get_term_by('slug', $last_checked_cat, 'property-category');
                     $term_childrens = get_term_children($term->term_id, 'property-category');
-                    if ( ! empty($term_childrens) ) {
-                        foreach ( $term_childrens as $term_children_id ) {
+                    if (!empty($term_childrens)) {
+                        foreach ($term_childrens as $term_children_id) {
                             $child_term = get_term_by('id', $term_children_id, 'property-category');
                             $property_type_cats[] = $child_term->slug;
                         }
                     }
                 }
 
-                if ( ! empty($property_type_cats) ) {
+                if (!empty($property_type_cats)) {
                     ?>
                     <ul class="cs-checkbox-list">
                         <?php
                         $category_list_flag = 1;
-                        foreach ( $property_type_cats as $property_type_cat ) {
+                        foreach ($property_type_cats as $property_type_cat) {
                             $term = get_term_by('slug', $property_type_cat, 'property-category');
 
                             // extra condidation
@@ -397,17 +399,20 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                                     );
                                     ?>
                                     <label for="<?php echo force_balance_tags($property_type_category_name . '_' . $category_list_flag); ?>"><?php echo esc_html($term->name); ?></label>
-                                    <?php if ( $left_filter_count_switch == 'yes' ) { ?><span>(<?php echo esc_html($cate_totnum); ?>)</span><?php } ?>
+                                    <?php if ($left_filter_count_switch == 'yes') { ?><span>(<?php echo esc_html($cate_totnum); ?>)</span><?php } ?>
                                 </div>
                             </li>
                             <?php $category_list_flag ++; ?>
-                        <?php } ?>
+                            <?php
+                        }
+                        ?>
                     </ul>
                 <?php } ?>
             </div>
-            <?php if ( $property_open_house_filter == 'yes' ) { ?>
+            <?php if ($property_open_house_filter == 'yes') { ?>
                 <div class="select-categories">
                     <h6><?php echo wp_rem_plugin_text_srt('wp_rem_property_leftflter_open_house'); ?></h6>
+                    <?php wp_rem_property_search_reset_field($_REQUEST, $page_url, 'open_house'); ?>
                     <ul class="cs-checkbox-list">
                         <li>
                             <div class="checkbox">
@@ -415,7 +420,6 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                                 // extra condidation
                                 // main query array $args_count
                                 $open_house_count = wp_rem_get_item_count($left_filter_count_switch, $args_count, '', $property_type, $property_short_counter, $atts, 'open_house_start', 'today');
-
                                 //$open_house_count   = wp_rem_get_property_open_house_count($left_filter_count_switch, 'today', $args_count);
                                 $open_house_checked = ( isset($_REQUEST['open_house']) && $_REQUEST['open_house'] == 'today' ) ? ' checked' : '';
                                 $wp_rem_form_fields_frontend->wp_rem_form_radio_render(
@@ -429,10 +433,10 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                                         )
                                 );
                                 ?>
-                                <label for="today_time"><?php echo esc_html('Today Only', 'wp-rem'); ?></label>
-                                <?php if ( $left_filter_count_switch == 'yes' ) { ?><span>(<?php echo esc_html($open_house_count); ?>)</span><?php } ?>
+                                <label for="today_time"><?php echo wp_rem_plugin_text_srt('wp_rem_property_leftflter_open_house_today_only'); ?></label>
+                                <?php if ($left_filter_count_switch == 'yes') { ?><span>(<?php echo esc_html($open_house_count); ?>)</span><?php } ?>
                             </div>
-                        </li>
+                        </li>                        
                         <li>
                             <div class="checkbox">
                                 <?php
@@ -449,8 +453,8 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                                         )
                                 );
                                 ?>
-                                <label for="tomorrow_time"><?php echo esc_html('Tomorrow Only', 'wp-rem'); ?></label>
-                                <?php if ( $left_filter_count_switch == 'yes' ) { ?><span>(<?php echo esc_html($open_house_count); ?>)</span><?php } ?>
+                                <label for="tomorrow_time"><?php echo wp_rem_plugin_text_srt('wp_rem_property_leftflter_open_house_tomorrow_only'); ?></label>
+                                <?php if ($left_filter_count_switch == 'yes') { ?><span>(<?php echo esc_html($open_house_count); ?>)</span><?php } ?>
                             </div>
                         </li>
                         <li>
@@ -469,8 +473,8 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                                         )
                                 );
                                 ?>
-                                <label for="through_weekend_time"><?php echo esc_html('Till Week ends', 'wp-rem'); ?></label>
-                                <?php if ( $left_filter_count_switch == 'yes' ) { ?><span>(<?php echo esc_html($open_house_count); ?>)</span><?php } ?>
+                                <label for="through_weekend_time"><?php echo wp_rem_plugin_text_srt('wp_rem_property_leftflter_open_house_till_weekends'); ?></label>
+                                <?php if ($left_filter_count_switch == 'yes') { ?><span>(<?php echo esc_html($open_house_count); ?>)</span><?php } ?>
                             </div>
                         </li>
                         <li>
@@ -479,40 +483,40 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                                 $open_house_count = wp_rem_get_item_count($left_filter_count_switch, $args_count, '', $property_type, $property_short_counter, $atts, 'open_house_start', 'weekend_only');
                                 $open_house_checked = ( isset($_REQUEST['open_house']) && $_REQUEST['open_house'] == 'weekend_only' ) ? ' checked' : '';
                                 $wp_rem_form_fields_frontend->wp_rem_form_radio_render(
-                                        array(
-                                            'simple' => true,
-                                            'cust_id' => 'this_weekend_time',
-                                            'cust_name' => 'open_house',
-                                            'std' => 'weekend_only',
-                                            'classes' => '',
-                                            'extra_atr' => 'onchange="wp_rem_property_content(\'' . $property_short_counter . '\');"' . $open_house_checked,
-                                        )
+                                    array(
+                                        'simple' => true,
+                                        'cust_id' => 'this_weekend_time',
+                                        'cust_name' => 'open_house',
+                                        'std' => 'weekend_only',
+                                        'classes' => '',
+                                        'extra_atr' => 'onchange="wp_rem_property_content(\'' . $property_short_counter . '\');"' . $open_house_checked,
+                                    )
                                 );
                                 ?>
-                                <label for="this_weekend_time"><?php echo esc_html('Upcoming Weekend', 'wp-rem'); ?></label>
-                                <?php if ( $left_filter_count_switch == 'yes' ) { ?><span>(<?php echo esc_html($open_house_count); ?>)</span><?php } ?>
+                                <label for="this_weekend_time"><?php echo wp_rem_plugin_text_srt('wp_rem_property_leftflter_open_house_upcoming_weekends'); ?></label>
+                                <?php if ($left_filter_count_switch == 'yes') { ?><span>(<?php echo esc_html($open_house_count); ?>)</span><?php } ?>
                             </div>
                         </li>
                     </ul>
 
                 </div>
-            <?php } ?>
+                <?php
+            }
+//echo 'in filters 444'; exit;
 
-
-            <?php
-            if ( $property_open_house_filter == 'yes' ) {
+            if ($property_open_house_filter == 'yes') {
 
                 $property_type_obj = get_page_by_path($property_type, OBJECT, 'property-type');
                 $property_type_id = isset($property_type_obj->ID) ? $property_type_obj->ID : '';
                 $price_switch = get_post_meta($property_type_id, 'wp_rem_property_type_price', true);
-                if ( $price_switch != 'off' && $property_type_id != '' ) {
+                if ($price_switch != 'off' && $property_type_id != '') {
                     $price_type = get_post_meta($property_type_id, 'wp_rem_property_type_price_type', true);
                     $wp_rem_price_minimum_options = get_post_meta($property_type_id, 'wp_rem_price_minimum_options', true);
-                    $wp_rem_price_minimum_options = ( ! empty($wp_rem_price_minimum_options) ) ? $wp_rem_price_minimum_options : 1;
+                    $wp_rem_price_minimum_options = (!empty($wp_rem_price_minimum_options) ) ? $wp_rem_price_minimum_options : 1;
                     $wp_rem_price_max_options = get_post_meta($property_type_id, 'wp_rem_price_max_options', true);
-                    $wp_rem_price_max_options = ( ! empty($wp_rem_price_max_options) ) ? $wp_rem_price_max_options : 50; //50000;
+                    $wp_rem_price_max_options = (!empty($wp_rem_price_max_options) ) ? $wp_rem_price_max_options : 50; //50000;
                     $wp_rem_price_interval = get_post_meta($property_type_id, 'wp_rem_price_interval', true);
-                    $wp_rem_price_interval = ( ! empty($wp_rem_price_interval) ) ? $wp_rem_price_interval : 50;
+                    $wp_rem_price_interval = (!empty($wp_rem_price_interval) ) ? $wp_rem_price_interval : 50;
                     $price_type_options = array();
                     $wp_rem_price_interval = (int) $wp_rem_price_interval;
                     $price_counter = $wp_rem_price_minimum_options;
@@ -520,15 +524,12 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                     $price_max = '';
                     $price_min[''] = wp_rem_plugin_text_srt('wp_rem_property_leftflter_min');
                     $price_max[''] = wp_rem_plugin_text_srt('wp_rem_property_leftflter_max');
-                    // echo $wp_rem_price_max_options = 50000;//exit;
-                    // echo $price_counter. '<= '. $wp_rem_price_max_options;
-                    while ( $price_counter <= $wp_rem_price_max_options ) {
+                    while ($price_counter <= $wp_rem_price_max_options) {
                         $price_min[$price_counter] = $price_counter;
                         $price_max[$price_counter] = $price_counter;
                         $price_counter = $price_counter + $wp_rem_price_interval;
-                    } //exit;
-                    //print_r($price_min);exit;
-                    if ( $price_type == 'variant' ) {
+                    }
+                    if ($price_type == 'variant') {
                         $price_type_options = array(
                             '' => wp_rem_plugin_text_srt('wp_rem_property_leftflter_all'),
                             'variant_week' => wp_rem_plugin_text_srt('wp_rem_property_leftflter_per_weak'),
@@ -605,20 +606,20 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
 
             <?php
             // $property_type getting from shortcode backend element
-            if ( isset($property_type) && $property_type != '' ) {
+            if (isset($property_type) && $property_type != '') {
                 $wp_rem_property_type_cus_fields = $wp_rem_post_property_types->wp_rem_types_custom_fields_array($property_type);
                 $wp_rem_fields_output = '';
-                if ( is_array($wp_rem_property_type_cus_fields) && sizeof($wp_rem_property_type_cus_fields) > 0 ) {
+                if (is_array($wp_rem_property_type_cus_fields) && sizeof($wp_rem_property_type_cus_fields) > 0) {
                     $custom_field_flag = 1;
-                    foreach ( $wp_rem_property_type_cus_fields as $cus_fieldvar => $cus_field ) {
+                    foreach ($wp_rem_property_type_cus_fields as $cus_fieldvar => $cus_field) {
 
                         $all_item_empty = 0;
                         $query_str_var_name = '';
-                        if ( isset($cus_field['options']['value']) && is_array($cus_field['options']['value']) ) {
+                        if (isset($cus_field['options']['value']) && is_array($cus_field['options']['value'])) {
 
-                            foreach ( $cus_field['options']['value'] as $cus_field_options_value ) {
+                            foreach ($cus_field['options']['value'] as $cus_field_options_value) {
 
-                                if ( $cus_field_options_value != '' ) {
+                                if ($cus_field_options_value != '') {
                                     $all_item_empty = 0;
                                     break;
                                 } else {
@@ -626,18 +627,21 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                                 }
                             }
                         }
-                        if ( isset($cus_field['enable_srch']) && $cus_field['enable_srch'] == 'yes' && ($all_item_empty == 0) ) {
+                        if (isset($cus_field['enable_srch']) && $cus_field['enable_srch'] == 'yes' && ($all_item_empty == 0)) {
                             $query_str_var_name = $cus_field['meta_key'];
                             ?> 
                             <div class="select-categories">
                                 <h6><?php echo esc_html($cus_field['label']); ?></h6>
+                                <?php if ($cus_field['type'] == 'dropdown' && $cus_field['multi'] != 'yes') { ?>
+                                    <?php wp_rem_property_search_reset_field($_REQUEST, $page_url, $query_str_var_name); ?>
+                                <?php } ?>
                                 <?php
-                                if ( $cus_field['type'] == 'dropdown' ) {
+                                if ($cus_field['type'] == 'dropdown') {
                                     $number_option_flag = 1;
                                     $cut_field_flag = 0;
                                     $request_val = isset($_REQUEST[$query_str_var_name]) ? $_REQUEST[$query_str_var_name] : '';
                                     $request_val_arr = explode(",", $request_val);
-                                    if ( $cus_field['multi'] == 'yes' ) { // if multi select then use hidden for submittion
+                                    if ($cus_field['multi'] == 'yes') { // if multi select then use hidden for submittion
                                         $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
                                                 array(
                                                     'simple' => true,
@@ -668,15 +672,15 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                                     }
                                     ?>
                                     <ul class="cs-checkbox-list"><?php
-                                        foreach ( $cus_field['options']['value'] as $cus_field_options_value ) {
-                                            if ( $cus_field['options']['value'][$cut_field_flag] == '' || $cus_field['options']['label'][$cut_field_flag] == '' ) {
+                                        foreach ($cus_field['options']['value'] as $cus_field_options_value) {
+                                            if ($cus_field['options']['value'][$cut_field_flag] == '' || $cus_field['options']['label'][$cut_field_flag] == '') {
                                                 $cut_field_flag ++;
                                                 continue;
                                             }
 
                                             // get count of each item
                                             // extra condidation
-                                            if ( $cus_field['post_multi'] == 'yes' ) {
+                                            if ($cus_field['post_multi'] == 'yes') {
 
                                                 $dropdown_count_arr = array(
                                                     'key' => $query_str_var_name,
@@ -692,14 +696,14 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                                             }
                                             // main query array $args_count 
                                             $dropdown_totnum = wp_rem_get_item_count($left_filter_count_switch, $args_count, $dropdown_count_arr, $property_type, $property_short_counter, $atts, $query_str_var_name);
-                                            if ( $cus_field_options_value != '' ) {
-                                                if ( $cus_field['multi'] == 'yes' ) {
+                                            if ($cus_field_options_value != '') {
+                                                if ($cus_field['multi'] == 'yes') {
                                                     ?>
                                                     <li>
                                                         <div class="checkbox">
                                                             <?php
                                                             $checked = '';
-                                                            if ( ! empty($request_val_arr) && in_array($cus_field_options_value, $request_val_arr) ) {
+                                                            if (!empty($request_val_arr) && in_array($cus_field_options_value, $request_val_arr)) {
                                                                 $checked = 'checked="checked"';
                                                             }
                                                             $wp_rem_form_fields_frontend->wp_rem_form_checkbox_render(
@@ -715,7 +719,7 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                                                             ?>
 
                                                             <label for="<?php echo force_balance_tags($query_str_var_name . '_' . $number_option_flag) ?>"><?php echo force_balance_tags($cus_field['options']['label'][$cut_field_flag]); ?></label>
-                                                            <?php if ( $left_filter_count_switch == 'yes' ) { ?><span>(<?php echo esc_html($dropdown_totnum); ?>)</span><?php } ?>
+                                                            <?php if ($left_filter_count_switch == 'yes') { ?><span>(<?php echo esc_html($dropdown_totnum); ?>)</span><?php } ?>
                                                         </div>
                                                     </li>
 
@@ -726,7 +730,7 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                                                         <div class="checkbox">
                                                             <?php
                                                             $checked = '';
-                                                            if ( ! empty($request_val) && $cus_field_options_value == $request_val ) {
+                                                            if (!empty($request_val) && $cus_field_options_value == $request_val) {
                                                                 $checked = 'checked="checked"';
                                                             }
                                                             $wp_rem_form_fields_frontend->wp_rem_form_radio_render(
@@ -740,7 +744,7 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                                                             );
                                                             ?>
                                                             <label for="<?php echo force_balance_tags($query_str_var_name . '_' . $number_option_flag) ?>"><?php echo force_balance_tags($cus_field['options']['label'][$cut_field_flag]); ?></label>
-                                                            <?php if ( $left_filter_count_switch == 'yes' ) { ?><span>(<?php echo esc_html($dropdown_totnum); ?>)</span><?php } ?>
+                                                            <?php if ($left_filter_count_switch == 'yes') { ?><span>(<?php echo esc_html($dropdown_totnum); ?>)</span><?php } ?>
                                                         </div>
                                                     </li>
                                                     <?php
@@ -752,7 +756,7 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                                         ?>
                                     </ul>
                                     <?php
-                                } else if ( $cus_field['type'] == 'text' || $cus_field['type'] == 'email' || $cus_field['type'] == 'url' ) {
+                                } else if ($cus_field['type'] == 'text' || $cus_field['type'] == 'email' || $cus_field['type'] == 'url') {
                                     ?>
                                     <div class="select-categories">
                                         <?php
@@ -768,7 +772,7 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                                         ?>
                                     </div>   
                                     <?php
-                                } else if ( $cus_field['type'] == 'number' ) {
+                                } else if ($cus_field['type'] == 'number') {
 
                                     $value = isset($_REQUEST[$query_str_var_name]) ? $_REQUEST[$query_str_var_name] : '';
                                     $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
@@ -858,7 +862,7 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                                         <?php ?>
                                     </div>
                                     <?php
-                                } else if ( $cus_field['type'] == 'date' ) {
+                                } else if ($cus_field['type'] == 'date') {
                                     wp_enqueue_script('bootstrap-datepicker');
                                     wp_enqueue_style('datetimepicker');
                                     wp_enqueue_style('datepicker');
@@ -919,27 +923,27 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                                             }
                                         });
                                         </script>';
-                                } elseif ( $cus_field['type'] == 'range' ) {
+                                } elseif ($cus_field['type'] == 'range') {
                                     $range_random_id = rand(123, 32);
                                     $range_min = $cus_field['min'];
                                     $range_max = $cus_field['max'];
                                     $range_increment = $cus_field['increment'];
                                     $filed_type = $cus_field['srch_style']; //input, slider, input_slider
-                                    if ( strpos($filed_type, '-') !== FALSE ) {
+                                    if (strpos($filed_type, '-') !== FALSE) {
                                         $filed_type_arr = explode("_", $filed_type);
                                     } else {
                                         $filed_type_arr[0] = $filed_type;
                                     }
                                     $range_flag = 0;
-                                    while ( count($filed_type_arr) > $range_flag ) {
-                                        if ( $filed_type_arr[$range_flag] == 'input' ) {
+                                    while (count($filed_type_arr) > $range_flag) {
+                                        if ($filed_type_arr[$range_flag] == 'input') {
 //                                                            }
-                                        } elseif ( $filed_type_arr[$range_flag] == 'slider' ) { // if slider style
-                                            if ( (isset($cus_field['min']) && $cus_field['min'] != '') && (isset($cus_field['max']) && $cus_field['max'] != '' ) ) {
+                                        } elseif ($filed_type_arr[$range_flag] == 'slider') { // if slider style
+                                            if ((isset($cus_field['min']) && $cus_field['min'] != '') && (isset($cus_field['max']) && $cus_field['max'] != '' )) {
                                                 $range_complete_str_first = "";
                                                 $range_complete_str_second = "";
                                                 $range_complete_str = '';
-                                                if ( isset($_REQUEST[$query_str_var_name]) ) {
+                                                if (isset($_REQUEST[$query_str_var_name])) {
                                                     $range_complete_str = $_REQUEST[$query_str_var_name];
                                                     $range_complete_str_val = $cus_field['min'] . ',' . $cus_field['max'];
                                                     $range_complete_str_arr = explode(",", $range_complete_str);
@@ -978,7 +982,7 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                                                 </div>
                                                 <?php
                                                 $increment_step = isset($cus_field['increment']) ? $cus_field['increment'] : 1;
-                                                if ( ! empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' ) {
+                                                if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
                                                     echo '<script>
 														if (jQuery("#ex16b2' . $query_str_var_name . $range_random_id . '").length > 0) {
 															jQuery("#ex16b2' . $query_str_var_name . $range_random_id . '").slider({
@@ -1046,8 +1050,8 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
         ?>
     </div>
     <?php
-    if ( is_active_sidebar($wp_rem_property_sidebar) ) {
-        if ( ! function_exists('dynamic_sidebar') || ! dynamic_sidebar($wp_rem_property_sidebar) ) :
+    if (is_active_sidebar($wp_rem_property_sidebar)) {
+        if (!function_exists('dynamic_sidebar') || !dynamic_sidebar($wp_rem_property_sidebar)) :
             echo '';
         endif;
     }

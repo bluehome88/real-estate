@@ -249,7 +249,7 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_infobox') ) {
                                     foreach ( $atts_content as $infobox ) {
                                         $rand_id = rand(3333, 99999);
                                         $wp_rem_cs_var_infobox_text = $infobox['content'];
-                                        $defaults = array( 'wp_rem_cs_var_infobox_title' => '', 'wp_rem_cs_var_infobox_active' => 'yes', 'wp_rem_cs_var_icon_box' => '' );
+                                        $defaults = array( 'wp_rem_cs_var_infobox_title' => '', 'wp_rem_cs_var_infobox_active' => 'yes', 'wp_rem_cs_var_icon_box' => '', 'wp_rem_cs_var_icon_box_group' => '' );
                                         foreach ( $defaults as $key => $values ) {
                                             if ( isset($infobox['atts'][$key]) )
                                                 $$key = $infobox['atts'][$key];
@@ -274,7 +274,7 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_infobox') ) {
                 ?>
                                                 </div>
                                                 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                                                    <?php echo wp_rem_cs_var_icomoon_icons_box($wp_rem_cs_var_icon_box, esc_attr($rand_id), 'wp_rem_cs_var_icon_box'); ?>
+                                                    <?php echo apply_filters( 'cs_icons_fields', $wp_rem_cs_var_icon_box, esc_attr($rand_id), 'wp_rem_cs_var_icon_box', $wp_rem_cs_var_icon_box_group); ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -427,6 +427,9 @@ if ( ! function_exists('wp_rem_cs_save_page_builder_data_infobox_callback') ) {
                         $shortcode_item .= '[infobox_item ';
                         if ( isset($data['wp_rem_cs_var_icon_box'][$counters['wp_rem_cs_counter_infobox_node']]) && $data['wp_rem_cs_var_icon_box'][$counters['wp_rem_cs_counter_infobox_node']] != '' ) {
                             $shortcode_item .= 'wp_rem_cs_var_icon_box="' . htmlspecialchars($data['wp_rem_cs_var_icon_box'][$counters['wp_rem_cs_counter_infobox_node']], ENT_QUOTES) . '" ';
+                        }
+                        if ( isset($data['wp_rem_cs_var_icon_box_group'][$counters['wp_rem_cs_counter_infobox_node']]) && $data['wp_rem_cs_var_icon_box_group'][$counters['wp_rem_cs_counter_infobox_node']] != '' ) {
+                            $shortcode_item .= 'wp_rem_cs_var_icon_box_group="' . htmlspecialchars($data['wp_rem_cs_var_icon_box_group'][$counters['wp_rem_cs_counter_infobox_node']], ENT_QUOTES) . '" ';
                         }
                         if ( isset($data['wp_rem_cs_var_infobox_title'][$counters['wp_rem_cs_counter_infobox_node']]) && $data['wp_rem_cs_var_infobox_title'][$counters['wp_rem_cs_counter_infobox_node']] != '' ) {
                             $shortcode_item .= 'wp_rem_cs_var_infobox_title="' . htmlspecialchars($data['wp_rem_cs_var_infobox_title'][$counters['wp_rem_cs_counter_infobox_node']], ENT_QUOTES) . '" ';
@@ -586,7 +589,7 @@ if ( ! function_exists('wp_rem_cs_shortcode_sub_element_ui_infobox_callback') ) 
             ?>
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                            <?php echo wp_rem_cs_var_icomoon_icons_box('', esc_attr($rand_id), 'wp_rem_cs_var_icon_box'); ?>
+                            <?php echo apply_filters( 'cs_icons_fields', '', esc_attr($rand_id), 'wp_rem_cs_var_icon_box'); ?>
                         </div>
                     </div>
                 </div>

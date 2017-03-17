@@ -9,7 +9,7 @@
  */
 if ( ! function_exists( 'wp_rem_cs_var_icomoon_icons_box' ) ) {
 
-	function wp_rem_cs_var_icomoon_icons_box( $icon_value = '', $id = '', $name = '' ) {
+	function wp_rem_cs_var_icomoon_icons_box( $icon_value = '', $id = '', $name = '', $group = '' ) {
 
 		global $wp_rem_cs_var_html_fields, $wp_rem_cs_var_form_fields, $wp_rem_cs_var_static_text;
 
@@ -407,12 +407,13 @@ if ( ! function_exists( 'wp_rem_cs_var_add_social_icon' ) ) {
 		);
 
 		$wp_rem_cs_html .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_upload_file_field( $wp_rem_cs_opt_array );
-
+                
+                $cs_icon_group   = isset( $_POST['cs_icon_group'] )? $_POST['cs_icon_group'] : 'default';
 		$wp_rem_cs_html .= '
 			<div class="form-elements" id="wp_rem_cs_var_infobox_networks' . absint( $wp_rem_cs_rand_num ) . '">
 			  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"><label>' . wp_rem_cs_var_theme_text_srt( 'wp_rem_cs_var_icon' ) . '</label></div>
 			  <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-				' . wp_rem_cs_var_icomoon_icons_box( $_POST['social_net_awesome'], "networks" . absint( $wp_rem_cs_rand_num ), 'wp_rem_cs_var_social_net_awesome' ) . '
+                                ' . apply_filters( 'cs_icons_fields', $_POST['social_net_awesome'], "networks" . absint( $wp_rem_cs_rand_num ), 'wp_rem_cs_var_social_net_awesome', $cs_icon_group ) . '
 			  </div>
 			</div>';
 
@@ -438,183 +439,6 @@ if ( ! function_exists( 'wp_rem_cs_var_add_social_icon' ) ) {
 
 	add_action( 'wp_ajax_wp_rem_cs_var_add_social_icon', 'wp_rem_cs_var_add_social_icon' );
 }
-
-
-/**
- * @Adding Custom Font
- *
- */
-if ( ! function_exists( 'wp_rem_cs_var_add_custom_font' ) ) {
-
-	function wp_rem_cs_var_add_custom_font() {
-		global $wp_rem_cs_var_html_fields, $wp_rem_cs_var_form_fields, $wp_rem_cs_var_static_text;
-		$wp_rem_cs_rand_num = rand( 123456, 987654 );
-		$wp_rem_cs_html = '';
-		
-		$wp_rem_cs_html .= '<li class="wp-rem-list-item">';
-
-			$wp_rem_cs_html .= '<div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-				<div class="input-element">
-					<div class="input-holder">';
-
-						$wp_rem_cs_html .= isset( $_POST['custom_font_name'] ) ? $_POST['custom_font_name'] : '';
-					$wp_rem_cs_html.='</div>
-				</div>
-			</div>';
-			$wp_rem_cs_html .= '<a href="javascript:void(0);" class="wp-rem-remove wp-rem-parent-li-remove"><i class="icon-close2"></i></a>';
-			$wp_rem_cs_html .= '<a href="javascript:void(0);" class="wp-rem-edit wp-rem-parent-li-edit"><i class="icon-edit2"></i></a>';
-
-		$wp_rem_cs_html .= '<div class="parent-li-edit-div" style="display:none;">';
-		$wp_rem_cs_opt_array = array(
-			'name' => wp_rem_cs_var_theme_text_srt( 'wp_rem_cs_var_theme_option_custom_font_name' ) . ' *',
-			'desc' => '',
-			'field_params' => array(
-				'std' => isset( $_POST['custom_font_name'] ) ? $_POST['custom_font_name'] : '',
-				'cust_id' => 'wp_rem_custom_font_name' . absint( $wp_rem_cs_rand_num ),
-				'cust_name' => 'wp_rem_custom_fonts[name][]',
-				'classes' => '',
-				'return' => true,
-			),
-		);
-		$wp_rem_cs_html .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_text_field( $wp_rem_cs_opt_array );
-
-		// woff Font Field
-		$wp_rem_cs_opt_array = array(
-			'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_woff') . ' *',
-			'id' => 'custom_font_upload',
-			'hint_text' => '',
-			'label_desc' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_woff_hint'),
-		);
-		$wp_rem_cs_html .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_opening_field($wp_rem_cs_opt_array);
-		$wp_rem_cs_opt_array = array(
-			'std' => isset( $_POST['custom_font_woff'] ) ? $_POST['custom_font_woff'] : '',
-			'cust_id' => 'custom_fonts_woff' . absint( $wp_rem_cs_rand_num ),
-			'cust_name' => 'wp_rem_custom_fonts[woff][]',
-			'classes' => 'input-medium',
-			'return' => true,
-		);
-		$wp_rem_cs_html .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-		$wp_rem_cs_html .= '
-		<label class="browse-icon">';
-			$wp_rem_cs_opt_array = array(
-				'std' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_browse'),
-				'cust_id' => 'wp_rem_custom_fonts_woff',
-				'cust_name' => 'custom_fonts_woff' . absint( $wp_rem_cs_rand_num ),
-				'cust_type' => 'button',
-				'classes' => 'rem-custom-font left ',
-				'return' => true,
-			);
-			$wp_rem_cs_html .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-		$wp_rem_cs_html .= '
-		</label>';
-		$wp_rem_cs_html .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_closing_field(array());
-		// End woff Font Field
-
-		// ttf Font Field
-		$wp_rem_cs_opt_array = array(
-			'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_ttf') . ' *',
-			'id' => 'custom_font_upload',
-			'hint_text' => '',
-			'label_desc' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_ttf_hint'),
-		);
-		$wp_rem_cs_html .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_opening_field($wp_rem_cs_opt_array);
-		$wp_rem_cs_opt_array = array(
-			'std' => isset( $_POST['custom_font_ttf'] ) ? $_POST['custom_font_ttf'] : '',
-			'cust_id' => 'custom_fonts_ttf' . absint( $wp_rem_cs_rand_num ),
-			'cust_name' => 'wp_rem_custom_fonts[ttf][]',
-			'classes' => 'input-medium',
-			'return' => true,
-		);
-		$wp_rem_cs_html .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-		$wp_rem_cs_html .= '
-		<label class="browse-icon">';
-			$wp_rem_cs_opt_array = array(
-				'std' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_browse'),
-				'cust_id' => 'wp_rem_custom_fonts_ttf',
-				'cust_name' => 'custom_fonts_ttf' . absint( $wp_rem_cs_rand_num ),
-				'cust_type' => 'button',
-				'classes' => 'rem-custom-font left ',
-				'return' => true,
-			);
-			$wp_rem_cs_html .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-		$wp_rem_cs_html .= '
-		</label>';
-		$wp_rem_cs_html .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_closing_field(array());
-		// End ttf Font Field
-
-		// svg Font Field
-		$wp_rem_cs_opt_array = array(
-			'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_svg') . ' *',
-			'id' => 'custom_font_upload',
-			'hint_text' => '',
-			'label_desc' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_svg_hint'),
-		);
-		$wp_rem_cs_html .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_opening_field($wp_rem_cs_opt_array);
-		$wp_rem_cs_opt_array = array(
-			'std' => isset( $_POST['custom_font_svg'] ) ? $_POST['custom_font_svg'] : '',
-			'cust_id' => 'custom_fonts_svg' . absint( $wp_rem_cs_rand_num ),
-			'cust_name' => 'wp_rem_custom_fonts[svg][]',
-			'classes' => 'input-medium',
-			'return' => true,
-		);
-		$wp_rem_cs_html .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-		$wp_rem_cs_html .= '
-		<label class="browse-icon">';
-			$wp_rem_cs_opt_array = array(
-				'std' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_browse'),
-				'cust_id' => 'wp_rem_custom_fonts_svg',
-				'cust_name' => 'custom_fonts_svg' . absint( $wp_rem_cs_rand_num ),
-				'cust_type' => 'button',
-				'classes' => 'rem-custom-font left ',
-				'return' => true,
-			);
-			$wp_rem_cs_html .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-		$wp_rem_cs_html .= '
-		</label>';
-		$wp_rem_cs_html .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_closing_field(array());
-		// End svg Font Field
-
-		// eot Font Field
-		$wp_rem_cs_opt_array = array(
-			'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_eot') . ' *',
-			'id' => 'custom_font_upload',
-			'hint_text' => '',
-			'label_desc' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_theme_option_custom_font_eot_hint'),
-		);
-		$wp_rem_cs_html .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_opening_field($wp_rem_cs_opt_array);
-		$wp_rem_cs_opt_array = array(
-			'std' => isset( $_POST['custom_font_eot'] ) ? $_POST['custom_font_eot'] : '',
-			'cust_id' => 'custom_fonts_eot' . absint( $wp_rem_cs_rand_num ),
-			'cust_name' => 'wp_rem_custom_fonts[eot][]',
-			'classes' => 'input-medium',
-			'return' => true, 
-		);
-		$wp_rem_cs_html .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-		$wp_rem_cs_html .= '
-		<label class="browse-icon">';
-			$wp_rem_cs_opt_array = array(
-				'std' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_browse'),
-				'cust_id' => 'wp_rem_custom_fonts_eot',
-				'cust_name' => 'custom_fonts_eot' . absint( $wp_rem_cs_rand_num ),
-				'cust_type' => 'button',
-				'classes' => 'rem-custom-font left ',
-				'return' => true,
-			);
-			$wp_rem_cs_html .= $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_text_render($wp_rem_cs_opt_array);
-		$wp_rem_cs_html .= '
-		</label>';
-		$wp_rem_cs_html .= $wp_rem_cs_var_html_fields->wp_rem_cs_var_closing_field(array());
-		// End eot Font Field
-
-		$wp_rem_cs_html .= '</div>';
-
-		echo force_balance_tags( $wp_rem_cs_html );
-		die;
-	}
-
-	add_action( 'wp_ajax_wp_rem_cs_var_add_custom_font', 'wp_rem_cs_var_add_custom_font' );
-}
-
 
 /**
  * @Tool Tip Help Text Style

@@ -5764,7 +5764,6 @@ class RevSliderOutput {
 					if(!empty($all_navs)){
 						foreach($all_navs as $cur_nav){
 							//get modifications out, wrap the class with slide class to be specific
-							
 							if($enable_arrows == 'on' && $cur_nav['handle'] == $navigation_arrow_style){
 								$this->rev_custom_navigation_css .= $rs_nav->add_placeholder_sub_modifications($cur_nav['css']['arrows'], $cur_nav['handle'], 'arrows', $cur_nav['settings'], $slide, $this)."\n";
 							}

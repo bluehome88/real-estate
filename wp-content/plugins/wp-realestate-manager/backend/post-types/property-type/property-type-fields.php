@@ -1402,10 +1402,15 @@ if ( ! class_exists( 'Wp_rem_Property_Type_Dynamic_Fields' ) ) {
             extract( $params );
             $wp_rem_output .= '';
             $rand_id = rand( 0, 999999 );
+            $wp_rem_value_group = 'default';
             $wp_rem_label = substr( $name, strpos( $name, '[' ), strpos( $name, ']' ) );
             $wp_rem_label = str_replace( array( '[', ']' ), array( '', '' ), $wp_rem_label );
             if ( isset( $wp_rem_property_type_cus_fields[$wp_rem_f_counter] ) ) {
                 $wp_rem_value = isset( $wp_rem_property_type_cus_fields[$wp_rem_f_counter][$wp_rem_label] ) ? $wp_rem_property_type_cus_fields[$wp_rem_f_counter][$wp_rem_label] : '';
+                $wp_rem_value_group = isset( $wp_rem_property_type_cus_fields[$wp_rem_f_counter][$wp_rem_label.'_group'] ) ? $wp_rem_property_type_cus_fields[$wp_rem_f_counter][$wp_rem_label.'_group'] : 'default';
+               // echo '<pre>';
+                //print_r( $wp_rem_property_type_cus_fields );
+                //echo '</pre>';
             }
             if ( isset( $wp_rem_value ) && $wp_rem_value != '' ) {
                 $value = $wp_rem_value;
@@ -1414,6 +1419,8 @@ if ( ! class_exists( 'Wp_rem_Property_Type_Dynamic_Fields' ) ) {
             }
             $html_id = $id != '' ? 'wp_rem_' . sanitize_html_class( $id ) . '' : '';
             $html_name = 'wp_rem_' . $name . '[]';
+            $html_group_name = str_replace( '][]', '_group][]', $html_name);
+            $html_group_name = str_replace( 'wp_rem_wp_rem_', 'wp_rem_', $html_group_name);
             $html_class = 'chosen-select-no-single';
 
             $wp_rem_output .= $wp_rem_html_fields->wp_rem_opening_field( array(
@@ -1421,7 +1428,8 @@ if ( ! class_exists( 'Wp_rem_Property_Type_Dynamic_Fields' ) ) {
                 'hint_text' => $hint,
                     ) );
 
-            $wp_rem_output .= wp_rem_iconlist_plugin_options( $value, $id . $wp_rem_f_counter . $rand_id, $name );
+            //$wp_rem_output .= wp_rem_iconlist_plugin_options( $value, $id . $wp_rem_f_counter . $rand_id, $name );
+            $wp_rem_output .= apply_filters( 'cs_icons_fields', $value, $id . $wp_rem_f_counter . $rand_id, $name, $wp_rem_value_group, $html_group_name );
 
             $wp_rem_output .= $wp_rem_html_fields->wp_rem_closing_field( array(
                 'desc' => '',
@@ -1438,7 +1446,7 @@ if ( ! class_exists( 'Wp_rem_Property_Type_Dynamic_Fields' ) ) {
          * Start function how to save array of fields
          */
         public function wp_rem_save_array( $wp_rem_sec_counter = 0, $wp_rem_type = '', $cus_field_array = array() ) {
-            $wp_rem_fields = array( 'required', 'featured', 'label', 'meta_key', 'placeholder', 'chosen_srch', 'enable_srch', 'default_value', 'fontawsome_icon', 'help', 'rows', 'cols', 'multi', 'post_multi', 'first_value', 'collapse_search', 'field_size', 'date_format', 'min', 'max', 'increment', 'enable_inputs', 'srch_style' );
+            $wp_rem_fields = array( 'required', 'featured', 'label', 'meta_key', 'placeholder', 'chosen_srch', 'enable_srch', 'default_value', 'fontawsome_icon', 'fontawsome_icon_group', 'help', 'rows', 'cols', 'multi', 'post_multi', 'first_value', 'collapse_search', 'field_size', 'date_format', 'min', 'max', 'increment', 'enable_inputs', 'srch_style' );
             $cus_field_array['type'] = $wp_rem_type;
             foreach ( $wp_rem_fields as $field ) {
                 if ( isset( $_POST["wp_rem_cus_field_{$wp_rem_type}"][$field][$wp_rem_sec_counter] ) ) {

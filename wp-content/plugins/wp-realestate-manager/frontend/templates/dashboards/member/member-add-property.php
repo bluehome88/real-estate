@@ -139,6 +139,7 @@ if ( ! class_exists('wp_rem_member_property_actions') ) {
 		}
 
 		public function add_edit_property($params = array()) {
+                        wp_enqueue_script('wp-rem-validation-script');
 			global $property_add_counter, $wp_rem_plugin_options;
 			extract($params);
 			ob_start();
@@ -1534,7 +1535,12 @@ if ( ! class_exists('wp_rem_member_property_actions') ) {
 						<script>
 						jQuery(window).load(function () {
 							jQuery(".responsive-calendar").responsiveCalendar({
+								time: "'. date('Y-m').'",
 								monthChangeAnimation: false,
+								"'. date('Y-m-d').'": {
+									number: 5,
+									url: "https://themeforest.net/user/chimpstudio/portfolio"
+								}
 							});
 						});
 						</script>
@@ -2922,8 +2928,7 @@ if ( ! class_exists('wp_rem_member_property_actions') ) {
 						}
 					}
 
-					// transaction offer fields
-					$t_package_serv_num = isset($wp_rem_package_data['number_of_services']['value']) ? $wp_rem_package_data['number_of_services']['value'] : 0;
+					// transaction offer fields 
 					$t_package_pic_num = isset($wp_rem_package_data['number_of_pictures']['value']) ? $wp_rem_package_data['number_of_pictures']['value'] : 0;
 					$t_package_doc_num = isset($wp_rem_package_data['number_of_documents']['value']) ? $wp_rem_package_data['number_of_documents']['value'] : 0;
 					$t_package_tags_num = isset($wp_rem_package_data['number_of_tags']['value']) ? $wp_rem_package_data['number_of_tags']['value'] : 0;
@@ -3493,13 +3498,11 @@ if ( ! class_exists('wp_rem_member_property_actions') ) {
 			$html .= '<div class="row">';
 			$html .= '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">';
 			$html .= '<ul class="property-pkg-points">';
-
 			$html .= $this->package_info_field_show($trans_all_meta, 'duration', wp_rem_plugin_text_srt( 'wp_rem_property_package_duration' ), wp_rem_plugin_text_srt( 'wp_rem_property_days' ));
 			$html .= $this->package_info_field_show($trans_all_meta, 'number_of_property_allowed', wp_rem_plugin_text_srt( 'wp_rem_property_total_properties' ));
 			$html .= $this->package_info_field_show($trans_all_meta, 'property_duration', wp_rem_plugin_text_srt( 'wp_rem_property_property_duration' ), wp_rem_plugin_text_srt( 'wp_rem_property_days' ));
 			$html .= $this->package_info_field_show($trans_all_meta, 'number_of_featured_properties', wp_rem_plugin_text_srt( 'wp_rem_property_featured_properties' ));
-			$html .= $this->package_info_field_show($trans_all_meta, 'number_of_top_cat_properties', wp_rem_plugin_text_srt( 'wp_rem_property_top_cat_properties' ));
-			$html .= $this->package_info_field_show($trans_all_meta, 'number_of_services', wp_rem_plugin_text_srt( 'wp_rem_member_add_list_no_of_services' ));
+			$html .= $this->package_info_field_show($trans_all_meta, 'number_of_top_cat_properties', wp_rem_plugin_text_srt( 'wp_rem_property_top_cat_properties' )); 
 			$html .= $this->package_info_field_show($trans_all_meta, 'number_of_pictures', wp_rem_plugin_text_srt( 'wp_rem_member_add_list_no_of_pictures' ));
 			$html .= $this->package_info_field_show($trans_all_meta, 'number_of_documents', wp_rem_plugin_text_srt( 'wp_rem_member_add_list_no_of_docs' ));
 			$html .= $this->package_info_field_show($trans_all_meta, 'number_of_tags', wp_rem_plugin_text_srt( 'wp_rem_member_add_list_no_of_tags' ));
@@ -3507,9 +3510,7 @@ if ( ! class_exists('wp_rem_member_property_actions') ) {
 			$html .= $this->package_info_field_show($trans_all_meta, 'website_link', wp_rem_plugin_text_srt( 'wp_rem_member_add_list_web_link' ));
 			$html .= $this->package_info_field_show($trans_all_meta, 'cover_image', wp_rem_plugin_text_srt( 'wp_rem_member_cover_image' ));
 			$html .= $this->package_info_field_show($trans_all_meta, 'social_impressions_reach', wp_rem_plugin_text_srt( 'wp_rem_member_add_list_social_reach' ));
-
 			$trans_dynamic_f = get_post_meta($package_id, 'wp_rem_package_fields', true);
-
 			if ( is_array($trans_dynamic_f) && sizeof($trans_dynamic_f) > 0 ) {
 				foreach ( $trans_dynamic_f as $trans_dynamic ) {
 					if ( isset($trans_dynamic['field_type']) && isset($trans_dynamic['field_label']) && isset($trans_dynamic['field_value']) ) {

@@ -63,7 +63,7 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
             }
             $response_array = array(
                 'type' => 'success',
-                'msg' => wp_rem_plugin_text_srt( 'wp_rem_member_updated_success_mesage' ),
+                'msg' => wp_rem_plugin_text_srt('wp_rem_member_updated_success_mesage'),
             );
             echo json_encode($response_array);
             wp_die();
@@ -221,7 +221,7 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
                 } else {
                     $response_array = array(
                         'type' => 'error',
-                        'msg' => wp_rem_plugin_text_srt( 'wp_rem_member_valid_file' ),
+                        'msg' => wp_rem_plugin_text_srt('wp_rem_member_valid_file'),
                     );
                     echo json_encode($response_array);
                     wp_die();
@@ -289,10 +289,9 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
             $member_id = get_current_user_id();
             $company_id = get_user_meta($member_id, 'wp_rem_company', true);
             $member_profile_type = '';
-            $member_user_type    = '';
+            $member_user_type = '';
             if ( $company_id != '' ) {
                 $member_profile_type = get_post_meta($company_id, 'wp_rem_member_profile_type', true);
-                $member_user_type = get_post_meta($company_id, 'wp_rem_member_user_type', true);
             }
             ?>
             <div class = "row">
@@ -300,16 +299,14 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
                 <form id="change_address_form" method="POST">
                     <div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class = "element-title has-border">
-                            <h4><?php echo wp_rem_plugin_text_srt( 'wp_rem_user_meta_my_profile' ); ?></h4>
+                            <h4><?php echo wp_rem_plugin_text_srt('wp_rem_user_meta_my_profile'); ?></h4>
                             <div class="col-lg-9 col-md-9 col-sm-12 pull-right">
                                 <ul class="dashboard-nav sub-nav">
                                     <?php if ( true === Wp_rem_Member_Permissions::check_permissions('company_profile') ) { ?>
-                                        <li id="wp_rem_member_accounts" class="user_dashboard_ajax" data-queryvar="dashboard=account"><a href="javascript:void(0);" class="btn-edit-profile"><?php echo wp_rem_plugin_text_srt( 'wp_rem_user_meta_my_profile' ) ?></a></li>
-                                        <?php if( $member_user_type != 'buyer' ){ ?>
-                                        <li class="user_dashboard_ajax" id="wp_rem_member_opening_hours" data-queryvar="dashboard=opening-hours"><a href="javascript:void(0)"><?php echo wp_rem_plugin_text_srt( 'wp_rem_member_opening_hours' ) ?> </a></li>
-                                        <li class="user_dashboard_ajax active" id="wp_rem_member_change_locations" data-queryvar="dashboard=location"><a href="javascript:void(0)"><?php echo wp_rem_plugin_text_srt( 'wp_rem_member_loc_branch' ) ?></a></li>
-                                        <?php }
-                                    } ?>
+                                        <li id="wp_rem_member_accounts" class="user_dashboard_ajax" data-queryvar="dashboard=account"><a href="javascript:void(0);" class="btn-edit-profile"><?php echo wp_rem_plugin_text_srt('wp_rem_user_meta_my_profile') ?></a></li>
+                                        <li class="user_dashboard_ajax" id="wp_rem_member_opening_hours" data-queryvar="dashboard=opening-hours"><a href="javascript:void(0)"><?php echo wp_rem_plugin_text_srt('wp_rem_member_opening_hours') ?> </a></li>
+                                        <li class="user_dashboard_ajax active" id="wp_rem_member_change_locations" data-queryvar="dashboard=location"><a href="javascript:void(0)"><?php echo wp_rem_plugin_text_srt('wp_rem_member_loc_branch') ?></a></li>
+                                    <?php } ?>
                                 </ul>
                             </div>
                         </div>
@@ -325,18 +322,18 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
                         WP_REM_FUNCTIONS()->wp_rem_frontend_location_fields('on', '', 'member', $current_user);
                     }
                     ?>
-					<div class="row">
-						<div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<button name="button" type="button" class="btn-submit" id="member_change_address"><?php echo wp_rem_plugin_text_srt( 'wp_rem_member_save' ); ?></button>
-						</div>
-						<script type="text/javascript">
-							jQuery(document).ready(function ($) {
-								chosen_selectionbox();
-							});
-						</script>
-					</div>
+                    <div class="row">
+                        <div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <button name="button" type="button" class="btn-submit" id="member_change_address"><?php echo wp_rem_plugin_text_srt('wp_rem_member_save'); ?></button>
+                        </div>
+                        <script type="text/javascript">
+                            jQuery(document).ready(function ($) {
+                                chosen_selectionbox();
+                            });
+                        </script>
+                    </div>
                 </form>
-				<br />
+                <br />
                 <?php $wp_rem_member_branches->wp_rem_member_branches_callback(); ?>
             </div>
             <?php
@@ -351,10 +348,9 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
             $member_id = get_current_user_id();
             $company_id = get_user_meta($member_id, 'wp_rem_company', true);
             $member_profile_type = '';
-            $member_user_type    = '';
+            $member_user_type = '';
             if ( $company_id != '' ) {
                 $member_profile_type = get_post_meta($company_id, 'wp_rem_member_profile_type', true);
-                $member_user_type = get_post_meta($company_id, 'wp_rem_member_user_type', true);
             }
             ?>
             <div class = "row">
@@ -362,29 +358,27 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
                 <form id="member-opening-hours-form" method="POST">
                     <div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class = "element-title has-border">
-                            <h4><?php echo wp_rem_plugin_text_srt( 'wp_rem_member_opening_hours' ); ?></h4>
+                            <h4><?php echo wp_rem_plugin_text_srt('wp_rem_member_opening_hours'); ?></h4>
                             <div class="col-lg-9 col-md-9 col-sm-12 pull-right">
                                 <ul class="dashboard-nav sub-nav">
                                     <?php if ( true === Wp_rem_Member_Permissions::check_permissions('company_profile') ) { ?>
-                                        <li id="wp_rem_member_accounts" class="user_dashboard_ajax" data-queryvar="dashboard=account"><a href="javascript:void(0);" class="btn-edit-profile"><?php echo wp_rem_plugin_text_srt( 'wp_rem_user_meta_my_profile' ) ?></a></li>
-                                        <?php if( $member_user_type != 'buyer' ){ ?>
-                                        <li class="user_dashboard_ajax active" id="wp_rem_member_opening_hours" data-queryvar="dashboard=opening-hours"><a href="javascript:void(0)"><?php echo wp_rem_plugin_text_srt( 'wp_rem_member_opening_hours' ) ?></a></li>
-                                        <li class="user_dashboard_ajax" id="wp_rem_member_change_locations" data-queryvar="dashboard=location"><a href="javascript:void(0)"><?php echo wp_rem_plugin_text_srt( 'wp_rem_member_loc_branch' ) ?></a></li>
-                                        <?php }
-                                    } ?>
+                                        <li id="wp_rem_member_accounts" class="user_dashboard_ajax" data-queryvar="dashboard=account"><a href="javascript:void(0);" class="btn-edit-profile"><?php echo wp_rem_plugin_text_srt('wp_rem_user_meta_my_profile') ?></a></li>
+                                            <li class="user_dashboard_ajax active" id="wp_rem_member_opening_hours" data-queryvar="dashboard=opening-hours"><a href="javascript:void(0)"><?php echo wp_rem_plugin_text_srt('wp_rem_member_opening_hours') ?></a></li>
+                                            <li class="user_dashboard_ajax" id="wp_rem_member_change_locations" data-queryvar="dashboard=location"><a href="javascript:void(0)"><?php echo wp_rem_plugin_text_srt('wp_rem_member_loc_branch') ?></a></li>
+                                        <?php } ?>
                                 </ul>
                             </div>
 
                         </div>
                     </div>
                     <div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <?php echo $this->member_opening_hours(); ?>
+            <?php echo $this->member_opening_hours(); ?>
                     </div>
                     <div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <?php echo $this->member_book_days_off(); ?>
+            <?php echo $this->member_book_days_off(); ?>
                     </div>
                     <div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <button name="button" type="button" class="btn-submit" id="member-opening-hours-btn"><?php echo wp_rem_plugin_text_srt( 'wp_rem_member_save' ); ?></button>
+                        <button name="button" type="button" class="btn-submit" id="member-opening-hours-btn"><?php echo wp_rem_plugin_text_srt('wp_rem_member_save'); ?></button>
                     </div>
                     <script type="text/javascript">
                         jQuery(document).ready(function ($) {
@@ -404,6 +398,7 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
 
         public function member_change_password_callback() {
             global $wpdb, $wp_rem_plugin_options, $wp_rem_form_fields_frontend, $wp_rem_html_fields_frontend, $wp_rem_html_fields, $wp_rem_form_fields;
+            wp_enqueue_script('wp-rem-validation-script');
             $member_id = get_current_user_id();
             $member_name = get_user_meta($member_id, 'member_name', true);
             $member_phone_number = get_user_meta($member_id, 'member_phone_number', true);
@@ -416,9 +411,9 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
                 $member_profile_type = get_post_meta($company_id, 'wp_rem_member_profile_type', true);
             }
 
-            $change_pass_text = wp_rem_plugin_text_srt( 'wp_rem_member_change_pass' );
+            $change_pass_text = wp_rem_plugin_text_srt('wp_rem_member_change_pass');
             if ( $user_type == 'team-member' ) {
-                $change_pass_text = wp_rem_plugin_text_srt( 'wp_rem_member_my_profile' );
+                $change_pass_text = wp_rem_plugin_text_srt('wp_rem_member_my_profile');
             }
             $required_class = ( $user_type != 'team-member' ) ? 'wp-rem-dev-req-field' : '';
             ?>
@@ -430,10 +425,10 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
                             <h4><?php echo esc_html($change_pass_text); ?></h4>
                         </div>
                     </div>
-                    <?php if ( $user_type == 'team-member' ) { ?>
+            <?php if ( $user_type == 'team-member' ) { ?>
                         <div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class = "field-holder">
-                                <label><?php echo wp_rem_plugin_text_srt( 'wp_rem_member_name' ); ?></label>
+                                <label><?php echo wp_rem_plugin_text_srt('wp_rem_member_name'); ?></label>
                                 <?php
                                 $wp_rem_opt_array = array(
                                     'desc' => '',
@@ -453,7 +448,7 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
                         </div>
                         <div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class = "field-holder">
-                                <label><?php echo wp_rem_plugin_text_srt( 'wp_rem_member_phone_number' ); ?></label>
+                                <label><?php echo wp_rem_plugin_text_srt('wp_rem_member_phone_number'); ?></label>
                                 <?php
                                 $wp_rem_opt_array = array(
                                     'desc' => '',
@@ -474,10 +469,10 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
 
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="field-holder profile-image-field">
-                                <label><?php echo wp_rem_plugin_text_srt( 'wp_rem_member_profile_image' ); ?></label>
+                                <label><?php echo wp_rem_plugin_text_srt('wp_rem_member_profile_image'); ?></label>
                                 <?php
                                 $wp_rem_opt_array = array(
-                                    'name' => wp_rem_plugin_text_srt( 'wp_rem_member_profile_image' ),
+                                    'name' => wp_rem_plugin_text_srt('wp_rem_member_profile_image'),
                                     'desc' => '',
                                     'echo' => true,
                                     'field_params' => array(
@@ -503,19 +498,19 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
                                 );
                                 $wp_rem_html_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
                                 ?>
-                                <div class="upload-file"><button for="file-1" class="member-thumbnail-upload" data-id="<?php echo esc_attr($member_id); ?>" type="button"><span><?php echo wp_rem_plugin_text_srt( 'wp_rem_member_upload' ); ?></span></button></div>
+                                <div class="upload-file"><button for="file-1" class="member-thumbnail-upload" data-id="<?php echo esc_attr($member_id); ?>" type="button"><span><?php echo wp_rem_plugin_text_srt('wp_rem_member_upload'); ?></span></button></div>
                                 <div class="member-thumbnail-<?php echo esc_attr($member_id); ?> member-profile-image">
                                     <?php
                                     if ( isset($wp_rem_member_thumb_id) && $wp_rem_member_thumb_id != '' ) {
                                         echo wp_get_attachment_image($wp_rem_member_thumb_id, 'thumbnail');
                                         ?>
                                         <div class="remove-member-thumb" data-id="<?php echo esc_attr($member_id); ?>"><i class="icon-close"></i></div>
-                                    <?php } ?>
+                <?php } ?>
                                 </div>
                             </div>
                         </div>
 
-                    <?php } ?>
+            <?php } ?>
 
                     <div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class = "field-holder">
@@ -582,7 +577,7 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
                     </div>
                     <div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class = "field-holder">
-                            <button name="button" type="button" class="btn-submit" id="member_change_password"><?php echo wp_rem_plugin_text_srt( 'wp_rem_member_save' ); ?></button>
+                            <button name="button" type="button" class="btn-submit" id="member_change_password"><?php echo wp_rem_plugin_text_srt('wp_rem_member_save'); ?></button>
                         </div>
                     </div>
                 </form>
@@ -608,7 +603,7 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
             $member_new_password = $_POST['member_new_password'];
             $member_confirm_new_password = $_POST['member_confirm_new_password'];
             $member_profile_image = $_POST['member_profile_image'];
-           
+
             $wp_rem_user_phone_number = $_POST['wp_rem_user_phone_number'];
             $wp_rem_biography = $_POST['wp_rem_biography'];
             $wp_rem_user_website = $_POST['wp_rem_user_website'];
@@ -761,7 +756,7 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
                     wp_update_post($my_post);
                 }
                 update_post_meta($company_id, 'wp_rem_profile_image', $member_profile_image_id);
-               
+
                 if ( $wp_rem_user_phone_number != '' ) {
                     update_post_meta($company_id, 'wp_rem_phone_number', $wp_rem_user_phone_number);
                 }
@@ -813,7 +808,7 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
                     update_user_meta($member_id, 'wp_rem_member_profile_type', $member_profile_type);
                 }
                 update_user_meta($member_id, 'wp_rem_profile_image', $member_profile_image_id);
-               
+
                 if ( $wp_rem_user_phone_number != '' ) {
                     update_user_meta($member_id, 'wp_rem_user_phone_number', $wp_rem_user_phone_number);
                 }
@@ -869,7 +864,8 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
 
         public function wp_rem_member_accounts_callback($member_id = '') {
             global $wpdb, $wp_rem_plugin_options, $wp_rem_form_fields_frontend, $wp_rem_html_fields_frontend, $wp_rem_html_fields;
-            $member_user_type    = '';
+            wp_enqueue_script('wp-rem-validation-script');
+            $member_user_type = '';
             $rand_id = rand(5, 99999);
             if ( ! isset($member_id) || $member_id == '' ) {
                 $member_id = get_current_user_id();
@@ -890,7 +886,6 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
                 $wp_rem_profile_image = $this->member_get_profile_image($member_id, '1');
                 if ( $company_id != '' ) {
                     $member_profile_type = get_post_meta($company_id, 'wp_rem_member_profile_type', true);
-                    $member_user_type = get_post_meta($company_id, 'wp_rem_member_user_type', true);
                     $wp_rem_profile_images_ids = isset($wp_rem_plugin_options['wp_rem_profile_images_ids']) ? $wp_rem_plugin_options['wp_rem_profile_images_ids'] : '';
                     $wp_rem_user_phone_number = get_post_meta($company_id, 'wp_rem_phone_number', true);
                     $wp_rem_biography = get_post_meta($company_id, 'wp_rem_biography', true);
@@ -900,12 +895,11 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
                     $company_slug = $post->post_name;
                 }
             }
-            
+
             $search_location = '1';
             echo '<link rel="stylesheet" type="text/css" media="all" href="' . plugins_url('wp-realestate-manager/assets/frontend/css/main.css') . '" />';
             echo '<link rel="stylesheet" type="text/css" media="all" href="' . plugins_url('wp-realestate-manager/assets/frontend/css/croppic.css') . '" />';
             echo '<script type="text/javascript" src="' . plugins_url('wp-realestate-manager/assets/frontend/scripts/croppic.js') . '"></script>';
-			
             ?>
 
             <div class ="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -914,20 +908,18 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
                         <div class="response-holder"></div>
                         <div class="ewrror-holder"></div>
                         <div class ="element-title has-border">
-                            <h4><?php echo wp_rem_plugin_text_srt( 'wp_rem_user_meta_my_profile' ); ?></h4>
+                            <h4><?php echo wp_rem_plugin_text_srt('wp_rem_user_meta_my_profile'); ?></h4>
                             <div class="col-lg-9 col-md-9 col-sm-12 pull-right">
                                 <ul class="dashboard-nav  sub-nav">
                                     <?php if ( true === Wp_rem_Member_Permissions::check_permissions('company_profile') ) { ?>
-                                        <li id="wp_rem_member_accounts" class="user_dashboard_ajax active" data-queryvar="dashboard=account"><a href="javascript:void(0);" class="btn-edit-profile"><?php echo wp_rem_plugin_text_srt( 'wp_rem_user_meta_my_profile' ) ?></a></li>
-                                        <?php if( $member_user_type != 'buyer' ){ ?>
-                                        <li class="user_dashboard_ajax" id="wp_rem_member_opening_hours" data-queryvar="dashboard=opening-hours"><a href="javascript:void(0)"><?php echo wp_rem_plugin_text_srt( 'wp_rem_member_opening_hours' ) ?></a></li>
-                                        <li class="user_dashboard_ajax" id="wp_rem_member_change_locations" data-queryvar="dashboard=location"><a href="javascript:void(0)"><?php echo wp_rem_plugin_text_srt( 'wp_rem_member_loc_branch' ) ?></a></li>
-                                        <?php }
-                                    } ?>
+                                        <li id="wp_rem_member_accounts" class="user_dashboard_ajax active" data-queryvar="dashboard=account"><a href="javascript:void(0);" class="btn-edit-profile"><?php echo wp_rem_plugin_text_srt('wp_rem_user_meta_my_profile') ?></a></li>
+                                            <li class="user_dashboard_ajax" id="wp_rem_member_opening_hours" data-queryvar="dashboard=opening-hours"><a href="javascript:void(0)"><?php echo wp_rem_plugin_text_srt('wp_rem_member_opening_hours') ?></a></li>
+                                            <li class="user_dashboard_ajax" id="wp_rem_member_change_locations" data-queryvar="dashboard=location"><a href="javascript:void(0)"><?php echo wp_rem_plugin_text_srt('wp_rem_member_loc_branch') ?></a></li>
+                                        <?php } ?>
                                 </ul>
                             </div>
                         </div>
-                        <?PHP if ( true === Wp_rem_Member_Permissions::check_permissions('company_profile') ) { ?>
+            <?PHP if ( true === Wp_rem_Member_Permissions::check_permissions('company_profile') ) { ?>
                             <div class = "row">
                                 <form id="member_profile" method="POST">
                                     <div class = "col-lg-7 col-md-7 col-sm-12 col-xs-12">
@@ -978,7 +970,7 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
 
                                                 <div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <div class = "field-holder">
-                                                        <label><?php echo wp_rem_plugin_text_srt( 'wp_rem_member_biography' ); ?></label>
+                                                        <label><?php echo wp_rem_plugin_text_srt('wp_rem_member_biography'); ?></label>
                                                         <?php
                                                         $wp_rem_opt_array = array(
                                                             'desc' => '',
@@ -1018,7 +1010,7 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
 
                                                 <div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <div class = "field-holder">
-                                                        <label><?php echo wp_rem_plugin_text_srt( 'wp_rem_member_phone_number' ); ?></label>
+                                                        <label><?php echo wp_rem_plugin_text_srt('wp_rem_member_phone_number'); ?></label>
                                                         <?php
                                                         $wp_rem_opt_array = array(
                                                             'desc' => '',
@@ -1038,7 +1030,7 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
 
                                                 <div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <div class = "field-holder">
-                                                        <label><?php echo wp_rem_plugin_text_srt( 'wp_rem_member_website_link' ); ?></label>
+                                                        <label><?php echo wp_rem_plugin_text_srt('wp_rem_member_website_link'); ?></label>
                                                         <?php
                                                         $wp_rem_opt_array = array(
                                                             'desc' => '',
@@ -1055,7 +1047,7 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
                                                     </div>
                                                 </div>
 
-                                              <?php } ?>
+                <?php } ?>
                                         </div>
                                     </div>
                                     <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
@@ -1124,7 +1116,7 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
                                     </div>
                                     <div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div class = "field-holder">
-                                            <button name="button" type="button" class="btn-submit" id="profile_form"><?php echo wp_rem_plugin_text_srt( 'wp_rem_member_save' ); ?></button>
+                                            <button name="button" type="button" class="btn-submit" id="profile_form"><?php echo wp_rem_plugin_text_srt('wp_rem_member_save'); ?></button>
                                         </div>
                                     </div>
                                 </form>
@@ -1266,8 +1258,8 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
             if ( $get_opening_hours == '' ) {
                 if ( is_array($time_list) && sizeof($time_list) > 0 ) {
                     foreach ( $time_list as $time_key => $time_val ) {
-                        $time_from_html .= '<option value="' . $time_key . '">' . date_i18n( 'g:i a', strtotime($time_val)) . '</option>' . "\n";
-                        $time_to_html .= '<option value="' . $time_key . '">' . date_i18n( 'g:i a', strtotime($time_val)) . '</option>' . "\n";
+                        $time_from_html .= '<option value="' . $time_key . '">' . date_i18n('g:i a', strtotime($time_val)) . '</option>' . "\n";
+                        $time_to_html .= '<option value="' . $time_key . '">' . date_i18n('g:i a', strtotime($time_val)) . '</option>' . "\n";
                     }
                 }
             }
@@ -1283,8 +1275,8 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
                             $time_from_html = '';
                             $time_to_html = '';
                             foreach ( $time_list as $time_key => $time_val ) {
-                                $time_from_html .= '<option value="' . $time_key . '"' . ($opening_time == $time_key ? ' selected="selected"' : '') . '>' . date_i18n( 'g:i a', strtotime($time_val)) . '</option>' . "\n";
-                                $time_to_html .= '<option value="' . $time_key . '"' . ($closing_time == $time_key ? ' selected="selected"' : '') . '>' . date_i18n( 'g:i a', strtotime($time_val)) . '</option>' . "\n";
+                                $time_from_html .= '<option value="' . $time_key . '"' . ($opening_time == $time_key ? ' selected="selected"' : '') . '>' . date_i18n('g:i a', strtotime($time_val)) . '</option>' . "\n";
+                                $time_to_html .= '<option value="' . $time_key . '"' . ($closing_time == $time_key ? ' selected="selected"' : '') . '>' . date_i18n('g:i a', strtotime($time_val)) . '</option>' . "\n";
                             }
                         }
                     }
@@ -1298,14 +1290,14 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
                                                        <select class="chosen-select " name="wp_rem_opening_hour[' . $day_key . '][opening_time]">
                                                            ' . $time_from_html . '
                                                        </select>
-                                                           <span class="option-label">' . wp_rem_plugin_text_srt( 'wp_rem_member_to' ) . '</span>
+                                                           <span class="option-label">' . wp_rem_plugin_text_srt('wp_rem_member_to') . '</span>
                                                        <select class="chosen-select " name="wp_rem_opening_hour[' . $day_key . '][closing_time]">
                                                            ' . $time_to_html . '
                                                        </select>
-                                                           <a id="wp-rem-dev-close-time-' . $day_key . '-' . $member_add_counter . '" href="javascript:void(0);" data-id="' . $member_add_counter . '" data-day="' . $day_key . '" title="' . wp_rem_plugin_text_srt( 'wp_rem_member_close' ) . '"><i class="icon-cross-out"></i></a>
+                                                           <a id="wp-rem-dev-close-time-' . $day_key . '-' . $member_add_counter . '" href="javascript:void(0);" data-id="' . $member_add_counter . '" data-day="' . $day_key . '" title="' . wp_rem_plugin_text_srt('wp_rem_member_close') . '"><i class="icon-cross-out"></i></a>
                                                    </div>
                                                    <div class="close-time">
-                                                       <a id="wp-rem-dev-open-time-' . $day_key . '-' . $member_add_counter . '" href="javascript:void(0);" data-id="' . $member_add_counter . '" data-day="' . $day_key . '">' . wp_rem_plugin_text_srt( 'wp_rem_member_closed' ) . ' <span>(' . wp_rem_plugin_text_srt( 'wp_rem_member_add_opening_hours' ) . ')</span></a>
+                                                       <a id="wp-rem-dev-open-time-' . $day_key . '-' . $member_add_counter . '" href="javascript:void(0);" data-id="' . $member_add_counter . '" data-day="' . $day_key . '">' . wp_rem_plugin_text_srt('wp_rem_member_closed') . ' <span>(' . wp_rem_plugin_text_srt('wp_rem_member_add_opening_hours') . ')</span></a>
                                                            <input id="wp-rem-dev-open-day-' . $day_key . '-' . $member_add_counter . '" type="hidden" name="wp_rem_opening_hour[' . $day_key . '][day_status]"' . (isset($day_status) && $day_status == 'on' ? ' value="on"' : '') . '>
                                                    </div>
                                                    </div>
@@ -1349,13 +1341,13 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
 
         public function member_week_days() {
             $week_days = array(
-                'monday' => wp_rem_plugin_text_srt( 'wp_rem_member_monday' ),
-                'tuesday' => wp_rem_plugin_text_srt( 'wp_rem_member_tuesday' ),
-                'wednesday' => wp_rem_plugin_text_srt( 'wp_rem_member_wednesday' ),
-                'thursday' => wp_rem_plugin_text_srt( 'wp_rem_member_thursday' ),
-                'friday' => wp_rem_plugin_text_srt( 'wp_rem_member_friday' ),
-                'saturday' => wp_rem_plugin_text_srt( 'wp_rem_member_saturday' ),
-                'sunday' => wp_rem_plugin_text_srt( 'wp_rem_member_sunday' )
+                'monday' => wp_rem_plugin_text_srt('wp_rem_member_monday'),
+                'tuesday' => wp_rem_plugin_text_srt('wp_rem_member_tuesday'),
+                'wednesday' => wp_rem_plugin_text_srt('wp_rem_member_wednesday'),
+                'thursday' => wp_rem_plugin_text_srt('wp_rem_member_thursday'),
+                'friday' => wp_rem_plugin_text_srt('wp_rem_member_friday'),
+                'saturday' => wp_rem_plugin_text_srt('wp_rem_member_saturday'),
+                'sunday' => wp_rem_plugin_text_srt('wp_rem_member_sunday')
             );
             return $week_days;
         }
@@ -1392,7 +1384,7 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
                 }
             }
             if ( $off_days_list == '' ) {
-                $off_days_list = '<li id="no-book-day-' . $member_add_counter . '" class="no-result-msg">' . wp_rem_plugin_text_srt( 'wp_rem_member_days_added' ) . '</li>';
+                $off_days_list = '<li id="no-book-day-' . $member_add_counter . '" class="no-result-msg">' . wp_rem_plugin_text_srt('wp_rem_member_days_added') . '</li>';
             }
 
             wp_enqueue_script('responsive-calendar');
@@ -1402,23 +1394,23 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="element-title">
 							<div id="dev-off-day-loader-' . $member_add_counter . '" class="property-loader"></div>
-							<a class="book-btn" href="javascript:void(0);">' . wp_rem_plugin_text_srt( 'wp_rem_member_off_days' ) . '</a>
+							<a class="book-btn" href="javascript:void(0);">' . wp_rem_plugin_text_srt('wp_rem_member_off_days') . '</a>
 							<div id="wp-rem-dev-cal-holder-' . $member_add_counter . '" class="calendar-holder">
 								<div data-id="' . $member_add_counter . '" class="wp-rem-dev-insert-off-days responsive-calendar">
-									<span class="availability">' . wp_rem_plugin_text_srt( 'wp_rem_member_availability' ) . '</span>
+									<span class="availability">' . wp_rem_plugin_text_srt('wp_rem_member_availability') . '</span>
 									<div class="controls">
 										<a data-go="prev"><div class="btn btn-primary"><i class="icon-angle-left"></i></div></a>
 										<h4><span data-head-month></span> <span data-head-year></span></h4>
 										<a data-go="next"><div class="btn btn-primary"><i class="icon-angle-right"></i></div></a>
 									</div>
 									<div class="day-headers">
-										<div class="day header">' . wp_rem_plugin_text_srt( 'wp_rem_member_sun' ) . '</div>
-										<div class="day header">' . wp_rem_plugin_text_srt( 'wp_rem_member_mon' ) . '</div>
-										<div class="day header">' . wp_rem_plugin_text_srt( 'wp_rem_member_tue' ) . '</div>
-										<div class="day header">' . wp_rem_plugin_text_srt( 'wp_rem_member_wed' ) . '</div>
-										<div class="day header">' . wp_rem_plugin_text_srt( 'wp_rem_member_thu' ) . '</div>
-										<div class="day header">' . wp_rem_plugin_text_srt( 'wp_rem_member_fri' ) . '</div>
-										<div class="day header">' . wp_rem_plugin_text_srt( 'wp_rem_member_sat' ) . '</div>
+										<div class="day header">' . wp_rem_plugin_text_srt('wp_rem_member_sun') . '</div>
+										<div class="day header">' . wp_rem_plugin_text_srt('wp_rem_member_mon') . '</div>
+										<div class="day header">' . wp_rem_plugin_text_srt('wp_rem_member_tue') . '</div>
+										<div class="day header">' . wp_rem_plugin_text_srt('wp_rem_member_wed') . '</div>
+										<div class="day header">' . wp_rem_plugin_text_srt('wp_rem_member_thu') . '</div>
+										<div class="day header">' . wp_rem_plugin_text_srt('wp_rem_member_fri') . '</div>
+										<div class="day header">' . wp_rem_plugin_text_srt('wp_rem_member_sat') . '</div>
 									</div>
 									<div class="days wp-rem-dev-calendar-days" data-group="days"></div>
 								</div>
@@ -1427,7 +1419,14 @@ if ( ! class_exists('Wp_rem_Member_Profile') ) {
 						<script>
 						jQuery(document).ajaxComplete(function() {
 							jQuery(".responsive-calendar").responsiveCalendar({
+								time: "' . date('Y-m') . '",
 								monthChangeAnimation: false,
+								events: {
+									"' . date('Y-m-d') . '": {
+										number: 5,
+										url: "https://themeforest.net/user/chimpstudio/portfolio"
+									}
+							}
 							});
 						});
 						</script>

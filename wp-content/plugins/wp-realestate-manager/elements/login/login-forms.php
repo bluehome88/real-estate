@@ -6,7 +6,7 @@ if (!function_exists('wp_rem_pb_register')) {
 
     function wp_rem_pb_register($die = 0) {
 
-        global $wp_rem_form_fields_frontend, $wp_rem_html_fields_frontend;
+        global $wp_rem_form_fields, $wp_rem_html_fields;
         $shortcode_element = '';
         $filter_element = 'filterdrag';
         $shortcode_view = '';
@@ -84,7 +84,7 @@ if (!function_exists('wp_rem_pb_register')) {
                             ),
                         );
 
-                        $wp_rem_html_fields_frontend->wp_rem_text_field($wp_rem_opt_array);
+                        $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
                         ?>
                     </div>
                     <?php if (isset($_POST['shortcode_element']) && $_POST['shortcode_element'] == 'shortcode') {
@@ -108,7 +108,7 @@ if (!function_exists('wp_rem_pb_register')) {
                             'return' => false,
                             'required' => false
                         );
-                        $wp_rem_form_fields_frontend->wp_rem_form_hidden_render($wp_rem_opt_array);
+                        $wp_rem_form_fields->wp_rem_form_hidden_render($wp_rem_opt_array);
 
 
                         $wp_rem_opt_array = array(
@@ -127,7 +127,7 @@ if (!function_exists('wp_rem_pb_register')) {
                             ),
                         );
 
-                        $wp_rem_html_fields_frontend->wp_rem_text_field($wp_rem_opt_array);
+                        $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
                     }
                     ?>
                 </div>

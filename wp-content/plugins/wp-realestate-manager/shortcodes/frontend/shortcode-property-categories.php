@@ -34,7 +34,8 @@ if ( ! class_exists('Wp_rem_Shortcode_Property_Categories_front') ) {
 
         public function wp_rem_property_categories_shortcode_callback($atts, $content = "") {
             global $current_user, $wp_rem_plugin_options;
-
+            wp_enqueue_script('wp-rem-bootstrap-slider');
+            wp_enqueue_script('wp-rem-matchHeight-script');
             $property_categories_title = isset($atts['property_categories_title']) ? $atts['property_categories_title'] : '';
             $property_categories_styles = isset($atts['property_categories_styles']) ? $atts['property_categories_styles'] : '';
             $property_categories_title_align = isset($atts['property_categories_title_align']) ? $atts['property_categories_title_align'] : '';
@@ -81,7 +82,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Property_Categories_front') ) {
                 $args = array(
                     'post_status' => 'publish',
                     'post_type' => 'properties',
-                    'posts_per_page' => "-1",
+                    'posts_per_page' => "1",
                     'fields' => 'ids', // only load ids
                     'meta_query' => array(
                         array(
@@ -105,37 +106,20 @@ if ( ! class_exists('Wp_rem_Shortcode_Property_Categories_front') ) {
                 $counter ++;
                 wp_reset_postdata();
             }
-            global $post;
-            $post_args = array( 'post_type' => 'property-type', 'posts_per_page' => '-1', 'post_status' => 'publish', 'fields' => 'ids', );
-            $loop_query = new Wp_Query($post_args);
-            if ( $loop_query->have_posts() ):
-                while ( $loop_query->have_posts() ):
-
-                    $loop_query->the_post();
-
-                    $property_type_id = $post;
-
-                    $wp_rem_search_result_page = get_post_meta($property_type_id, 'wp_rem_search_result_page', true);
-                    if ( $wp_rem_search_result_page != '' ) {
-                        $wp_rem_search_result = ( $wp_rem_search_result_page );
-                    }
-
-                endwhile;
-                wp_reset_postdata();
-            endif;
-            $wp_rem_search = get_permalink($wp_rem_search_result);
-
-
-
-
-
+            
+            $wp_rem_search = '';
+			$wp_rem_search_result_page = isset($wp_rem_plugin_options['wp_rem_search_result_page']) ? $wp_rem_plugin_options['wp_rem_search_result_page'] : '';
+			if( $wp_rem_search_result_page != ''  && is_numeric($wp_rem_search_result_page)){
+				$wp_rem_search = get_permalink($wp_rem_search_result_page);
+			}
+			
             foreach ( $fields_array as $field_data ) {
                 if ( isset($field_data['id']) ) {
-                    $cat_link = isset($wp_rem_search) && $wp_rem_search != '' ? $wp_rem_search . '?wp_rem_property_category=' . $field_data['slug'] . '&ajax_filter=true' : '&ajax_filter=true';
+                    $cat_link = isset($wp_rem_search) && $wp_rem_search != '' ? $wp_rem_search . '?property_category=' . $field_data['slug'] . '&ajax_filter=true' : '&ajax_filter=true';
                 }
                 echo '<li>';
                 echo '<a href = "' . ( $cat_link ) . '">' . $field_data['category'] . '</a>';
-                echo '<small>(' . $field_data['post_count'] . ' Deals)</small>';
+                echo '<small>(' . $field_data['post_count'] . ' '.  wp_rem_plugin_text_srt('wp_rem_deals') .')</small>';
                 echo '</li>';
             }
 

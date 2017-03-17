@@ -33,7 +33,7 @@ if (!class_exists('Wp_rem_Activity_Notifications')) {
          */
 
         public function wp_rem_enqueue_files_frontend_callback() {
-            wp_enqueue_script('wp-rem-notifications-js', plugins_url('/assets/js/functions.js', __FILE__));
+            wp_register_script('wp-rem-notifications-js', plugins_url('/assets/js/functions.js', __FILE__));
         }
 
         /**

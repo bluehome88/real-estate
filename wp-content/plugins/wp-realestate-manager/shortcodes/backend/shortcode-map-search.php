@@ -93,7 +93,7 @@ if (!function_exists('wp_rem_page_builder_map_search')) {
                             $wp_rem_opt_array = array(
                                 'name' => wp_rem_plugin_text_srt('wp_rem_element_title'),
                                 'desc' => '',
-                                'hint_text' => wp_rem_plugin_text_srt('wp_rem_element_title_hint'),
+                                'label_desc' => wp_rem_plugin_text_srt('wp_rem_element_title_hint'),
                                 'echo' => true,
                                 'field_params' => array(
                                     'std' => $map_search_title,
@@ -106,7 +106,7 @@ if (!function_exists('wp_rem_page_builder_map_search')) {
                             $wp_rem_opt_array = array(
                                 'name' => wp_rem_plugin_text_srt('wp_rem_element_sub_title'),
                                 'desc' => '',
-                                'hint_text' => wp_rem_plugin_text_srt('wp_rem_element_sub_title_hint'),
+                                'label_desc' => wp_rem_plugin_text_srt('wp_rem_element_sub_title_hint'),
                                 'echo' => true,
                                 'field_params' => array(
                                     'std' => $map_search_subtitle,
@@ -120,7 +120,7 @@ if (!function_exists('wp_rem_page_builder_map_search')) {
                             $wp_rem_opt_array = array(
                                 'name' => wp_rem_plugin_text_srt('wp_rem_title_align'),
                                 'desc' => '',
-                                'hint_text' => wp_rem_plugin_text_srt('wp_rem_title_align_hint'),
+                                'label_desc' => wp_rem_plugin_text_srt('wp_rem_title_align_hint'),
                                 'echo' => true,
                                 'field_params' => array(
                                     'std' => esc_attr($map_search_title_alignment),
@@ -139,16 +139,16 @@ if (!function_exists('wp_rem_page_builder_map_search')) {
 
 
                             $wp_rem_post_property_types = new wp_rem_Post_Property_Types();
-                            $property_types_array = $wp_rem_post_property_types->wp_rem_types_array_callback();
+                            $property_types_array = $wp_rem_post_property_types->wp_rem_types_array_callback(wp_rem_plugin_text_srt('wp_rem_shortcode_properties_all_types'));
                             $wp_rem_opt_array = array(
                                 'name' => wp_rem_plugin_text_srt('wp_rem_map_search_property_type'),
                                 'desc' => '',
-                                'hint_text' => '',
+                                'label_desc' => '',
                                 'echo' => true,
                                 'field_params' => array(
                                     'std' => esc_attr($property_type),
-                                    'id' => 'property_type[]',
-                                    'classes' => 'chosen-select',
+                                    'id' => 'property_type',
+									'classes' => 'chosen-select',
                                     'cust_name' => 'property_type[]',
                                     'return' => true,
                                     'options' => $property_types_array
@@ -180,7 +180,7 @@ if (!function_exists('wp_rem_page_builder_map_search')) {
                                 'name' => wp_rem_plugin_text_srt('wp_rem_select_result_page'),
                                 'id' => 'map_search_result_page',
                                 'desc' => '',
-                                'hint_text' => wp_rem_plugin_text_srt('wp_rem_select_result_page_hint'),
+                                'label_desc' => wp_rem_plugin_text_srt('wp_rem_select_result_page_hint'),
                                 'std' => $map_search_result_page,
                                 'args' => $field_args,
                             );
@@ -189,7 +189,7 @@ if (!function_exists('wp_rem_page_builder_map_search')) {
                             $wp_rem_opt_array = array(
                                 'name' => wp_rem_plugin_text_srt('wp_rem_list_meta_map'),
                                 'desc' => '',
-                                'hint_text' => wp_rem_plugin_text_srt('wp_rem_map_search_map_on'),
+                                'label_desc' => wp_rem_plugin_text_srt('wp_rem_map_search_map_on'),
                                 'echo' => true,
                                 'field_params' => array(
                                     'std' => $map_map_search_switch,
@@ -203,7 +203,7 @@ if (!function_exists('wp_rem_page_builder_map_search')) {
                             $wp_rem_opt_array = array(
                                 'name' => wp_rem_plugin_text_srt('wp_rem_map_search_map_height'),
                                 'desc' => '',
-                                'hint_text' => wp_rem_plugin_text_srt('wp_rem_map_search_map_height_hint'),
+                                'label_desc' => wp_rem_plugin_text_srt('wp_rem_map_search_map_height_hint'),
                                 'echo' => true,
                                 'field_params' => array(
                                     'std' => $map_map_search_height,
@@ -217,7 +217,7 @@ if (!function_exists('wp_rem_page_builder_map_search')) {
                             $wp_rem_opt_array = array(
                                 'name' => wp_rem_plugin_text_srt('wp_rem_map_search_map_latitude'),
                                 'desc' => '',
-                                'hint_text' => wp_rem_plugin_text_srt('wp_rem_map_search_map_latitude_hint'),
+                                'label_desc' => wp_rem_plugin_text_srt('wp_rem_map_search_map_latitude_hint'),
                                 'echo' => true,
                                 'field_params' => array(
                                     'std' => $map_search_lat,
@@ -231,7 +231,7 @@ if (!function_exists('wp_rem_page_builder_map_search')) {
                             $wp_rem_opt_array = array(
                                 'name' => wp_rem_plugin_text_srt('wp_rem_map_search_map_longitude'),
                                 'desc' => '',
-                                'hint_text' => wp_rem_plugin_text_srt('wp_rem_map_search_map_longitude_hint'),
+                                'label_desc' => wp_rem_plugin_text_srt('wp_rem_map_search_map_longitude_hint'),
                                 'echo' => true,
                                 'field_params' => array(
                                     'std' => $map_search_long,
@@ -245,7 +245,7 @@ if (!function_exists('wp_rem_page_builder_map_search')) {
                             $wp_rem_opt_array = array(
                                 'name' => wp_rem_plugin_text_srt('wp_rem_map_search_map_zoom'),
                                 'desc' => '',
-                                'hint_text' => wp_rem_plugin_text_srt('wp_rem_map_search_map_zoom_hint'),
+                                'label_desc' => wp_rem_plugin_text_srt('wp_rem_map_search_map_zoom_hint'),
                                 'echo' => true,
                                 'field_params' => array(
                                     'std' => $map_search_zoom,
@@ -259,7 +259,7 @@ if (!function_exists('wp_rem_page_builder_map_search')) {
                             $wp_rem_opt_array = array(
                                 'name' => wp_rem_plugin_text_srt('wp_rem_map_search_box'),
                                 'desc' => '',
-                                'hint_text' => wp_rem_plugin_text_srt('wp_rem_map_search_box_hint'),
+                                'label_desc' => wp_rem_plugin_text_srt('wp_rem_map_search_box_hint'),
                                 'echo' => true,
                                 'field_params' => array(
                                     'std' => $map_search_box_switch,
@@ -274,7 +274,7 @@ if (!function_exists('wp_rem_page_builder_map_search')) {
                             $wp_rem_opt_array = array(
                                 'name' => wp_rem_plugin_text_srt('wp_rem_map_search_keyword'),
                                 'desc' => '',
-                                'hint_text' => wp_rem_plugin_text_srt('wp_rem_map_search_keyword_hint'),
+                                'label_desc' => wp_rem_plugin_text_srt('wp_rem_map_search_keyword_hint'),
                                 'echo' => true,
                                 'field_params' => array(
                                     'std' => esc_attr($map_search_title_field_switch),
@@ -294,7 +294,7 @@ if (!function_exists('wp_rem_page_builder_map_search')) {
                             $wp_rem_opt_array = array(
                                 'name' => wp_rem_plugin_text_srt('wp_rem_map_search_property_type'),
                                 'desc' => '',
-                                'hint_text' => wp_rem_plugin_text_srt('wp_rem_map_search_property_type_hint'),
+                                'label_desc' => wp_rem_plugin_text_srt('wp_rem_map_search_property_type_hint'),
                                 'echo' => true,
                                 'field_params' => array(
                                     'std' => esc_attr($map_search_property_type_field_switch),
@@ -314,7 +314,7 @@ if (!function_exists('wp_rem_page_builder_map_search')) {
                             $wp_rem_opt_array = array(
                                 'name' => wp_rem_plugin_text_srt('wp_rem_map_search_location'),
                                 'desc' => '',
-                                'hint_text' => wp_rem_plugin_text_srt('wp_rem_map_search_location_hint'),
+                                'label_desc' => wp_rem_plugin_text_srt('wp_rem_map_search_location_hint'),
                                 'echo' => true,
                                 'field_params' => array(
                                     'std' => esc_attr($map_search_location_field_switch),
@@ -334,7 +334,7 @@ if (!function_exists('wp_rem_page_builder_map_search')) {
                             $wp_rem_opt_array = array(
                                 'name' => wp_rem_plugin_text_srt('wp_rem_map_search_categories'),
                                 'desc' => '',
-                                'hint_text' => wp_rem_plugin_text_srt('wp_rem_map_search_categories_hint'),
+                                'label_desc' => wp_rem_plugin_text_srt('wp_rem_map_search_categories_hint'),
                                 'echo' => true,
                                 'field_params' => array(
                                     'std' => esc_attr($map_search_categories_field_switch),
@@ -378,7 +378,7 @@ if (!function_exists('wp_rem_page_builder_map_search')) {
                             $wp_rem_cs_opt_array = array(
                                 'name' => '',
                                 'desc' => '',
-                                'hint_text' => '',
+                                'label_desc' => '',
                                 'echo' => true,
                                 'field_params' => array(
                                     'std' => wp_rem_plugin_text_srt('wp_rem_save'),
@@ -459,6 +459,9 @@ if (!function_exists('wp_rem_cs_save_page_builder_data_map_search_callback')) {
 
                 if (isset($data['map_search_title_field_switch'][$counters['wp_rem_cs_counter_map_search']]) && $data['map_search_title_field_switch'][$counters['wp_rem_cs_counter_map_search']] != '') {
                     $wp_rem_cs_bareber_map_search .= 'map_search_title_field_switch="' . htmlspecialchars($data['map_search_title_field_switch'][$counters['wp_rem_cs_counter_map_search']], ENT_QUOTES) . '" ';
+                }
+				if (isset($data['property_type'][$counters['wp_rem_cs_counter_map_search']]) && $data['property_type'][$counters['wp_rem_cs_counter_map_search']] != '') {
+                    $wp_rem_cs_bareber_map_search .= 'property_type="' . htmlspecialchars($data['property_type'][$counters['wp_rem_cs_counter_map_search']], ENT_QUOTES) . '" ';
                 }
                 if (isset($data['map_search_property_type_field_switch'][$counters['wp_rem_cs_counter_map_search']]) && $data['map_search_property_type_field_switch'][$counters['wp_rem_cs_counter_map_search']] != '') {
                     $wp_rem_cs_bareber_map_search .= 'map_search_property_type_field_switch="' . htmlspecialchars($data['map_search_property_type_field_switch'][$counters['wp_rem_cs_counter_map_search']], ENT_QUOTES) . '" ';

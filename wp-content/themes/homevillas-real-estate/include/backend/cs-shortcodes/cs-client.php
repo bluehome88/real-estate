@@ -154,8 +154,13 @@ if (!function_exists('wp_rem_cs_var_page_builder_clients')) {
                                         'classes' => 'chosen-select-no-single select-medium',
                                         'options' => array(
                                             'simple' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_client_view_simple'),
+                                            'default' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_client_view_default'),
                                             'modern' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_client_view_medern'),
                                             'modern-border' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_client_view_medern_with_border'),
+                                            'advance' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_client_view_advance'),
+                                            'classic' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_client_view_classic'),
+                                            'slider' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_client_view_slider'),
+                                            
                                         ),
                                         'return' => true,
                                     ),

@@ -25,32 +25,8 @@ if (!class_exists('arrange_viewings_post_type_meta')) {
             global $post, $wp_rem_plugin_options;
             $post_id = $post->ID;
             $wp_rem_users_list = array();
-            $wp_rem_users = get_users('orderby=nicename');
-            $wp_rem_users_list = array();
-            if ($wp_rem_users) {
-                foreach ($wp_rem_users as $user) {
-                    $wp_rem_users_list[$user->ID] = $user->display_name;
-                }
-            }
 
             $wp_rem_seller_members_list = array();
-            $wp_rem_buyer_members_list = array();
-            $args = array('posts_per_page' => '-1', 'post_type' => 'members', 'orderby' => 'title', 'post_status' => 'publish', 'order' => 'ASC');
-            $cust_query = get_posts($args);
-            if (is_array($cust_query) && sizeof($cust_query) > 0) {
-                foreach ($cust_query as $member_post) {
-                    if (isset($member_post->ID)) {
-                        $member_id = $member_post->ID;
-                        $member_title = $member_post->post_title;
-                        $member_user_type = get_post_meta($member_id, 'wp_rem_member_user_type', true);
-                        if ($member_user_type == 'reseller') {
-                            $wp_rem_seller_members_list[$member_id] = $member_title;
-                        } else {
-                            $wp_rem_buyer_members_list[$member_id] = $member_title;
-                        }
-                    }
-                }
-            }
 
             $orders_meta = array();
 
@@ -63,7 +39,7 @@ if (!class_exists('arrange_viewings_post_type_meta')) {
 
             $orders_meta['property_member'] = array(
                 'name' => 'property_member',
-                'type' => 'select',
+                'type' => 'members_select',
                 'classes' => 'chosen-select',
                 'title' => wp_rem_plugin_text_srt('wp_rem_arrange_viewings_property_member'),
                 'options' => $wp_rem_seller_members_list,
@@ -72,10 +48,10 @@ if (!class_exists('arrange_viewings_post_type_meta')) {
 
             $orders_meta['viewing_member'] = array(
                 'name' => 'viewing_member',
-                'type' => 'select',
+                'type' => 'members_select',
                 'classes' => 'chosen-select',
                 'title' => wp_rem_plugin_text_srt('wp_rem_arrange_viewings_Viewing_member'),
-                'options' => $wp_rem_buyer_members_list,
+                'options' => $wp_rem_seller_members_list,
                 'description' => '',
             );
 
@@ -231,6 +207,46 @@ if (!class_exists('arrange_viewings_post_type_meta')) {
                     );
 
                     $output = $wp_rem_html_fields->wp_rem_select_field($wp_rem_opt_array);
+                    // append
+                    $html .= $output;
+                    break;
+                    
+                case 'members_select' :
+                    
+                    $wp_rem_value = get_post_meta($post->ID, 'wp_rem_' . $key, true);
+                    $wp_rem_members_list    = array();
+                    if (isset($wp_rem_value) && $wp_rem_value != '') {
+                        $wp_rem_value = $wp_rem_value;
+                        $wp_rem_members_list = array( $wp_rem_value => get_the_title($wp_rem_value) );
+                    } else {
+                        $wp_rem_value = '';
+                    }
+                    $wp_rem_classes = '';
+                    if (isset($param['classes']) && $param['classes'] != "") {
+                        $wp_rem_classes = $param['classes'];
+                    }
+                    
+                    $output = $wp_rem_html_fields->wp_rem_opening_field(array(
+					'id' => 'property_member',
+					'name' => $param['title'],
+					'label_desc' => '',
+				)
+			);
+                    $output .= '<div class="property_members_holder ' . $key . '_holder" onclick="wp_rem_load_all_members(\'' . $key . '_holder\', \''. $wp_rem_value .'\');">';
+                            $wp_rem_opt_array = array(
+                                    'std' => $wp_rem_value,
+                                    'force_std' => true,
+                                    'id' => $key,
+                                    'extra_atr' => 'onchange="wp_rem_show_company_users(this.value, \''.admin_url('admin-ajax.php').'\', \''.wp_rem::plugin_url().'\');"',
+                                    'classes' => $wp_rem_classes,
+                                    'options' => $wp_rem_members_list,
+                                    'markup' => '<span class="members-loader"></span>',
+                                    'return' => true,
+                            );
+                            $output .= $wp_rem_form_fields->wp_rem_form_select_render($wp_rem_opt_array);
+                    $output .= '</div>';
+                    
+                    $output .= $wp_rem_html_fields->wp_rem_closing_field(array('desc' => ''));
                     // append
                     $html .= $output;
                     break;

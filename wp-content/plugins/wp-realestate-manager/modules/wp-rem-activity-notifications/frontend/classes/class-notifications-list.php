@@ -26,6 +26,7 @@ if (!class_exists('Wp_rem_Activity_Notifications_List')) {
          * @based on current User ID
          */
         public function wp_rem_new_notifications_callback() {
+            wp_enqueue_script('wp-rem-notifications-js');
             $user_id = get_current_user_id();
             $company_id = get_user_meta($user_id, 'wp_rem_company', true);
             $args = array(
@@ -64,6 +65,7 @@ if (!class_exists('Wp_rem_Activity_Notifications_List')) {
          * @based on current User ID
          */
         public function wp_rem_all_notifications_callback() {
+            wp_enqueue_script('wp-rem-notifications-js');
             $user_id = get_current_user_id();
             $args = array(
                 'posts_per_page' => "-1",

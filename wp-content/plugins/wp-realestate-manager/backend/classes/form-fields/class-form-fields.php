@@ -251,7 +251,7 @@ if ( ! class_exists('wp_rem_form_fields') ) {
 				$html_id = '';
 			}
 
-			$wp_rem_output .= '<input type="radio" ' . $wp_rem_visibilty . $wp_rem_required . ' ' . $wp_rem_classes . ' ' . $extra_atributes . ' ' . $html_id . $html_name . ' value="' . sanitize_text_field($value) . '" />';
+			$wp_rem_output .= '<input type="radio" ' . $wp_rem_visibilty . $wp_rem_required . ' ' . $wp_rem_classes . ' ' . $extra_atributes . ' ' . $html_id . $html_name . ' value="' . ($value) . '" />';
 
 			if ( isset($return) && $return == true ) {
 				return force_balance_tags($wp_rem_output);

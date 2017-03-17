@@ -49,7 +49,7 @@ if ( $property_loop_obj->have_posts() ) {
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                 <div class="img-frame classic has-border has-shadow">
                                     <figure>
-                                        <?php echo $property_gallery_first_image; ?>
+                                        <?php echo wp_rem_allow_special_char($property_gallery_first_image); ?>
                                     </figure>
                                 </div>
                             </div>

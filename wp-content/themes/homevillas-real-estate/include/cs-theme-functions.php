@@ -434,6 +434,19 @@ if ( ! function_exists('wp_rem_cs_var_comment') ):
 
     }
 	
+	if ( ! function_exists('wp_rem_cs_var_custom_upload_mimes') ) {
+		function wp_rem_cs_var_custom_upload_mimes( $existing_mimes ) {
+			$existing_mimes['eot'] = 'application/vnd.ms-fontobject';
+			$existing_mimes['otf'] = 'application/x-font-otf';
+			$existing_mimes['svg'] = 'image/svg+xml';
+			$existing_mimes['ttf'] = 'application/x-font-ttf';
+			$existing_mimes['woff'] = 'application/x-font-woff';
+			$existing_mimes['svgz'] = 'svg+xml';
+			return $existing_mimes;
+		}
+		add_filter( 'mime_types', 'wp_rem_cs_var_custom_upload_mimes' );
+	}
+	
     /*
      * For Extra File Types Upload
      */
@@ -647,12 +660,12 @@ if ( ! function_exists('wp_rem_cs_var_comment') ):
             }
 
             if ( isset($attr['ids']) ) {
-                $output = "<div class='post-gallery'>";
+                $output = " <div class='post-gallery'> ";
                 $posts = get_posts(array( 'include' => $attr['ids'], 'post_type' => 'attachment' ));
                 foreach ( $posts as $imagePost ) {
-                    $output .='<div class="' . $col_class . '"><div class="media-holder"><figure><img src="' . wp_get_attachment_image_src($imagePost->ID, 'wp_rem_cs_media_3')[0] . '" alt=""></figure></div></div>';
+                    $output .=' <div class="' . $col_class . '"> <div class="media-holder"> <figure> <img src="' . wp_get_attachment_image_src($imagePost->ID, 'wp_rem_cs_media_3')[0] . '" alt=""> </figure> </div> </div> ';
                 }
-                $output .= "</div>";
+                $output .= " </div> ";
             }
             return $output;
         }

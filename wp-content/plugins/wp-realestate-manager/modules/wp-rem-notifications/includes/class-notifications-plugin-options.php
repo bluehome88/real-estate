@@ -50,7 +50,7 @@ if ( ! function_exists('create_plugin_options') ) {
             "name" => wp_rem_plugin_text_srt('wp_rem_notifications_annually'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_notifications_annually_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_notifications_annually_hint'),
             "id" => "frequency_annually",
             "std" => "",
             "type" => "checkbox",
@@ -133,7 +133,7 @@ if ( ! function_exists('wp_rem_properties_shortcode_admin_fields_callback') ) {
             'name' => wp_rem_plugin_text_srt('wp_rem_notifications_property_alert_shortcode'),
             'desc' => '',
             'hint_text' => '',
-			'label_desc' => wp_rem_plugin_text_srt('wp_rem_notifications_property_alert_shortcode_hint'),
+            'label_desc' => wp_rem_plugin_text_srt('wp_rem_notifications_property_alert_shortcode_hint'),
             'echo' => true,
             'field_params' => array(
                 'std' => $attrs['property_alert_button'],

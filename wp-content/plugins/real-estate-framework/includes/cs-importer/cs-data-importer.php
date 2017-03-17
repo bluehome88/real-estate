@@ -276,7 +276,6 @@ class wp_rem_cs_Data_Importer {
 				} else {
 					$this->attachments_replace_url = str_replace( '{{{demo_data_name}}}', $this->demo_data_name, DEMO_DATA_URL );
 				}
-				var_dump($this->attachments_replace_url);
 				$demo_data_str = str_replace( $this->attachments_replace_url, $this->wp_upload_url_path, $demo_data_str );
 			}
 		}

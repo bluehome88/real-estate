@@ -175,6 +175,28 @@ if (!class_exists('wp_rem_html_fields_frontend')) {
                 return $wp_rem_output;
             }
         }
+		
+		/**
+         * radio field markup
+         * 
+         */
+        public function wp_rem_radio_field($params = '') {
+            extract($params);
+            $wp_rem_output = '';
+
+            $wp_rem_output .= '
+			<div class="input-sec">';
+            $wp_rem_output .= parent::wp_rem_form_radio_render($field_params);
+            $wp_rem_output .= $description;
+            $wp_rem_output .= '
+			</div>';
+
+            if ( isset($echo) && $echo == true ) {
+                echo force_balance_tags($wp_rem_output);
+            } else {
+                return $wp_rem_output;
+            }
+        }
 
         /**
          * @ render Radio field

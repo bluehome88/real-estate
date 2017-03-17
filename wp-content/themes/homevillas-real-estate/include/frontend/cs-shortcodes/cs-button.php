@@ -28,6 +28,7 @@ if ( ! function_exists('wp_rem_cs_var_button') ) {
 			'wp_rem_cs_var_button_bg_color' => '',
 			'wp_rem_cs_var_button_align' => '',
 			'wp_rem_cs_button_icon' => '',
+			'wp_rem_cs_button_icon_group' => 'default',
 			'wp_rem_cs_var_button_size' => 'btn-lg',
 			'wp_rem_cs_var_icon_view' => '',
 			'wp_rem_cs_var_button_alignment' => ''
@@ -96,8 +97,9 @@ if ( ! function_exists('wp_rem_cs_var_button') ) {
 		}
 
 		$html .= '<div class="button_style cs-button' . esc_attr($button_alignment) . '">';
-		$html .= '<a href="  ' . esc_url($wp_rem_cs_var_button_link) . '" class="csborder-color ' . esc_attr($has_border) . ' custom-btn ' . esc_attr($button_size) . ' ' . sanitize_html_class($button_type_class) . ' bg-color  ' . $has_icon . ' button-icon-' . esc_attr($wp_rem_cs_var_button_align) . '" style="' . esc_attr($border) . '  background-color: ' . esc_attr($wp_rem_cs_var_button_bg_color) . '; color:' . esc_attr($wp_rem_cs_var_button_color) . ' ! important;"' . esc_html($wp_rem_cs_var_button_target) . '>';
+		$html .= '<a href="  ' . esc_url($wp_rem_cs_var_button_link) . '" class="csborder-color ' . esc_attr($has_border) . ' custom-btn ' . esc_attr($button_size) . ' ' . sanitize_html_class($button_type_class) . ' bg-color  ' . $has_icon . ' button-icon-' . esc_attr($wp_rem_cs_var_button_align) . '" style="' . esc_attr($border) . '  background-color: ' . esc_attr($wp_rem_cs_var_button_bg_color) . ' ! important; color:' . esc_attr($wp_rem_cs_var_button_color) . ' ! important;"' . esc_html($wp_rem_cs_var_button_target) . '>';
 		if ( isset($wp_rem_cs_button_icon) && $wp_rem_cs_button_icon <> '' && isset($wp_rem_cs_var_icon_view) && $wp_rem_cs_var_icon_view == 'on' ) {
+                        wp_enqueue_style('cs_icons_data_css_'.$wp_rem_cs_button_icon_group );
 			$html .= '<i class="' . esc_attr($wp_rem_cs_button_icon) . '"></i>';
 		}
 		if ( isset($wp_rem_cs_var_button_text) && $wp_rem_cs_var_button_text <> '' ) {

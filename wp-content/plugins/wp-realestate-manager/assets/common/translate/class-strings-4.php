@@ -34,7 +34,9 @@ if ( ! class_exists('wp_rem_plugin_all_strings_4') ) {
             $wp_rem_static_text['wp_rem_list_meta_sticky'] = esc_html__('Sticky Navigation', 'wp-rem');
             $wp_rem_static_text['wp_rem_list_meta_featured'] = esc_html__('Featured', 'wp-rem');
             $wp_rem_static_text['wp_rem_list_meta_top_category'] = esc_html__('Top Category', 'wp-rem');
-            $wp_rem_static_text['wp_rem_list_meta_no_of_services'] = esc_html__('Number of Services', 'wp-rem');
+			$wp_rem_static_text['wp_rem_list_meta_property_recent_switch'] = esc_html__('Recent Properties', 'wp-rem');
+			$wp_rem_static_text['wp_rem_list_meta_property_recent_numbers'] = esc_html__('Number of Recent Properties', 'wp-rem');
+			$wp_rem_static_text['wp_rem_list_meta_property_recent_hint'] = esc_html__('Recent Properties shows in listing page when user set any search criteria and find no result then recent properties will be show after result.', 'wp-rem');
             $wp_rem_static_text['wp_rem_list_meta_no_of_pictures'] = esc_html__('Number of Pictures', 'wp-rem');
             $wp_rem_static_text['wp_rem_list_meta_no_of_documents'] = esc_html__('Number of Documents', 'wp-rem');
             $wp_rem_static_text['wp_rem_list_meta_no_of_tags'] = esc_html__('Number of Tags', 'wp-rem');
@@ -446,7 +448,9 @@ if ( ! class_exists('wp_rem_plugin_all_strings_4') ) {
             $wp_rem_static_text['wp_rem_payment_calculator_annual_interest'] = esc_html__('Annual Interest:', 'wp-rem');
             $wp_rem_static_text['wp_rem_payment_calculator_year'] = esc_html__('Year:', 'wp-rem');
             $wp_rem_static_text['wp_rem_payment_calculator_get_loan_btn'] = esc_html__('Get your loan Quote', 'wp-rem');
-            $wp_rem_static_text['wp_rem_payment_calculator_desc'] = esc_html__('Etiam erat molestie ornare egestas nec curabitur, litora feugiat fermentum curabitur at diam, morbi congue justo porta.dictumst donec, elit aliquam', 'wp-rem');
+            $wp_rem_static_text['wp_rem_payment_calculator_description'] = esc_html__('Description', 'wp-rem');
+            $wp_rem_static_text['wp_rem_payment_calculator_description_hint'] = esc_html__('Please add text shows at bottom of the mortgage calculator.', 'wp-rem');
+            
 // Start Frontend Reservation Elements.
             $wp_rem_static_text['wp_rem_reservaion_reserve_btn_label'] = esc_html__('Reserve My Spot', 'wp-rem');
             $wp_rem_static_text['wp_rem_reservaion_select_servoces'] = esc_html__('- Select Services -', 'wp-rem');
@@ -536,7 +540,8 @@ if ( ! class_exists('wp_rem_plugin_all_strings_4') ) {
 // End Frontend Members.
 // Start Frontend Shortcode Map Search.
             $wp_rem_static_text['wp_rem_map_search_draw_on_map'] = esc_html__('Draw on Map', 'wp-rem');
-            $wp_rem_static_text['wp_rem_map_search_delete_area'] = esc_html__('Delete Area', 'wp-rem');
+            $wp_rem_static_text['wp_rem_map_search_delete_area'] = esc_html__('Clear Area', 'wp-rem');
+            $wp_rem_static_text['wp_rem_map_search_cancel_drawing'] = esc_html__('Cancel', 'wp-rem');
             $wp_rem_static_text['wp_rem_map_search_geo_location'] = esc_html__('Geo Location', 'wp-rem');
             $wp_rem_static_text['wp_rem_map_search_map_unlock'] = esc_html__('Map UnLock', 'wp-rem');
             $wp_rem_static_text['wp_rem_map_search_map_lock'] = esc_html__('Map Lock', 'wp-rem');
@@ -545,6 +550,9 @@ if ( ! class_exists('wp_rem_plugin_all_strings_4') ) {
             $wp_rem_static_text['wp_rem_map_search_results'] = esc_html__('results', 'wp-rem');
             $wp_rem_static_text['wp_rem_map_search_what_looking'] = esc_html__('What are you looking for?', 'wp-rem');
             $wp_rem_static_text['wp_rem_map_search_'] = esc_html__('Company', 'wp-rem');
+            $wp_rem_static_text['wp_rem_map_geoloc_timeout'] = esc_html__('Browser geolocation error. Timeout.', 'wp-rem');
+            $wp_rem_static_text['wp_rem_map_geoloc_not_support'] = esc_html__('Geolocation is not supported by this browser.', 'wp-rem');
+            $wp_rem_static_text['wp_rem_map_geoloc_unavailable'] = esc_html__('Browser geolocation error. Position unavailable.', 'wp-rem');
 // End Frontend Shortcode Map Search.
 // Start Login Form.
             $wp_rem_static_text['wp_rem_element_title'] = esc_html__('Element Title', 'wp-rem');
@@ -557,10 +565,18 @@ if ( ! class_exists('wp_rem_plugin_all_strings_4') ) {
             $wp_rem_static_text['wp_rem_element_view_classic'] = esc_html__('Classic', 'wp-rem');
             $wp_rem_static_text['wp_rem_element_view_advance'] = esc_html__('Advance', 'wp-rem');
             $wp_rem_static_text['wp_rem_element_view_fancy'] = esc_html__('Fancy', 'wp-rem');
+            $wp_rem_static_text['wp_rem_element_view_fancy_v2'] = esc_html__('Fancy v2', 'wp-rem');
+			$wp_rem_static_text['wp_rem_element_view_fancy_v3'] = esc_html__('Fancy v3', 'wp-rem');
             $wp_rem_static_text['wp_rem_element_view_list'] = esc_html__('List', 'wp-rem');
+            $wp_rem_static_text['wp_rem_element_view_list_modern'] = esc_html__('List Modern', 'wp-rem');
+            $wp_rem_static_text['wp_rem_element_view_list_classic'] = esc_html__('List Classic', 'wp-rem');
+            
+            $wp_rem_static_text['wp_rem_element_view_modernnn'] = esc_html__('Modern', 'wp-rem');
             $wp_rem_static_text['wp_rem_element_view_gid_modern'] = esc_html__('Grid Modern', 'wp-rem');
             $wp_rem_static_text['wp_rem_element_view_gid_classic'] = esc_html__('Grid Classic', 'wp-rem');
             $wp_rem_static_text['wp_rem_element_view_gid_default'] = esc_html__('Grid Default', 'wp-rem');
+            $wp_rem_static_text['wp_rem_element_view_gid_masnory'] = esc_html__('Masnory', 'wp-rem');
+            
             $wp_rem_static_text['wp_rem_element_view_grid'] = esc_html__('Grid', 'wp-rem');
             $wp_rem_static_text['wp_rem_element_view_single_property'] = esc_html__('Single Property Slider', 'wp-rem');
             $wp_rem_static_text['wp_rem_element_view_multiple_properties'] = esc_html__('Multiple Properties Slider', 'wp-rem');
@@ -683,7 +699,9 @@ if ( ! class_exists('wp_rem_plugin_all_strings_4') ) {
             // Start Shortcode Property Search.
             $wp_rem_static_text['wp_rem_property_search_heading'] = esc_html__('REM: Property Search', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_search_options'] = esc_html__('REM: Property Search Options', 'wp-rem');
-            $wp_rem_static_text['wp_rem_property_search_property_price'] = esc_html__('Property Price', 'wp-rem');
+            $wp_rem_static_text['wp_rem_property_search_property_price_type'] = esc_html__('Property Price Type', 'wp-rem');
+            $wp_rem_static_text['wp_rem_property_search_property_price_type_hint'] = esc_html__('Select property price type field enable/disable', 'wp-rem');
+			$wp_rem_static_text['wp_rem_property_search_property_price'] = esc_html__('Property Price', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_search_property_price_hint'] = esc_html__('Select property price field enable/disable', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_search_advance_filter'] = esc_html__('Property Advance Filters Switch', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_search_advance_filter_hint'] = esc_html__('Select property advance filters enable/disable', 'wp-rem');
@@ -696,7 +714,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_4') ) {
             $wp_rem_static_text['wp_rem_shortcode_properties_options'] = esc_html__('REM: Properties Options', 'wp-rem');
             $wp_rem_static_text['wp_rem_shortcode_featured_properties_options'] = esc_html__('REM: Featured Properties Options', 'wp-rem');
             $wp_rem_static_text['wp_rem_shortcode_properties_all_types'] = esc_html__('All Types', 'wp-rem');
-            $wp_rem_static_text['wp_rem_shortcode_properties_title_length'] = esc_html__('Property Title Length', 'wp-rem');
+            $wp_rem_static_text['wp_rem_shortcode_properties_title_length'] = esc_html__('Property Title Length (in words)', 'wp-rem');
             $wp_rem_static_text['wp_rem_shortcode_properties_content_length'] = esc_html__('Property Content Length', 'wp-rem');
             $wp_rem_static_text['wp_rem_shortcode_properties_layout_switcher'] = esc_html__('Layout Switcher', 'wp-rem');
             $wp_rem_static_text['wp_rem_shortcode_properties_layout_switcher_views'] = esc_html__('Layout Switcher Views', 'wp-rem');
@@ -712,6 +730,8 @@ if ( ! class_exists('wp_rem_plugin_all_strings_4') ) {
             $wp_rem_static_text['wp_rem_shortcode_properties_number_of_custom_fields'] = esc_html__('No. of Custom Fields', 'wp-rem');
             $wp_rem_static_text['wp_rem_shortcode_properties_ads_switch'] = esc_html__('Ads Switch', 'wp-rem');
             $wp_rem_static_text['wp_rem_shortcode_properties_price_filters'] = esc_html__('Price Filters', 'wp-rem');
+			$wp_rem_static_text['wp_rem_shortcode_properties_hide_option'] = esc_html__('Hide Property Option', 'wp-rem');
+			$wp_rem_static_text['wp_rem_shortcode_properties_hide_option_desc'] = esc_html__('You will turn off/on hide option in property element', 'wp-rem');
             $wp_rem_static_text['wp_rem_shortcode_properties_open_house_filters'] = esc_html__('Open House Filters', 'wp-rem');
             $wp_rem_static_text['wp_rem_shortcode_properties_location_filter'] = esc_html__('Location', 'wp-rem');
             $wp_rem_static_text['wp_rem_shortcode_properties_count'] = esc_html__('Property Count', 'wp-rem');
@@ -886,9 +906,77 @@ if ( ! class_exists('wp_rem_plugin_all_strings_4') ) {
             $wp_rem_static_text['wp_rem_options_delete_selected_backup_file'] = esc_html__('This action will delete your selected Backup File. Do you still want to continue?', 'wp-rem');
 
             // End Arrange Viewing.
+            /*
+             * search Modern
+             */
 
-
-
+            $wp_rem_static_text['wp_rem_property_search_view_enter_kywrd'] = esc_html__('Enter Your Keyword', 'wp-rem');
+            $wp_rem_static_text['wp_rem_property_search_view_enter_kywrd_label'] = esc_html__('Keyword', 'wp-rem');
+            $wp_rem_static_text['wp_rem_property_search_view_enter_location_label'] = esc_html__('Location', 'wp-rem');
+            $wp_rem_static_text['wp_rem_property_search_view_enter_type_label'] = esc_html__('Select Type', 'wp-rem');
+            $wp_rem_static_text['wp_rem_property_search_view_enter_property_type_label'] = esc_html__('Property Type', 'wp-rem');
+            $wp_rem_static_text['wp_rem_property_search_view_label_color'] = esc_html__('Label Color', 'wp-rem');
+            $wp_rem_static_text['wp_rem_property_search_view_label_color_hint'] = esc_html__('Select a color for search fields labels(modern view only).', 'wp-rem');
+            
+            $wp_rem_static_text['wp_rem_property_view_element_seperator'] = esc_html__('Element Seperator', 'wp-rem');
+            $wp_rem_static_text['wp_rem_property_view_element_seperator_hint'] = esc_html__('Select yes/no for element title/subtitle seperator.', 'wp-rem');
+            $wp_rem_static_text['wp_rem_element_view_simplee'] = esc_html__('Simple', 'wp-rem');
+            $wp_rem_static_text['wp_rem_element_view_advancee'] = esc_html__('Advance', 'wp-rem');
+            
+            $wp_rem_static_text['wp_rem_texonomy_location_location_img'] = esc_html__('Location Image', 'wp-rem');
+            
+            $wp_rem_static_text['wp_rem_element_location_shortcode_name'] = esc_html__('REM: Locations', 'wp-rem');
+            $wp_rem_static_text['wp_rem_element_location_shortcode_options'] = esc_html__('Locations Options', 'wp-rem');
+            $wp_rem_static_text['wp_rem_element_location_shortcode_locations'] = esc_html__('Locations', 'wp-rem');
+            $wp_rem_static_text['wp_rem_element_location_shortcode_locations_hint'] = esc_html__('Select locations from this dropdown.', 'wp-rem');
+            $wp_rem_static_text['wp_rem_element_location_shortcode_all_locations_url'] = esc_html__('All Location URL', 'wp-rem');
+            $wp_rem_static_text['wp_rem_element_location_shortcode_all_locations_url_hint'] = esc_html__('Enter a page url to show all locations', 'wp-rem');
+            
+            $wp_rem_static_text['wp_rem_element_location_shortcode_styles'] = esc_html__('Styles', 'wp-rem');
+            $wp_rem_static_text['wp_rem_element_location_shortcode_styles_hint'] = esc_html__('Select a location style from this dropdown.', 'wp-rem');
+            
+            $wp_rem_static_text['wp_rem_element_location_shortcode_styles_simple'] = esc_html__('Simple', 'wp-rem');
+            $wp_rem_static_text['wp_rem_element_location_shortcode_styles_modern'] = esc_html__('Modern', 'wp-rem');
+            
+            $wp_rem_static_text['wp_rem_element_search_advance_view_placeholder_enter_word'] = esc_html__('Enter Keyword ');
+            $wp_rem_static_text['wp_rem_element_search_advance_view_placeholder_ie'] = esc_html__(' i.e   Modern Apartment', 'wp-rem');
+            $wp_rem_static_text['wp_rem_element_tooltip_icon_camera'] = esc_html__('Photos', 'wp-rem');
+            $wp_rem_static_text['wp_rem_shortcode_members_slider'] = esc_html__('Grid Slider', 'wp-rem');
+            $wp_rem_static_text['wp_rem_map_places_found'] = esc_html__('found', 'wp-rem');
+            $wp_rem_static_text['wp_rem_map_places_radius'] = esc_html__('Radius', 'wp-rem');
+            $wp_rem_static_text['wp_rem_map_places_put_radius_value'] = esc_html__('Put Radius value (in meters)', 'wp-rem');
+			$wp_rem_static_text['wp_rem_hidden_properties'] = esc_html__('Hidden Properties', 'wp-rem');
+			
+            $wp_rem_static_text['wp_rem_prop_notes_notes'] = esc_html__('Notes', 'wp-rem');
+            $wp_rem_static_text['wp_rem_prop_notes_add_notes'] = esc_html__('Add Notes', 'wp-rem');
+            $wp_rem_static_text['wp_rem_prop_notes_notes_added'] = esc_html__('Notes added', 'wp-rem');
+            $wp_rem_static_text['wp_rem_prop_notes_prop_notes_deleted'] = esc_html__('Property notes deleted.', 'wp-rem');
+            $wp_rem_static_text['wp_rem_prop_notes_properties_notes'] = esc_html__('Properties Notes', 'wp-rem');
+            $wp_rem_static_text['wp_rem_prop_notes_no_result_notes'] = esc_html__('No result found.', 'wp-rem');
+            $wp_rem_static_text['wp_rem_prop_notes_no_500_words_allow'] = esc_html__('Text more then 500 characters not allowed.', 'wp-rem');
+            $wp_rem_static_text['wp_rem_prop_notes_saved_msg'] = esc_html__('Property notes saved.', 'wp-rem');
+            $wp_rem_static_text['wp_rem_prop_notes_add_notes_for'] = esc_html__('Add Notes for "%s"', 'wp-rem');
+            $wp_rem_static_text['wp_rem_prop_notes_type_here'] = esc_html__('Type here...', 'wp-rem');
+            $wp_rem_static_text['wp_rem_prop_notes_submit'] = esc_html__('Submit', 'wp-rem');
+            $wp_rem_static_text['wp_rem_prop_notes_max_chars_allowed'] = esc_html__('Max characters allowed 500.', 'wp-rem');
+            $wp_rem_static_text['wp_rem_prop_notes_some_txt_error'] = esc_html__('Please type some text first.', 'wp-rem');
+            $wp_rem_static_text['wp_rem_prop_notes_show_more'] = esc_html__('Show more', 'wp-rem');
+            $wp_rem_static_text['wp_rem_prop_notes_show_less'] = esc_html__('Show less', 'wp-rem');
+			
+            $wp_rem_static_text['wp_rem_select_pkg_img_num_more_than'] = esc_html__('You cannot upload more than', 'wp-rem');
+            $wp_rem_static_text['wp_rem_select_pkg_img_num_change_pkg'] = esc_html__('images. Please change your package to upload more.', 'wp-rem');
+            $wp_rem_static_text['wp_rem_select_pkg_doc_num_change_pkg'] = esc_html__('documents. Please change your package to upload more.', 'wp-rem');
+            $wp_rem_static_text['wp_rem_search_element_background_colorrr'] = esc_html__('Search Background Color', 'wp-rem');
+            $wp_rem_static_text['wp_rem_search_element_style_modern_v2'] = esc_html__('Modern V2', 'wp-rem');
+            $wp_rem_static_text['wp_rem_search_element_style_modern_v3'] = esc_html__('Modern V3', 'wp-rem');
+            
+            $wp_rem_static_text['wp_rem_location_element_properties_listed'] = esc_html__('Properties Listed', 'wp-rem');
+            $wp_rem_static_text['wp_rem_search_element_title_colorrr'] = esc_html__('Element Title Color', 'wp-rem');
+            $wp_rem_static_text['wp_rem_location_element_style_classic'] = esc_html__('Classic', 'wp-rem');
+            
+            
+			
+			
             return $wp_rem_static_text;
         }
 

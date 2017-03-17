@@ -1,4 +1,10 @@
-<?php
+<?php ob_start("ob_gzhandler");?>
+<?php 
+//
+//
+//
+//$contents = ob_get_contents();
+//ob_end_clean();
 /**
  * The header for our theme.
  *

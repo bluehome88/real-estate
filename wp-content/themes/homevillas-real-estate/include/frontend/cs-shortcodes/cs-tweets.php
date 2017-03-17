@@ -20,7 +20,11 @@ if ( ! function_exists('wp_rem_cs_var_tweets_shortcode') ) {
             'wp_rem_cs_var_tweets_user_name' => 'default',
             'wp_rem_cs_var_tweets_color' => '',
             'wp_rem_cs_var_no_of_tweets' => '',
-            'wp_rem_cs_var_tweets_class' => ''
+            'wp_rem_cs_var_tweets_class' => '',
+            'wp_rem_api_consumer_key' => '',
+            'wp_rem_api_consumer_secret_key' => '',
+            'wp_rem_api_access_token_key' => '',
+            'wp_rem_api_access_token_secret_key' => '',
         );
         extract(shortcode_atts($defaults, $atts));
         $column_class = wp_rem_cs_var_custom_column_class($column_size);
@@ -29,31 +33,49 @@ if ( ! function_exists('wp_rem_cs_var_tweets_shortcode') ) {
         if ( isset($wp_rem_cs_var_tweets_class) && $wp_rem_cs_var_tweets_class ) {
             $CustomId = 'id="' . wp_rem_cs_allow_special_char($wp_rem_cs_var_tweets_class) . '"';
         }
-        $html .= '
-        <div class="cs-tweets-ticker">
-        <div class="row">
-        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12">
-            <h2 class="cs-color">@' . wp_rem_cs_allow_special_char($wp_rem_cs_var_tweets_user_name) . '</h2>
-                </div>
-                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-12">
-            <ul class="cs-testimonial-slider">';
-        $html .= wp_rem_cs_get_tweets($wp_rem_cs_var_tweets_user_name, $wp_rem_cs_var_no_of_tweets, $wp_rem_cs_var_tweets_color);
-        $html .= '
-            </ul>
-            </div>
-            </div>
-        </div>';
-
+        $wp_rem_cs_var_tweets_color = isset($wp_rem_cs_var_tweets_color) ? $wp_rem_cs_var_tweets_color : '';
+        $tweets_color = '';
+        if ( isset($wp_rem_cs_var_tweets_color) && ! empty($wp_rem_cs_var_tweets_color) ) {
+            $tweets_color = ' style="background-color:' . $wp_rem_cs_var_tweets_color . '"';
+        }
+        $wp_rem_api_consumer_key = isset($wp_rem_api_consumer_key) ? $wp_rem_api_consumer_key : '';
+        $wp_rem_api_consumer_secret_key = isset($wp_rem_api_consumer_secret_key) ? $wp_rem_api_consumer_secret_key : '';
+        $wp_rem_api_access_token_key = isset($wp_rem_api_access_token_key) ? $wp_rem_api_access_token_key : '';
+        $wp_rem_api_access_token_secret_key = isset($wp_rem_api_access_token_secret_key) ? $wp_rem_api_access_token_secret_key : '';
+        $wp_rem_cs_var_tweets_user_name = isset($wp_rem_cs_var_tweets_user_name) ? $wp_rem_cs_var_tweets_user_name : '';
+        $api_array = array(
+            'consumer_key' => $wp_rem_api_consumer_key,
+            'consumer_secret_key' => $wp_rem_api_consumer_secret_key,
+            'access_token' => $wp_rem_api_access_token_key,
+            'access_token_secret' => $wp_rem_api_access_token_secret_key,
+        );
+        $html .= ' <div class="rem-twitter rem-tweet-slider" ' . $tweets_color . '>
+                    <span class="tweet-bg"><i class="icon-twitter2"></i></span>
+                    <div class="tweet-head">
+                            <span><i class="icon-twitter2"></i>@' . $wp_rem_cs_var_tweets_user_name . '</span>
+                         <div class="swiper-tweet-next"><i class="icon-reply"></i></div>
+                        <div class="swiper-tweet-prev"><i class="icon-reply"></i></div>
+                    </div>
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">';
+        $html .= wp_rem_cs_get_tweets($wp_rem_cs_var_tweets_user_name, $wp_rem_cs_var_no_of_tweets, $wp_rem_cs_var_tweets_color, $api_array);
+        $html . '</div>';
+        $html .= '</div>
+            </div>';
         $wp_rem_cs_inline_script = '
 		jQuery(document).ready(function () {
-            jQuery(".cs-testimonial-slider").slick({
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                autoplay: true,
-                arrows:false,
-                autoplaySpeed: 2000,
-            });
-        });';
+                            if ("" != jQuery(".rem-tweet-slider").length) {
+                                new Swiper(".rem-tweet-slider .swiper-container", {
+                                    slidesPerView: 1,
+                                    nextButton: ".swiper-tweet-next",
+                                    prevButton: ".swiper-tweet-prev",
+                                    spaceBetween: 30,
+                                    autoplay: 3000,
+                                    speed: 2000,
+                                    
+                                });
+                            }
+                        });';
         wp_rem_cs_inline_enqueue_script($wp_rem_cs_inline_script, 'wp_rem_cs-functions');
         if ( function_exists('wp_rem_cs_var_page_builder_element_sizes') ) {
             $html .= '</div>';
@@ -74,7 +96,7 @@ if ( ! function_exists('wp_rem_cs_var_tweets_shortcode') ) {
  */
 if ( ! function_exists('wp_rem_cs_get_tweets') ) {
 
-    function wp_rem_cs_get_tweets($username, $numoftweets, $wp_rem_cs_tweets_color = '') {
+    function wp_rem_cs_get_tweets($username, $numoftweets, $wp_rem_cs_tweets_color = '', $api_keys = '') {
         global $wp_rem_cs_var_options, $wp_rem_cs_var_static_text;
         $strings = new wp_rem_cs_theme_all_strings;
         $strings->wp_rem_cs_short_code_strings();
@@ -84,16 +106,19 @@ if ( ! function_exists('wp_rem_cs_get_tweets') ) {
             $numoftweets = 2;
         }
         if ( class_exists('wp_rem_real_estate_framework') ) {
+
+
             if ( strlen($username) > 1 ) {
                 $text = '';
                 $return = '';
                 $cacheTime = 10000;
                 $transName = 'latest-tweets';
                 wp_rem_cs_include_file(wp_rem_real_estate_framework::plugin_path() . '/includes/cs-twitter/twitteroauth.php');
-                $consumerkey = isset($wp_rem_cs_var_options['wp_rem_cs_var_consumer_key']) ? $wp_rem_cs_var_options['wp_rem_cs_var_consumer_key'] : '';
-                $consumersecret = isset($wp_rem_cs_var_options['wp_rem_cs_var_consumer_secret']) ? $wp_rem_cs_var_options['wp_rem_cs_var_consumer_secret'] : '';
-                $accesstoken = isset($wp_rem_cs_var_options['wp_rem_cs_var_access_token']) ? $wp_rem_cs_var_options['wp_rem_cs_var_access_token'] : '';
-                $accesstokensecret = isset($wp_rem_cs_var_options['wp_rem_cs_var_access_token_secret']) ? $wp_rem_cs_var_options['wp_rem_cs_var_access_token_secret'] : '';
+
+                $consumerkey = isset($api_keys['consumer_key']) ? $api_keys['consumer_key'] : '';
+                $consumersecret = isset($api_keys['consumer_secret_key']) ? $api_keys['consumer_secret_key'] : '';
+                $accesstoken = isset($api_keys['access_token']) ? $api_keys['access_token'] : '';
+                $accesstokensecret = isset($api_keys['access_token_secret']) ? $api_keys['access_token_secret'] : '';
                 $connection = new TwitterOAuth($consumerkey, $consumersecret, $accesstoken, $accesstokensecret);
                 $tweets = $connection->get("https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=" . $username . "&count=" . $numoftweets);
                 if ( ! is_wp_error($tweets) and is_array($tweets) ) {
@@ -134,7 +159,6 @@ if ( ! function_exists('wp_rem_cs_get_tweets') ) {
                             $posted = sprintf(wp_rem_cs_var_theme_text_srt('wp_rem_cs_tweets_secongs_ago'), $n);
                         } elseif ( $n < (60 * 60) ) {
                             $minutes = round($n / 60);
-
                             $posted = sprintf(wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_tweets_minute_ago'), $minutes);
                             if ( $minutes > 1 ) {
                                 $posted = sprintf(wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_tweets_minutes_ago'), $minutes);
@@ -183,10 +207,10 @@ if ( ! function_exists('wp_rem_cs_get_tweets') ) {
                             }
                         }
                         $return .= '
-                        <li>
-                            <span class="cs-color" ' . wp_rem_cs_allow_special_char($twitter_text_color) . '>' . $text . '</span>
-                            ' . $posted . '
-                        </li>';
+                        <div class="swiper-slide">
+                            <div class="text-holder"><span>' . $text . '</span> <span class="tweet-time"> ' . $posted . ' </span> </div>
+                            
+                        </div>';
                     }
                     return $return;
                 } else {

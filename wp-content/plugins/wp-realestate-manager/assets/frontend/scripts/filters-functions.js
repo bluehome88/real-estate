@@ -51,3 +51,21 @@ function wp_rem_date_range_filter( field_name, actionString, date_picker_positio
         });
     });
 }
+
+function wp_rem_get_filter_parameters() {
+
+    "use strict";
+
+    var date_range = jQuery(".user-holder").find("#date_range").val();
+
+    var filter_var = "";
+
+    if (typeof date_range != "undefined" && date_range !== "") {
+
+        filter_var += "&date_range=" + date_range;
+
+    }
+
+    return filter_var;
+
+}

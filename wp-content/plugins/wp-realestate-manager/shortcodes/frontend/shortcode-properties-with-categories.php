@@ -28,7 +28,8 @@ if ( ! class_exists('Wp_rem_Shortcode_Properties_with_Categories_Frontend') ) {
         public function wp_rem_properties_shortcode_callback($atts, $content = "") {
             wp_enqueue_script('wp-rem-property-functions');
             wp_enqueue_script('jquery-mixitup');
-
+            wp_enqueue_script('wp-rem-matchHeight-script');
+            wp_enqueue_script('wp-rem-bootstrap-slider');
             $property_short_counter = rand(10000000, 99999999);
             $page_element_size = isset($atts['wp_rem_properties_element_size']) ? $atts['wp_rem_properties_element_size'] : 100;
 
@@ -51,11 +52,37 @@ if ( ! class_exists('Wp_rem_Shortcode_Properties_with_Categories_Frontend') ) {
             if ( function_exists('wp_rem_cs_var_page_builder_element_sizes') ) {
                 echo '</div>';
             }
+
+            $wp_rem_cs_inline_script = 'jQuery(document).ready(function($) {
+                var wrapHeight;
+                wrapHeight=$(".real-estate-property .tab-content > .tab-pane.active").outerHeight();
+                $(".real-estate-property").addClass("tabs-loaded");
+                $(".real-estate-property.tabs-loaded .tab-content").height(wrapHeight);
+                $(window).resize(function(){
+                    wrapHeight=$(".real-estate-property .tab-content > .tab-pane.active").outerHeight();
+                    $(".real-estate-property.tabs-loaded .tab-content").height(wrapHeight);
+                });
+                $(\'.real-estate-property a[data-toggle="tab"]\').on("shown.bs.tab", function (e) {
+                   e.target
+                   e.relatedTarget
+                   var target=$(e.target).attr("href");
+                   var prevTarget=$(e.relatedTarget).attr("href");
+                   var wrapHeight=$(target).outerHeight();
+                   $(".real-estate-property .tab-content").height(wrapHeight);
+                   $(prevTarget).addClass("active-moment").find(".animated").removeClass("slideInUp").addClass("fadeOutDown");
+                   $(target).find(".animated").addClass("slideInUp").removeClass("fadeOutDown");
+                   setTimeout(function(){
+                      $(prevTarget).removeClass("active-moment").find(".animated").removeClass("fadeOutDown");
+                    }, 800);
+
+                });
+            });';
+            wp_rem_cs_inline_enqueue_script($wp_rem_cs_inline_script, 'wp-rem-custom-inline');
         }
 
         public function wp_rem_properties_filters_content($property_arg = '') {
             global $wpdb, $wp_rem_form_fields_frontend, $wp_rem_search_fields;
-
+            wp_enqueue_script('wp-rem-matchHeight-script');
             // getting arg array from ajax
             if ( isset($_REQUEST['property_arg']) && $_REQUEST['property_arg'] ) {
                 $property_arg = $_REQUEST['property_arg'];
@@ -66,7 +93,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Properties_with_Categories_Frontend') ) {
                 extract($property_arg);
             }
 
-            $posts_per_page = '-1';
+            $posts_per_page = '6';
             $pagination = 'no';
             $element_filter_arr = '';
             $content_columns = 'col-lg-12 col-md-12 col-sm-12 col-xs-12'; // if filteration not true
@@ -77,7 +104,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Properties_with_Categories_Frontend') ) {
             $property_property_featured = isset($atts['property_featured']) ? $atts['property_featured'] : 'all';
             $property_type = isset($atts['property_type']) ? $atts['property_type'] : '';
             $property_category = isset($atts['property_category']) ? $atts['property_category'] : '';
-            $posts_per_page = isset($atts['posts_per_page']) ? $atts['posts_per_page'] : '-1';
+            $posts_per_page = isset($atts['posts_per_page']) ? $atts['posts_per_page'] : '6';
             $pagination = isset($atts['pagination']) ? $atts['pagination'] : 'no';
 
             $element_filter_arr[] = array(
@@ -123,8 +150,8 @@ if ( ! class_exists('Wp_rem_Shortcode_Properties_with_Categories_Frontend') ) {
                 'post_type' => 'properties',
                 'post_status' => 'publish',
                 'fields' => 'ids', // only load ids
-                'orderby'   => 'ID',
-                'order'     => 'DESC',
+                'orderby' => 'ID',
+                'order' => 'DESC',
                 'meta_query' => array(
                     $element_filter_arr,
                 ),
@@ -134,6 +161,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Properties_with_Categories_Frontend') ) {
 
 
             $show_more_property = '';
+            $tab_counter = rand(12345, 54321);
             ?>
             <div class="real-estate-property <?php echo esc_html($show_more_property); ?>">
                 <?php
@@ -158,31 +186,33 @@ if ( ! class_exists('Wp_rem_Shortcode_Properties_with_Categories_Frontend') ) {
                         if ( isset($property_category) && ! empty($property_category) ) {
                             $property_category = explode(',', $property_category);
                             $active_tab = 'first_active';
+							$count = 1;
                             foreach ( $property_category as $category_slug ) {
                                 $term_obj = get_term_by('slug', $category_slug, 'property-category');
                                 if ( is_object($term_obj) ) {
-                                    
+
                                     $current_tab = isset($_REQUEST['tab']) ? $_REQUEST['tab'] : '';
                                     if ( isset($current_tab) && $current_tab == $category_slug ) {
                                         $active_tab = 'active';
-                                    }else{
-                                        if( !isset( $_REQUEST['tab'] ) ){
-                                            if( $active_tab == 'first_active'){
-                                                $active_tab   = 'active';
+                                    } else {
+                                        if ( ! isset($_REQUEST['tab']) ) {
+                                            if ( $active_tab == 'first_active' ) {
+                                                $active_tab = 'active';
                                             }
                                         }
                                     }
                                     ?>
-                                    <li class="<?php echo esc_attr($category_slug); ?> <?php echo esc_html($active_tab); ?>"><span class="filter"><a data-toggle="tab" href="#<?php echo esc_attr($category_slug); ?>"><?php echo esc_html($term_obj->name); ?></a></span></li>
+                                    <li class="<?php echo esc_attr($category_slug); ?> <?php echo esc_html($active_tab); ?>"><span class="filter"><a data-toggle="tab" href="#tab-<?php echo intval($tab_counter.$count); ?>"><?php echo esc_html($term_obj->name); ?></a></span></li>
                                     <?php
                                     $active_tab = '';
+                                    $count++;
                                 }
                             }
                         }
                         ?>
                     </ul>
                     <?php if ( $show_more_button == 'yes' && $show_more_button_url != '' && $property_view != 'grid-modern' ) { ?>
-                        <a href="<?php echo esc_url($show_more_button_url); ?>" class="show-more-property"><?php echo wp_rem_plugin_text_srt('wp_rem_listfilter_showmore'); ?></a>
+                        <a href="<?php echo esc_url($show_more_button_url); ?>" class="show-more-property "><?php echo wp_rem_plugin_text_srt('wp_rem_listfilter_showmore'); ?></a>
                     <?php } ?>
                 </div>
                 <?php $property_short_counter = rand(12345, 54321); ?>
@@ -207,15 +237,24 @@ if ( ! class_exists('Wp_rem_Shortcode_Properties_with_Categories_Frontend') ) {
 
                                         $term_obj = get_term_by('slug', $category_slug, 'property-category');
                                         $current_tab = isset($_REQUEST['tab']) ? $_REQUEST['tab'] : '';
-                                        if( !isset( $_REQUEST['tab'] ) ){
+                                        if ( ! isset($_REQUEST['tab']) ) {
                                             $active_class = ( $count == 1 ) ? 'active' : '';
                                         }
                                         if ( isset($current_tab) && $current_tab == $category_slug ) {
                                             $active_class = 'active';
                                         }
                                         ?>
-                                        <div class="tab-pane in <?php echo esc_attr($active_class); ?>" id="<?php echo esc_attr($category_slug); ?>">
-                                            <input type="hidden" class="property-counter" value="<?php echo absint($property_short_counter); ?>">
+                                        <div class="tab-pane in <?php echo esc_attr($active_class); ?>" id="tab-<?php echo intval($tab_counter.$count); ?>">
+                                            <?php
+                                            $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
+                                                    array(
+                                                        'return' => false,
+                                                        'cust_name'=>'',
+                                                        'classes' => 'property-counter',
+                                                        'std' => $property_short_counter,
+                                                    )
+                                            );
+                                            ?>
                                             <div style="display:none" id='property_arg<?php echo absint($property_short_counter); ?>'>
                                                 <?php $property_arg['property_short_counter'] = $property_short_counter; ?>
                                                 <?php echo json_encode($property_arg); ?>
@@ -243,7 +282,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Properties_with_Categories_Frontend') ) {
                                         <?php wp_reset_postdata(); ?>
                                         <?php
                                         $count ++;
-                                         $active_class = '';
+                                        $active_class = '';
                                     }
                                 }
                             }
@@ -268,7 +307,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Properties_with_Categories_Frontend') ) {
                 extract($property_arg);
             }
 
-            $posts_per_page = '-1';
+            $posts_per_page = '6';
             $pagination = 'no';
             $element_filter_arr = '';
             $content_columns = 'col-lg-12 col-md-12 col-sm-12 col-xs-12'; // if filteration not true
@@ -277,7 +316,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Properties_with_Categories_Frontend') ) {
             // element attributes
             $property_property_featured = isset($atts['property_featured']) ? $atts['property_featured'] : 'all';
             $property_type = isset($atts['property_type']) ? $atts['property_type'] : '';
-            $posts_per_page = isset($atts['posts_per_page']) ? $atts['posts_per_page'] : '-1';
+            $posts_per_page = isset($atts['posts_per_page']) ? $atts['posts_per_page'] : '6';
             $pagination = isset($atts['pagination']) ? $atts['pagination'] : 'no';
 
             $element_filter_arr[] = array(
@@ -326,8 +365,8 @@ if ( ! class_exists('Wp_rem_Shortcode_Properties_with_Categories_Frontend') ) {
                 'post_type' => 'properties',
                 'post_status' => 'publish',
                 'fields' => 'ids', // only load ids
-                'orderby'   => 'ID',
-                'order'     => 'DESC',
+                'orderby' => 'ID',
+                'order' => 'DESC',
                 'meta_query' => array(
                     $element_filter_arr,
                 ),

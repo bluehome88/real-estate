@@ -3,7 +3,7 @@
   Plugin Name: WP Real Estate Manager
   Plugin URI: http://themeforest.net/user/Chimpstudio/
   Description: WP Real Estate Manager
-  Version: 1.1
+  Version: 1.3
   Author: ChimpStudio
   Text Domain: wp-rem
   Author URI: http://themeforest.net/user/Chimpstudio/
@@ -20,7 +20,7 @@
   along with this program; if not, write to the Free Software
   Foundation, United Kingdom
  */
-if ( ! class_exists('wp_rem') ) {
+if (!class_exists('wp_rem')) {
 
     class wp_rem {
 
@@ -32,18 +32,18 @@ if ( ! class_exists('wp_rem') ) {
          */
         public function __construct() {
 
-            add_action('init', array( $this, 'load_plugin_textdomain' ), 0);
+            add_action('init', array($this, 'load_plugin_textdomain'), 0);
             remove_filter('pre_user_description', 'wp_filter_kses');
             add_filter('pre_user_description', 'wp_filter_post_kses');
             // Add optinos in Email Template Settings
-            add_filter('wp_rem_email_template_settings', array( $this, 'email_template_settings_callback' ), 0, 1);
-            add_filter('wp_rem_get_plugin_options', array( $this, 'wp_rem_get_plugin_options_callback' ), 0, 1);
-            add_action('admin_menu', array( $this, 'admin_menu_position' ));
-            add_action('wp_footer', array( $this, 'wp_rem_loader' ));
-            add_action('admin_footer', array( $this, 'wp_rem_admin_footer_modal' ));
+            add_filter('wp_rem_email_template_settings', array($this, 'email_template_settings_callback'), 0, 1);
+            add_filter('wp_rem_get_plugin_options', array($this, 'wp_rem_get_plugin_options_callback'), 0, 1);
+            add_action('admin_menu', array($this, 'admin_menu_position'));
+            add_action('wp_footer', array($this, 'wp_rem_loader'));
+            add_action('admin_footer', array($this, 'wp_rem_admin_footer_modal'));
             $this->define_constants();
             $this->includes();
-            add_action('admin_head', array( $this, 'hide_update_notice_for_wp_rem_pages' ), 11);
+            add_action('admin_head', array($this, 'hide_update_notice_for_wp_rem_pages'), 11);
         }
 
         /**
@@ -77,7 +77,7 @@ if ( ! class_exists('wp_rem') ) {
             $operator = 'and';
             $all_custom_post_types = get_post_types($argss, $output, $operator);
 
-            if ( $post_type_screen != '' && in_array($post_type_screen, $all_custom_post_types) ) {
+            if ($post_type_screen != '' && in_array($post_type_screen, $all_custom_post_types)) {
                 global $wp_filter;
                 remove_action('admin_notices', 'update_nag', 3);
                 unset($wp_filter['user_admin_notices']);
@@ -86,7 +86,7 @@ if ( ! class_exists('wp_rem') ) {
         }
 
         public function is_request($type) {
-            switch ( $type ) {
+            switch ($type) {
                 case 'admin' :
                     return is_admin();
                     break;
@@ -95,7 +95,7 @@ if ( ! class_exists('wp_rem') ) {
                 case 'cron' :
                     return defined('DOING_CRON');
                 case 'frontend' :
-                    return ( ! is_admin() || defined('DOING_AJAX') ) && ! defined('DOING_CRON');
+                    return (!is_admin() || defined('DOING_AJAX') ) && !defined('DOING_CRON');
             }
         }
 
@@ -119,48 +119,55 @@ if ( ! class_exists('wp_rem') ) {
                                       <div class="bounce2"></div>
                                       <div class="bounce3"></div>
                                   </div>';
-            if ( ! wp_rem::is_demo_user_modification_allowed() ) :
-                ?>
-                <script type="text/javascript">
-                    (function ($) {
-                        $(document).ready(function () {
-                            bind_rest_auth_event();
-                            jQuery.growl.error({
-                                message: '<?php echo wp_rem_plugin_text_srt('wp_rem_demo_user_not_allowed_to_modify'); ?>'
-                            });
-                            $("body").on("DOMNodeInserted DOMNodeRemoved", bind_rest_auth_event);
-                        });
-
-                        function bind_rest_auth_event() {
-                            $("input[type='submit'], .btn-submit, .btn-send, .delete-this-user-review, .delete-shortlist, .remove_member, #team_update_form").off("click");
-                            $(document).off("click", "input[type='submit'], .btn-submit, .btn-send, .delete-this-user-review, .delete-shortlist, .remove_member, #team_update_form");
-                            $("body").off("click", "input[type='submit'], .btn-submit, .btn-send, .delete-this-user-review, .delete-shortlist, .remove_member, #team_update_form");
-                            $("body").on("click", "input[type='submit'], .btn-submit, .btn-send, .delete-this-user-review, .delete-shortlist, .remove_member, #team_update_form", function (e) {
-                                e.stopPropagation();
+            if (is_user_logged_in()) {
+                if (!wp_rem::is_demo_user_modification_allowed()) :
+                    ?>
+                    <script type="text/javascript">
+                        var pageInitialized = false;
+                        (function ($) {
+                            $(document).ready(function () {
+                                bind_rest_auth_event();
+                                $("body").on("DOMNodeInserted DOMNodeRemoved", bind_rest_auth_event);
+                                if (pageInitialized)
+                                    return;
                                 jQuery.growl.error({
                                     message: '<?php echo wp_rem_plugin_text_srt('wp_rem_demo_user_not_allowed_to_modify'); ?>'
                                 });
-                                return false;
+                                pageInitialized = true;
                             });
-                        }
-                    })(jQuery);
-                </script>
-                <?php
-            endif;
+
+                            function bind_rest_auth_event() {
+                                $("input[type='submit'], .btn-submit, .btn-send, .delete-this-user-review, .delete-shortlist, .remove_member, #team_update_form, .wp-rem-dev-property-delete, .discussion-submit").off("click");
+                                $(document).off("click", "input[type='submit'], .btn-submit, .btn-send, .delete-this-user-review, .delete-shortlist, .remove_member, #team_update_form, .wp-rem-dev-property-delete, .discussion-submit");
+                                $("body").off("click", "input[type='submit'], .btn-submit, .btn-send, .delete-this-user-review, .delete-shortlist, .remove_member, #team_update_form, .wp-rem-dev-property-delete, .discussion-submit");
+                                $("body").on("click", "input[type='submit'], .btn-submit, .btn-send, .delete-this-user-review, .delete-shortlist, .remove_member, #team_update_form, .wp-rem-dev-property-delete, .discussion-submit", function (e) {
+                                    e.stopPropagation();
+                                    e.stopImmediatePropagation();
+                                    jQuery.growl.error({
+                                        message: '<?php echo wp_rem_plugin_text_srt('wp_rem_demo_user_not_allowed_to_modify'); ?>'
+                                    });
+                                    return false;
+                                });
+                            }
+                        })(jQuery);
+                    </script>
+                    <?php
+                endif;
+            }
         }
 
         public static function is_demo_user_modification_allowed() {
             global $wp_rem_plugin_options, $post;
             $current_page = isset($post->ID) ? $post->ID : '';
             $create_property_page = isset($wp_rem_plugin_options['wp_rem_create_property_page']) ? $wp_rem_plugin_options['wp_rem_create_property_page'] : '';
-            if ( 'member-dashboard.php' === wp_rem_get_current_template() || $current_page == $create_property_page ) {
+            if ('member-dashboard.php' === wp_rem_get_current_template() || '' === wp_rem_get_current_template() || $current_page == $create_property_page) {
                 $wp_rem_demo_user_login_switch = isset($wp_rem_plugin_options['wp_rem_demo_user_login_switch']) ? $wp_rem_plugin_options['wp_rem_demo_user_login_switch'] : '';
-                if ( $wp_rem_demo_user_login_switch == 'on' ) {
+                if ($wp_rem_demo_user_login_switch == 'on') {
                     $wp_rem_wp_rem_demo_user_member = isset($wp_rem_plugin_options['wp_rem_demo_user_member']) ? $wp_rem_plugin_options['wp_rem_demo_user_member'] : '';
                     $wp_rem_wp_rem_demo_user_agency = isset($wp_rem_plugin_options['wp_rem_demo_user_agency']) ? $wp_rem_plugin_options['wp_rem_demo_user_agency'] : '';
                     $current_user_id = get_current_user_id();
-                    if ( $wp_rem_wp_rem_demo_user_member == $current_user_id || $wp_rem_wp_rem_demo_user_agency == $current_user_id ) {
-                        if ( isset($wp_rem_plugin_options['wp_rem_demo_user_modification_allowed_switch']) && $wp_rem_plugin_options['wp_rem_demo_user_modification_allowed_switch'] == 'off' ) {
+                    if ($wp_rem_wp_rem_demo_user_member == $current_user_id || $wp_rem_wp_rem_demo_user_agency == $current_user_id) {
+                        if (isset($wp_rem_plugin_options['wp_rem_demo_user_modification_allowed_switch']) && $wp_rem_plugin_options['wp_rem_demo_user_modification_allowed_switch'] == 'off') {
                             return false;
                         }
                     }
@@ -494,15 +501,15 @@ if ( ! class_exists('wp_rem') ) {
             $this->register_modules();
 
 
-            add_filter('template_include', array( $this, 'wp_rem_single_template' ));
-            add_action('admin_enqueue_scripts', array( $this, 'wp_rem_defaultfiles_plugin_enqueue' ), 2);
-            add_action('admin_enqueue_scripts', array( $this, 'wp_rem_enqueue_admin_style_sheet' ), 90);
-            add_action('wp_enqueue_scripts', array( $this, 'wp_rem_defaultfiles_plugin_enqueue' ), 2);
-            add_action('wp_enqueue_scripts', array( $this, 'wp_rem_enqueue_responsive_front_scripts' ), 3);
+            add_filter('template_include', array($this, 'wp_rem_single_template'));
+            add_action('admin_enqueue_scripts', array($this, 'wp_rem_defaultfiles_plugin_enqueue'), 2);
+            add_action('admin_enqueue_scripts', array($this, 'wp_rem_enqueue_admin_style_sheet'), 90);
+            add_action('wp_enqueue_scripts', array($this, 'wp_rem_defaultfiles_plugin_enqueue'), 2);
+            add_action('wp_enqueue_scripts', array($this, 'wp_rem_enqueue_responsive_front_scripts'), 3);
 
 
-            add_action('admin_init', array( $this, 'wp_rem_all_scodes' ));
-            add_filter('body_class', array( $this, 'wp_rem_boby_class_names' ));
+            add_action('admin_init', array($this, 'wp_rem_all_scodes'));
+            add_filter('body_class', array($this, 'wp_rem_boby_class_names'));
         }
 
         /**
@@ -518,8 +525,8 @@ if ( ! class_exists('wp_rem') ) {
          */
         public function admin_menu_position() {
             global $menu, $submenu;
-            foreach ( $menu as $key => $menu_item ) {
-                if ( isset($menu_item[2]) && $menu_item[2] == 'edit.php?post_type=properties' ) {
+            foreach ($menu as $key => $menu_item) {
+                if (isset($menu_item[2]) && $menu_item[2] == 'edit.php?post_type=properties') {
                     $menu[$key][0] = wp_rem_plugin_text_srt('wp_rem_rem_wp');
                 }
             }
@@ -529,9 +536,9 @@ if ( ! class_exists('wp_rem') ) {
          * Start Function how to access admin panel
          */
         public function prevent_admin_access() {
-            if ( is_user_logged_in() ) {
+            if (is_user_logged_in()) {
 
-                if ( strpos(strtolower($_SERVER['REQUEST_URI']), '/wp-admin') !== false && (current_user_can('wp_rem_member')) ) {
+                if (strpos(strtolower($_SERVER['REQUEST_URI']), '/wp-admin') !== false && (current_user_can('wp_rem_member'))) {
                     wp_redirect(get_option('siteurl'));
                     add_filter('show_admin_bar', '__return_false');
                 }
@@ -545,7 +552,7 @@ if ( ! class_exists('wp_rem') ) {
             global $wp_rem_plugin_options;
 
 
-            if ( function_exists('icl_object_id') ) {
+            if (function_exists('icl_object_id')) {
 
                 global $sitepress, $wp_filesystem;
 
@@ -553,12 +560,12 @@ if ( ! class_exists('wp_rem') ) {
 
                 $backup_url = '';
 
-                if ( false === ($creds = request_filesystem_credentials($backup_url, '', false, false, array()) ) ) {
+                if (false === ($creds = request_filesystem_credentials($backup_url, '', false, false, array()) )) {
 
                     return true;
                 }
 
-                if ( ! WP_Filesystem($creds) ) {
+                if (!WP_Filesystem($creds)) {
                     request_filesystem_credentials($backup_url, '', true, false, array());
                     return true;
                 }
@@ -568,17 +575,17 @@ if ( ! class_exists('wp_rem') ) {
                 $wp_rem_all_langs = $wp_filesystem->dirlist($wp_rem_languages_dir);
 
                 $wp_rem_mo_files = array();
-                if ( is_array($wp_rem_all_langs) && sizeof($wp_rem_all_langs) > 0 ) {
+                if (is_array($wp_rem_all_langs) && sizeof($wp_rem_all_langs) > 0) {
 
-                    foreach ( $wp_rem_all_langs as $file_key => $file_val ) {
+                    foreach ($wp_rem_all_langs as $file_key => $file_val) {
 
-                        if ( isset($file_val['name']) ) {
+                        if (isset($file_val['name'])) {
 
                             $wp_rem_file_name = $file_val['name'];
 
                             $wp_rem_ext = pathinfo($wp_rem_file_name, PATHINFO_EXTENSION);
 
-                            if ( $wp_rem_ext == 'mo' ) {
+                            if ($wp_rem_ext == 'mo') {
                                 $wp_rem_mo_files[] = $wp_rem_file_name;
                             }
                         }
@@ -587,8 +594,8 @@ if ( ! class_exists('wp_rem') ) {
 
                 $wp_rem_active_langs = $sitepress->get_current_language();
 
-                foreach ( $wp_rem_mo_files as $mo_file ) {
-                    if ( strpos($mo_file, $wp_rem_active_langs) !== false ) {
+                foreach ($wp_rem_mo_files as $mo_file) {
+                    if (strpos($mo_file, $wp_rem_active_langs) !== false) {
                         $wp_rem_lang_mo_file = $mo_file;
                     }
                 }
@@ -596,7 +603,7 @@ if ( ! class_exists('wp_rem') ) {
 
             $locale = apply_filters('plugin_locale', get_locale(), 'wp-rem');
             $dir = trailingslashit(WP_LANG_DIR);
-            if ( isset($wp_rem_lang_mo_file) && $wp_rem_lang_mo_file != '' ) {
+            if (isset($wp_rem_lang_mo_file) && $wp_rem_lang_mo_file != '') {
                 load_textdomain('wp-rem', plugin_dir_path(__FILE__) . "languages/" . $wp_rem_lang_mo_file);
             } else {
                 load_textdomain('wp-rem', plugin_dir_path(__FILE__) . "languages/wp-rem-" . $locale . '.mo');
@@ -664,7 +671,7 @@ if ( ! class_exists('wp_rem') ) {
             $upload = wp_upload_dir();
             $upload_dir = $upload['basedir'];
             $upload_dir = $upload_dir . '/' . $plugin_user_images_wp_rem;
-            if ( ! is_dir($upload_dir) ) {
+            if (!is_dir($upload_dir)) {
                 mkdir($upload_dir, 0777);
             }
         }
@@ -682,12 +689,12 @@ if ( ! class_exists('wp_rem') ) {
          */
         public function wp_rem_single_template($single_template) {
             global $post;
-            if ( get_post_type() == 'properties' ) {
-                if ( is_single() ) {
+            if (get_post_type() == 'properties') {
+                if (is_single()) {
                     $single_template = plugin_dir_path(__FILE__) . 'frontend/templates/single_pages/single-property.php';
                 }
             }
-            if ( get_post_type() == 'members' ) {
+            if (get_post_type() == 'members') {
                 $single_template = plugin_dir_path(__FILE__) . 'frontend/templates/single_pages/single-members.php';
             }
             return $single_template;
@@ -699,13 +706,17 @@ if ( ! class_exists('wp_rem') ) {
         public function wp_rem_defaultfiles_plugin_enqueue() {
             global $wp_rem_plugin_options;
             // admin styles
-            if ( is_admin() ) {
+            if (is_admin()) {
                 wp_enqueue_media();
             }
-            wp_register_style('wp-rem-pretty-photo-css', plugins_url('/assets/frontend/css/prettyPhoto.css', __FILE__));
+            wp_register_style('wp-rem-prettyPhoto', plugins_url('/assets/frontend/css/prettyPhoto.css', __FILE__));
+
             // map height 100%
             wp_register_style('leaflet', plugins_url('/assets/frontend/css/leaflet.css', __FILE__));
-            wp_register_script('leaflet', plugins_url('/assets/frontend/scripts/leaflet.js', __FILE__), array( 'jquery' ));
+            wp_register_script('leaflet', plugins_url('/assets/frontend/scripts/leaflet.js', __FILE__), array('jquery'));
+            wp_register_script('wp_rem_freetilee_js', plugins_url('/assets/frontend/scripts/jquery.freetile.js', __FILE__), array('jquery'), '', true);
+            wp_register_script('wp_rem_masonry_pkgd_min_js', plugins_url('/assets/frontend/scripts/masonry.pkgd.min.js', __FILE__), array('jquery'), '', true);
+            wp_register_script('wp_rem_init_js', plugins_url('/assets/frontend/scripts/init.js', __FILE__), array('jquery'), '', true);
 
             /*
              * register i croppic styles
@@ -713,62 +724,73 @@ if ( ! class_exists('wp_rem') ) {
 
             /* swipper */
             wp_register_style('swiper', plugins_url('/assets/frontend/css/swiper.css', __FILE__));
-            wp_register_script('swiper', plugins_url('/assets/frontend/scripts/swiper.min.js', __FILE__), array( 'jquery' ), '', true);
+            wp_register_script('swiper', plugins_url('/assets/frontend/scripts/swiper.min.js', __FILE__), array('jquery'), '', true);
             /*
              * register i croppic scripts
              */
 
 
-            wp_register_script('fitvids', plugins_url('/assets/frontend/scripts/fitvids.js', __FILE__), array( 'jquery' ), '', true);
+            wp_register_script('fitvids', plugins_url('/assets/frontend/scripts/fitvids.js', __FILE__), array('jquery'), '', true);
 
-            wp_register_script('wp-rem-cripic-min_js', plugins_url('/assets/frontend/scripts/croppic.min.js', __FILE__), array( 'jquery' ));
+            wp_register_script('wp-rem-cripic-min_js', plugins_url('/assets/frontend/scripts/croppic.min.js', __FILE__), array('jquery'));
             // common file for property category
-            wp_register_script('wp-rem-property-categories', plugins_url('/assets/common/js/property-categories.js', __FILE__), array( 'jquery' ));
+            wp_register_script('wp-rem-property-categories', plugins_url('/assets/common/js/property-categories.js', __FILE__), array('jquery'));
             wp_register_script('chosen-ajaxify', plugins_url('/assets/backend/scripts/chosen-ajaxify.js', __FILE__));
-            wp_register_script('jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.js');
+            wp_register_script('jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.js');
             $wp_rem_pt_array = array(
                 'plugin_url' => wp_rem::plugin_url(),
             );
             wp_localize_script('chosen-ajaxify', 'wp_rem_chosen_vars', $wp_rem_pt_array);
-            if ( ! is_admin() ) {
+            if (!is_admin()) {
                 wp_register_style('fonticonpicker', plugins_url('/assets/icomoon/css/jquery.fonticonpicker.min.css', __FILE__));
             }
             wp_enqueue_style('iconmoon', plugins_url('/assets/icomoon/css/iconmoon.css', __FILE__));
             wp_enqueue_style('wp_rem_fonticonpicker_bootstrap_css', plugins_url('/assets/icomoon/theme/bootstrap-theme/jquery.fonticonpicker.bootstrap.css', __FILE__));
-            wp_enqueue_script('bootstrap-min', plugins_url('/assets/frontend/scripts/bootstrap.min.js', __FILE__), array( 'jquery' ), '', true);
+            wp_enqueue_script('bootstrap-min', plugins_url('/assets/frontend/scripts/bootstrap.min.js', __FILE__), array('jquery'), '', true);
 
             wp_register_style('daterangepicker', plugins_url('/assets/frontend/css/daterangepicker.css', __FILE__));
 
-            if ( ! is_admin() ) {
+            if (!is_admin()) {
                 wp_enqueue_style('bootstrap_css', plugins_url('/assets/frontend/css/bootstrap.css', __FILE__));
                 wp_enqueue_style('wp_rem_bootstrap_slider_css', plugins_url('/assets/frontend/css/bootstrap-slider.css', __FILE__));
+                wp_enqueue_style('rem-style-animate', plugins_url('/assets/frontend/css/style-animate.css', __FILE__));
                 wp_enqueue_style('wp_rem_plugin_css', plugins_url('/assets/frontend/css/wp-rem-plugin.css', __FILE__));
                 wp_register_style('wp_rem_datepicker_css', plugins_url('/assets/frontend/css/jquery-ui.css', __FILE__));
                 $wp_rem_plugin_options = get_option('wp_rem_plugin_options');
             }
             // All JS files
             $google_api_key = '';
-            if ( isset($wp_rem_plugin_options['wp_rem_google_api_key']) && $wp_rem_plugin_options['wp_rem_google_api_key'] != '' ) {
-                $google_api_key = '?key=' . $wp_rem_plugin_options['wp_rem_google_api_key'] . '&libraries=places,drawing';
+            if (isset($wp_rem_plugin_options['wp_rem_google_api_key']) && $wp_rem_plugin_options['wp_rem_google_api_key'] != '') {
+                $google_api_key = '?key=' . $wp_rem_plugin_options['wp_rem_google_api_key'] . '&libraries=geometry,places,drawing';
             } else {
-                $google_api_key = '?libraries=places,drawing';
+                $google_api_key = '?libraries=geometry,places,drawing';
             }
-            wp_enqueue_script('google-autocomplete', 'https://maps.googleapis.com/maps/api/js' . $google_api_key);
-            wp_enqueue_script('jquery-latlon-picker', plugins_url('/assets/frontend/scripts/jquery_latlon_picker.js', __FILE__), '', '', false);
-            wp_enqueue_script('wp-rem-map-styles', plugins_url('/assets/frontend/scripts/map-styles.js', __FILE__), '', '', true);
+            wp_register_script('wp-rem-google-map-api', 'https://maps.googleapis.com/maps/api/js' . $google_api_key);
+            wp_enqueue_script('wp-rem-google-map-api');
 
-            if ( ! is_admin() ) {
+            //wp_enqueue_script('wp-rem-map-styles', plugins_url('/assets/frontend/scripts/map-styles.js', __FILE__), '', '', true);
+
+            if (!is_admin()) {
                 wp_enqueue_script('responsive-menu', plugins_url('/assets/frontend/scripts/responsive.menu.js', __FILE__), '', '', true);
-                wp_enqueue_script('jquery-branches-latlon-picker', plugins_url('/assets/frontend/scripts/jquery-branches-latlon-picker.js', __FILE__), '', '', true);
+                //wp_enqueue_script('jquery-branches-latlon-picker', plugins_url('/assets/frontend/scripts/jquery-branches-latlon-picker.js', __FILE__), '', '', true);
             }
 
-            wp_enqueue_script('wp-rem-matchHeight-script', plugins_url('/assets/frontend/scripts/jquery.matchHeight-min.js', __FILE__), '', '', true);
-            wp_register_script('wp-rem-icons-loader', plugins_url('/assets/common/js/icons-loader.js', __FILE__), array( 'jquery' ));
-            wp_register_script('wp-rem-property-functions', plugins_url('/assets/frontend/scripts/property-functions.js', __FILE__), array( 'jquery' ));
-            wp_register_script('jquery-mixitup', plugins_url('/assets/frontend/scripts/jquery.mixitup.min.js', __FILE__), array( 'jquery' ));
-            wp_register_script('wp-rem-member-functions', plugins_url('/assets/frontend/scripts/member-functions.js', __FILE__), array( 'jquery' ));
+            wp_register_script('wp-rem-matchHeight-script', plugins_url('/assets/frontend/scripts/jquery.matchHeight-min.js', __FILE__), '', '', true);
+            wp_enqueue_script('wp-rem-matchHeight-script');
+            /*
+             * New Scripts
+             */
+            wp_register_script('wp-rem-validation-script', plugins_url('/assets/frontend/scripts/wp-rem-validation.js', __FILE__), '', '', true);
+            wp_register_script('wp-rem-members-script', plugins_url('/assets/frontend/scripts/wp-rem-members.js', __FILE__), '', '', true);
+            wp_register_script('wp-rem-login-script', plugins_url('/assets/frontend/scripts/wp-rem-login.js', __FILE__), '', '', true);
+            wp_register_script('wp-rem-icons-loader', plugins_url('/assets/common/js/icons-loader.js', __FILE__), array('jquery'));
+            wp_register_script('wp-rem-property-functions', plugins_url('/assets/frontend/scripts/property-functions.js', __FILE__), array('jquery'));
+            wp_register_script('jquery-mixitup', plugins_url('/assets/frontend/scripts/jquery.mixitup.min.js', __FILE__), array('jquery'));
+            wp_register_script('wp-rem-member-functions', plugins_url('/assets/frontend/scripts/member-functions.js', __FILE__), array('jquery'));
             $wp_rem_property_functions_string = array(
                 'property_type' => wp_rem_plugin_text_srt('wp_rem_rem_property_type'),
+                'price_type' => wp_rem_plugin_text_srt('wp_rem_advance_search_select_price_type_label'),
+                'all' => wp_rem_plugin_text_srt('wp_rem_advance_search_select_price_types_all'),
                 'plugin_url' => wp_rem::plugin_url(),
                 'ajax_url' => admin_url('admin-ajax.php'),
             );
@@ -777,7 +799,9 @@ if ( ! class_exists('wp_rem') ) {
                 'plugin_url' => wp_rem::plugin_url(),
             );
             wp_localize_script('wp-rem-icons-loader', 'icons_vars', $wp_rem_icons_array);
-            wp_enqueue_script('wp-rem-icons-loader');
+            if (is_admin()) {
+                wp_enqueue_script('wp-rem-icons-loader');
+            }
             $wp_rem_property_strings = array(
                 'service_added' => wp_rem_plugin_text_srt('wp_rem_rem_serveice_addeed'),
                 'ploor_plan_added' => wp_rem_plugin_text_srt('wp_rem_rem_floor_plan_added'),
@@ -802,22 +826,28 @@ if ( ! class_exists('wp_rem') ) {
                 'close_txt' => wp_rem_plugin_text_srt('wp_rem_rem_close_text'),
                 'plugin_url' => wp_rem::plugin_url(),
                 'ajax_url' => admin_url('admin-ajax.php'),
+                'more_than_f' => wp_rem_plugin_text_srt('wp_rem_select_pkg_img_num_more_than'),
+                'more_than_image_change' => wp_rem_plugin_text_srt('wp_rem_select_pkg_img_num_change_pkg'),
+                'more_than_doc_change' => wp_rem_plugin_text_srt('wp_rem_select_pkg_doc_num_change_pkg'),
             );
             // temprary off
             wp_enqueue_script('wp_rem_functions_frontend', plugins_url('/assets/frontend/scripts/functions.js', __FILE__));
             wp_localize_script('wp_rem_functions_frontend', 'wp_rem_property_strings', $wp_rem_property_strings);
-            wp_enqueue_script('wp_rem_piechart_frontend', plugins_url('/assets/frontend/scripts/donut-pie-chart.min.js', __FILE__));
+            wp_register_script('wp-rem-split-map', plugins_url('/assets/frontend/scripts/split-map.js', __FILE__), '', '', true);
+            wp_register_script('wp_rem_piechart_frontend', plugins_url('/assets/frontend/scripts/donut-pie-chart.min.js', __FILE__));
 
             wp_localize_script(
                     'wp_rem_functions_frontend', 'wp_rem_globals', array(
                 'ajax_url' => admin_url('admin-ajax.php'),
+                'some_txt_error' => wp_rem_plugin_text_srt('wp_rem_prop_notes_some_txt_error'),
                 'plugin_url' => wp_rem::plugin_url(),
+                'is_frontend' => is_admin() ? 'false' : 'true',
                 'security' => wp_create_nonce('wp-rem-security'),
                     )
             );
-            wp_register_script('wp-rem-pretty-photo-script', plugins_url('/assets/frontend/scripts/jquery.prettyPhoto.js', __FILE__), array( 'jquery' ));
+            wp_register_script('wp-rem-prettyPhoto', plugins_url('/assets/frontend/scripts/jquery.prettyPhoto.js', __FILE__), array('jquery'));
             wp_register_script('wp-rem-tags-it', plugins_url('/assets/frontend/scripts/tag-it.js', __FILE__));
-            if ( ! is_admin() ) {
+            if (!is_admin()) {
                 wp_register_style('bootstrap-datepicker', plugins_url('/assets/frontend/css/bootstrap-datepicker.css', __FILE__));
                 wp_enqueue_script('wp-rem-growls', plugins_url('/assets/frontend/scripts/jquery.growl.js', __FILE__), '', '', true);
                 wp_register_script('wp-rem-property-add', plugins_url('/assets/frontend/scripts/property-add-functions.js', __FILE__), '', '', true);
@@ -839,8 +869,8 @@ if ( ! class_exists('wp_rem') ) {
             }
             wp_register_script('wp-rem-jquery-scrollbar', plugins_url('/assets/frontend/scripts/jquery.scrollbar.js', __FILE__), '', '', true);
             wp_enqueue_script('responsive-calendar', plugins_url('/assets/common/js/responsive-calendar.min.js', __FILE__), '', '', true);
-            wp_enqueue_script('wp-rem-bootstrap-slider', plugins_url('/assets/frontend/scripts/bootstrap-slider.js', __FILE__), '', '', true);
-
+            wp_register_script('wp-rem-bootstrap-slider', plugins_url('/assets/frontend/scripts/bootstrap-slider.js', __FILE__), '', '', true);
+            wp_enqueue_script('wp-rem-bootstrap-slider');
             // Dashboad date fields style & script.
             wp_register_style('daterangepicker', plugins_url('/assets/frontend/css/daterangepicker.css', __FILE__));
             wp_register_script('daterangepicker-moment', plugins_url('/assets/frontend/scripts/moment.js', __FILE__), '', '', true);
@@ -852,7 +882,9 @@ if ( ! class_exists('wp_rem') ) {
             $property_compare_strings = array(
                 'plugin_url' => wp_rem::plugin_url(),
                 'ajax_url' => admin_url('admin-ajax.php'),
-				'error' => wp_rem_plugin_text_srt( 'wp_rem_shortcode_compare_error' ),
+                'error' => wp_rem_plugin_text_srt('wp_rem_shortcode_compare_error'),
+                'compare_label' => wp_rem_plugin_text_srt('wp_rem_shortcode_compare_label'),
+                'compared_label' => wp_rem_plugin_text_srt('wp_rem_shortcode_compared_label'),
             );
             wp_localize_script('wp-rem-property-compare', 'wp_rem_property_compare', $property_compare_strings);
 
@@ -860,7 +892,7 @@ if ( ! class_exists('wp_rem') ) {
              *
              * @login popup script files
              */
-            if ( ! function_exists('wp_rem_login_box_popup_scripts') ) {
+            if (!function_exists('wp_rem_login_box_popup_scripts')) {
 
                 function wp_rem_login_box_popup_scripts() {
                     echo '';
@@ -871,7 +903,7 @@ if ( ! class_exists('wp_rem') ) {
              *
              * @login popup script files
              */
-            if ( ! function_exists('wp_rem_google_recaptcha_scripts') ) {
+            if (!function_exists('wp_rem_google_recaptcha_scripts')) {
 
                 function wp_rem_google_recaptcha_scripts() {
                     wp_enqueue_script('wp_rem_google_recaptcha_scripts', wp_rem_server_protocol() . 'www.google.com/recaptcha/api.js?onload=wp_rem_multicap_all_functions&amp;render=explicit', '', '');
@@ -879,16 +911,16 @@ if ( ! class_exists('wp_rem') ) {
 
             }
             //jquery text editor files
-            if ( is_admin() ) {
+            if (is_admin()) {
                 wp_enqueue_style('jquery-te', plugins_url('/assets/common/css/jquery-te-1.4.0.css', __FILE__));
                 wp_enqueue_script('jquery-te', plugins_url('/assets/common/js/jquery-te-1.4.0.min.js', __FILE__), '', '', true);
             }
-            if ( ! is_admin() ) {
+            if (!is_admin()) {
                 wp_register_style('jquery-te', plugins_url('/assets/common/css/jquery-te-1.4.0.css', __FILE__));
-                wp_enqueue_script('jquery-te', plugins_url('/assets/common/js/jquery-te-1.4.0.min.js', __FILE__));
+                wp_register_script('jquery-te', plugins_url('/assets/common/js/jquery-te-1.4.0.min.js', __FILE__));
             }
             //jquery text editor files end
-            if ( is_admin() ) {
+            if (is_admin()) {
                 // admin css files
                 global $price_tables_meta_object;
                 wp_enqueue_style('wp_rem_datatable_css', plugins_url('/assets/backend/css/datatable.css', __FILE__));
@@ -899,7 +931,9 @@ if ( ! class_exists('wp_rem') ) {
                 wp_enqueue_style('chosen', plugins_url('/assets/backend/css/chosen.css', __FILE__));
                 wp_enqueue_style('wp_rem_bootstrap_calendar_css', plugins_url('/assets/backend/css/bootstrap-year-calendar.css', __FILE__));
                 wp_enqueue_style('wp_rem_price_tables', plugins_url('/assets/backend/css/price-tables.css', __FILE__));
+                wp_enqueue_script('jquery-latlon-picker', plugins_url('/assets/frontend/scripts/jquery_latlon_picker.js', __FILE__), '', '', false);
                 wp_enqueue_style('wp-color-picker');
+                wp_enqueue_script('wp-rem-bootstrap-slider');
                 // admin js files
                 wp_enqueue_script('wp_rem_datatable_js', plugins_url('/assets/backend/scripts/datatable.js', __FILE__), '', '', true);
                 wp_enqueue_script('chosen', plugins_url('/assets/frontend/scripts/chosen.jquery.js', __FILE__));
@@ -910,7 +944,7 @@ if ( ! class_exists('wp_rem') ) {
                 );
                 wp_localize_script('chosen-ajaxify', 'wp_rem_chosen_vars', $wp_rem_pt_array);
                 wp_enqueue_script('wp_rem_bootstrap_calendar_js', plugins_url('/assets/backend/scripts/bootstrap-year-calendar.js', __FILE__));
-                wp_enqueue_script('wp_rem_custom_wp_admin_script_js', plugins_url('/assets/backend/scripts/functions.js', __FILE__), array( 'wp-color-picker' ), '', true);
+                wp_enqueue_script('wp_rem_custom_wp_admin_script_js', plugins_url('/assets/backend/scripts/functions.js', __FILE__), array('wp-color-picker'), '', true);
                 wp_localize_script(
                         'wp_rem_custom_wp_admin_script_js', 'wp_rem_globals', array(
                     'ajax_url' => admin_url('admin-ajax.php'),
@@ -944,12 +978,15 @@ if ( ! class_exists('wp_rem') ) {
 
             wp_register_style('datepicker', plugins_url('/assets/frontend/css/datepicker.css', __FILE__));
             wp_register_style('datetimepicker', plugins_url('/assets/common/css/jquery.datetimepicker.css', __FILE__));
-            wp_enqueue_script('datetimepicker', plugins_url('/assets/common/js/jquery.datetimepicker.js', __FILE__), '', '', true);
+            wp_register_script('datetimepicker', plugins_url('/assets/common/js/jquery.datetimepicker.js', __FILE__), '', '', true);
+
+            wp_register_script('jquery-latlon-picker', plugins_url('/assets/frontend/scripts/jquery_latlon_picker.js', __FILE__), '', '', false);
+
             /**
              *
              * @social login script
              */
-            if ( ! function_exists('wp_rem_socialconnect_scripts') ) {
+            if (!function_exists('wp_rem_socialconnect_scripts')) {
 
                 function wp_rem_socialconnect_scripts() {
                     wp_enqueue_script('wp_rem_socialconnect_js', plugins_url('/elements/login/cs-social-login/media/js/cs-connect.js', __FILE__), '', '', true);
@@ -959,12 +996,12 @@ if ( ! class_exists('wp_rem') ) {
 
             // Register Location Autocomplete for late use.
             wp_register_script('wp_rem_location_autocomplete_js', plugins_url('/assets/frontend/scripts/jquery.location-autocomplete.js', __FILE__), '', '', true);
-            wp_enqueue_script('wp_rem_location_autocomplete_js');
+            //wp_enqueue_script('wp_rem_location_autocomplete_js');
             /**
              *
              * @google auto complete script
              */
-            if ( ! function_exists('wp_rem_google_autocomplete_scripts') ) {
+            if (!function_exists('wp_rem_google_autocomplete_scripts')) {
 
                 function wp_rem_google_autocomplete_scripts() {
                     wp_enqueue_script('wp_rem_location_autocomplete_js', plugins_url('/assets/frontend/scripts/jquery.location-autocomplete.js', __FILE__), '', '');
@@ -985,7 +1022,7 @@ if ( ! class_exists('wp_rem') ) {
 
 
             $my_theme = wp_get_theme('wp-rem');
-            if ( ! $my_theme->exists() ) {
+            if (!$my_theme->exists()) {
                 wp_enqueue_style('wp_rem_responsive_css', plugins_url('/assets/frontend/css/responsive.css', __FILE__));
             }
         }
@@ -1026,10 +1063,10 @@ if ( ! class_exists('wp_rem') ) {
         public function wp_rem_google_place_scripts() {
             global $wp_rem_plugin_options;
             $google_api_key = '';
-            if ( isset($wp_rem_plugin_options['wp_rem_google_api_key']) && $wp_rem_plugin_options['wp_rem_google_api_key'] != '' ) {
-                $google_api_key = '?key=' . $wp_rem_plugin_options['wp_rem_google_api_key'] . '&libraries=places,drawing';
+            if (isset($wp_rem_plugin_options['wp_rem_google_api_key']) && $wp_rem_plugin_options['wp_rem_google_api_key'] != '') {
+                $google_api_key = '?key=' . $wp_rem_plugin_options['wp_rem_google_api_key'] . '&libraries=geometry,places,drawing';
             } else {
-                $google_api_key = '?libraries=places,drawing';
+                $google_api_key = '?libraries=geometry,places,drawing';
             }
             wp_enqueue_script('google-autocomplete', 'https://maps.googleapis.com/maps/api/js' . $google_api_key);
         }
@@ -1063,17 +1100,17 @@ if ( ! class_exists('wp_rem') ) {
             array(
                 'tag' => 'SITE_NAME',
                 'display_text' => 'Site Name',
-                'value_callback' => array( 'wp_rem', 'wp_rem_get_site_name' ),
+                'value_callback' => array('wp_rem', 'wp_rem_get_site_name'),
             ),
             array(
                 'tag' => 'ADMIN_EMAIL',
                 'display_text' => 'Admin Email',
-                'value_callback' => array( 'wp_rem', 'wp_rem_get_admin_email' ),
+                'value_callback' => array('wp_rem', 'wp_rem_get_admin_email'),
             ),
             array(
                 'tag' => 'SITE_URL',
                 'display_text' => 'SITE URL',
-                'value_callback' => array( 'wp_rem', 'wp_rem_get_site_url' ),
+                'value_callback' => array('wp_rem', 'wp_rem_get_site_url'),
             ),
         );
 
@@ -1091,9 +1128,9 @@ if ( ! class_exists('wp_rem') ) {
          */
 
         public function wp_rem_get_plugin_options_callback($option_id = '') {
-            if ( isset($option_id) && $option_id != '' ) {
+            if (isset($option_id) && $option_id != '') {
                 $wp_rem_plugin_options = get_option('wp_rem_plugin_options');
-                if ( isset($wp_rem_plugin_options[$option_id]) ) {
+                if (isset($wp_rem_plugin_options[$option_id])) {
                     return $wp_rem_plugin_options[$option_id];
                 }
             }
@@ -1107,14 +1144,14 @@ if ( ! class_exists('wp_rem') ) {
 
             $terms_condition_check = isset($wp_rem_plugin_options['wp_rem_cs_terms_condition_check']) ? $wp_rem_plugin_options['wp_rem_cs_terms_condition_check'] : '';
             ob_start();
-            if ( $terms_condition_check == 'on' ) {
+            if ($terms_condition_check == 'on') {
                 $terms_condition_page = isset($wp_rem_plugin_options['cs_terms_condition']) ? $wp_rem_plugin_options['cs_terms_condition'] : '';
                 ?>
                 <div class="checkbox-area">
                     <input type="checkbox" id="<?php echo ($field_name); ?>" class="wp-rem-dev-req-field">
                     <label for="<?php echo ($field_name); ?>">
                         <?php
-                        if ( $show_accept ) {
+                        if ($show_accept) {
                             echo wp_rem_plugin_text_srt('wp_rem_rem_accept');
                         }
                         ?>
@@ -1144,23 +1181,23 @@ if ( ! class_exists('wp_rem') ) {
             // Add general variables to the list
             $variables = array_merge(self::$email_template_variables, $variables);
 
-            foreach ( $variables as $key => $variable ) {
+            foreach ($variables as $key => $variable) {
                 $callback_exists = false;
 
                 // Check if function/method exists.
-                if ( is_array($variable['value_callback']) ) { // If it is a method of a class.
+                if (is_array($variable['value_callback'])) { // If it is a method of a class.
                     $callback_exists = method_exists($variable['value_callback'][0], $variable['value_callback'][1]);
                 } else { // If it is a function.
                     $callback_exists = function_exists($variable['value_callback']);
                 }
 
                 // Substitute values in place of tags if callback exists.
-                if ( true == $callback_exists ) {
+                if (true == $callback_exists) {
                     // Make a call to callback to get value.
                     $value = call_user_func($variable['value_callback']);
 
                     // If we have some value to substitute then use that.
-                    if ( false != $value ) {
+                    if (false != $value) {
                         $template = str_replace('[' . $variable['tag'] . ']', $value, $template);
                     }
                 }
@@ -1170,15 +1207,15 @@ if ( ! class_exists('wp_rem') ) {
 
         public static function get_template($email_template_index, $email_template_variables, $email_default_template) {
             $email_template = '';
-            $template_data = array( 'subject' => '', 'from' => '', 'recipients' => '', 'email_notification' => '', 'email_type' => '', 'email_template' => '' );
+            $template_data = array('subject' => '', 'from' => '', 'recipients' => '', 'email_notification' => '', 'email_type' => '', 'email_template' => '');
             // Check if there is a template select else go with default template.
             $selected_template_id = wp_rem_check_if_template_exists($email_template_index, 'jh-templates');
-            if ( false != $selected_template_id ) {
+            if (false != $selected_template_id) {
 
                 // Check if a temlate selected else default template is used.
-                if ( $selected_template_id != 0 ) {
+                if ($selected_template_id != 0) {
                     $templateObj = get_post($selected_template_id);
-                    if ( $templateObj != null ) {
+                    if ($templateObj != null) {
                         $email_template = $templateObj->post_content;
                         $template_id = $templateObj->ID;
                         $template_data['subject'] = wp_rem::wp_rem_replace_tags(get_post_meta($template_id, 'jh_subject', true), $email_template_variables);
@@ -1226,12 +1263,12 @@ if ( ! class_exists('wp_rem') ) {
 /*
  * Check if an email template exists
  */
-if ( ! function_exists('wp_rem_check_if_template_exists') ) {
+if (!function_exists('wp_rem_check_if_template_exists')) {
 
     function wp_rem_check_if_template_exists($slug, $type) {
         global $wpdb;
         $post = $wpdb->get_row("SELECT ID FROM " . $wpdb->prefix . "posts WHERE post_name = '" . $slug . "' && post_type = '" . $type . "'", 'ARRAY_A');
-        if ( isset($post) && isset($post['ID']) ) {
+        if (isset($post) && isset($post['ID'])) {
             return $post['ID'];
         } else {
             return false;
@@ -1245,26 +1282,26 @@ if ( ! function_exists('wp_rem_check_if_template_exists') ) {
  * Get Property's Gallery Nth Image.
  *
  */
-if ( ! function_exists('wp_rem_get_property_gallery_nth_image_url') ) {
+if (!function_exists('wp_rem_get_property_gallery_nth_image_url')) {
 
     function wp_rem_get_property_gallery_nth_image_url($post_id = 0, $size = 'thumbnail', $n = 0) {
         $image_url = '';
 
-        if ( $post_id > -1 && $n > -1 ) {
+        if ($post_id > -1 && $n > -1) {
             $property_type_slug = get_post_meta($post_id, 'wp_rem_property_type', true);
-            $property_type_post = get_posts(array( 'posts_per_page' => '1', 'post_type' => 'property-type', 'name' => "$property_type_slug", 'post_status' => 'publish' ));
+            $property_type_post = get_posts(array('posts_per_page' => '1', 'post_type' => 'property-type', 'name' => "$property_type_slug", 'post_status' => 'publish'));
             $property_type_id = isset($property_type_post[0]->ID) ? $property_type_post[0]->ID : 0;
             $property_type_gal_switch = get_post_meta($property_type_id, 'wp_rem_image_gallery_element', true);
-            if ( $property_type_gal_switch == 'on' ) {
+            if ($property_type_gal_switch == 'on') {
                 $gallery_ids_list = get_post_meta($post_id, 'wp_rem_detail_page_gallery_ids', true);
-                if ( ( is_array($gallery_ids_list) && sizeof($gallery_ids_list) > 0 ) ) {
-                    if ( isset($gallery_ids_list[$n]) ) {
+                if (( is_array($gallery_ids_list) && sizeof($gallery_ids_list) > 0)) {
+                    if (isset($gallery_ids_list[$n])) {
                         $attachment_id = $gallery_ids_list[$n];
                     } else {
                         $attachment_id = $gallery_ids_list[0];
                     }
                     $image_attr = wp_get_attachment_image_src($attachment_id, $size);
-                    if ( $image_attr ) {
+                    if ($image_attr) {
                         $image_url = $image_attr[0];
                     }
                 }
@@ -1280,23 +1317,23 @@ if ( ! function_exists('wp_rem_get_property_gallery_nth_image_url') ) {
  *
  * @Create Object of class To Activate Plugin
  */
-if ( class_exists('wp_rem') ) {
+if (class_exists('wp_rem')) {
     global $wp_rem_Class;
     $wp_rem_Class = new wp_rem();
-    register_activation_hook(__FILE__, array( 'wp_rem', 'activate' ));
-    register_deactivation_hook(__FILE__, array( 'wp_rem', 'deactivate' ));
+    register_activation_hook(__FILE__, array('wp_rem', 'activate'));
+    register_deactivation_hook(__FILE__, array('wp_rem', 'deactivate'));
 }
 
 //Remove Sub Menu add new properties
 function modify_menu() {
     global $submenu;
-    if ( isset($submenu['edit.php?post_type=properties'][10]) ) {
+    if (isset($submenu['edit.php?post_type=properties'][10])) {
         unset($submenu['edit.php?post_type=properties'][10]);
     }
-    if ( isset($submenu['edit.php?post_type=members'][10]) ) {
+    if (isset($submenu['edit.php?post_type=members'][10])) {
         unset($submenu['edit.php?post_type=members'][10]);
     }
-    if ( isset($submenu['edit.php?post_type=packages'][10]) ) {
+    if (isset($submenu['edit.php?post_type=packages'][10])) {
         unset($submenu['edit.php?post_type=packages'][10]);
     }
 }
@@ -1308,7 +1345,7 @@ function create_daily_properties_check() {
     $timestamp = wp_next_scheduled('create_daily_properties_check');
 
     // If $timestamp == false schedule daily alerts since it hasn't been done previously.
-    if ( $timestamp == false ) {
+    if ($timestamp == false) {
         // Schedule the event for right now, then to repeat daily using the hook 'create_daily_properties_check'.
         wp_schedule_event(time(), 'daily', 'create_daily_properties_check');
     }
@@ -1325,9 +1362,9 @@ register_activation_hook(__FILE__, 'create_daily_properties_check');
 
 
 function wp_rem_get_current_template($echo = false) {
-    if ( ! isset($GLOBALS['current_theme_template']) )
+    if (!isset($GLOBALS['current_theme_template']))
         return false;
-    if ( $echo )
+    if ($echo)
         echo $GLOBALS['current_theme_template'];
     else
         return $GLOBALS['current_theme_template'];

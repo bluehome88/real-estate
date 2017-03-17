@@ -86,6 +86,12 @@ if ( ! function_exists('wp_rem_cs_custom_mailchimp') ) {
         global $wp_rem_cs_var_options, $counter, $social_switch, $wp_rem_cs_var_frame_static_text;
         $wp_rem_cs_var_enter_valid = isset($wp_rem_cs_var_frame_static_text['wp_rem_cs_var_enter_valid']) ? $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_enter_valid'] : '';
         $counter ++;
+        $newsletter_elemnt_class = '';
+        if($under_construction == 4){
+            $newsletter_elemnt_class = ' class="newsletter-form"';
+        }
+        
+        
         ?>
         <script>
             function wp_rem_cs_mailchimp_submit(theme_url, counter, admin_url) {
@@ -108,7 +114,7 @@ if ( ! function_exists('wp_rem_cs_custom_mailchimp') ) {
                 jQuery('#' + div_hide).hide();
             }
         </script>
-        <div id ="process_newsletter_<?php echo intval($counter); ?>">
+        <div id ="process_newsletter_<?php echo intval($counter); ?>"<?php echo ($newsletter_elemnt_class);?>>
             <div id="process_<?php echo intval($counter); ?>" class="status status-message cs-spinner" style="display:none"></div>
             <div id="newsletter_error_div_<?php echo intval($counter); ?>" style="display:none" class="alert alert-danger">
                 <button class="close" type="button" onclick="hide_div('newsletter_error_div_<?php echo intval($counter); ?>')" aria-hidden="true">×</button>
@@ -155,14 +161,14 @@ if ( ! function_exists('wp_rem_cs_custom_mailchimp') ) {
                         if ( $under_construction == 2 ) {
                             ?>
                             <label class="mailchimp-btn-loader-<?php echo intval($counter); ?> input-button-loader">
-                                <input class="btn-submit bgcolor btn-holder" id="btn_newsletter_<?php echo intval($counter); ?>" type="submit" value="Sign Up">
+                                <input class="btn-submit bgcolor btn-holder" id="btn_newsletter_<?php echo intval($counter); ?>" type="submit" value="<?php echo wp_rem_cs_var_frame_text_srt('wp_rem_cs_var_maintenance_newsletter_sign_up'); ?>">
                             </label>
                             <?php
                         }
                         if ( $under_construction == 3 ) {
                             ?>
                             <label class="mailchimp-btn-loader-<?php echo intval($counter); ?> input-button-loader">
-                                <input class="btn-submit bgcolor btn-holder" id="btn_newsletter_<?php echo intval($counter); ?>" type="submit" value="Sign Up!">
+                                <input class="btn-submit bgcolor btn-holder" id="btn_newsletter_<?php echo intval($counter); ?>" type="submit" value="<?php echo wp_rem_cs_var_frame_text_srt('wp_rem_cs_var_maintenance_newsletter_sign_up'); ?>">
                             </label>
                             <?php
                         }

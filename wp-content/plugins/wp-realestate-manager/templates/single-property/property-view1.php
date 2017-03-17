@@ -6,7 +6,7 @@
 global $post, $wp_rem_plugin_options, $wp_rem_theme_options, $wp_rem_post_property_types;
 $post_id = $post->ID;
 wp_rem_property_views_count($post_id);
-
+$wp_rem_social_network = isset($wp_rem_plugin_options['wp_rem_property_detail_page_social_network']) ? $wp_rem_plugin_options['wp_rem_property_detail_page_social_network'] : '';
 $property_limits = get_post_meta($post_id, 'wp_rem_trans_all_meta', true);
 $wp_rem_property_price_options = get_post_meta($post_id, 'wp_rem_property_price_options', true);
 $wp_rem_property_price = '';
@@ -16,9 +16,9 @@ if ($wp_rem_property_price_options == 'price') {
     $wp_rem_property_price = wp_rem_plugin_text_srt('wp_rem_nearby_properties_price_on_request');
 }
 $wp_rem_var_post_social_sharing = $wp_rem_plugin_options['wp_rem_social_share'];
-wp_enqueue_script('wp-rem-pretty-photo-script');
+wp_enqueue_script('wp-rem-prettyPhoto');
 wp_enqueue_script('wp-rem-reservation-functions');
-wp_enqueue_style('wp-rem-pretty-photo-css');
+wp_enqueue_style('wp-rem-prettyPhoto');
 // checking review in on in property type
 $wp_rem_property_type = get_post_meta($post_id, 'wp_rem_property_type', true);
 
@@ -56,7 +56,7 @@ if ($property_type_post = get_page_by_path($wp_rem_property_type, OBJECT, 'prope
     $property_type_id = $property_type_post->ID;
 $property_type_id = isset($property_type_id) ? $property_type_id : '';
 $wp_rem_property_type_feature_img_switch = get_post_meta($property_type_id, 'wp_rem_social_share_element', true);
-$wp_rem_property_is_featured = get_post_meta($post_id, 'wp_rem_property_is_featured', true); 
+$wp_rem_property_is_featured = get_post_meta($post_id, 'wp_rem_property_is_featured', true);
 $wp_rem_property_type_price_switch = get_post_meta($property_type_id, 'wp_rem_property_type_price', true);
 $wp_rem_property_type_cover_img_switch = get_post_meta($post_id, 'wp_rem_transaction_property_cimage', true);
 $wp_rem_property_type_claim_list_switch = get_post_meta($property_type_id, 'wp_rem_claim_property_element', true);
@@ -89,7 +89,7 @@ $wp_rem_enable_floot_plan_element = get_post_meta($post_id, 'wp_rem_enable_floot
 
 if ($wp_rem_property_type_det_desc_length < 0) {
     $wp_rem_property_type_det_desc_length = 50;
-} 
+}
 
 $no_image_class = '';
 if (!has_post_thumbnail()) {
@@ -143,8 +143,8 @@ if (!empty($wp_rem_property_category) && is_array($wp_rem_property_category)) {
                                                 if ($wp_rem_property_price_options == 'on-call') {
                                                     echo '<span class="new-price text-color">' . force_balance_tags($wp_rem_property_price) . '</span>';
                                                 } else {
-                                                    $property_info_price = wp_rem_property_price( $post_id, $wp_rem_property_price, '<span class="guid-price">', '</span>' );
-                                                    echo '<span class="new-price text-color">' . force_balance_tags( $property_info_price ) . '</span>';
+                                                    $property_info_price = wp_rem_property_price($post_id, $wp_rem_property_price, '<span class="guid-price">', '</span>');
+                                                    echo '<span class="new-price text-color">' . force_balance_tags($property_info_price) . '</span>';
                                                 }
                                                 ?>
                                             </span>
@@ -156,41 +156,49 @@ if (!empty($wp_rem_property_category) && is_array($wp_rem_property_category)) {
                                     <?php if (isset($wp_rem_post_loc_address_property) && $wp_rem_post_loc_address_property != '') { ?>
                                         <address><i class="icon- icon-location-pin2"></i><?php echo esc_html($wp_rem_post_loc_address_property); ?></address>
                                     <?php } ?>
+                                    <div class="property-data">
+                                        <ul>
+                                            <?php if ($wp_rem_property_is_featured == 'on') { ?>
+                                                <li class="featured-property">
+                                                    <span class="bgcolor"><?php echo wp_rem_plugin_text_srt('wp_rem_property_featured'); ?></span>
+                                                </li>
+                                            <?php }
+                                            ?>
+                                            <li><i class="icon-home"></i><?php echo wp_rem_property_type_link($property_type_id); ?> <?php
+                                                if ($wp_rem_cate_str != '') {
+                                                    echo wp_rem_plugin_text_srt('wp_rem_property_type_in');
+                                                }
+                                                ?></li>
+                                            <?php if ($wp_rem_cate_str != '') { ?>
+                                                <li><strong><?php echo wp_rem_allow_special_char($wp_rem_cate_str); ?></strong></li>
+                                            <?php } ?>
+                                            <li><?php
+                                                $favourite_label = wp_rem_plugin_text_srt('wp_rem_property_favourite');
+                                                $favourite_label = wp_rem_plugin_text_srt('wp_rem_property_favourite');
+                                                $figcaption_div = true;
+                                                $book_mark_args = array(
+                                                    'before_label' => $favourite_label,
+                                                    'after_label' => $favourite_label,
+                                                    'before_icon' => '<i class="icon-heart-o"></i>',
+                                                    'after_icon' => '<i class="icon-heart5"></i>',
+                                                );
+                                                do_action('wp_rem_favourites_frontend_button', $post_id, $book_mark_args, $figcaption_div);
+                                                ?></li>
+                                        </ul>
+                                    </div>
+                                    <?php if ($wp_rem_social_network === 'on') { ?>
+                                        <div class="property-social-links">
+                                            <span class="social-share"><?php echo wp_rem_plugin_text_srt('wp_rem_property_social_share_text') ?></span>
+                                            <?php do_action('wp_rem_social_sharing'); ?>
+                                        </div>
+                                    <?php } ?>
+                                    <?php do_action('wp_rem_detail_compare_btn', $post_id); ?>
                                 </div>
-                                <?php do_action('wp_rem_enquire_arrange_buttons_element_html', $post_id);  
-                                ?>
-                                <div class="property-data">
-                                    <ul>
-                                        <?php if ($wp_rem_property_is_featured == 'on') { ?>
-                                            <li class="featured-property">
-                                                <span class="bgcolor"><?php echo wp_rem_plugin_text_srt('wp_rem_property_featured'); ?></span>
-                                            </li>
-                                            <?php } 
-                                        ?>
-                                        <li><i class="icon-home"></i><?php echo wp_rem_property_type_link($property_type_id); ?></li>
-                                        <li><strong><?php echo wp_rem_allow_special_char($wp_rem_cate_str); ?></strong></li>
-                                        <li><?php
-                                            $favourite_label = wp_rem_plugin_text_srt('wp_rem_property_favourite');
-                                            $favourite_label = wp_rem_plugin_text_srt('wp_rem_property_favourite');
-                                            $figcaption_div = true;
-                                            $book_mark_args = array(
-                                                'before_label' => $favourite_label,
-                                                'after_label' => $favourite_label,
-                                                'before_icon' => '<i class="icon-heart-o"></i>',
-                                                'after_icon' => '<i class="icon-heart5"></i>',
-                                            );
-                                            do_action('wp_rem_favourites_frontend_button', $post_id, $book_mark_args, $figcaption_div);
-                                            ?></li>
-                                    </ul>
-                                </div>
-                                <div class="property-social-links">
-                                    <span class="social-share"><?php echo wp_rem_plugin_text_srt('wp_rem_property_social_share_text') ?></span>
-                                    <?php do_action('wp_rem_social_sharing'); ?>
-                                </div>
-								<?php do_action('wp_rem_detail_compare_btn', $post_id); ?>
+                                <?php do_action('wp_rem_enquire_arrange_buttons_element_html', $post_id); ?>
                             </div>
                             <?php do_action('wp_rem_images_gallery_element_html', $post_id); ?>
-                            <?php do_action('wp_rem_custom_fields_html', $post_id); 
+                            <?php
+                            do_action('wp_rem_custom_fields_html', $post_id);
 
                             // DESCRIPTION AND FEATURE CONTENT START
                             $my_postid = $post_id; //This is page id or post id
@@ -200,17 +208,18 @@ if (!empty($wp_rem_property_category) && is_array($wp_rem_property_category)) {
                             $content = str_replace(']]>', ']]&gt;', $content);
                             $wp_rem_property_summary = get_post_meta($post_id, 'wp_rem_property_summary', true);
                             $wp_rem_property_summary = isset($wp_rem_property_summary) ? $wp_rem_property_summary : '';
-                             if ( $wp_rem_property_summary != '' || $content != '' ) { ?>
+                            if ($wp_rem_property_summary != '' || $content != '') {
+                                ?>
                                 <div id="property-detail" class="description-holder">
-                                    <?php if ( $wp_rem_property_summary != '' ) { ?>
+                                    <?php if ($wp_rem_property_summary != '') { ?>
                                         <div class="property-feature">
                                             <div class="element-title">
-                                                <h3><?php echo wp_rem_plugin_text_srt('wp_rem_property_property_features'); ?></h3>
+                                                <h3><?php echo wp_rem_plugin_text_srt('wp_rem_property_property_key_detail'); ?></h3>
                                             </div>
-                                             <p><?php echo force_balance_tags(str_replace("<br/>", '</p><p>', str_replace("<br />", '</p><p>', nl2br($wp_rem_property_summary)))); ?></p>
+                                            <p><?php echo force_balance_tags(str_replace("<br/>", '</p><p>', str_replace("<br />", '</p><p>', nl2br($wp_rem_property_summary)))); ?></p>
                                         </div>
                                     <?php } ?>
-                                    <?php if ( $content != '' ) { ?>    
+                                    <?php if ($content != '') { ?>    
                                         <div class="property-dsec">
                                             <div class="element-title">
                                                 <h3><?php echo wp_rem_plugin_text_srt('wp_rem_property_property_desc'); ?></h3>
@@ -220,6 +229,8 @@ if (!empty($wp_rem_property_category) && is_array($wp_rem_property_category)) {
                                     <?php } ?> 
                                 </div>
                             <?php } // DESCRIPTION AND FEATURE CONTENT END ?> 
+							
+							<?php do_action('wp_rem_sidebar_map_html', $post_id); ?>
                             <?php
                             if ($wp_rem_enable_features_element != 'off') {
                                 do_action('wp_rem_features_element_html', $post_id);
@@ -383,7 +394,6 @@ if (!empty($wp_rem_property_category) && is_array($wp_rem_property_category)) {
                             <?php do_action('wp_rem_author_info_html', $post_id); ?>
                         </div>
                         <div class="sidebar col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                            <?php do_action('wp_rem_sidebar_map_html', $post_id); ?>
                             <?php do_action('wp_rem_payment_calculator_html', $post_id); ?>
                         </div>
                         <?php
@@ -404,5 +414,3 @@ if (!empty($wp_rem_property_category) && is_array($wp_rem_property_category)) {
     </div>
     <?php do_action('wp_rem_nearby_properties_element_html', $post_id); ?>
 </div>
-<!-- Main End -->
-

@@ -5,10 +5,10 @@
  * @return
  * @package wp-rem-framework
  */
-if ( ! defined('ABSPATH') ) {
+if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
-if ( ! function_exists('wp_rem_heartbeat_frequency') ) {
+if (!function_exists('wp_rem_heartbeat_frequency')) {
 
     function wp_rem_heartbeat_frequency($settings) {
         global $heartbeat_frequency;
@@ -18,7 +18,7 @@ if ( ! function_exists('wp_rem_heartbeat_frequency') ) {
 
     add_filter('heartbeat_settings', 'wp_rem_heartbeat_frequency');
 }
-if ( ! function_exists('wp_rem_server_protocol') ) {
+if (!function_exists('wp_rem_server_protocol')) {
 
     /**
      * Return whether request is on SSL or not. Return protocol.
@@ -26,14 +26,14 @@ if ( ! function_exists('wp_rem_server_protocol') ) {
      * @return string
      */
     function wp_rem_server_protocol() {
-        if ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ) {
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
             return 'https://';
         }
         return 'http://';
     }
 
 }
-if ( ! function_exists('wp_rem_get_input') ) {
+if (!function_exists('wp_rem_get_input')) {
 
     /**
      * Return an input variable from $_REQUEST if exists else default.
@@ -44,14 +44,14 @@ if ( ! function_exists('wp_rem_get_input') ) {
      * @return string
      */
     function wp_rem_get_input($name, $default = null, $filter = 'cmd') {
-        if ( isset($_REQUEST[$name]) ) {
+        if (isset($_REQUEST[$name])) {
             return wp_rem_input_clean($_REQUEST[$name], $filter);
         }
         return $default;
     }
 
 }
-if ( ! function_exists('wp_rem_get_server') ) {
+if (!function_exists('wp_rem_get_server')) {
 
     /**
      * Return an input variable from $_SERVER if exists else default.
@@ -66,7 +66,7 @@ if ( ! function_exists('wp_rem_get_server') ) {
 
 }
 
-if ( ! function_exists('wp_rem_get_all_server') ) {
+if (!function_exists('wp_rem_get_all_server')) {
 
     /**
      * Return an input variable from $_SERVER
@@ -79,7 +79,7 @@ if ( ! function_exists('wp_rem_get_all_server') ) {
 
 }
 
-if ( ! function_exists('wp_rem_get_cookie') ) {
+if (!function_exists('wp_rem_get_cookie')) {
 
     /**
      * Return an input variable from $_COOKIE if exists else default.
@@ -94,7 +94,7 @@ if ( ! function_exists('wp_rem_get_cookie') ) {
 
 }
 
-if ( ! function_exists('wp_rem_get_all_request') ) {
+if (!function_exists('wp_rem_get_all_request')) {
 
     /**
      * Return an input variable from $_REQUEST
@@ -107,7 +107,7 @@ if ( ! function_exists('wp_rem_get_all_request') ) {
 
 }
 
-if ( ! function_exists('wp_rem_get_all_cookie') ) {
+if (!function_exists('wp_rem_get_all_cookie')) {
 
     /**
      * Return an input variable from $_COOKIE
@@ -120,7 +120,7 @@ if ( ! function_exists('wp_rem_get_all_cookie') ) {
 
 }
 
-if ( ! function_exists('wp_rem_input_clean') ) {
+if (!function_exists('wp_rem_input_clean')) {
 
     /**
      * Clean given string by applying requested filter.
@@ -132,7 +132,7 @@ if ( ! function_exists('wp_rem_input_clean') ) {
      */
     function wp_rem_input_clean($source, $type = 'string') {
         // Handle the type constraint
-        switch ( strtoupper($type) ) {
+        switch (strtoupper($type)) {
             case 'INT':
             case 'INTEGER':
                 // Only use the first integer value.
@@ -209,17 +209,17 @@ if ( ! function_exists('wp_rem_input_clean') ) {
 
             default:
                 // Are we dealing with an array?
-                if ( is_array($source) ) {
-                    foreach ( $source as $key => $value ) {
+                if (is_array($source)) {
+                    foreach ($source as $key => $value) {
                         // filter element for XSS and other 'bad' code etc.
-                        if ( is_string($value) ) {
+                        if (is_string($value)) {
                             $source[$key] = esc_html(wp_rem_decode_str($value));
                         }
                     }
                     $result = $source;
                 } else {
                     // Or a string?
-                    if ( is_string($source) && ! empty($source) ) {
+                    if (is_string($source) && !empty($source)) {
                         // filter source for XSS and other 'bad' code etc.
                         $result = esc_html(wp_rem_decode_str($source));
                     } else {
@@ -235,7 +235,7 @@ if ( ! function_exists('wp_rem_input_clean') ) {
 
 }
 
-if ( ! function_exists('wp_rem_decode_str') ) {
+if (!function_exists('wp_rem_decode_str')) {
 
     /**
      * Try to convert to plaintext
@@ -246,10 +246,10 @@ if ( ! function_exists('wp_rem_decode_str') ) {
     function wp_rem_decode_str($source) {
         static $ttr;
 
-        if ( ! is_array($ttr) ) {
+        if (!is_array($ttr)) {
             // Entity decode.
             $trans_tbl = get_html_translation_table(HTML_ENTITIES);
-            foreach ( $trans_tbl as $k => $v ) {
+            foreach ($trans_tbl as $k => $v) {
                 $ttr[$v] = utf8_encode($k);
             }
         }
@@ -267,7 +267,7 @@ if ( ! function_exists('wp_rem_decode_str') ) {
 
 }
 
-if ( ! function_exists('wp_rem_dbg') ) {
+if (!function_exists('wp_rem_dbg')) {
 
     /**
      * Used for debugging, output given data to browser console.
@@ -276,15 +276,15 @@ if ( ! function_exists('wp_rem_dbg') ) {
      * @param  string $label	The label to shown with debugged data.
      */
     function wp_rem_dbg($data, $label = '') {
-        if ( '' === $label ) {
+        if ('' === $label) {
             $key = array_search(__FUNCTION__, array_column(debug_backtrace(), 'wp_rem_dbg'));
             $label = 'Debuged from \'' . basename(debug_backtrace()[$key]['file']) . '\'';
         }
         $data = var_export($data, true);
         $data = explode("\n", $data); // Plz don't remove double quotes arround newline character.
         $output = '';
-        foreach ( $data as $line ) {
-            if ( trim($line) ) {
+        foreach ($data as $line) {
+            if (trim($line)) {
                 $line = addslashes($line);
                 $output .= 'console.log( " ' . $line . '" );';
             }
@@ -294,7 +294,7 @@ if ( ! function_exists('wp_rem_dbg') ) {
 
 }
 
-if ( ! function_exists('wp_rem_shortcode_files') ) {
+if (!function_exists('wp_rem_shortcode_files')) {
 
     /**
      * Include Backend shortcodes pages function 
@@ -306,9 +306,9 @@ if ( ! function_exists('wp_rem_shortcode_files') ) {
         $aFront = array();
         $aResult = array();
         $file_counter = 0;
-        if ( is_dir($shortcode_wp_rem) ) {
-            if ( $dh = opendir($shortcode_wp_rem) ) {
-                while ( ($file = readdir($dh)) !== false ) {
+        if (is_dir($shortcode_wp_rem)) {
+            if ($dh = opendir($shortcode_wp_rem)) {
+                while (($file = readdir($dh)) !== false) {
                     $aAdmin[] = $file;
                     $file_counter ++;
                 }
@@ -317,14 +317,14 @@ if ( ! function_exists('wp_rem_shortcode_files') ) {
                 closedir($dh);
             }
         }
-        if ( is_array($aResult) && count($aResult) > 0 ) {
+        if (is_array($aResult) && count($aResult) > 0) {
             return $aResult;
         }
     }
 
 }
 
-if ( ! function_exists('wp_rem_include_shortcode_files') ) {
+if (!function_exists('wp_rem_include_shortcode_files')) {
 
     /**
      * Include Backend shortcodes pages function 
@@ -335,9 +335,9 @@ if ( ! function_exists('wp_rem_include_shortcode_files') ) {
 
         $admin = '/';
         $shortcode_wp_rem = wp_rem::plugin_dir() . 'shortcodes/backend/';
-        foreach ( $aFiles as $file ) {
-            for ( $i = 0; $i < sizeof($file); $i ++ ) {
-                if ( $file[$i] != '' && $file[$i] != "." && $file[$i] != "..." && $file[$i] != ".." ) {
+        foreach ($aFiles as $file) {
+            for ($i = 0; $i < sizeof($file); $i ++) {
+                if ($file[$i] != '' && $file[$i] != "." && $file[$i] != "..." && $file[$i] != "..") {
                     require_once $shortcode_wp_rem . $admin . $file[$i];
                 }
             }
@@ -347,7 +347,7 @@ if ( ! function_exists('wp_rem_include_shortcode_files') ) {
 }
 
 
-if ( ! function_exists('wp_rem_include_frontend_shortcode_files') ) {
+if (!function_exists('wp_rem_include_frontend_shortcode_files')) {
 
     /**
      * Include Backend shortcodes pages function 
@@ -358,9 +358,9 @@ if ( ! function_exists('wp_rem_include_frontend_shortcode_files') ) {
 
         $admin = '/';
         $shortcode_wp_rem = wp_rem::plugin_dir() . 'shortcodes/frontend/';
-        foreach ( $aFiles as $file ) {
-            for ( $i = 0; $i < sizeof($file); $i ++ ) {
-                if ( $file[$i] != '' && $file[$i] != "." && $file[$i] != "..." && $file[$i] != ".." ) {
+        foreach ($aFiles as $file) {
+            for ($i = 0; $i < sizeof($file); $i ++) {
+                if ($file[$i] != '' && $file[$i] != "." && $file[$i] != "..." && $file[$i] != "..") {
                     require_once $shortcode_wp_rem . $admin . $file[$i];
                 }
             }
@@ -372,22 +372,22 @@ if ( ! function_exists('wp_rem_include_frontend_shortcode_files') ) {
 /**
  * Start dashboard page link if user login
  */
-if ( ! function_exists('wp_rem_user_dashboard_page_url') ) {
+if (!function_exists('wp_rem_user_dashboard_page_url')) {
 
     function wp_rem_user_dashboard_page_url($page = 'url') {
         global $wp_rem_plugin_options, $current_user;
         $wp_rem_page_id = '';
         $wp_rem_user_dashboard_page_url = '';
-        if ( is_user_logged_in() ) {
+        if (is_user_logged_in()) {
 
             $user_roles = isset($current_user->roles) ? $current_user->roles : '';
-            if ( ($user_roles != '' && in_array("wp_rem_member", $user_roles) ) ) {
+            if (($user_roles != '' && in_array("wp_rem_member", $user_roles))) {
                 $wp_rem_page_id = isset($wp_rem_plugin_options['wp_rem_member_dashboard']) ? $wp_rem_plugin_options['wp_rem_member_dashboard'] : $default_url;
-                if ( $page == 'url' ) {
-                    if ( $wp_rem_page_id != '' ) {
+                if ($page == 'url') {
+                    if ($wp_rem_page_id != '') {
                         $wp_rem_user_dashboard_page_url = get_permalink($wp_rem_page_id);
                     }
-                } else if ( $page == 'id' ) {
+                } else if ($page == 'id') {
                     $wp_rem_user_dashboard_page_url = ( $wp_rem_page_id );
                 }
             }
@@ -404,11 +404,11 @@ if ( ! function_exists('wp_rem_user_dashboard_page_url') ) {
  * @retrun
  *
  */
-if ( ! function_exists('wp_rem_map_content') ) {
+if (!function_exists('wp_rem_map_content')) {
 
     function wp_rem_map_content($atts) {
 
-        global $wp_rem_plugin_options;
+        global $wp_rem_plugin_options, $wp_rem_form_fields_frontend;
         $defaults = array(
             'map_height' => '',
             'map_lat' => '51.507351',
@@ -434,18 +434,18 @@ if ( ! function_exists('wp_rem_map_content') ) {
             'wp_rem_branches_markers' => array(),
         );
         extract(shortcode_atts($defaults, $atts));
-        if ( $map_info_width == '' || $map_info_height == '' ) {
+        if ($map_info_width == '' || $map_info_height == '') {
             $map_info_width = '300';
             $map_info_height = '150';
         }
-        if ( isset($map_height) && $map_height == '' ) {
+        if (isset($map_height) && $map_height == '') {
             $map_height = '500';
         }
 
         $map_dynmaic_no = rand(6548, 9999999);
 
         $border = '';
-        if ( isset($map_border) && $map_border == 'yes' && $map_border_color != '' ) {
+        if (isset($map_border) && $map_border == 'yes' && $map_border_color != '') {
             $border = 'border:1px solid ' . $map_border_color . '; ';
         }
 
@@ -453,14 +453,37 @@ if ( ! function_exists('wp_rem_map_content') ) {
         $radius_circle = isset($wp_rem_plugin_options['wp_rem_default_radius_circle']) ? $wp_rem_plugin_options['wp_rem_default_radius_circle'] : '10';
         $radius_circle = ($radius_circle * 1000);
         $map_dynmaic_no = wp_rem_generate_random_string('10');
+
+        $map_col_class = 'col-lg-12 col-md-12 col-sm-12 col-xs-12';
         ob_start();
-        if ( isset($wp_rem_nearby_places) && $wp_rem_nearby_places == true ) {
+        echo '<div class="row">';
+        if (isset($wp_rem_nearby_places) && $wp_rem_nearby_places == true) {
             $wp_rem_map_markers_data = isset($wp_rem_plugin_options['wp_rem_map_markers_data']) ? $wp_rem_plugin_options['wp_rem_map_markers_data'] : array();
-            if ( isset($wp_rem_map_markers_data['image']) ) :
+            if (isset($wp_rem_map_markers_data['image']) && is_array($wp_rem_map_markers_data['image']) && sizeof($wp_rem_map_markers_data['image']) > 0) :
+                $map_col_class = 'col-lg-8 col-md-8 col-sm-6 col-xs-12';
+                ?>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="map-places-radius-box">
+                        <label>
+                            <h5><?php echo wp_rem_plugin_text_srt('wp_rem_map_places_radius') ?></h5>
+                            <input type="text" id="map-radius-input-<?php echo esc_html($map_dynmaic_no) ?>" value="2000">
+                            <span><?php echo wp_rem_plugin_text_srt('wp_rem_map_places_put_radius_value') ?></span>
+                        </label>
+                    </div>
+                    <div id="map-places-detail-<?php echo esc_html($map_dynmaic_no) ?>" class="map-places-detail-boxes"></div>
+                    <div id="map-direction-detail-<?php echo esc_html($map_dynmaic_no) ?>" style="display:none;"></div>
+                </div>
+                <?php
+            endif;
+        }
+        echo '<div class="' . $map_col_class . '">';
+        if (isset($wp_rem_nearby_places) && $wp_rem_nearby_places == true) {
+            $wp_rem_map_markers_data = isset($wp_rem_plugin_options['wp_rem_map_markers_data']) ? $wp_rem_plugin_options['wp_rem_map_markers_data'] : array();
+            if (isset($wp_rem_map_markers_data['image']) && is_array($wp_rem_map_markers_data['image']) && sizeof($wp_rem_map_markers_data['image']) > 0) :
                 ?>
                 <div class="map-checkboxes"> 
                     <?php
-                    foreach ( $wp_rem_map_markers_data['image'] as $key => $row ) :
+                    foreach ($wp_rem_map_markers_data['image'] as $key => $row) :
                         $image = isset($wp_rem_map_markers_data['image'][$key]) ? $wp_rem_map_markers_data['image'][$key] : '';
                         $map_image = isset($wp_rem_map_markers_data['map_image'][$key]) ? $wp_rem_map_markers_data['map_image'][$key] : '';
                         $title = isset($wp_rem_map_markers_data['label'][$key]) ? $wp_rem_map_markers_data['label'][$key] : '';
@@ -469,7 +492,17 @@ if ( ! function_exists('wp_rem_map_content') ) {
                         $image_map = isset($image) ? wp_get_attachment_url($image) : '';
                         ?>
                         <div class="checkbox">
-                            <input data-label="<?php echo esc_html($title); ?>" data-image="<?php echo wp_get_attachment_url($map_image); ?>" class="show-poi-checkbox wp_rem_show_nearby" id="<?php echo esc_html($type); ?>" value="" type="checkbox">
+                            <?php
+                            $wp_rem_opt_array = array(
+                                'std' => '',
+                                'simple' => true,
+                                'cust_id' => esc_html($type),
+                                'cust_name' => esc_html($type),
+                                'classes' => 'show-poi-checkbox wp_rem_show_nearby',
+                                'extra_atr' => ' data-label="' . esc_html($title) . '" data-image="' . wp_get_attachment_url($map_image) . '"',
+                            );
+                            $wp_rem_form_fields_frontend->wp_rem_form_checkbox_render($wp_rem_opt_array);
+                            ?>
                             <label data-toggle="tooltip" title="<?php echo esc_html($title); ?>" class="show-nearby-point-label" for="<?php echo esc_html($type); ?>"><img src="<?php echo esc_url($image_map); ?>" alt="" /> </label>
                         </div>
                         <?php
@@ -482,7 +515,7 @@ if ( ! function_exists('wp_rem_map_content') ) {
         ?>
 
         <?php
-        if ( $map_marker_icon == '' ) {
+        if ($map_marker_icon == '') {
             $map_marker_icon = isset($wp_rem_plugin_options['wp_rem_map_marker_icon']) ? $wp_rem_plugin_options['wp_rem_map_marker_icon'] : '';
             $map_marker_icon = wp_get_attachment_url($map_marker_icon);
         }
@@ -496,7 +529,7 @@ if ( ! function_exists('wp_rem_map_content') ) {
 
         $html .= '<div class="mapcode iframe mapsection gmapwrapp" id="map_canvas' . $map_dynmaic_no . '" style="height:' . $map_height . 'px;"> </div>';
 
-        if ( $wp_rem_map_directions == 'off' ) {
+        if ($wp_rem_map_directions == 'off') {
             $html .= '<div id="cs-directions-panel"></div>';
         }
         $html .= '</div>';
@@ -521,16 +554,13 @@ if ( ! function_exists('wp_rem_map_content') ) {
 							};
                                                    
                                                     ";
-
-        if ( $wp_rem_map_directions == 'on' ) {
-            $html .= "var directionsDisplay;
-								var directionsService = new google.maps.DirectionsService();
-								directionsDisplay = new google.maps.DirectionsRenderer();";
-        }
+        $html .= "var directionsDisplay;
+		var directionsService = new google.maps.DirectionsService();
+		directionsDisplay = new google.maps.DirectionsRenderer();";
 
         $html .= "map = new google.maps.Map(document.getElementById('map_canvas" . $map_dynmaic_no . "'), mapOptions);";
 
-        if ( $wp_rem_map_circle == 'on' ) {
+        if ($wp_rem_map_circle == 'on') {
 
             $html .= "var circle = new google.maps.Circle({
 									center: center,
@@ -542,33 +572,16 @@ if ( ! function_exists('wp_rem_map_content') ) {
 									strokeWeight: 1         // CIRCLE BORDER.     
 								});";
         }
-        if ( $wp_rem_map_directions == 'on' ) {
-            $html .= "directionsDisplay.setMap(map);
-									directionsDisplay.setPanel(document.getElementById('cs-directions-panel'));
-									function wp_rem_calc_route() {
-											var myLatlng = new google.maps.LatLng(" . $map_lat . ", " . $map_lon . ");
-											var start = myLatlng;
-											var end = document.getElementById('wp_rem_end_direction').value;
-											var mode = document.getElementById('wp_rem_chng_dir_mode').value;
-											var request = {
-													origin:start,
-													destination:end,
-													travelMode: google.maps.TravelMode[mode]
-											};
-											directionsService.route(request, function(response, status) {
-													if (status == google.maps.DirectionsStatus.OK) {
-															directionsDisplay.setDirections(response);
-													}
-											});
-									}
-									document.getElementById('wp_rem_search_direction').addEventListener('click', function() {
-											wp_rem_calc_route();
-									});";
-        }
+
+        $html .= "
+		directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('map-direction-detail-" . $map_dynmaic_no . "'));
+		directionsDisplay.setOptions( { suppressMarkers: true } );";
+
         $wp_rem_map_style = isset($wp_rem_plugin_options['wp_rem_def_map_style']) ? $wp_rem_plugin_options['wp_rem_def_map_style'] : '';
         $map_custom_style = isset($wp_rem_plugin_options['wp_rem_map_custom_style']) ? $wp_rem_plugin_options['wp_rem_map_custom_style'] : '';
 
-        if ( $map_custom_style != '' ) {
+        if ($map_custom_style != '') {
             $map_custom_style = str_replace('&quot;', '"', $map_custom_style);
             $html .= "var style = " . $map_custom_style . ";
 					if (style != '') {
@@ -590,7 +603,7 @@ if ( ! function_exists('wp_rem_map_content') ) {
         }
         //if ( $wp_rem_map_circle != 'on' ) {
 
-        if ( $wp_rem_branches_map ) {
+        if ($wp_rem_branches_map) {
             $wp_rem_map_cluster_icon = isset($wp_rem_plugin_options['wp_rem_map_cluster_icon']) && $wp_rem_plugin_options['wp_rem_map_cluster_icon'] != '' ? wp_get_attachment_url($wp_rem_plugin_options['wp_rem_map_cluster_icon']) : wp_rem::plugin_url() . '/assets/frontend/images/map-cluster.png';
             $html .= "
 				var open_info_window;
@@ -651,7 +664,7 @@ if ( ! function_exists('wp_rem_map_content') ) {
 						infowindow.close();
 					}
 				});";
-            if ( isset($wp_rem_branches_markers) ) {
+            if (isset($wp_rem_branches_markers)) {
                 $html .= "
 					var markers = " . json_encode($wp_rem_branches_markers) . ";
 					var LatLngList = [];
@@ -719,7 +732,7 @@ if ( ! function_exists('wp_rem_map_content') ) {
 							maxZoom: 12,
 							styles: clusterStyles
 						};
-						markerClusterers = new MarkerClusterer(map, all_branches_markers, mcOptions);
+						//markerClusterers = new MarkerClusterer(map, all_branches_markers, mcOptions);
 					}
 					
 					window.all_branches_markers = all_branches_markers;
@@ -766,6 +779,21 @@ if ( ! function_exists('wp_rem_map_content') ) {
         ob_start();
         ?>
         var markersArray = [];
+
+        jQuery(document).ready(function(){
+        $('input.wp_rem_show_nearby:first').trigger('click');
+        });
+
+        jQuery(document).on('change', '#map-radius-input-<?php echo esc_html($map_dynmaic_no) ?>', function(){
+
+        if ($('input.wp_rem_show_nearby:checked').length !== 0) {
+        var datType = $('input.wp_rem_show_nearby:checked').attr('id');
+        var map_center = map.getCenter();
+        var datImage = $('input.wp_rem_show_nearby:checked').attr('data-image');
+        var datLabel = $('input.wp_rem_show_nearby:checked').attr('data-label');
+        search_types(datType, map_center, datImage, datLabel);
+        }
+        });
         $('.wp_rem_show_nearby').click(function () {
 
         $(this).parent('li').toggleClass('active');
@@ -774,14 +802,14 @@ if ( ! function_exists('wp_rem_map_content') ) {
         search_types( $(this).attr('id'), map_center, $(this).data('image'), $(this).data('label') );
         } else {
         clearOverlays();
-        $('.wp_rem_show_nearby:checkbox:checked').each(function(key, elem) {
+        $('.wp_rem_show_nearby:checked').each(function(key, elem) {
         search_types( $(this).attr('id'), map_center, $(this).data('image'), $(this).data('label') );
         });
         }
         });
 
         clearOverlays();
-        $('.wp_rem_show_nearby:checkbox:checked').each(function(key, elem) {
+        $('.wp_rem_show_nearby:checked').each(function(key, elem) {
         search_types( $(this).attr('id'), map.getCenter(), $(this).data('image'), $(this).data('label') );
         });
 
@@ -792,33 +820,68 @@ if ( ! function_exists('wp_rem_map_content') ) {
         }
         var icon = image;
 
+        var inpRadius = jQuery('#map-radius-input-<?php echo esc_html($map_dynmaic_no) ?>').val();
+        if (inpRadius < 1) {
+        inpRadius = 2000;
+        }
 
         var request = {
         location: latLng,
-        radius: 2000,
+        radius: inpRadius,
         types: [type] //e.g. school, restaurant,bank,bar,city_hall,gym,night_club,park,zoo
         };
 
-
         var service = new google.maps.places.PlacesService(map);
         service.search(request, function (results, status) {
+
         map.setZoom(14);
         if (status == google.maps.places.PlacesServiceStatus.OK) {
+
+        var totalResHTML = '';
+
+        if (type != '') {
+        totalResHTML = '\
+        <div class="places-found-box">\
+            <span>'+results.length+ ' ' +(type.replace("_", " "))+' <?php echo wp_rem_plugin_text_srt('wp_rem_map_places_found') ?></span>\
+        </div>';
+        }
+
+        for (var i = 0; i < results.length; i++) {
+
+        var place = results[i];
+        var placeLocation = place.geometry.location;
+        var placeLat = placeLocation.lat();
+        var placeLng = placeLocation.lng();
+
+        var placeDist = calcDistanceBtwPlaces('<?php echo floatval($map_lat) ?>', '<?php echo floatval($map_lon) ?>', placeLat, placeLng);
+
+        totalResHTML += '\
+        <div class="places-detail-box">\
+            <span class="place-name"><a id="place-point-<?php echo esc_html($map_dynmaic_no) ?>' + String(i) + '" href="javascript:void(0)">'+place.name+'</a></span>\
+            <span class="place-distance">'+meterToKmConvert(placeDist)+'</span>\
+        </div>';
+        }
+
+        jQuery('#map-places-detail-<?php echo esc_html($map_dynmaic_no) ?>').html(totalResHTML);
+
         for (var i = 0; i < results.length; i++) {
         results[i].html_attributions = '';
-        createMarker(results[i], icon);
+
+        var markerCountr = '<?php echo esc_html($map_dynmaic_no) ?>' + String(i);
+
+        createMarker(results[i], icon, markerCountr);
         }
         }
         });
         }
-        function createMarker(place, icon) {
+        function createMarker(place, icon, countr) {
         var placeLoc = place.geometry.location;
         var marker = new google.maps.Marker({
         map: map,
         position: place.geometry.location,
         icon: icon,
-        visible: true
-
+        visible: true,
+        pointr: 'place-point-' + countr
         });
 
         markersArray.push(marker);
@@ -827,7 +890,46 @@ if ( ! function_exists('wp_rem_map_content') ) {
         infowindow.open(map, this);
         });
 
+        google.maps.event.addDomListener(document.getElementById('place-point-' + countr), "click", (function (marker) {
+        return function () {
+        var placeLat = placeLoc.lat();
+        var placeLng = placeLoc.lng();
+
+        var start = new google.maps.LatLng(<?php echo floatval($map_lat) ?>, <?php echo floatval($map_lon) ?>);
+        var end = new google.maps.LatLng(placeLat, placeLng);
+        var request = {
+        origin:start,
+        destination:end,
+        travelMode: 'DRIVING'
+        };
+        directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
         }
+        });
+
+        new google.maps.event.trigger( marker, 'click' );
+        }
+        })(marker));
+        }
+
+        function calcDistanceBtwPlaces(fromLat, fromLng, toLat, toLng) {
+        return google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(fromLat, fromLng), new google.maps.LatLng(toLat, toLng));
+        }
+
+        function meterToKmConvert(numbr) {
+        numbr = parseFloat(numbr);
+        var dist = numbr;
+        var unit = 'm';
+        if (numbr > 999) {
+        dist = numbr/1000;
+        unit = 'km';
+        }
+        var roundDist = parseFloat(Math.round(dist * 100) / 100).toFixed(2);
+
+        return String(roundDist) + ' ' + unit;
+        }
+
         // Deletes all markers in the array by removing references to them
         function clearOverlays() {
         if (markersArray) {
@@ -856,6 +958,11 @@ if ( ! function_exists('wp_rem_map_content') ) {
         $html .= "});</script>";
         $html .= '</div>';
         $html .= '</div>';
+
+        // col class end
+        $html .= '</div>';
+        // row end
+        $html .= '</div>';
         echo $html;
     }
 
@@ -865,26 +972,26 @@ if ( ! function_exists('wp_rem_map_content') ) {
  * Include any template file 
  * with wordpress standards
  */
-if ( ! function_exists('wp_rem_get_template_part') ) {
+if (!function_exists('wp_rem_get_template_part')) {
 
     function wp_rem_get_template_part($slug, $name = '', $ext_template = '') {
         $template = '';
 
-        if ( $ext_template != '' ) {
+        if ($ext_template != '') {
             $ext_template = trailingslashit($ext_template);
         }
-        if ( $name ) {
-            $template = locate_template(array( "{$slug}-{$name}.php", wp_rem::template_path() . "{$ext_template}{$slug}-{$name}.php" ));
+        if ($name) {
+            $template = locate_template(array("{$slug}-{$name}.php", wp_rem::template_path() . "{$ext_template}{$slug}-{$name}.php"));
         }
-        if ( ! $template && $name && file_exists(wp_rem::plugin_path() . "/templates/{$ext_template}{$slug}-{$name}.php") ) {
+        if (!$template && $name && file_exists(wp_rem::plugin_path() . "/templates/{$ext_template}{$slug}-{$name}.php")) {
 
             $template = wp_rem::plugin_path() . "/templates/{$ext_template}{$slug}-{$name}.php";
         }
-        if ( ! $template ) {
+        if (!$template) {
 
-            $template = locate_template(array( "{$slug}.php", wp_rem::template_path() . "{$ext_template}{$slug}.php" ));
+            $template = locate_template(array("{$slug}.php", wp_rem::template_path() . "{$ext_template}{$slug}.php"));
         }
-        if ( $template ) {
+        if ($template) {
             load_template($template, false);
         }
     }
@@ -892,7 +999,7 @@ if ( ! function_exists('wp_rem_get_template_part') ) {
 }
 
 
-if ( ! function_exists('wp_rem_tooltip_text') ) {
+if (!function_exists('wp_rem_tooltip_text')) {
 
     /**
      * Tool tip text for backend usage.
@@ -903,10 +1010,10 @@ if ( ! function_exists('wp_rem_tooltip_text') ) {
      */
     function wp_rem_tooltip_text($popover_text = '', $return_html = true) {
         $popover_link = '';
-        if ( isset($popover_text) && $popover_text != '' ) {
+        if (isset($popover_text) && $popover_text != '') {
             $popover_link = '<a class="cs-help" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="' . $popover_text . '"><i class="icon-help"></i></a>';
         }
-        if ( $return_html == true ) {
+        if ($return_html == true) {
             return $popover_link;
         } else {
             echo force_balance_tags($popover_link);
@@ -917,7 +1024,7 @@ if ( ! function_exists('wp_rem_tooltip_text') ) {
 
 
 
-if ( ! function_exists('wp_rem_get_currency') ) {
+if (!function_exists('wp_rem_get_currency')) {
 
     /**
      * Return an input variable from $_SERVER if exists else default.
@@ -934,35 +1041,35 @@ if ( ! function_exists('wp_rem_get_currency') ) {
         $plugin_currency_id = isset($wp_rem_plugin_options['wp_rem_currency_id']) ? $wp_rem_plugin_options['wp_rem_currency_id'] : '';
         $current_currency_id = wp_rem_get_transient_obj('wp_rem_user_currency');
         $current_currency_id = ( $current_currency_id == '' ) ? $plugin_currency_id : $current_currency_id;
-        if ( $current_currency_id != '' ) {
+        if ($current_currency_id != '') {
             $all_currencies = isset($wp_rem_plugin_options['wp_rem_currencies']) ? $wp_rem_plugin_options['wp_rem_currencies'] : array();
             $currency_obj = isset($all_currencies[$current_currency_id]) ? $all_currencies[$current_currency_id] : array();
             $conversion_rate = isset($currency_obj['conversion_rate']) ? $currency_obj['conversion_rate'] : 1;
             $default_currency = isset($currency_obj['currency_symbol']) ? $currency_obj['currency_symbol'] : '$';
-            if ( $currency_converter === true ) {
+            if ($currency_converter === true) {
                 $price = $price * $conversion_rate;
             }
         }
 
-        if ( $current_currency_id == '' ) {
+        if ($current_currency_id == '') {
             $base_currency = wp_rem_get_base_currency();
             $base_currency = wp_rem_base_currency_data($base_currency);
             $default_currency = $base_currency['symbol'];
         }
 
-        if ( class_exists('WooCommerce') ) {
+        if (class_exists('WooCommerce')) {
             $woocommerce_enabled = isset($wp_rem_plugin_options['wp_rem_use_woocommerce_gateway']) ? $wp_rem_plugin_options['wp_rem_use_woocommerce_gateway'] : '';
-            if ( $woocommerce_enabled == 'on' ) {
+            if ($woocommerce_enabled == 'on') {
                 $default_currency = get_woocommerce_currency_symbol();
                 $currency_pos = get_option('woocommerce_currency_pos');
             }
         }
 
         $price = WP_REM_FUNCTIONS()->num_format($price);
-        if ( $currency_symbol == true && is_numeric($price) ) {
+        if ($currency_symbol == true && is_numeric($price)) {
             $currency_sign = $before_currency . $default_currency . $after_currency;
             $price_str = $currency_sign . $price;
-            switch ( $currency_pos ) {
+            switch ($currency_pos) {
                 case 'left' :
                     $price_str = $currency_sign . $price;
                     break;
@@ -984,7 +1091,7 @@ if ( ! function_exists('wp_rem_get_currency') ) {
 
 }
 
-if ( ! function_exists('wp_rem_get_order_currency') ) {
+if (!function_exists('wp_rem_get_order_currency')) {
 
     function wp_rem_get_order_currency($price, $currency_sign = '', $currency_position = '') {
         global $wp_rem_plugin_options;
@@ -996,7 +1103,7 @@ if ( ! function_exists('wp_rem_get_order_currency') ) {
         $price = WP_REM_FUNCTIONS()->num_format($price);
 
         $price_str = $currency_sign . $price;
-        switch ( $currency_position ) {
+        switch ($currency_position) {
             case 'left' :
                 $price_str = $currency_sign . $price;
                 break;
@@ -1016,14 +1123,14 @@ if ( ! function_exists('wp_rem_get_order_currency') ) {
 
 }
 
-if ( ! function_exists('wp_rem_get_base_currency') ) {
+if (!function_exists('wp_rem_get_base_currency')) {
 
     function wp_rem_get_base_currency() {
         global $wp_rem_plugin_options;
-        $base_currency = isset($wp_rem_plugin_options['wp_rem_base_currency']) ? $wp_rem_plugin_options['wp_rem_base_currency'] : 'USD';
-        if ( class_exists('WooCommerce') ) {
+        $base_currency = isset($wp_rem_plugin_options['wp_rem_currency_type']) ? $wp_rem_plugin_options['wp_rem_currency_type'] : 'USD';
+        if (class_exists('WooCommerce')) {
             $woocommerce_enabled = isset($wp_rem_plugin_options['wp_rem_use_woocommerce_gateway']) ? $wp_rem_plugin_options['wp_rem_use_woocommerce_gateway'] : '';
-            if ( $woocommerce_enabled == 'on' ) {
+            if ($woocommerce_enabled == 'on') {
                 $base_currency = get_woocommerce_currency();
             }
         }
@@ -1032,16 +1139,16 @@ if ( ! function_exists('wp_rem_get_base_currency') ) {
 
 }
 
-if ( ! function_exists('wp_rem_base_currency_sign') ) {
+if (!function_exists('wp_rem_base_currency_sign')) {
 
     function wp_rem_base_currency_sign() {
         global $wp_rem_plugin_options;
         $base_currency = wp_rem_get_base_currency();
         $base_currency = wp_rem_base_currency_data($base_currency);
         $default_currency = $base_currency['symbol'];
-        if ( class_exists('WooCommerce') ) {
+        if (class_exists('WooCommerce')) {
             $woocommerce_enabled = isset($wp_rem_plugin_options['wp_rem_use_woocommerce_gateway']) ? $wp_rem_plugin_options['wp_rem_use_woocommerce_gateway'] : '';
-            if ( $woocommerce_enabled == 'on' ) {
+            if ($woocommerce_enabled == 'on') {
                 $default_currency = get_woocommerce_currency_symbol();
             }
         }
@@ -1050,7 +1157,7 @@ if ( ! function_exists('wp_rem_base_currency_sign') ) {
 
 }
 
-if ( ! function_exists('wp_rem_get_currency_position') ) {
+if (!function_exists('wp_rem_get_currency_position')) {
 
     /**
      *
@@ -1060,9 +1167,9 @@ if ( ! function_exists('wp_rem_get_currency_position') ) {
         global $wp_rem_plugin_options;
         $currency_position = isset($wp_rem_plugin_options['wp_rem_currency_position']) ? $wp_rem_plugin_options['wp_rem_currency_position'] : 'left';
 
-        if ( class_exists('WooCommerce') ) {
+        if (class_exists('WooCommerce')) {
             $woocommerce_enabled = isset($wp_rem_plugin_options['wp_rem_use_woocommerce_gateway']) ? $wp_rem_plugin_options['wp_rem_use_woocommerce_gateway'] : '';
-            if ( $woocommerce_enabled == 'on' ) {
+            if ($woocommerce_enabled == 'on') {
                 $currency_position = get_option('woocommerce_currency_pos');
             }
         }
@@ -1071,12 +1178,12 @@ if ( ! function_exists('wp_rem_get_currency_position') ) {
 
 }
 
-if ( ! function_exists('wp_rem_base_currency_data') ) {
+if (!function_exists('wp_rem_base_currency_data')) {
 
     function wp_rem_base_currency_data($base_currency = 'USD') {
         global $wp_rem_plugin_options;
         $currencies = wp_rem_get_currencies();
-        if ( isset($currencies[$base_currency]['symbol']) ) {
+        if (isset($currencies[$base_currency]['symbol'])) {
             $base_currency = $currencies[$base_currency];
         }
         return $base_currency;
@@ -1084,7 +1191,7 @@ if ( ! function_exists('wp_rem_base_currency_data') ) {
 
 }
 
-if ( ! function_exists('wp_rem_get_currency_sign') ) {
+if (!function_exists('wp_rem_get_currency_sign')) {
 
     /**
      *
@@ -1101,21 +1208,21 @@ if ( ! function_exists('wp_rem_get_currency_sign') ) {
 
 
 
-        if ( $current_currency_id != '' ) {
+        if ($current_currency_id != '') {
             $all_currencies = isset($wp_rem_plugin_options['wp_rem_currencies']) ? $wp_rem_plugin_options['wp_rem_currencies'] : array();
             $currency_obj = isset($all_currencies[$current_currency_id]) ? $all_currencies[$current_currency_id] : array();
             $default_currency = isset($currency_obj['currency_symbol']) ? $currency_obj['currency_symbol'] : '$';
         }
 
-        if ( $current_currency_id == '' ) {
+        if ($current_currency_id == '') {
             $base_currency = wp_rem_get_base_currency();
             $base_currency = wp_rem_base_currency_data($base_currency);
             $default_currency = $base_currency['symbol'];
         }
 
-        if ( class_exists('WooCommerce') ) {
+        if (class_exists('WooCommerce')) {
             $woocommerce_enabled = isset($wp_rem_plugin_options['wp_rem_use_woocommerce_gateway']) ? $wp_rem_plugin_options['wp_rem_use_woocommerce_gateway'] : '';
-            if ( $woocommerce_enabled == 'on' ) {
+            if ($woocommerce_enabled == 'on') {
                 $default_currency = get_woocommerce_currency_symbol();
             }
         }
@@ -1128,11 +1235,11 @@ if ( ! function_exists('wp_rem_get_currency_sign') ) {
 
 add_filter('icl_ls_languages', 'wpml_ls_filter');
 
-if ( ! function_exists('wpml_ls_filter') ) {
+if (!function_exists('wpml_ls_filter')) {
 
     function wpml_ls_filter($languages) {
         global $sitepress;
-        if ( strpos(basename($_SERVER['REQUEST_URI']), 'dashboard') !== false || strpos(basename($_SERVER['REQUEST_URI']), 'tab') !== false ) {
+        if (strpos(basename($_SERVER['REQUEST_URI']), 'dashboard') !== false || strpos(basename($_SERVER['REQUEST_URI']), 'tab') !== false) {
 
             $cs_request_query = str_replace('?', '', basename($_SERVER['REQUEST_URI']));
 
@@ -1142,12 +1249,12 @@ if ( ! function_exists('wpml_ls_filter') ) {
 
             $query_count = 1;
 
-            if ( is_array($cs_request_query) ) {
-                foreach ( $cs_request_query as $quer ) {
-                    if ( strpos($quer, 'page_id') !== false || strpos($quer, 'lang') !== false ) {
+            if (is_array($cs_request_query)) {
+                foreach ($cs_request_query as $quer) {
+                    if (strpos($quer, 'page_id') !== false || strpos($quer, 'lang') !== false) {
                         continue;
                     }
-                    if ( $query_count == 1 ) {
+                    if ($query_count == 1) {
                         $cs_request_quer .= $quer;
                     } else {
                         $cs_request_quer .= '&' . $quer;
@@ -1156,9 +1263,9 @@ if ( ! function_exists('wpml_ls_filter') ) {
                 }
             }
 
-            if ( is_array($languages) && sizeof($languages) > 0 ) {
-                foreach ( $languages as $lang_code => $language ) {
-                    if ( strpos($languages[$lang_code]['url'], '?') !== false ) {
+            if (is_array($languages) && sizeof($languages) > 0) {
+                foreach ($languages as $lang_code => $language) {
+                    if (strpos($languages[$lang_code]['url'], '?') !== false) {
                         $languages[$lang_code]['url'] = $languages[$lang_code]['url'] . '&' . $cs_request_quer;
                     } else {
                         $languages[$lang_code]['url'] = $languages[$lang_code]['url'] . '?' . $cs_request_quer;
@@ -1175,13 +1282,13 @@ if ( ! function_exists('wpml_ls_filter') ) {
  * footer hook curriencies and languages
  */
 
-if ( ! function_exists('wp_rem_wpml_languages_footer_callback') ) {
+if (!function_exists('wp_rem_wpml_languages_footer_callback')) {
 
     function wp_rem_wpml_languages_footer_callback() {
-        if ( function_exists('icl_object_id') ) {
+        if (function_exists('icl_object_id')) {
             global $wp_rem_cs_var_options;
             $wp_rem_wpml_switch = isset($wp_rem_cs_var_options['wp_rem_cs_var_footer_lang_switch']) ? $wp_rem_cs_var_options['wp_rem_cs_var_footer_lang_switch'] : '';
-            if ( function_exists('icl_object_id') && isset($wp_rem_wpml_switch) && $wp_rem_wpml_switch == 'on' ) {
+            if (function_exists('icl_object_id') && isset($wp_rem_wpml_switch) && $wp_rem_wpml_switch == 'on') {
                 echo '<div class="field-holder wp-rem-wpml-languages">';
                 do_action('wpml_add_language_selector');
                 echo '</div>';
@@ -1191,7 +1298,7 @@ if ( ! function_exists('wp_rem_wpml_languages_footer_callback') ) {
 
     add_action('wp_rem_before_app_in_footer', 'wp_rem_wpml_languages_footer_callback', 9);
 }
-if ( ! function_exists('wp_rem_before_app_in_footer_callback') ) {
+if (!function_exists('wp_rem_before_app_in_footer_callback')) {
 
     add_action('wp_rem_before_app_in_footer', 'wp_rem_before_app_in_footer_callback', 10);
 
@@ -1209,13 +1316,13 @@ if ( ! function_exists('wp_rem_before_app_in_footer_callback') ) {
  * end footer currency and language 
  */
 
-if ( ! function_exists('wp_rem_wpml_languages_callback') ) {
+if (!function_exists('wp_rem_wpml_languages_callback')) {
 
     function wp_rem_wpml_languages_callback() {
-        if ( function_exists('icl_object_id') ) {
+        if (function_exists('icl_object_id')) {
             global $wp_rem_cs_var_options;
             $wp_rem_wpml_switch = isset($wp_rem_cs_var_options['wp_rem_cs_var_footer_lang_switch']) ? $wp_rem_cs_var_options['wp_rem_cs_var_footer_lang_switch'] : '';
-            if ( function_exists('icl_object_id') && isset($wp_rem_wpml_switch) && $wp_rem_wpml_switch == 'on' ) {
+            if (function_exists('icl_object_id') && isset($wp_rem_wpml_switch) && $wp_rem_wpml_switch == 'on') {
 
                 echo '<div class="field-holder wp-rem-wpml-languages">';
                 do_action('wpml_add_language_selector');
@@ -1226,11 +1333,16 @@ if ( ! function_exists('wp_rem_wpml_languages_callback') ) {
 
     add_action('wp_rem_before_contact_in_header', 'wp_rem_wpml_languages_callback', 9);
 }
-if ( ! function_exists('wp_rem_before_contact_in_header_callback') ) {
+if (!function_exists('wp_rem_before_contact_in_header_callback')) {
 
     add_action('wp_rem_before_contact_in_header', 'wp_rem_before_contact_in_header_callback', 10);
 
     function wp_rem_before_contact_in_header_callback($currency = '') {
+        global $wp_rem_plugin_options;
+        $wp_rem_currency_switch = isset($wp_rem_plugin_options['wp_rem_currency_switch']) ? $wp_rem_plugin_options['wp_rem_currency_switch'] : '';
+        if (isset($wp_rem_currency_switch) && $wp_rem_currency_switch != 'on') {
+            return;
+        }
         ?>
         <div class="field-holder">
             <?php do_action('wp_rem_all_currencies_field'); ?>
@@ -1239,24 +1351,20 @@ if ( ! function_exists('wp_rem_before_contact_in_header_callback') ) {
     }
 
 }
-if ( ! function_exists('wp_rem_all_currencies_calback') ) {
+if (!function_exists('wp_rem_all_currencies_calback')) {
 
     add_action('wp_rem_all_currencies_field', 'wp_rem_all_currencies_calback');
 
     function wp_rem_all_currencies_calback($currency = '') {
-        global $wp_rem_html_fields_frontend, $wp_rem_plugin_options, $wp_rem_form_fields_frontend;
-        $wp_rem_currency_switch = isset($wp_rem_plugin_options['wp_rem_currency_switch']) ? $wp_rem_plugin_options['wp_rem_currency_switch'] : '';
-        if ( isset($wp_rem_currency_switch) && $wp_rem_currency_switch != 'on' ) {
-            return;
-        }
+        global $wp_rem_html_fields_frontend, $wp_rem_plugin_options;
         $all_currencies = isset($wp_rem_plugin_options['wp_rem_currencies']) ? $wp_rem_plugin_options['wp_rem_currencies'] : array();
         $wp_rem_default_currency = isset($wp_rem_plugin_options['wp_rem_currency_type']) ? $wp_rem_plugin_options['wp_rem_currency_type'] : 'USD';
         $wp_rem_currencuies = wp_rem_get_currencies();
         $base_currency = $wp_rem_currencuies[$wp_rem_default_currency];
-        $currencies_array = array( '' => $base_currency['code'] . '(' . $base_currency['symbol'] . ')' );
+        $currencies_array = array('' => $base_currency['code'] . '(' . $base_currency['symbol'] . ')');
         //  print_r($currencies_array);
-        if ( ! empty($all_currencies) ) {
-            foreach ( $all_currencies as $currency_key => $currencyObj ) {
+        if (!empty($all_currencies)) {
+            foreach ($all_currencies as $currency_key => $currencyObj) {
                 $currencies_array[$currency_key] = $currencyObj['currency_name'] . '(' . $currencyObj['currency_symbol'] . ')';
             }
         }
@@ -1276,21 +1384,37 @@ if ( ! function_exists('wp_rem_all_currencies_calback') ) {
             ),
         );
         $wp_rem_html_fields_frontend->wp_rem_form_select_render($wp_rem_opt_array);
-        echo '<script type="text/javascript">
-					chosen_selectionbox();
-				</script>';
+
+        $wp_rem_cs_inline_script = '
+        jQuery(document).ready(function () {
+            chosen_selectionbox();
+            jQuery(document).on("change", "#wp_rem_currency-id", function() {
+                "use strict";
+                var field_value = jQuery(this).val();
+                jQuery.ajax({
+                    type: "POST",
+                    url: wp_rem_globals.ajax_url,
+                    data: "currency_id=" + field_value + "&action=wp_rem_change_user_currency",
+                    dataType: "html",
+                    success: function(response) {
+                        location.reload(true);
+                    }
+                });
+            });
+        });';
+        wp_rem_cs_inline_enqueue_script($wp_rem_cs_inline_script, 'wp-rem-custom-inline');
     }
 
 }
-if ( ! function_exists('wp_rem_all_currencies_array') ) {
+if (!function_exists('wp_rem_all_currencies_array')) {
 
     function wp_rem_all_currencies_array($currency = '') {
-        global $wp_rem_html_fields_frontend, $wp_rem_plugin_options, $wp_rem_form_fields_frontend;
-        $currencies_array = array( '' => wp_rem_plugin_text_srt('wp_rem_helper_select_currency') );
+        global $wp_rem_plugin_options;
+        $currencies_array = array('' => wp_rem_plugin_text_srt('wp_rem_helper_select_currency'));
         $all_currencies = isset($wp_rem_plugin_options['wp_rem_currencies']) ? $wp_rem_plugin_options['wp_rem_currencies'] : array();
 
-        if ( ! empty($all_currencies) ) {
-            foreach ( $all_currencies as $currency_key => $currencyObj ) {
+        if (!empty($all_currencies)) {
+            foreach ($all_currencies as $currency_key => $currencyObj) {
                 $currencies_array[$currency_key] = $currencyObj['currency_name'];
             }
         }
@@ -1298,12 +1422,12 @@ if ( ! function_exists('wp_rem_all_currencies_array') ) {
     }
 
 }
-if ( ! function_exists('wp_rem_change_user_currency_callback') ) {
+if (!function_exists('wp_rem_change_user_currency_callback')) {
 
     function wp_rem_change_user_currency_callback() {
         global $wp_rem_plugin_options;
         $currency_id = wp_rem_get_input('currency_id');
-        if ( $currency_id != '' ) {
+        if ($currency_id != '') {
             wp_rem_set_transient_obj('wp_rem_user_currency', $currency_id);
         } else {
             wp_rem_remove_transient_obj('wp_rem_user_currency');
@@ -1315,7 +1439,7 @@ if ( ! function_exists('wp_rem_change_user_currency_callback') ) {
 add_action('wp_ajax_wp_rem_change_user_currency', 'wp_rem_change_user_currency_callback', 1);
 add_action('wp_ajax_nopriv_wp_rem_change_user_currency', 'wp_rem_change_user_currency_callback', 1);
 
-if ( ! function_exists('wp_rem_current_page_url') ) {
+if (!function_exists('wp_rem_current_page_url')) {
 
     /**
      * Return an input variable from $_SERVER if exists else default.
@@ -1326,17 +1450,17 @@ if ( ! function_exists('wp_rem_current_page_url') ) {
      */
     function wp_rem_current_page_url($request_var = true) {
         $pageURL = 'http';
-        if ( isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on" ) {
+        if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {
             $pageURL .= "s";
         }
         $request_str = '';
-        if ( $request_var == true ) {
-            if ( isset($_SERVER["REQUEST_URI"]) && $_SERVER["REQUEST_URI"] != '' ) {
+        if ($request_var == true) {
+            if (isset($_SERVER["REQUEST_URI"]) && $_SERVER["REQUEST_URI"] != '') {
                 $request_str = $_SERVER["REQUEST_URI"];
             }
         }
         $pageURL .= "://";
-        if ( isset($_SERVER["SERVER_PORT"]) && $_SERVER["SERVER_PORT"] != "80" ) {
+        if (isset($_SERVER["SERVER_PORT"]) && $_SERVER["SERVER_PORT"] != "80") {
             $pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $request_str;
         } else {
             $pageURL .= $_SERVER["SERVER_NAME"] . $request_str;
@@ -1347,14 +1471,14 @@ if ( ! function_exists('wp_rem_current_page_url') ) {
 
 }
 
-if ( ! function_exists('wp_rem_company_id_form_user_id') ) {
+if (!function_exists('wp_rem_company_id_form_user_id')) {
 
     function wp_rem_company_id_form_user_id($user_id = '') {
         $company_id = '';
-        if ( $user_id == '' ) {
+        if ($user_id == '') {
             $user_id = get_current_user_id();
         }
-        if ( $user_id != '' ) {
+        if ($user_id != '') {
             $company_id = get_user_meta($user_id, 'wp_rem_company', true);
         }
         return $company_id;
@@ -1362,12 +1486,12 @@ if ( ! function_exists('wp_rem_company_id_form_user_id') ) {
 
 }
 
-if ( ! function_exists('wp_rem_user_id_form_company_id') ) {
+if (!function_exists('wp_rem_user_id_form_company_id')) {
 
     function wp_rem_user_id_form_company_id($company_id = '') {
         $user_id = '';
 
-        if ( $company_id != '' ) {
+        if ($company_id != '') {
             $args = array(
                 'meta_query' =>
                 array(
@@ -1384,9 +1508,9 @@ if ( ! function_exists('wp_rem_user_id_form_company_id') ) {
             );
 
             $users = get_users($args);
-            if ( ! empty($users) && is_array($users) )
-                foreach ( $users as $user ) {
-                    foreach ( $user as $user_data ) {
+            if (!empty($users) && is_array($users))
+                foreach ($users as $user) {
+                    foreach ($user as $user_data) {
                         $user_id = isset($user_data->ID) ? $user_data->ID : '';
                         break;
                     }
@@ -1397,10 +1521,10 @@ if ( ! function_exists('wp_rem_user_id_form_company_id') ) {
 
 }
 
-if ( ! function_exists('wp_rem_get_property_type_item_count') ) {
+if (!function_exists('wp_rem_get_property_type_item_count')) {
 
     function wp_rem_get_property_type_item_count($left_filter_count_switch, $property_type, $field_meta_key, $args_filters) {
-        if ( $left_filter_count_switch == 'yes' ) {
+        if ($left_filter_count_switch == 'yes') {
             $args_filters['meta_query'][] = array(
                 'key' => $field_meta_key,
                 'value' => $property_type,
@@ -1414,30 +1538,30 @@ if ( ! function_exists('wp_rem_get_property_type_item_count') ) {
 
 }
 
-if ( ! function_exists('wp_rem_get_property_open_house_count') ) {
+if (!function_exists('wp_rem_get_property_open_house_count')) {
 
     function wp_rem_get_property_open_house_count($left_filter_count_switch, $field_value, $args_filters) {
 
-        if ( $left_filter_count_switch == 'yes' ) {
+        if ($left_filter_count_switch == 'yes') {
             $time = $field_value;
-            if ( $time == 'today' ) {
+            if ($time == 'today') {
                 $start_date = strtotime(date("Y/m/d") . " 00:00");
                 $end_date = strtotime(date("Y/m/d") . " 23:59");
             }
-            if ( $time == 'tomorrow' ) {
+            if ($time == 'tomorrow') {
                 $date = date("Y/m/d");
                 $date1 = str_replace('-', '/', $date);
                 $tomorrow = date('Y/m/d', strtotime($date1 . "+1 days"));
                 $start_date = strtotime($tomorrow . " 00:00");
                 $end_date = strtotime($tomorrow . " 23:59");
             }
-            if ( $time == 'through_weekend' ) {
+            if ($time == 'through_weekend') {
                 $date = date("Y/m/d");
                 $date1 = str_replace('-', '/', $date);
                 $weekend = date('Y/m/d', strtotime($date1 . "next Sunday"));
                 $end_date = strtotime($weekend . " 23:59");
             }
-            if ( $time == 'weekend_only' ) {
+            if ($time == 'weekend_only') {
                 $date = date("Y/m/d");
                 $date1 = str_replace('-', '/', $date);
                 $saturday = date('Y/m/d', strtotime($date1 . "next Saturday"));
@@ -1451,13 +1575,13 @@ if ( ! function_exists('wp_rem_get_property_open_house_count') ) {
                     'relation' => 'OR',
                     array(
                         'key' => 'open_house_start',
-                        'value' => array( $start_date, $end_date ),
+                        'value' => array($start_date, $end_date),
                         'compare' => 'BETWEEN',
                         'type' => 'NUMERIC',
                     ),
                     array(
                         'key' => 'open_house_end',
-                        'value' => array( $start_date, $end_date ),
+                        'value' => array($start_date, $end_date),
                         'compare' => 'BETWEEN',
                         'type' => 'NUMERIC',
                     ),
@@ -1488,52 +1612,41 @@ if ( ! function_exists('wp_rem_get_property_open_house_count') ) {
 }
 
 
-if ( ! function_exists('wp_rem_get_item_count') ) {
+if (!function_exists('wp_rem_get_item_count')) {
 
     function wp_rem_get_item_count($left_filter_count_switch, $args, $count_arr, $property_type, $property_short_counter, $atts, $field_meta_key, $open_house = '') {
-        if ( $left_filter_count_switch == 'yes' ) {
+        if ($left_filter_count_switch == 'yes') {
             global $wp_rem_shortcode_properties_frontend;
 
 
             // get all arguments from getting flters
             $left_filter_arr = $wp_rem_shortcode_properties_frontend->get_filter_arg($property_type, $property_short_counter, $field_meta_key);
-            if ( $count_arr != '' ) {
+            if ($count_arr != '') {
                 $left_filter_arr[] = $count_arr;
             }
 
             $search_features_filter = $wp_rem_shortcode_properties_frontend->property_search_features_filter();
-            if ( ! empty($search_features_filter) ) {
+            if (!empty($search_features_filter)) {
                 $left_filter_arr[] = $search_features_filter;
             }
 
             $post_ids = '';
-            if ( ! empty($left_filter_arr) ) {
+            if (!empty($left_filter_arr)) {
                 // apply all filters and get ids
                 $post_ids = $wp_rem_shortcode_properties_frontend->get_property_id_by_filter($left_filter_arr);
             }
 
-
-            // extra location filters  
-            // if (isset($_REQUEST['loc_polygon']) && $_REQUEST['loc_polygon'] != '') {
-            // $loc_polygon = $_REQUEST['loc_polygon'];
-            // $loc_poly_cords = wp_rem_decode_url_string($loc_polygon);
-            // $loc_poly_cords = stripslashes($loc_poly_cords);
-            // $loc_poly_cords_array = json_decode($loc_poly_cords, true);
-            // $loc_poly_cords_array = isset($loc_poly_cords_array['ids']) && !empty($loc_poly_cords_array['ids']) ? $loc_poly_cords_array['ids'] : '';
-            // $loc_poly_cords_array = explode(",", $loc_poly_cords_array);
-            // $post_ids = $loc_poly_cords_array;
-            // } else 
-            if ( isset($_REQUEST['location']) && $_REQUEST['location'] != '' && ! isset($_REQUEST['loc_polygon_path']) ) {
+            if (isset($_REQUEST['location']) && $_REQUEST['location'] != '' && !isset($_REQUEST['loc_polygon_path'])) {
                 $radius = isset($_REQUEST['radius']) ? $_REQUEST['radius'] : '';
                 $post_ids = $wp_rem_shortcode_properties_frontend->property_location_filter($_REQUEST['location'], $post_ids);
-                if ( empty($post_ids) ) {
-                    $post_ids = array( 0 );
+                if (empty($post_ids)) {
+                    $post_ids = array(0);
                 }
             }
 
             $post_ids = $wp_rem_shortcode_properties_frontend->property_open_house_filter($open_house, $post_ids);
             $all_post_ids = $post_ids;
-            if ( ! empty($all_post_ids) ) {
+            if (!empty($all_post_ids)) {
                 $args['post__in'] = $all_post_ids;
             }
 
@@ -1545,21 +1658,21 @@ if ( ! function_exists('wp_rem_get_item_count') ) {
 
 }
 
-if ( ! function_exists('wp_rem_get_cached_obj') ) {
+if (!function_exists('wp_rem_get_cached_obj')) {
 
     function wp_rem_get_cached_obj($cache_variable, $args, $time = 12, $cache = true, $type = 'wp_query', $taxanomy_name = '') {
         $property_loop_obj = '';
-        if ( $cache == true ) {
+        if ($cache == true) {
             $time_string = $time * HOUR_IN_SECONDS;
-            if ( $cache_variable != '' ) {
-                if ( false === ( $property_loop_obj = wp_cache_get($cache_variable) ) ) {
-                    if ( $type == 'wp_query' ) {
+            if ($cache_variable != '') {
+                if (false === ( $property_loop_obj = wp_cache_get($cache_variable) )) {
+                    if ($type == 'wp_query') {
                         $property_loop_obj = new WP_Query($args);
-                    } else if ( $type == 'get_term' ) {
+                    } else if ($type == 'get_term') {
                         $property_loop_obj = array();
                         $terms = get_terms($taxanomy_name, $args);
-                        if ( sizeof($terms) > 0 ) {
-                            foreach ( $terms as $term_data ) {
+                        if (sizeof($terms) > 0) {
+                            foreach ($terms as $term_data) {
                                 $property_loop_obj[] = $term_data->name;
                             }
                         }
@@ -1568,13 +1681,13 @@ if ( ! function_exists('wp_rem_get_cached_obj') ) {
                 }
             }
         } else {
-            if ( $type == 'wp_query' ) {
+            if ($type == 'wp_query') {
                 $property_loop_obj = new WP_Query($args);
-            } else if ( $type == 'get_term' ) {
+            } else if ($type == 'get_term') {
                 $property_loop_obj = array();
                 $terms = get_terms($taxanomy_name, $args);
-                if ( sizeof($terms) > 0 ) {
-                    foreach ( $terms as $term_data ) {
+                if (sizeof($terms) > 0) {
+                    foreach ($terms as $term_data) {
                         $property_loop_obj[] = $term_data->name;
                     }
                 }
@@ -1587,27 +1700,27 @@ if ( ! function_exists('wp_rem_get_cached_obj') ) {
     }
 
 }
-if ( ! function_exists('wp_rem_remove_transient_obj') ) {
+if (!function_exists('wp_rem_remove_transient_obj')) {
 
     function wp_rem_remove_transient_obj($transient_variable) {
         $identifier = uniqid();
-        if ( isset($_COOKIE['identifier']) ) {
+        if (isset($_COOKIE['identifier'])) {
             $identifier = $_COOKIE['identifier'];
         }
         delete_transient($identifier . $transient_variable);
     }
 
 }
-if ( ! function_exists('wp_rem_set_transient_obj') ) {
+if (!function_exists('wp_rem_set_transient_obj')) {
 
     function wp_rem_set_transient_obj($transient_variable, $data_string, $time = 12) {
-        if ( ! isset($_COOKIE['identifier']) || $_COOKIE['identifier'] == '' ) {
+        if (!isset($_COOKIE['identifier']) || $_COOKIE['identifier'] == '') {
             setcookie('identifier', uniqid(), time() + (86400 * 30), "/"); // 86400 = 1 day
         }
         $result = '';
         $identifier = isset($_COOKIE['identifier']) ? $_COOKIE['identifier'] : '';
         $time_string = $time * HOUR_IN_SECONDS;
-        if ( $data_string != '' ) {
+        if ($data_string != '') {
             $result = set_transient($identifier . $transient_variable, $data_string, $time_string);
         }
         return $result;
@@ -1615,14 +1728,14 @@ if ( ! function_exists('wp_rem_set_transient_obj') ) {
 
 }
 
-if ( ! function_exists('wp_rem_get_transient_obj') ) {
+if (!function_exists('wp_rem_get_transient_obj')) {
 
     function wp_rem_get_transient_obj($transient_variable) {
         $identifier = uniqid();
-        if ( isset($_COOKIE['identifier']) ) {
+        if (isset($_COOKIE['identifier'])) {
             $identifier = $_COOKIE['identifier'];
         }
-        if ( false === ( $data_string = get_transient($identifier . $transient_variable) ) ) {
+        if (false === ( $data_string = get_transient($identifier . $transient_variable) )) {
             return false;
         } else {
             return $data_string;
@@ -1631,26 +1744,26 @@ if ( ! function_exists('wp_rem_get_transient_obj') ) {
 
 }
 
-if ( ! function_exists('wp_rem_random_ads_callback') ) {
+if (!function_exists('wp_rem_random_ads_callback')) {
 
     function wp_rem_random_ads_callback($banner_style) {
         global $wpdb, $post, $wp_rem_plugin_options;
         $cs_total_banners = 1;
-        if ( isset($wp_rem_plugin_options['wp_rem_banner_title']) ) {
+        if (isset($wp_rem_plugin_options['wp_rem_banner_title'])) {
             $i = 0;
             $d = 0;
             $cs_banner_array = array();
-            foreach ( $wp_rem_plugin_options['wp_rem_banner_title'] as $banner ) :
+            foreach ($wp_rem_plugin_options['wp_rem_banner_title'] as $banner) :
 
-                if ( $wp_rem_plugin_options['wp_rem_banner_style'][$i] == $banner_style ) {
+                if ($wp_rem_plugin_options['wp_rem_banner_style'][$i] == $banner_style) {
 
                     $cs_banner_array[] = $i;
                     $d ++;
                 }
                 $i ++;
             endforeach;
-            if ( sizeof($cs_banner_array) > 0 ) {
-                if ( sizeof($cs_banner_array) > 1 ) {
+            if (sizeof($cs_banner_array) > 0) {
+                if (sizeof($cs_banner_array) > 1) {
                     $cs_act_size = sizeof($cs_banner_array) - 1;
                     $cs_rand_banner = rand(0, $cs_act_size);
                 } else {
@@ -1668,7 +1781,7 @@ if ( ! function_exists('wp_rem_random_ads_callback') ) {
 }
 
 
-if ( ! function_exists('wp_rem_contact_message_send') ) {
+if (!function_exists('wp_rem_contact_message_send')) {
 
     function wp_rem_contact_message_send() {
 
@@ -1678,7 +1791,7 @@ if ( ! function_exists('wp_rem_contact_message_send') ) {
         $json = array();
         $subject_name = '';
         wp_rem_verify_term_condition_form_field('member_detail_term_policy');
-        foreach ( $_REQUEST as $keys => $values ) {
+        foreach ($_REQUEST as $keys => $values) {
             $$keys = $values;
         }
         $wp_rem_cs_danger_html = '<div class="error">';
@@ -1687,20 +1800,20 @@ if ( ! function_exists('wp_rem_contact_message_send') ) {
         $bloginfo = get_bloginfo();
         $wp_rem_cs_contactus_send = '';
         $subjecteEmail = "(" . $bloginfo . ") " . wp_rem_plugin_text_srt('wp_rem_helper_member_msg_received');
-        if ( '' == $wp_rem_member_email || ! preg_match('/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/', $wp_rem_member_email) ) {
+        if ('' == $wp_rem_member_email || !preg_match('/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/', $wp_rem_member_email)) {
             $json['type'] = "error";
             $json['msg'] = $wp_rem_cs_danger_html . wp_rem_plugin_text_srt('wp_rem_helper_member_email_not_valid') . $wp_rem_cs_msg_html;
         } else {
-            if ( $contact_full_name == '' ) {
+            if ($contact_full_name == '') {
                 $json['type'] = 'error';
                 $json['msg'] = $wp_rem_cs_danger_html . wp_rem_plugin_text_srt('wp_rem_helper_name_empty') . $wp_rem_cs_msg_html;
-            } else if ( $contact_email_add == '' ) {
+            } else if ($contact_email_add == '') {
                 $json['type'] = 'error';
                 $json['msg'] = $wp_rem_cs_danger_html . wp_rem_plugin_text_srt('wp_rem_helper_email_empty') . $wp_rem_cs_msg_html;
-            } else if ( ! preg_match('/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/', $contact_email_add) ) {
+            } else if (!preg_match('/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/', $contact_email_add)) {
                 $json['type'] = "error";
                 $json['msg'] = $wp_rem_cs_danger_html . wp_rem_plugin_text_srt('wp_rem_helper_email_not_valid') . $wp_rem_cs_msg_html;
-            } else if ( $contact_message_field == '' ) {
+            } else if ($contact_message_field == '') {
                 $json['type'] = "error";
                 $json['msg'] = $wp_rem_cs_danger_html . wp_rem_plugin_text_srt('wp_rem_helper_msg_empty') . $wp_rem_cs_msg_html;
             } else {
@@ -1715,7 +1828,7 @@ if ( ! function_exists('wp_rem_contact_message_send') ) {
 				    <td>' . esc_html($contact_email_add) . '</td>
 				</tr>';
 
-                if ( $message_field != '' ) {
+                if ($message_field != '') {
                     $message .= '<tr>
 					<td><strong>' . wp_rem_plugin_text_srt('wp_rem_helper_message') . '</strong></td>
 					<td>' . esc_html($contact_message_field) . '</td>
@@ -1723,7 +1836,7 @@ if ( ! function_exists('wp_rem_contact_message_send') ) {
                 }
                 $wp_rem_captcha_switch = isset($wp_rem_plugin_options['wp_rem_captcha_switch']) ? $wp_rem_plugin_options['wp_rem_captcha_switch'] : '';
 
-                if ( $wp_rem_captcha_switch == 'on' ) {
+                if ($wp_rem_captcha_switch == 'on') {
                     do_action('wp_rem_verify_captcha_form');
                 }
                 $message .= ' <tr><td><strong>' . wp_rem_plugin_text_srt('wp_rem_helper_ip_address') . '</strong></td>
@@ -1735,8 +1848,8 @@ if ( ! function_exists('wp_rem_contact_message_send') ) {
                 $headers .= "Content-type: text/html; charset=utf-8" . "\r\n";
                 $headers .= "MIME-Version: 1.0" . "\r\n";
                 $attachments = '';
-                $respose = mail($wp_rem_member_email, $subjecteEmail, $message, $headers);
-                if ( $respose ) {
+                $respose = wp_mail($wp_rem_member_email, $subjecteEmail, $message, $headers);
+                if ($respose) {
                     $json['type'] = "success";
                     $json['msg'] = $wp_rem_cs_success_html . wp_rem_plugin_text_srt('wp_rem_helper_sent_msg_successfully') . $wp_rem_cs_msg_html;
                 } else {
@@ -1758,23 +1871,33 @@ if ( ! function_exists('wp_rem_contact_message_send') ) {
  * Map Nearby icons with markers
  */
 
-if ( ! function_exists('wp_rem_map_markers_nearby') ) {
+if (!function_exists('wp_rem_map_markers_nearby')) {
 
     function wp_rem_map_markers_nearby() {
-        global $wp_rem_plugin_options;
+        global $wp_rem_plugin_options, $wp_rem_form_fields_frontend;
         $wp_rem_map_markers_data = isset($wp_rem_plugin_options['wp_rem_map_markers_data']) ? $wp_rem_plugin_options['wp_rem_map_markers_data'] : array();
-        if ( isset($wp_rem_map_markers_data['image']) ) :
+        if (isset($wp_rem_map_markers_data['image'])) :
             ?>
             <ul class="dominant-places">
                 <?php
-                foreach ( $wp_rem_map_markers_data['image'] as $key => $row ) :
+                foreach ($wp_rem_map_markers_data['image'] as $key => $row) :
                     $image = isset($wp_rem_map_markers_data['image'][$key]) ? $wp_rem_map_markers_data['image'][$key] : '';
                     $map_image = isset($wp_rem_map_markers_data['map_image'][$key]) ? $wp_rem_map_markers_data['map_image'][$key] : '';
                     $title = isset($wp_rem_map_markers_data['label'][$key]) ? $wp_rem_map_markers_data['label'][$key] : '';
                     $type = isset($wp_rem_map_markers_data['type'][$key]) ? $wp_rem_map_markers_data['type'][$key] : '';
                     ?>
                     <li data-placement="bottom" data-toggle="tooltip" title="<?php echo esc_html($title); ?>" >
-                        <input data-label="<?php echo esc_html($title); ?>" data-image="<?php echo wp_get_attachment_url($map_image); ?>" class="hidden show-poi-checkbox wp_rem_show_nearby" id="<?php echo esc_html($type); ?>" value="" type="checkbox">
+                        <?php
+                        $wp_rem_opt_array = array(
+                            'std' => '',
+                            'simple' => true,
+                            'cust_id' => esc_html($type),
+                            'cust_name' => esc_html($type),
+                            'classes' => 'hidden show-poi-checkbox wp_rem_show_nearby',
+                            'extra_atr' => ' data-label="' . esc_html($title) . '" data-image="' . wp_get_attachment_url($map_image) . '"',
+                        );
+                        $wp_rem_form_fields_frontend->wp_rem_form_checkbox_render($wp_rem_opt_array);
+                        ?>
                         <label class="show-nearby-point-label" for="<?php echo esc_html($type); ?>"><img src="<?php echo wp_get_attachment_url($image); ?>" alt=""></label>
                     </li>
                     <?php
@@ -1787,7 +1910,7 @@ if ( ! function_exists('wp_rem_map_markers_nearby') ) {
 
 }
 
-if ( ! function_exists('get_user_info_array') ) {
+if (!function_exists('get_user_info_array')) {
 
     function get_user_info_array($user_id = '') {
         $first_name = '';
@@ -1795,11 +1918,11 @@ if ( ! function_exists('get_user_info_array') ) {
         $email = '';
         $phone_number = '';
         $address = '';
-        if ( $user_id == '' ) {
+        if ($user_id == '') {
             $user_data = wp_get_current_user();
             $user_id = $user_data->ID;
         }
-        if ( is_user_logged_in() ) {
+        if (is_user_logged_in()) {
             $member_id = get_user_meta($user_id, 'wp_rem_company', true);
             $display_name = get_the_title($member_id);
             $user_names = explode(" ", $display_name);
@@ -1827,12 +1950,12 @@ if ( ! function_exists('get_user_info_array') ) {
 /*
  * Property counter
  */
-if ( ! function_exists('wp_rem_property_category_link') ) {
+if (!function_exists('wp_rem_property_category_link')) {
 
     function wp_rem_property_category_link($property_type_id, $cat_slug) {
         global $wp_rem_plugin_options;
         $wp_rem_search_result_page = get_post_meta($property_type_id, 'wp_rem_search_result_page', true);
-        if ( $wp_rem_search_result_page != '' ) {
+        if ($wp_rem_search_result_page != '') {
             $wp_rem_search_result_page = get_permalink($wp_rem_search_result_page);
         } else {
             $wp_rem_search_result_page = isset($wp_rem_plugin_options['wp_rem_search_result_page']) ? $wp_rem_plugin_options['wp_rem_search_result_page'] : '';
@@ -1840,9 +1963,9 @@ if ( ! function_exists('wp_rem_property_category_link') ) {
         }
 
         $cate_link = '';
-        if ( $wp_rem_search_result_page != '' ) {
+        if ($wp_rem_search_result_page != '') {
             $property_type_slug = wp_rem_post_slug($property_type_id);
-            $cate_link = $wp_rem_search_result_page != '' ? add_query_arg(array( 'property_type' => $property_type_slug, 'property_category' => $cat_slug, 'ajax_filter' => 'true', ), $wp_rem_search_result_page) : 'javascript:void(0);';
+            $cate_link = $wp_rem_search_result_page != '' ? add_query_arg(array('property_type' => $property_type_slug, 'property_category' => $cat_slug, 'ajax_filter' => 'true',), $wp_rem_search_result_page) : 'javascript:void(0);';
         } else {
             $cate_link = 'javascript:void(0);';
         }
@@ -1851,12 +1974,12 @@ if ( ! function_exists('wp_rem_property_category_link') ) {
 
 }
 
-if ( ! function_exists('wp_rem_property_type_link') ) {
+if (!function_exists('wp_rem_property_type_link')) {
 
     function wp_rem_property_type_link($property_type_id) {
         global $wp_rem_plugin_options;
         $wp_rem_search_result_page = get_post_meta($property_type_id, 'wp_rem_search_result_page', true);
-        if ( $wp_rem_search_result_page != '' ) {
+        if ($wp_rem_search_result_page != '') {
             $wp_rem_search_result_page = get_permalink($wp_rem_search_result_page);
         } else {
             $wp_rem_search_result_page = isset($wp_rem_plugin_options['wp_rem_search_result_page']) ? $wp_rem_plugin_options['wp_rem_search_result_page'] : '';
@@ -1864,9 +1987,9 @@ if ( ! function_exists('wp_rem_property_type_link') ) {
         }
 
         $type_link = '';
-        if ( $wp_rem_search_result_page != '' ) {
+        if ($wp_rem_search_result_page != '') {
             $property_type_slug = wp_rem_post_slug($property_type_id);
-            $type_link = $wp_rem_search_result_page != '' ? add_query_arg(array( 'property_type' => $property_type_slug, 'ajax_filter' => 'true', ), $wp_rem_search_result_page) : 'javascript:void(0);';
+            $type_link = $wp_rem_search_result_page != '' ? add_query_arg(array('property_type' => $property_type_slug, 'ajax_filter' => 'true',), $wp_rem_search_result_page) : 'javascript:void(0);';
         } else {
             $type_link = 'javascript:void(0);';
         }
@@ -1877,13 +2000,13 @@ if ( ! function_exists('wp_rem_property_type_link') ) {
 
 }
 
-if ( ! function_exists('wp_rem_post_slug') ) {
+if (!function_exists('wp_rem_post_slug')) {
 
     function wp_rem_post_slug($post_id = '') {
         $post_slug = false;
-        if ( $post_id != '' ) {
+        if ($post_id != '') {
             $post = get_post($post_id);
-            if ( isset($post->post_name) && $post->post_name != '' ) {
+            if (isset($post->post_name) && $post->post_name != '') {
                 $post_slug = $post->post_name;
             }
         }
@@ -1892,7 +2015,7 @@ if ( ! function_exists('wp_rem_post_slug') ) {
 
 }
 
-if ( ! function_exists('property_gallery_first_image') ) {
+if (!function_exists('property_gallery_first_image')) {
 
     function property_gallery_first_image($args) {
 
@@ -1904,24 +2027,24 @@ if ( ! function_exists('property_gallery_first_image') ) {
         extract($args);
 
         $gallery_image = $gallery_image_id = $gallery_image_url = '';
-        if ( $property_id != '' ) {
+        if ($property_id != '') {
             $list_type_slug = get_post_meta($property_id, 'wp_rem_property_type', true);
-            if ( $post = get_page_by_path($list_type_slug, OBJECT, 'property-type') ) {
+            if ($post = get_page_by_path($list_type_slug, OBJECT, 'property-type')) {
                 $property_type_id = $post->ID;
             } else {
                 $property_type_id = 0;
             }
             $wp_rem_image_gallery_element = get_post_meta($property_type_id, 'wp_rem_image_gallery_element', true);
 
-            if ( $wp_rem_image_gallery_element == 'on' ) {
+            if ($wp_rem_image_gallery_element == 'on') {
                 $property_pic_num = get_post_meta($property_id, 'wp_rem_transaction_property_pic_num', true);
-                if ( $property_pic_num != '' && $property_pic_num > 0 && is_numeric($property_pic_num) ) {
+                if ($property_pic_num != '' && $property_pic_num > 0 && is_numeric($property_pic_num)) {
                     $gallery_ids = get_post_meta($property_id, 'wp_rem_detail_page_gallery_ids', true);
-                    if ( is_array($gallery_ids) && sizeof($gallery_ids) > 0 ) {
-                        foreach ( $gallery_ids as $gallery_id ) {
-                            if ( $gallery_id != '' && is_numeric($gallery_id) && wp_get_attachment_image_src($gallery_id) ) {
-                                $gallery_image_src = wp_get_attachment_image_src($gallery_id, $size, '', array( 'class' => $class ));
-                                if ( ! empty($gallery_image_src) ) {
+                    if (is_array($gallery_ids) && sizeof($gallery_ids) > 0) {
+                        foreach ($gallery_ids as $gallery_id) {
+                            if ($gallery_id != '' && is_numeric($gallery_id) && wp_get_attachment_image_src($gallery_id)) {
+                                $gallery_image_src = wp_get_attachment_image_src($gallery_id, $size, '', array('class' => $class));
+                                if (!empty($gallery_image_src)) {
                                     $gallery_image = $gallery_image_src[0];
                                     $gallery_image_url = $gallery_image_src[0];
                                     $gallery_image_id = $gallery_id;
@@ -1933,21 +2056,21 @@ if ( ! function_exists('property_gallery_first_image') ) {
                 }
             }
         }
-        if ( $gallery_image == '' ) {
+        if ($gallery_image == '') {
             $gallery_image = $default_image_src;
         }
-        if ( $gallery_image != '' ) {
+        if ($gallery_image != '') {
             $image_class = '';
-            if ( $class != '' ) {
+            if ($class != '') {
                 $image_class = ' class="' . $class . '" ';
             }
             $alt_text = 'no-image';
-            if ( $gallery_image_id != '' ) {
+            if ($gallery_image_id != '') {
                 $alt_text = get_post_meta($gallery_image_id, '_wp_attachment_image_alt', true);
             }
             $gallery_image = '<img ' . $image_class . 'src="' . $gallery_image . '" alt="' . $alt_text . '"/>';
         }
-        if ( $return_type == 'url' ) {
+        if ($return_type == 'url') {
             return $gallery_image_url;
         } else {
             return $gallery_image;
@@ -1956,7 +2079,7 @@ if ( ! function_exists('property_gallery_first_image') ) {
 
 }
 
-if ( ! function_exists('wp_rem_plugin_title_sub_align') ) {
+if (!function_exists('wp_rem_plugin_title_sub_align')) {
     /*
      * Element structure
      * Element title 
@@ -1970,16 +2093,16 @@ if ( ! function_exists('wp_rem_plugin_title_sub_align') ) {
         $element_subtitle = isset($subtitle) ? $subtitle : '';
         $element_align = isset($align) ? $align : '';
 
-        if ( ! empty($title_style) ) {
+        if (!empty($title_style)) {
             $title_style = ' ' . $title_style;
         }
         $element_html = '';
-        if ( ! empty($element_title) || ! empty($element_subtitle) ) {
+        if (!empty($element_title) || !empty($element_subtitle)) {
             $element_html .= '<div class="element-title ' . $align . ' ">';
-            if ( ! empty($element_title) ) {
+            if (!empty($element_title)) {
                 $element_html .= '<h2' . $title_style . '>' . $element_title . '</h2>';
             }
-            if ( ! empty($element_subtitle) ) {
+            if (!empty($element_subtitle)) {
                 $element_html .= '<p>' . $element_subtitle . '</p>';
             }
             $element_html .= '</div>';
@@ -1989,7 +2112,7 @@ if ( ! function_exists('wp_rem_plugin_title_sub_align') ) {
 
 }
 
-if ( ! function_exists('wp_rem_allow_large_joins') ) {
+if (!function_exists('wp_rem_allow_large_joins')) {
 
     function wp_rem_allow_large_joins() {
         global $wpdb;
@@ -1998,7 +2121,7 @@ if ( ! function_exists('wp_rem_allow_large_joins') ) {
 
     add_action('init', 'wp_rem_allow_large_joins');
 }
-if ( ! function_exists('wp_rem_cs_inline_enqueue_script') ) {
+if (!function_exists('wp_rem_cs_inline_enqueue_script')) {
 
     function wp_rem_cs_inline_enqueue_script($script = '', $script_handler = 'wp-rem-custom-inline') {
         wp_register_script('wp-rem-custom-inline', trailingslashit(get_template_directory_uri()) . 'assets/common/js/custom-inline.js', '', '', true);
@@ -2008,28 +2131,33 @@ if ( ! function_exists('wp_rem_cs_inline_enqueue_script') ) {
 
 }
 
-function wp_rem_property_price($property_id, $wp_rem_property_price, $guidprice_before = '', $guidprice_after = '', $price_type_before = '<span class="price-type">', $price_type_after = '</span>') {
+function wp_rem_property_price($property_id, $wp_rem_property_price, $guidprice_before = '', $guidprice_after = '', $price_type_before = '<span class="price-type">', $price_type_after = '</span>', $price_type_position = 'right') {
     global $wp_rem_plugin_options;
 
     $price_type = get_post_meta($property_id, 'wp_rem_price_type', true);
     $price_monthy = get_post_meta($property_id, 'wp_rem_month_price', true);
     $price_weekly = get_post_meta($property_id, 'wp_rem_week_price', true);
-    if ( $price_type == 'variant_month' || $price_type == 'variant_week' ) {
+    if ($price_type == 'variant_month' || $price_type == 'variant_week') {
         $price_type = ' ' . wp_rem_plugin_text_srt('wp_rem_price_type_pcm');
         $price_type .= $guidprice_before . ' (' . wp_rem_get_currency($price_weekly, true) . ' ' . wp_rem_plugin_text_srt('wp_rem_price_type_pw') . ')' . $guidprice_after;
         $wp_rem_property_price = $price_monthy;
     } else {
-        if ( isset($wp_rem_plugin_options['fixed_price_opt'][$price_type]) ) {
+        if (isset($wp_rem_plugin_options['fixed_price_opt'][$price_type])) {
             $price_type = ' ' . $price_type_before . $wp_rem_plugin_options['fixed_price_opt'][$price_type] . $price_type_after;
         }
     }
-    $property_info_price = wp_rem_get_currency($wp_rem_property_price, true);
-    $property_info_price .= $price_type;
+    if ($price_type_position == 'left') {
+        $property_info_price = $price_type;
+        $property_info_price .= wp_rem_get_currency($wp_rem_property_price, true);
+    } else {
+        $property_info_price = wp_rem_get_currency($wp_rem_property_price, true);
+        $property_info_price .= $price_type;
+    }
 
     return $property_info_price;
 }
 
-if ( ! function_exists('wp_rem_set_user_type_cookie_callback') ) {
+if (!function_exists('wp_rem_set_user_type_cookie_callback')) {
 
     function wp_rem_set_user_type_cookie_callback() {
         $member_user_type = isset($_POST['member_user_type']) ? $_POST['member_user_type'] : 'reseller';
@@ -2044,7 +2172,7 @@ add_action('wp_ajax_wp_rem_set_user_type_cookie', 'wp_rem_set_user_type_cookie_c
 add_action('wp_ajax_nopriv_wp_rem_set_user_type_cookie', 'wp_rem_set_user_type_cookie_callback');
 
 
-if ( ! function_exists('wp_rem_set_user_tab_cookie_callback') ) {
+if (!function_exists('wp_rem_set_user_tab_cookie_callback')) {
 
     function wp_rem_set_user_tab_cookie_callback() {
         $member_user_tab = isset($_POST['member_user_tab']) ? $_POST['member_user_tab'] : 'login';
@@ -2058,16 +2186,26 @@ if ( ! function_exists('wp_rem_set_user_tab_cookie_callback') ) {
 add_action('wp_ajax_wp_rem_set_user_tab_cookie', 'wp_rem_set_user_tab_cookie_callback');
 add_action('wp_ajax_nopriv_wp_rem_set_user_tab_cookie', 'wp_rem_set_user_tab_cookie_callback');
 
-if ( ! function_exists('wp_rem_term_condition_form_field') ) {
+if (!function_exists('wp_rem_term_condition_form_field')) {
 
     function wp_rem_term_condition_form_field($field_id = 'term_policy', $field_name = 'term_policy') {
-        global $wp_rem_plugin_options;
+        global $wp_rem_plugin_options, $wp_rem_form_fields_frontend;
+
         $wp_rem_term_policy_switch = isset($wp_rem_plugin_options['wp_rem_term_policy_switch']) ? $wp_rem_plugin_options['wp_rem_term_policy_switch'] : '';
         $wp_rem_term_policy_description = isset($wp_rem_plugin_options['wp_rem_term_policy_description']) ? $wp_rem_plugin_options['wp_rem_term_policy_description'] : '';
-        if ( $wp_rem_term_policy_switch == 'on' ) {
+        if ($wp_rem_term_policy_switch == 'on') {
             ?>
             <div class="check-box-remind">
-                <input class="input-field" id="<?php echo esc_html($field_id); ?>" type="checkbox" name="<?php echo esc_html($field_name); ?>">
+                <?php
+                $wp_rem_opt_array = array(
+                    'std' => '',
+                    'simple' => true,
+                    'cust_id' => esc_html($field_id),
+                    'cust_name' => esc_html($field_name),
+                    'classes' => 'input-field',
+                );
+                $wp_rem_form_fields_frontend->wp_rem_form_checkbox_render($wp_rem_opt_array);
+                ?>
                 <label for="<?php echo esc_html($field_id); ?>"><?php echo htmlspecialchars_decode($wp_rem_term_policy_description); ?></label>
             </div> 
             <?php
@@ -2075,15 +2213,15 @@ if ( ! function_exists('wp_rem_term_condition_form_field') ) {
     }
 
 }
-if ( ! function_exists('wp_rem_verify_term_condition_form_field') ) {
+if (!function_exists('wp_rem_verify_term_condition_form_field')) {
 
     function wp_rem_verify_term_condition_form_field($field_name = 'term_policy') {
 
         global $wp_rem_plugin_options;
         $wp_rem_term_policy_switch = isset($wp_rem_plugin_options['wp_rem_term_policy_switch']) ? $wp_rem_plugin_options['wp_rem_term_policy_switch'] : '';
-        if ( $wp_rem_term_policy_switch == 'on' ) {
+        if ($wp_rem_term_policy_switch == 'on') {
             $term_policy_checkbox = wp_rem_get_input($field_name, '', 'STRING');
-            if ( empty($term_policy_checkbox) || $term_policy_checkbox != 'on' ) {
+            if (empty($term_policy_checkbox) || $term_policy_checkbox != 'on') {
                 $response_array = array(
                     'type' => 'error',
                     'msg' => wp_rem_plugin_text_srt('wp_rem_helper_read_terms_conditions')
@@ -2097,11 +2235,11 @@ if ( ! function_exists('wp_rem_verify_term_condition_form_field') ) {
 }
 
 
-if ( ! function_exists('wp_rem_plublisher_properties_increment_callback') ) {
+if (!function_exists('wp_rem_plublisher_properties_increment_callback')) {
 
     function wp_rem_plublisher_properties_increment_callback($member_id = '') {
 
-        if ( $member_id == '' ) {
+        if ($member_id == '') {
             $user_id = get_current_user_id();
             $member_id = get_user_meta($user_id, 'wp_rem_company', true);
         }
@@ -2114,17 +2252,17 @@ if ( ! function_exists('wp_rem_plublisher_properties_increment_callback') ) {
     add_action('wp_rem_plublisher_properties_increment', 'wp_rem_plublisher_properties_increment_callback', 10, 1);
 }
 
-if ( ! function_exists('wp_rem_plublisher_properties_decrement_callback') ) {
+if (!function_exists('wp_rem_plublisher_properties_decrement_callback')) {
 
     function wp_rem_plublisher_properties_decrement_callback($member_id = '') {
 
-        if ( $member_id == '' ) {
+        if ($member_id == '') {
             $user_id = get_current_user_id();
             $member_id = get_user_meta($user_id, 'wp_rem_company', true);
         }
 
         $wp_rem_num_of_properties = get_post_meta($member_id, 'wp_rem_num_of_properties', true);
-        if ( $wp_rem_num_of_properties > 0 ) {
+        if ($wp_rem_num_of_properties > 0) {
             $wp_rem_num_of_properties --;
         }
         update_post_meta($member_id, 'wp_rem_num_of_properties', $wp_rem_num_of_properties);
@@ -2133,14 +2271,14 @@ if ( ! function_exists('wp_rem_plublisher_properties_decrement_callback') ) {
     add_action('wp_rem_plublisher_properties_decrement', 'wp_rem_plublisher_properties_decrement_callback', 10, 1);
 }
 
-if ( ! function_exists('wp_rem_calculate_price') ) {
+if (!function_exists('wp_rem_calculate_price')) {
 
     function wp_rem_calculate_price($price, $calculate_by) {
         $return_price = $price;
-        if ( $calculate_by == 'monthly' ) {
+        if ($calculate_by == 'monthly') {
             $return_price = $price * 52 / 12;
         }
-        if ( $calculate_by == 'weekly' ) {
+        if ($calculate_by == 'weekly') {
             $return_price = $price * 12 / 52;
         }
         return $return_price;
@@ -2148,14 +2286,14 @@ if ( ! function_exists('wp_rem_calculate_price') ) {
 
 }
 
-if ( ! function_exists('wp_rem_property_detail_page_view') ) {
+if (!function_exists('wp_rem_property_detail_page_view')) {
 
     function wp_rem_property_detail_page_view($property_id = '') {
         global $wp_rem_plugin_options;
         $default_property_detail_view = isset($wp_rem_plugin_options['wp_rem_property_detail_page_view']) ? $wp_rem_plugin_options['wp_rem_property_detail_page_view'] : '';
 
         $wp_rem_property_type = get_post_meta($property_id, 'wp_rem_property_type', true);
-        if ( $post = get_page_by_path($wp_rem_property_type, OBJECT, 'property-type') ) {
+        if ($post = get_page_by_path($wp_rem_property_type, OBJECT, 'property-type')) {
             $property_type_id = $post->ID;
         } else {
             $property_type_id = 0;
@@ -2163,9 +2301,9 @@ if ( ! function_exists('wp_rem_property_detail_page_view') ) {
         $property_detail_view = get_post_meta($property_id, 'wp_rem_property_detail_page', true);
         $property_type_detail_view = get_post_meta($property_type_id, 'wp_rem_property_detail_page', true);
 
-        if ( $property_detail_view != '' ) {
+        if ($property_detail_view != '') {
             $view = $property_detail_view;
-        } elseif ( $property_type_detail_view ) {
+        } elseif ($property_type_detail_view) {
             $view = $property_type_detail_view;
         } else {
             $view = $default_property_detail_view;
@@ -2175,18 +2313,261 @@ if ( ! function_exists('wp_rem_property_detail_page_view') ) {
 
 }
 
-if ( ! function_exists('wp_rem_create_property_button_callback') ) {
-    add_action('wp_rem_create_property_button', 'wp_rem_create_property_button_callback');
+if (!function_exists('wp_rem_create_property_button_callback')) {
+    add_action('wp_rem_create_property_button', 'wp_rem_create_property_button_callback', 10, 1);
 
-    function wp_rem_create_property_button_callback() {
+    function wp_rem_create_property_button_callback($text_show = 'true') {
         global $wp_rem_plugin_options;
+        $create_property_label = wp_rem_plugin_text_srt('wp_rem_rem_create_list_text');
+        if ($text_show == 'false') {
+            $create_property_label = '';
+        }
         $wp_rem_create_listing_button = isset($wp_rem_plugin_options['wp_rem_create_listing_button']) ? $wp_rem_plugin_options['wp_rem_create_listing_button'] : '';
         $wp_rem_create_property_page = isset($wp_rem_plugin_options['wp_rem_create_property_page']) ? $wp_rem_plugin_options['wp_rem_create_property_page'] : '';
-        if ( $wp_rem_create_listing_button == 'on' && $wp_rem_create_property_page ) {
+        if ($wp_rem_create_listing_button == 'on' && $wp_rem_create_property_page) {
             echo '<div class="header-add-property input-button-loader"> ';
-            echo '<a href="' . esc_url(get_permalink($wp_rem_create_property_page)) . '" class="property-btn">' . wp_rem_plugin_text_srt('wp_rem_rem_create_list_text') . '</a>';
+            echo '<a href="' . esc_url(get_permalink($wp_rem_create_property_page)) . '" class="property-btn">' . $create_property_label . '</a>';
             echo '</div>';
         }
+        $wp_rem_cs_inline_script = '
+        jQuery(document).ready(function () {
+            jQuery(document).on("click", ".header-add-property .property-btn", function() {
+                var thisObj = jQuery(".header-add-property");
+                wp_rem_show_loader(".header-add-property", "", "button_loader", thisObj);
+            });
+        });';
+        wp_rem_cs_inline_enqueue_script($wp_rem_cs_inline_script, 'wp-rem-custom-inline');
+    }
+
+}
+
+if (!function_exists('wp_rem_property_search_reset_field')) {
+
+    function wp_rem_property_search_reset_field($qrystr = '', $page_url = '', $exclude_field_key = '', $exclude_field_val = '') {
+        //get all query string
+        $select_exclude_field_val = (isset($qrystr[$exclude_field_key]) && $qrystr[$exclude_field_key] != '') ? $qrystr[$exclude_field_key] : '';
+        if (isset($qrystr) && $select_exclude_field_val != '') {
+            $flag = 1;
+            $qrystr = array_filter($qrystr);
+            $concat = '?';
+            $url = '';
+            foreach ($qrystr as $qry_var => $qry_val) {
+                if ($qry_val != '' && $exclude_field_key != $qry_var && $qry_var != 'view_type' && $qry_var != 'property_arg' && $qry_var != 'property_page' && $qry_var != 'action') {
+                    $url .= $concat . $qry_var . '=' . $qry_val;
+                    $concat = '&amp;';
+                }
+            }
+            if ($url != '') {
+                echo '<a class="reset-field" data-toggle="tooltip" title="' . wp_rem_plugin_text_srt('wp_rem_properties_reset') . '" href="' . esc_url($page_url . $url) . '"><i class="icon icon-refresh3"></i></a>';
+            } else {
+                echo '<a class="reset-field" data-toggle="tooltip" title="' . wp_rem_plugin_text_srt('wp_rem_properties_reset') . '" href="' . esc_url($page_url) . '"><i class="icon icon-refresh3"></i></a>';
+            }
+        }
+    }
+
+}
+
+
+
+if (!function_exists('wp_rem_gallery_photo_render')) {
+
+    function wp_rem_gallery_photo_render() {
+
+        $property_id = wp_rem_get_input('property_id');
+        $number_of_gallery_items = get_post_meta($property_id, 'wp_rem_detail_page_gallery_ids', true);
+        $gallery_pics_allowed = get_post_meta($property_id, 'wp_rem_transaction_property_pic_num', true);
+        $count_all = ( isset($number_of_gallery_items) && is_array($number_of_gallery_items) && sizeof($number_of_gallery_items) > 0 ) ? count($number_of_gallery_items) : 0;
+        if ($count_all > $gallery_pics_allowed) {
+            $count_all = $gallery_pics_allowed;
+        }
+        // galley prettyphotp start
+        $all_img = '';
+        $display_none = true;
+        if (isset($number_of_gallery_items) && !empty($number_of_gallery_items)) {
+            foreach ($number_of_gallery_items as $key => $value) {
+                $url_imge = wp_get_attachment_url($value);
+                $style = '';
+                $tooltip = '';
+                $trigger_class = '';
+                if ($display_none) {
+                    $trigger_class = ' class="btnnn' . $property_id . '" ';
+                    $tooltip = '<div class="info-content"><span>' . wp_rem_plugin_text_srt('wp_rem_element_tooltip_icon_camera') . '</span></div>';
+                }
+                if (!$display_none) {
+                    $style = ' style="display:none;"';
+                }
+
+
+
+                $display_none = false;
+                $all_img .= '<li><a  ' . $trigger_class . $style . ' href="' . esc_url($url_imge) . '" rel="prettyPhoto[gal' . absint($property_id) . ']" ><span class="capture-count"><i class="icon-camera6"></i>' . absint($count_all) . '</span>' . $tooltip . '</a> </li>';
+            }
+        }
+
+        echo json_encode($all_img);
+        // End galley prettyphotp start
+        wp_die();
+    }
+
+    add_action('wp_ajax_wp_rem_gallery_photo_render', 'wp_rem_gallery_photo_render', 1);
+    add_action('wp_ajax_nopriv_wp_rem_gallery_photo_render', 'wp_rem_gallery_photo_render', 1);
+}
+
+if (!function_exists('wp_rem_find_in_multiarray')) {
+
+    function wp_rem_find_in_multiarray($elem, $array, $field) {
+
+        $top = sizeof($array);
+        $k = 0;
+        $new_array = array();
+        for ($i = 0; $i <= $top; $i ++) {
+            if (isset($array[$i])) {
+                $new_array[$k] = $array[$i];
+                $k ++;
+            }
+        }
+        $array = $new_array;
+        $top = sizeof($array) - 1;
+        $bottom = 0;
+
+        $finded_index = '';
+        if (is_array($array)) {
+            while ($bottom <= $top) {
+                if (isset($array[$bottom][$field]) && $array[$bottom][$field] == $elem)
+                    $finded_index[] = $bottom;
+                else
+                if (isset($array[$bottom][$field]) && is_array($array[$bottom][$field]))
+                    if (wp_rem_find_in_multiarray($elem, ($array[$bottom][$field])))
+                        $finded_index[] = $bottom;
+                $bottom ++;
+            }
+        }
+        return $finded_index;
+    }
+
+}
+if (!function_exists('wp_rem_property_hide_submit_callback')) {
+    add_action('wp_ajax_wp_rem_property_hide_submit', 'wp_rem_property_hide_submit_callback', 11);
+
+    /**
+     * Member Favourites
+     * @ added member favourites based on property id
+     */
+    function wp_rem_property_hide_submit_callback() {
+
+        $property_id = wp_rem_get_input('property_id');
+        $member_id = wp_rem_get_input('member_id');
+        $property_short_counter = wp_rem_get_input('property_short_counter');
+        $current_user = wp_get_current_user();
+        $response = $member_hide_property_list = array();
+
+        if ('' != $member_id) {
+            $user_company = get_user_meta($member_id, 'wp_rem_company', true);
+            $member_hide_property_list = get_post_meta($user_company, 'wp_rem_property_hide_list', true);
+            if (!empty($member_hide_property_list) && wp_rem_find_in_multiarray($property_id, $member_hide_property_list, 'property_id')) {
+                $response['status'] = false;
+            } else {
+                $member_hide_property_list[] = array(
+                    'property_id' => $property_id,
+                    'date' => strtotime(date('d-m-Y')),
+                );
+                $response['status'] = true;
+                $hide_list_html = '';
+                $hide_list_html .= '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">';
+                $hide_list_html .= '<div class="text-holder">
+                                            <strong class="post-title"> 
+                                                <span class="hidden-result-label">'.wp_rem_plugin_text_srt('wp_rem_properties_hidden_text').'</span>
+                                                <a href="' . esc_url(get_permalink($property_id)) . '">' . esc_html(get_the_title($property_id)) . '</a>                  
+                                            </strong> 
+                                            </div>';
+                $hide_list_html .= '</div>';
+                $response['new_element'] = $hide_list_html;
+            }
+            if (!empty($member_hide_property_list)) {
+                $member_hide_property_list = array_values($member_hide_property_list);
+            }
+            update_post_meta($user_company, 'wp_rem_property_hide_list', $member_hide_property_list);
+        } else {
+            $response['status'] = false;
+        }
+        echo json_encode($response);
+
+        wp_die();
+    }
+
+}
+
+if (!function_exists('wp_rem_removed_hidden_properties')) {
+    add_action('wp_ajax_wp_rem_removed_hidden_properties', 'wp_rem_removed_hidden_properties_callback', 11);
+
+    function wp_rem_removed_hidden_properties_callback() {
+
+        $property_id = wp_rem_get_input('property_id');
+        $current_user = wp_get_current_user();
+        $member_id = get_current_user_id();
+        $user_data = get_user_info_array();
+        $response = array();
+        $response['status'] = false;
+        if ('' != $property_id && '' != $member_id) {
+            $user_company = get_user_meta($member_id, 'wp_rem_company', true);
+            $member_favourites = get_post_meta($user_company, 'wp_rem_property_hide_list', true);
+            foreach ($member_favourites as $key => $sub_array) {
+                if ($sub_array['property_id'] == $property_id) {
+                    unset($member_favourites[$key]);
+                    $response['status'] = true;
+                    $response['message'] = wp_rem_plugin_text_srt('wp_rem_favourite_delete_successfully');
+                }
+            }
+            if (!empty($member_favourites)) {
+                $member_favourites = array_values($member_favourites);
+            }
+            update_post_meta($user_company, 'wp_rem_property_hide_list', $member_favourites);
+            $response['property_count'] = $property_favourites;
+
+        }
+        echo json_encode($response);
+        wp_die();
+    }
+
+}
+
+if (!function_exists('wp_rem_hex2rgba')) {
+
+    function wp_rem_hex2rgba($color, $opacity = false) {
+
+        $default = 'rgb(0,0,0)';
+        //Return default if no color provided
+        if (empty($color))
+            return $default;
+
+        //Sanitize $color if "#" is provided 
+        if ($color[0] == '#') {
+            $color = substr($color, 1);
+        }
+
+        //Check if color has 6 or 3 characters and get values
+        if (strlen($color) == 6) {
+            $hex = array($color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5]);
+        } elseif (strlen($color) == 3) {
+            $hex = array($color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2]);
+        } else {
+            return $default;
+        }
+
+        //Convert hexadec to rgb
+        $rgb = array_map('hexdec', $hex);
+
+        //Check if opacity is set(rgba or rgb)
+        if ($opacity) {
+            if (abs($opacity) > 1)
+                $opacity = 1.0;
+            $output = 'rgba(' . implode(",", $rgb) . ',' . $opacity . ')';
+        } else {
+            $output = 'rgb(' . implode(",", $rgb) . ')';
+        }
+
+        //Return rgb(a) color string
+        return $output;
     }
 
 }

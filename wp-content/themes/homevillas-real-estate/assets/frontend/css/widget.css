@@ -11,6 +11,7 @@
 .page-sidebar .widget-title h5:after { position: absolute; width: 18px; height: 2px; background: #d64521; left: 0; bottom: 0; content: ''; }
 /*widget latest-post style Start*/
 .widget.widget-latest-post ul { margin: 0; padding: 0; }
+.widget.widget-latest-post ul li:after{ content:""; display:block; clear:both;}
 .widget.widget-latest-post ul li { list-style: none; border-bottom: 1px solid #f1f1f1; padding-bottom: 5px; margin-bottom: 10px; }
 .widget.widget-latest-post ul li:last-child { border: 0; margin-bottom: 0; padding-bottom: 0; }
 .widget.widget-latest-post ul li .img-holder { float: left; margin-right: 12px; margin-top: 6px; width: 53px; }
@@ -101,6 +102,7 @@
 .widget.widget-text ul li i { font-size: 14px; color: #999; margin-right: 5px; width: 16px; display: inline-block; }
 .widget.widget_text p img, .widget.widget_text .wp-caption img { width: 100%; margin-bottom: 10px; }
 .widget.widget_text .wp-caption { margin-bottom: 15px; }
+.modern .footer-widget .widget.widget-text ul li {line-height: 24px; font-size: 16px; font-weight: 300;}
 /*widget Text style End*/
 /*widget Archive style Start*/
 .widget.widget_archive li { line-height: 20px; padding: 0 0 8px 20px; margin-bottom: 10px; border-bottom: 1px solid #f2f2f2; color: #555555; font-size: 14px; font-weight: 300; position: relative; }

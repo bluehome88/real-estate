@@ -126,7 +126,7 @@ if ( ! function_exists('wp_rem_payment_gateways') ) {
 	 */
 	function wp_rem_payment_gateways($trans_fields = array()) {
 		global $wp_rem_plugin_options, $gateways, $wp_rem_form_fields;
-
+                wp_enqueue_script('wp-rem-validation-script');
 
 		$html = '';
 		$payments_settings = new WP_REM_PAYMENTS();
@@ -434,7 +434,8 @@ if ( ! function_exists('wp_rem_payment_process') ) {
 							'property_id' => $trans_item_id,
 							'wp_rem_property_id' => $wp_rem_transaction_fields['transaction_id'],
 						),
-						'redirect_url' => get_option('wooCommerce_current_page')
+						'redirect_url' => get_option('wooCommerce_current_page'),
+						'is_json' => 'true',
 					);
 					echo $Payment_Processing->processing_payment($payment_args);
 				}

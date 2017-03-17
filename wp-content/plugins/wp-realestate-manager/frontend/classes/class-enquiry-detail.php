@@ -299,7 +299,7 @@ if (!class_exists('Wp_rem_Enquiry_Detail')) {
                             <div id="response"></div>
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="input-btn">
-                                    <button type="button" class="bgcolor discussion-submit" onclick="javascript:wp_rem_discussion_submit('<?php echo admin_url('admin-ajax.php'); ?>')"><?php echo wp_rem_plugin_text_srt('wp_rem_enquiry_detail_send_msg'); ?></button> 
+                                        <button type="button" class="bgcolor discussion-submit" onclick="javascript:wp_rem_discussion_submit('<?php echo admin_url('admin-ajax.php'); ?>')"><?php echo wp_rem_plugin_text_srt('wp_rem_enquiry_detail_send_msg'); ?></button> 
                                 </div>
                             </div> 
                             <input type="hidden" id="comment_post_ID" value="<?php echo absint($post_id); ?>" name="comment_post_ID">

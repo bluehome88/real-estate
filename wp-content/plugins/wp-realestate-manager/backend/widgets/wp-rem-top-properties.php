@@ -159,7 +159,7 @@ if (!class_exists('wp_rem_top_properties')) {
                         if ($wp_rem_property_price_options == 'price') {
                             $wp_rem_property_price = get_post_meta($property_id, 'wp_rem_property_price', true);
                         } else if ($wp_rem_property_price_options == 'on-call') {
-                            $wp_rem_property_price = 'Price On Request';
+                            $wp_rem_property_price = wp_rem_plugin_text_srt('wp_rem_properties_price_on_request');
                         }
                         ?>
                         <div class="properties-post"> 

@@ -91,12 +91,13 @@ if (!class_exists('post_type_property_viewings')) {
                 case 'status':
                     $status = get_post_meta($post->ID, 'wp_rem_viewing_status', true);
 					$orders_statuses = isset($wp_rem_plugin_options['orders_status']) ? $wp_rem_plugin_options['orders_status'] : '';
-
+					
 					if ( ! empty($orders_statuses) ) {
 						$enquiry_status_options = array();
 						foreach ( $orders_statuses as $orders_status ) {
 							$enquiry_status_options[$orders_status] = $orders_status;
 						}
+						$enquiry_status_options['Closed'] = wp_rem_plugin_text_srt('wp_rem_closed');
 						$wp_rem_opt_array = array(
 							'std' => $status,
 							'id' => 'enquiry_status',
@@ -338,30 +339,67 @@ if (!class_exists('post_type_property_viewings')) {
 // add analytic for order inquiries
 
 add_filter('views_edit-property_viewings', function( $views ) {
-    $args = array(
-        'post_type' => 'property_viewings',
-        'posts_per_page' => "-1",
-    );
-    $custom_query = new WP_Query($args);
+    
     $total_viewings = 0;
     $complete_viewings = 0;
     $processing_viewings = 0;
 	$closed_viewings = 0;
 
-    while ($custom_query->have_posts()) : $custom_query->the_post();
-        global $post;
-        $viewing_status = get_post_meta($post->ID, 'wp_rem_viewing_status', true);
-        if (isset($viewing_status) && !empty($viewing_status)) {
-            if ($viewing_status == 'Completed') {
-                $complete_viewings++;
-            } else if ($viewing_status == 'processing') {
-                $processing_viewings++;
-            } else if ($viewing_status == 'Closed') {
-                $closed_viewings++;
-            }
-        }
-        $total_viewings++;
-    endwhile;
+	$args = array(
+		'post_type' => 'property_viewings',
+		'posts_per_page' => "1",
+		'post_status' => 'publish',
+	);
+	$total_viewings_query = new WP_Query($args);
+	$total_viewings = $total_viewings_query->found_posts;
+	
+	
+	$args = array(
+		'post_type' => 'property_viewings',
+		'posts_per_page' => "1",
+		'post_status' => 'publish',
+		'meta_query' => array(
+			array(
+				'key' => 'wp_rem_viewing_status',
+				'value' => 'Completed',
+				'compare' => '=',
+			),
+		),
+	);
+	$complete_viewings_query = new WP_Query($args);
+	$complete_viewings = $complete_viewings_query->found_posts;
+	
+	$args = array(
+		'post_type' => 'property_viewings',
+		'posts_per_page' => "1",
+		'post_status' => 'publish',
+		'meta_query' => array(
+			array(
+				'key' => 'wp_rem_viewing_status',
+				'value' => 'Processing',
+				'compare' => '=',
+			),
+		),
+	);
+	$processing_viewings_query = new WP_Query($args);
+	$processing_viewings = $processing_viewings_query->found_posts;
+	
+	$args = array(
+		'post_type' => 'property_viewings',
+		'posts_per_page' => "1",
+		'post_status' => 'publish',
+		'meta_query' => array(
+			array(
+				'key' => 'wp_rem_viewing_status',
+				'value' => 'Closed',
+				'compare' => '=',
+			),
+		),
+	);
+	$closed_viewings_query = new WP_Query($args);
+	$closed_viewings = $closed_viewings_query->found_posts;
+	
+	wp_reset_postdata();
     echo '
     <ul class="total-wp-rem-property row">
 	<li class="col-lg-3 col-md-3 col-sm-6 col-xs-12"><div class="wp-rem-text-holder"><strong>' . wp_rem_plugin_text_srt( 'wp_rem_arrange_viewings_total' ) . '</strong><em>' . $total_viewings . '</em><i class="icon-eye2"></i></div></li>

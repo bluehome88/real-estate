@@ -30,7 +30,7 @@ if ( ! defined( 'THEME_TEXT_DOMAIN' ) ) {
  * THEME_OPTIONS_PAGE_SLUG contains theme optinos main page slug
  */
 if ( ! defined( 'THEME_OPTIONS_PAGE_SLUG' ) ) {
-    define( 'THEME_OPTIONS_PAGE_SLUG', 'wp_rem_cs_theme_options_constructor' );
+    define( 'THEME_OPTIONS_PAGE_SLUG', 'wp_rem_settings_page' );
 }
 
 /*
@@ -72,14 +72,14 @@ if ( ! defined( 'DEFAULT_DEMO_DATA_NAME' ) ) {
  * DEFAULT_DEMO_DATA_URL contains the default demo data url used by CS importer
  */
 if ( ! defined( 'DEFAULT_DEMO_DATA_URL' ) ) {
-    define( 'DEFAULT_DEMO_DATA_URL', 'http://rem.chimpgroup.com/wp-content/uploads/' );
+    define( 'DEFAULT_DEMO_DATA_URL', 'http://homevillas.chimpgroup.com/wp-content/uploads/' );
 }
 
 /*
  * DEMO_DATA_URL contains the demo data url used by CS importer
  */
 if ( ! defined( 'DEMO_DATA_URL' ) ) {
-    define( 'DEMO_DATA_URL', 'http://rem.chimpgroup.com/{{{demo_data_name}}}/wp-content/uploads/' );
+    define( 'DEMO_DATA_URL', 'http://homevillas.chimpgroup.com/{{{demo_data_name}}}/wp-content/uploads/' );
 }
 
 /*
@@ -93,7 +93,7 @@ if ( ! defined( 'REMOTE_API_URL' ) ) {
  * ATTACHMENTS_REPLACE_URL contains the URL to be replaced in WP content XML attachments
  */
 if ( ! defined( 'ATTACHMENTS_REPLACE_URL' ) ) {
-    define( 'ATTACHMENTS_REPLACE_URL', 'http://rem.chimpgroup.com/wp-content/uploads/' );
+    define( 'ATTACHMENTS_REPLACE_URL', 'http://homevillas.chimpgroup.com/wp-content/uploads/' );
 }
 
 /*
@@ -131,13 +131,72 @@ if ( ! function_exists( 'get_demo_data_structure' ) ) {
                 'slug' => 'homev4',
                 'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_demo4_label'),
                 'image_url' => 'http://chimpgroup.com/wp-demo/webservice/demo_images/homevillas-real-estate/homev4.jpg',
+            ),
+			'homev5' => array(
+                'slug' => 'homev5',
+                'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_demo5_label'),
+                'image_url' => 'http://chimpgroup.com/wp-demo/webservice/demo_images/homevillas-real-estate/homev5.jpg',
+            ),
+			'homev6' => array(
+                'slug' => 'homev6',
+                'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_demo6_label'),
+                'image_url' => 'http://chimpgroup.com/wp-demo/webservice/demo_images/homevillas-real-estate/homev6.jpg',
+            ),
+			'homev7' => array(
+                'slug' => 'homev7',
+                'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_demo7_label'),
+                'image_url' => 'http://chimpgroup.com/wp-demo/webservice/demo_images/homevillas-real-estate/homev7.jpg',
+            ),
+			'homev8' => array(
+                'slug' => 'homev8',
+                'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_demo8_label'),
+                'image_url' => 'http://chimpgroup.com/wp-demo/webservice/demo_images/homevillas-real-estate/homev8.jpg',
+            ),
+			'homev9' => array(
+                'slug' => 'homev9',
+                'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_demo9_label'),
+                'image_url' => 'http://chimpgroup.com/wp-demo/webservice/demo_images/homevillas-real-estate/homev9.jpg',
+            ),
+			'homev10' => array(
+                'slug' => 'homev10',
+                'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_demo10_label'),
+                'image_url' => 'http://chimpgroup.com/wp-demo/webservice/demo_images/homevillas-real-estate/homev10.jpg',
+            ),
+			'homev11' => array(
+                'slug' => 'homev11',
+                'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_demo11_label'),
+                'image_url' => 'http://chimpgroup.com/wp-demo/webservice/demo_images/homevillas-real-estate/homev11.jpg',
+            ),
+			'homev12' => array(
+                'slug' => 'homev12',
+                'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_demo12_label'),
+                'image_url' => 'http://chimpgroup.com/wp-demo/webservice/demo_images/homevillas-real-estate/homev12.jpg',
+            ),
+			'homev13' => array(
+                'slug' => 'homev13',
+                'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_demo13_label'),
+                'image_url' => 'http://chimpgroup.com/wp-demo/webservice/demo_images/homevillas-real-estate/homev13.jpg',
+            ),
+			'homev14' => array(
+                'slug' => 'homev14',
+                'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_demo14_label'),
+                'image_url' => 'http://chimpgroup.com/wp-demo/webservice/demo_images/homevillas-real-estate/homev14.jpg',
+            ),
+			'homev15' => array(
+                'slug' => 'homev15',
+                'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_demo15_label'),
+                'image_url' => 'http://chimpgroup.com/wp-demo/webservice/demo_images/homevillas-real-estate/homev15.jpg',
+            ),
+			'homev16' => array(
+                'slug' => 'homev16',
+                'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_demo16_label'),
+                'image_url' => 'http://chimpgroup.com/wp-demo/webservice/demo_images/homevillas-real-estate/homev16.jpg',
+            ),
+			'rtl' => array(
+                'slug' => 'rtl',
+                'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_rtl_label'),
+                'image_url' => 'http://chimpgroup.com/wp-demo/webservice/demo_images/homevillas-real-estate/rtl.jpg',
             )
-//			,
-//			'homev5' => array(
-//                'slug' => 'homev5',
-//                'name' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_demo5_label'),
-//                'image_url' => 'http://chimpgroup.com/wp-demo/webservice/demo_images/homevillas-real-estate/homev5.jpg',
-//            ),
 			
         );
         return $demo_data_structure;
@@ -262,15 +321,14 @@ if ( ! function_exists( 'get_plugin_requirements' ) ) {
                 'new_version' => ( true == $have_new_version_wp_realestate_manager ) ? $new_version_wp_realestate_manager : '',
                 'is_installed' => $is_wp_realestate_manager,
             ),
-                'wp_rem_real_estate_framework' => array(
+            'wp_rem_real_estate_framework' => array(
                 'title' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_config_framework_title'),
                 'description' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_config_framework_desc'),
                 'version' => $current_version_cs_wp_rem_real_estate_framework,
                 'new_version' => ( true == $have_new_version_cs_wp_rem_real_estate_framework ) ? $new_version_cs_wp_rem_real_estate_framework : '',
                 'is_installed' => $is_cs_wp_rem_real_estate_framework,
             ),
-
-           'rev_slider' => array(
+			'rev_slider' => array(
                 'title' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_config_rev_slider_title'),
                 'description' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_config_rev_slider_desc'),
                 'version' => $current_version_rev_slider,

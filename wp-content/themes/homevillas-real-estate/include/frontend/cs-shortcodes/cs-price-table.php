@@ -226,7 +226,7 @@ if ( ! function_exists('wp_rem_cs_price_table_item') ) {
                 $price_color = 'style = "color:' . $wp_rem_cs_price_table_title_color . ';"';
             }
             if ( $wp_rem_cs_price_table_price <> '' ) {
-                $wp_rem_cs_var_price_table_item .= '<strong ' . esc_html($price_color) . '><sub>' . wp_rem_cs_allow_special_char($wp_rem_cs_price_table_currency) . '</sub> ' . esc_html($wp_rem_cs_price_table_price) . '</strong>';
+                $wp_rem_cs_var_price_table_item .= '<strong ' . $price_color . '><sub>' . wp_rem_cs_allow_special_char($wp_rem_cs_price_table_currency) . '</sub> ' . esc_html($wp_rem_cs_price_table_price) . '</strong>';
             }
             if ( $wp_rem_cs_price_table_time_duration <> '' ) {
                 $wp_rem_cs_var_price_table_item .= '<span class="per-month">' . esc_html($wp_rem_cs_price_table_time_duration) . '</span>';
@@ -255,7 +255,7 @@ if ( ! function_exists('wp_rem_cs_price_table_item') ) {
             if ( $wp_rem_cs_price_table_price <> '' ) {
                 $wp_rem_cs_var_price_table_item .= esc_html($wp_rem_cs_price_table_price);
             }
-            $wp_rem_cs_var_price_table_item .= '<strong style="color:' . force_balance_tags($wp_rem_cs_price_table_title_color) . '!important;">' . esc_html($wp_rem_cs_price_table_text) . '</strong>';
+            $wp_rem_cs_var_price_table_item .= '<strong style="color:' . ($wp_rem_cs_price_table_title_color) . '!important;">' . esc_html($wp_rem_cs_price_table_text) . '</strong>';
 
             $wp_rem_cs_var_price_table_item .= '</span>';
             $wp_rem_cs_var_price_table_item .= '<div class="advance-duration">  <em>' . esc_html($wp_rem_cs_price_table_time_duration) . '</em></div>';

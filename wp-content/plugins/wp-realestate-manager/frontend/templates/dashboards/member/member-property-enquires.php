@@ -22,7 +22,6 @@ if (!class_exists('Wp_rem_Member_Property_Enquiries')) {
             }
 
             $member_company_id = wp_rem_company_id_form_user_id($member_id);
-            $member_user_type = get_post_meta( $member_company_id, 'wp_rem_member_user_type', true );
             $args = array(
                 'post_type' => 'property_enquiries',
                 'post_status' => 'publish',
@@ -38,7 +37,7 @@ if (!class_exists('Wp_rem_Member_Property_Enquiries')) {
             );
 
             $enquiry_query = new WP_Query($args); 
-            echo force_balance_tags($this->render_view_enquiries($enquiry_query, 'my', $member_user_type));
+            echo force_balance_tags($this->render_view_enquiries($enquiry_query, 'my'));
             wp_reset_postdata();
             wp_die();
         }
@@ -50,7 +49,6 @@ if (!class_exists('Wp_rem_Member_Property_Enquiries')) {
             }
 
             $member_company_id = wp_rem_company_id_form_user_id($member_id);
-            $member_user_type = get_post_meta( $member_company_id, 'wp_rem_member_user_type', true );
             $args = array(
                 'post_type' => 'property_enquiries',
                 'post_status' => 'publish',
@@ -66,16 +64,20 @@ if (!class_exists('Wp_rem_Member_Property_Enquiries')) {
             );
 
             $enquiry_query = new WP_Query($args);
-            echo force_balance_tags($this->render_view_enquiries($enquiry_query, 'received', $member_user_type));
+            echo force_balance_tags($this->render_view_enquiries($enquiry_query, 'received'));
             wp_reset_postdata();
             wp_die();
         }
 
-        public function render_view_enquiries($enquiry_query = '', $type = 'my', $member_user_type = '') {
+        public function render_view_enquiries($enquiry_query = '', $type = 'my') {
+             $has_border = ' has-border';
+             if ($enquiry_query->have_posts()) : 
+                $has_border = '';
+             endif;
             ?>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="row">
-                    <div class="element-title has-border">
+                    <div class="element-title<?php echo wp_rem_allow_special_char($has_border); ?>">
                         <h4><?php echo wp_rem_plugin_text_srt('wp_rem_member_enquiries_recent'); ?></h4>
 
                         <div class="col-lg-6 col-md-6 col-sm-12 pull-right">
@@ -85,13 +87,11 @@ if (!class_exists('Wp_rem_Member_Property_Enquiries')) {
                                     echo 'active';
                                 }
                                 ?>" id="wp_rem_member_enquiries" data-queryvar="dashboard=enquiries"><a href="javascript:void(0);" class="btn-edit-profile"><?php echo wp_rem_plugin_text_srt('wp_rem_member_enquiries_my_enquiries'); ?></a></li>
-                                <?php if( $member_user_type != 'buyer' ){ ?>
                                 <li class="user_dashboard_ajax <?php
                                 if ($type == 'received') {
                                     echo 'active';
                                 }
                                 ?>" id="wp_rem_member_received_enquiries" data-queryvar="dashboard=enquiries_received"><a href="javascript:void(0);"><?php echo wp_rem_plugin_text_srt('wp_rem_member_enquiries_received_enquiries'); ?></a></li>
-                                <?php } ?>
                             </ul>
                         </div>
                     </div>
@@ -158,7 +158,7 @@ if (!class_exists('Wp_rem_Member_Property_Enquiries')) {
                 <li class="<?php echo esc_html($read_unread); ?>">
 
                     <div class="orders-title">
-                        <h6 class="order-title"><a href="javascript:void(0);" onclick="javascript:wp_rem_enquiry_detail('<?php the_ID(); ?>','<?php echo esc_html($type); ?>');"><?php echo wp_trim_words(get_the_title($enquiry_property_id), 6, '...'); ?></a><span>( #<?php echo get_the_ID(); ?> )</span></h6>
+                        <h6 asif class="order-title"><a href="javascript:void(0);" onclick="javascript:wp_rem_enquiry_detail('<?php the_ID(); ?>','<?php echo esc_html($type); ?>');"><?php echo wp_trim_words(get_the_title($enquiry_property_id), 4, '...'); ?></a><span>( #<?php echo get_the_ID(); ?> )</span></h6>
                     </div>
                     <div class="orders-date">
                         <span><?php echo get_the_date('M, d Y'); ?></span>

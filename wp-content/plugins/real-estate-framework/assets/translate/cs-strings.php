@@ -284,18 +284,22 @@ if ( ! class_exists('wp_rem_cs_var_frame_all_strings') ) {
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_header_style'] = __('Choose Header Style', 'wp-rem-frame');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_modern_header'] = __('Modern Header Style', 'wp-rem-frame');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_default_header'] = __('Default header style', 'wp-rem-frame');
-            
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_page_header_view'] = __('Header Style', 'wp-rem-frame');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_page_header_view_default'] = __('Default', 'wp-rem-frame');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_page_header_view_moderm'] = __('Modern', 'wp-rem-frame');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_page_header_view_classic'] = __('Classic', 'wp-rem-frame');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_page_header_view_fancy'] = __('Fancy', 'wp-rem-frame');
-            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_page_header_view_default_v2'] = __('Default v2', 'wp-rem-frame');
+            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_page_header_view_default_v2'] = __('Default V2', 'wp-rem-frame');
+            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_page_header_view_advance'] = __('Advance', 'wp-rem-frame');
+            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_page_header_view_advance_v2'] = __('Advance V2', 'wp-rem-frame');
+            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_page_header_view_modern_v2'] = __('Modern V2', 'wp-rem-frame');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_side_bar'] = __('Select Sidebar', 'wp-rem-frame');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_choose_sidebar'] = __('Choose Sidebar', 'wp-rem-frame');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_page_margin'] = __('Page Margin', 'wp-rem-frame');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_page_container'] = __('Page Container', 'wp-rem-frame');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_page_hide_header_footer'] = __('Hide Header Footer', 'wp-rem-frame');
+            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_page_hide_header'] = __('Hide Header', 'wp-rem-frame');
+            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_page_hide_footer'] = __('Hide Footer', 'wp-rem-frame');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_page_bg_color'] = __('Page Background Color', 'wp-rem-frame');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_page_bg_color_hint'] = __('Please Select Page Background Color', 'wp-rem-frame');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_sidebar_hint'] = __('Choose sidebar layout for this post.', 'wp-rem-frame');
@@ -624,6 +628,7 @@ if ( ! class_exists('wp_rem_cs_var_frame_all_strings') ) {
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_maintenance_save_settings'] = __('Save Settings', 'wp-rem-frame');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_maintenance_select_page'] = __('Select A page', 'wp-rem-frame');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_maintenance_newsletter'] = __('Newsletter ', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_cs_var_maintenance_newsletter_sign_up'] = __('Sign Up! ', 'wp-rem-frame');
             /*
               tabs */
 
@@ -811,9 +816,51 @@ if ( ! class_exists('wp_rem_cs_var_frame_all_strings') ) {
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_newsletter_email_id'] = esc_html__('Enter Your Email ID', 'homevillas-real-estate');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_newsletter_subscribe'] = esc_html__('Subscribe', 'homevillas-real-estate');
             
-            
-            
-
+            // Google Fonts
+			$wp_rem_cs_var_frame_static_text['wp_rem_cs_var_fonts_menu_label'] = esc_html__('CS Fonts Manager', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_cs_var_google_fonts_label'] = esc_html__('Google Fonts', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_cs_var_custom_fonts_label'] = esc_html__('Custom Fonts', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_cs_var_refresh_fonts_list'] = esc_html__('Refresh Google Fonts List', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_cs_var_new_fonts_added'] = esc_html__('%s new fonts added.', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_cs_var_fonts_added_error'] = esc_html__('Fonts could not be downloaded as there might be some issue with file_get_contents or wp_remote_get due to your server configuration.', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_cs_var_select_font_attributes'] = esc_html__('Select Attribute', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_cs_var_search_font'] = esc_html__('Serach font...', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_cs_var_google_fonts_is_added'] = esc_html__('Font is added in font list.', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_cs_var_google_fonts_is_deleted'] = esc_html__('Font is deleted in font list.', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_cs_var_google_fonts_is_updated'] = esc_html__('Font is updated in font list.', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_cs_var_are_you_sure_remove_font'] = esc_html__('Are you sure you want to remove this font?', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_cs_var_google_fonts_page_is_loading'] = esc_html__('Please wait, Page is reloading.', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_cs_var_google_fonts_added_in_list'] = esc_html__('Added in List', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_cs_var_google_fonts_add_to_list'] = esc_html__('Add to List', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_cs_var_your_selected_google_fonts'] = esc_html__('Your Selected Google Fonts', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_cs_var_not_font_search'] = esc_html__('Sorry! there are no font families that match. Try with other search keyword', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_cs_var_seems_dont_have_font'] = esc_html__('It seems you don\'t have any Google Fonts yet. But you can download them now with', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_cs_google_font_just_click'] = esc_html__('just a click', 'wp-rem-frame');
+			/*
+             * Custom Font
+             */
+            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_browse'] = esc_html__('Browse', 'wp-rem-frame');
+            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_theme_option_custom_font_name'] = esc_html__('Font Name', 'wp-rem-frame');
+            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_theme_option_custom_font_woff'] = esc_html__('Custom Font .woff', 'wp-rem-frame');
+            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_theme_option_custom_font_woff_hint'] = esc_html__('Upload Your Custom Font file in .woff format', 'wp-rem-frame');
+            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_theme_option_custom_font_ttf'] = esc_html__('Custom Font .ttf', 'wp-rem-frame');
+            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_theme_option_custom_font_ttf_hint'] = esc_html__('Upload Your Custom Font file in .ttf format', 'wp-rem-frame');
+            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_theme_option_custom_font_svg'] = esc_html__('Custom Font .svg', 'wp-rem-frame');
+            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_theme_option_custom_font_svg_hint'] = esc_html__('Upload Your Custom Font file in .svg format', 'wp-rem-frame');
+            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_theme_option_custom_font_eot'] = esc_html__('Custom Font .eot', 'wp-rem-frame');
+            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_theme_option_custom_font_eot_hint'] = esc_html__('Upload Your Custom Font file in .eot format', 'wp-rem-frame');
+            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_theme_option_custom_fonts'] = esc_html__('Custom Fonts', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_cs_var_add_custom_fonts_list'] = esc_html__('+ Add to Custom Fonts List', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_custom_fonts_fields_empty'] = esc_html__('Please fill all mandatory fields.', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_selected_custom_fonts_is_deleted'] = esc_html__('Selected custom font is deleted in custom font list.', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_custom_fonts_is_deleted'] = esc_html__('Custom font is deleted in custom font list.', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_add_new_custom_font'] = esc_html__('Add new Custom Font', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_add_to_selected_custom_fonts'] = esc_html__('Add to List', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_add_in_selected_custom_fonts'] = esc_html__('Added in List', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_your_selected_custom_fonts'] = esc_html__('Your Selected Custom Fonts', 'wp-rem-frame');
+			
+			$wp_rem_cs_var_frame_static_text['wp_rem_google_font_attr_select_all'] = esc_html__('Select All', 'wp-rem-frame');
+			$wp_rem_cs_var_frame_static_text['wp_rem_google_font_attr_unselect_all'] = esc_html__('Un-Select All', 'wp-rem-frame');
 
             return $wp_rem_cs_var_frame_static_text;
         }

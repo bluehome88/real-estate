@@ -56,7 +56,7 @@ function extra_user_profile_fields( $user ) {
                     'supper-admin' => wp_rem_plugin_text_srt( 'wp_rem_meta_supper_admin' ),
                     'team-member' => wp_rem_plugin_text_srt( 'wp_rem_meta_team_member' ),
                 );
-                $post_company_args=array('post_type'=>'members','posts_per_page'=>'-1','post_status'=>'publish');
+                $post_company_args=array('post_type' => 'members', 'posts_per_page' => '-1', 'post_status' => 'publish', 'orderby' => 'title', 'order' => 'ASC' );
                 $loop= new wp_query( $post_company_args);
                 $options=array();
                 while($loop->have_posts()){
@@ -66,7 +66,7 @@ function extra_user_profile_fields( $user ) {
                 }
                 wp_reset_postdata();
                
-         $selected_user_company = get_user_meta(  $user->ID, 'wp_rem_company',true);
+				$selected_user_company = get_user_meta(  $user->ID, 'wp_rem_company',true);
                 $wp_rem_opt_array = array(
                     'std' => $selected_user_company,
                     'id' => 'company',
@@ -92,10 +92,6 @@ function save_extra_user_profile_fields( $user_id ) {
         return;
     }
     $member_id     = isset( $_POST['wp_rem_company'] ) ? $_POST['wp_rem_company'] : '';
-    $user_type      = get_post_meta( $member_id, 'wp_rem_member_user_type', true );
-    if( $user_type == 'buyer' ){
-        update_user_meta( $user_id, 'wp_rem_permissions', $buyer_permissions );
-    }
     $data = array();
     if ( isset( $_POST['profile_approved'] ) ) {
         $wpdb->update(

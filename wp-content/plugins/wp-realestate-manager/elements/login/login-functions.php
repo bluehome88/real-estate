@@ -155,7 +155,6 @@ if ( ! function_exists('wp_rem_registration_validation') ) {
             $id = isset($_POST['id']) ? $_POST['id'] : ''; //rand id 
             $username = isset($_POST['user_login' . $id]) ? $_POST['user_login' . $id] : '';
             $profile_type = isset($_POST['wp_rem_profile_type' . $id]) ? $_POST['wp_rem_profile_type' . $id] : '';
-            $member_user_type = isset($_POST['wp_rem_member_user_type' . $id]) ? $_POST['wp_rem_member_user_type' . $id] : 'reseller';
             $member_type = isset($_POST['wp_rem_member_type' . $id]) ? $_POST['wp_rem_member_type' . $id] : '';
             $email = isset($_POST['wp_rem_user_email' . $id]) ? $_POST['wp_rem_user_email' . $id] : '';
             $password = isset($_POST['wp_rem_user_password' . $id]) ? $_POST['wp_rem_user_password' . $id] : '';
@@ -178,7 +177,7 @@ if ( ! function_exists('wp_rem_registration_validation') ) {
                 echo json_encode($json);
                 exit();
             }
-            if ( ! empty($profile_type) && $profile_type == 'company' && $member_user_type == 'reseller' && !empty($member_title) && !empty($member_value)) {
+            if ( ! empty($profile_type) && $profile_type == 'company' && !empty($member_title) && !empty($member_value)) {
                 if ( empty($member_type) ) {
                     $json['type'] = "error";
                     $json['msg'] = wp_rem_plugin_text_srt( 'wp_rem_login_select_type' );
@@ -212,13 +211,7 @@ if ( ! function_exists('wp_rem_registration_validation') ) {
             $json['type'] = "error";
             $json['msg'] = wp_rem_plugin_text_srt( 'wp_rem_login_type_error' );
         }
-        if ( ( ! empty($profile_type) && $profile_type == 'individual') || $member_user_type == 'buyer' ) {
-            if ( $display_name == NULL ) {
-                $json['type'] = "error";
-                $json['msg'] = wp_rem_plugin_text_srt( 'wp_rem_login_display_name_error' );
-            }
-        }
-        if ( ! empty($profile_type) && $profile_type == 'company' && $member_user_type == 'reseller' ) {
+        if ( ! empty($profile_type) && $profile_type == 'company' ) {
             if ( $company_name == NULL ) {
                 $json['type'] = "error";
                 $json['msg'] = wp_rem_plugin_text_srt( 'wp_rem_login_company_name_error' );
@@ -305,14 +298,8 @@ if ( ! function_exists('wp_rem_registration_validation') ) {
                 } else {
                     update_post_meta($company_ID, 'wp_rem_member_profile_type', 'company');
                 }
-                update_post_meta($company_ID, 'wp_rem_user_status', 'active');
                 update_post_meta($company_ID, 'wp_rem_member_type', $member_type);
-                if ( isset($member_user_type) && $member_user_type != '' ) {
-                    update_post_meta($company_ID, 'wp_rem_member_user_type', $member_user_type);
-                    if ( $member_user_type == 'buyer' ) {
-                        update_user_meta($status, 'wp_rem_permissions', $buyer_permissions);
-                    }
-                }
+                update_post_meta($company_ID, 'wp_rem_member_user_type', 'reseller' );
             }
             update_user_meta($status, 'wp_rem_company', $company_ID);
 
@@ -356,14 +343,16 @@ if ( ! function_exists('wp_rem_registration_validation') ) {
 
                 if ( isset($wp_rem_plugin_options['wp_rem_member_review_option']) && $wp_rem_plugin_options['wp_rem_member_review_option'] == 'on' ) {
                     $wpdb->update(
-                            $wpdb->prefix . 'users', array( 'user_status' => 1 ), array( 'ID' => esc_sql($status) )
+                        $wpdb->prefix . 'users', array( 'user_status' => 1 ), array( 'ID' => esc_sql($status) )
                     );
                     update_user_meta($status, 'profile_approved', 1);
+					update_post_meta($company_ID, 'wp_rem_user_status', 'active');
                 } else {
                     $wpdb->update(
-                            $wpdb->prefix . 'users', array( 'user_status' => 0 ), array( 'ID' => esc_sql($status) )
+                        $wpdb->prefix . 'users', array( 'user_status' => 0 ), array( 'ID' => esc_sql($status) )
                     );
                     update_user_meta($status, 'profile_approved', 0);
+					update_post_meta($company_ID, 'wp_rem_user_status', 'pending');
                 }
             }
             update_user_meta($status, 'wp_rem_user_last_activity_date', strtotime(date('d-m-Y')));

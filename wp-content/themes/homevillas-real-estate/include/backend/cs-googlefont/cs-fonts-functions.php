@@ -155,20 +155,6 @@ if ( ! function_exists('wp_rem_cs_var_is_fonts_loaded') ) {
 
 		$wp_rem_cs_var_options = get_option('wp_rem_cs_var_options');
 
-//		if (
-//				( isset($wp_rem_cs_var_options['wp_rem_cs_var_custom_font_woff']) && $wp_rem_cs_var_options['wp_rem_cs_var_custom_font_woff'] <> '' ) &&
-//				( isset($wp_rem_cs_var_options['wp_rem_cs_var_custom_font_ttf']) && $wp_rem_cs_var_options['wp_rem_cs_var_custom_font_ttf'] <> '' ) &&
-//				( isset($wp_rem_cs_var_options['wp_rem_cs_var_custom_font_svg']) && $wp_rem_cs_var_options['wp_rem_cs_var_custom_font_svg'] <> '' ) &&
-//				( isset($wp_rem_cs_var_options['wp_rem_cs_var_custom_font_eot']) && $wp_rem_cs_var_options['wp_rem_cs_var_custom_font_eot'] <> '' )
-//		):
-//
-//			$custom_font = true;
-//		else :
-//			$custom_font = false;
-//		endif;
-		
-		//if ( $custom_font !== true ) {
-			// font family
 			$return_array = array();
 			
 			$wp_rem_cs_var_content_font = '';
@@ -230,6 +216,11 @@ if ( ! function_exists('wp_rem_cs_var_is_fonts_loaded') ) {
 				$wp_rem_cs_var_section_title_font = (isset($wp_rem_cs_var_options['wp_rem_cs_var_section_title_font'])) ? $wp_rem_cs_var_options['wp_rem_cs_var_section_title_font'] : '';
 			}
 			
+			$element_title_custom_font_html = wp_rem_cs_var_load_custom_fonts('element_title_font');
+			if ( $element_title_custom_font_html == '' ) {
+				$wp_rem_cs_var_element_title_font = (isset($wp_rem_cs_var_options['wp_rem_cs_var_element_title_font'])) ? $wp_rem_cs_var_options['wp_rem_cs_var_element_title_font'] : '';
+			}
+			
 			$post_title_custom_font_html = wp_rem_cs_var_load_custom_fonts('post_title_font');
 			if ( $post_title_custom_font_html == '' ) {
 				$wp_rem_cs_var_post_title_font = (isset($wp_rem_cs_var_options['wp_rem_cs_var_post_title_font'])) ? $wp_rem_cs_var_options['wp_rem_cs_var_post_title_font'] : '';
@@ -260,6 +251,7 @@ if ( ! function_exists('wp_rem_cs_var_is_fonts_loaded') ) {
 				$wp_rem_cs_var_heading5_font,
 				$wp_rem_cs_var_heading6_font,
 				$wp_rem_cs_var_section_title_font,
+				$wp_rem_cs_var_element_title_font,
 				$wp_rem_cs_var_page_title_font,
 				$wp_rem_cs_var_post_title_font,
 				$wp_rem_cs_var_widget_heading_font,
@@ -288,16 +280,18 @@ if ( ! function_exists('wp_rem_cs_var_is_fonts_loaded') ) {
 if ( ! function_exists('wp_rem_cs_var_get_font_families') ) {
 
 	function wp_rem_cs_var_get_font_families($font_indexes = array()) {
-
-		global $fonts, $wp_rem_cs_var_fonts_subsets;
-
-		if ( get_option('wp_rem_cs_var_font_list') <> '' && get_option('wp_rem_cs_var_font_attribute') <> '' ) {
-			$font_attribute = get_option('wp_rem_cs_var_font_attribute');
-		} else {
-			$font_attribute = wp_rem_cs_var_font_attribute($fonts);
+		$fonts = $font_attribute = $wp_rem_cs_var_fonts_subsets = '';
+		
+		if (class_exists('wp_rem_google_fonts_admin_frontend')) {
+			$fonts_admin_frontend = new wp_rem_google_fonts_admin_frontend();
+			$fonts =  $fonts_admin_frontend->wp_rem_added_google_fonts(true);
+			$font_attribute = $fonts_admin_frontend->wp_rem_added_google_fonts_attributes(true);
 		}
-		$fonts = wp_rem_cs_var_googlefont_list();
-
+		if (class_exists('wp_rem_google_fonts_admin_frontend')) {
+			$fonts_frontend = new wp_rem_google_fonts_frontend();
+			$wp_rem_cs_var_fonts_subsets = $fonts_frontend->wp_rem_added_google_fonts_subsets();
+		}
+		
 		$all_att = '';
 		$wp_rem_cs_var_subs = '';
 		$families_get = array();
@@ -464,6 +458,46 @@ if ( ! function_exists('wp_rem_cs_var_font_font_print') ) {
 
 }
 
+/**
+ * @Printing Font on Frontend
+ *
+ */
+if ( ! function_exists('wp_rem_selected_google_font_print') ) {
+
+	function wp_rem_selected_google_font_print($atts = '', $size = '12', $line_height = '20', $f_name, $imp = false) {
+		if (class_exists('wp_rem_google_fonts_frontend')) {
+			$fonts_frontend = new wp_rem_google_fonts_frontend();
+			return $fonts_frontend->wp_rem_selected_google_font_print_frontend( $atts, $size, $line_height, $f_name, $imp );
+		}
+	}
+
+}
+
+
+
+
+if ( ! function_exists('wp_rem_cs_var_custom_font_name') ) {
+
+	function wp_rem_cs_var_custom_font_name( $key = '' ) {
+		$wp_rem_cs_var_options = get_option('wp_rem_cs_var_options');
+		$font_name_html = '';
+		
+		if( $key != '' ){
+			$content_font_type = (isset( $wp_rem_cs_var_options['wp_rem_cs_var_'. $key .'_type'] )) ? $wp_rem_cs_var_options['wp_rem_cs_var_'. $key .'_type'] : '';
+			$wp_rem_custom_fonts = isset($wp_rem_cs_var_options['wp_rem_custom_fonts']) ? $wp_rem_cs_var_options['wp_rem_custom_fonts'] : '';
+			if( $content_font_type == 'custom_fonts' && is_array($wp_rem_custom_fonts) && !empty($wp_rem_custom_fonts)){
+				$custom_content_font_key = (isset( $wp_rem_cs_var_options['wp_rem_cs_var_custom_'. $key .''] )) ? $wp_rem_cs_var_options['wp_rem_cs_var_custom_'. $key .''] : '';
+				if( $custom_content_font_key != '' ){
+					$font_name = isset($wp_rem_custom_fonts['name'][$custom_content_font_key]) ? $wp_rem_custom_fonts['name'][$custom_content_font_key] : '';
+					if( $font_name != '' ){
+						$font_name_html = 'font-family: '. $font_name .' !important;';
+					}
+				}
+			}
+		}
+		return $font_name_html;
+	}
+}
 
 if ( ! function_exists('wp_rem_cs_var_load_custom_fonts') ) {
 
@@ -477,23 +511,25 @@ if ( ! function_exists('wp_rem_cs_var_load_custom_fonts') ) {
 
 			if( $content_font_type == 'custom_fonts' && is_array($wp_rem_custom_fonts) && !empty($wp_rem_custom_fonts)){
 				$custom_content_font_key = (isset( $wp_rem_cs_var_options['wp_rem_cs_var_custom_'. $key .''] )) ? $wp_rem_cs_var_options['wp_rem_cs_var_custom_'. $key .''] : '';
+				$custom_content_font_weight = (isset( $wp_rem_cs_var_options['wp_rem_cs_var_custom_'. $key .'_weight'] )) ? $wp_rem_cs_var_options['wp_rem_cs_var_custom_'. $key .'_weight'] : '400';
 				if( $custom_content_font_key != '' ){
+					$font_name = isset($wp_rem_custom_fonts['name'][$custom_content_font_key]) ? $wp_rem_custom_fonts['name'][$custom_content_font_key] : '';
 					$font_woff = isset($wp_rem_custom_fonts['woff'][$custom_content_font_key]) ? $wp_rem_custom_fonts['woff'][$custom_content_font_key] : '';
 					$font_ttf = isset($wp_rem_custom_fonts['ttf'][$custom_content_font_key]) ? $wp_rem_custom_fonts['ttf'][$custom_content_font_key] : '';
 					$font_svg = isset($wp_rem_custom_fonts['svg'][$custom_content_font_key]) ? $wp_rem_custom_fonts['svg'][$custom_content_font_key] : '';
 					$font_eot = isset($wp_rem_custom_fonts['eot'][$custom_content_font_key]) ? $wp_rem_custom_fonts['eot'][$custom_content_font_key] : '';
 
-					if (( isset( $font_woff ) && $font_woff != '' ) && ( isset( $font_woff ) && $font_woff != '' ) && ( isset( $font_woff ) && $font_woff != '' ) && ( isset( $font_woff ) && $font_woff != '' ) ){
+					if (( isset( $font_woff ) && $font_woff != '' ) && ( isset( $font_ttf ) && $font_ttf != '' ) && ( isset( $font_svg ) && $font_svg != '' ) && ( isset( $font_eot ) && $font_eot != '' ) ){
 						$font_face_html = "
 						@font-face {
-						font-family: 'wp_rem_cs_var_custom_". $key ."';
+						font-family: '". $font_name ."';
 						src: url('" . $font_eot . "');
 						src:
 						url('" . $font_eot . "?#iefix') format('eot'),
 						url('" . $font_woff . "') format('woff'),
-						url('" . $font_svg . "') format('truetype'),
+						url('" . $font_ttf . "') format('truetype'),
 						url('" . $font_svg . "#wp_rem_cs_var_custom_font') format('svg');
-						font-weight: 400;
+						font-weight: ". $custom_content_font_weight ." !important;
 						font-style: normal;
 						}";
 					}
@@ -502,6 +538,33 @@ if ( ! function_exists('wp_rem_cs_var_load_custom_fonts') ) {
 		}
 		return $font_face_html;
 	}
+}
 
+if ( ! function_exists('wp_rem_cs_var_load_custom_font_weight') ) {
+
+	function wp_rem_cs_var_load_custom_font_weight( $key = '' ) {
+		$wp_rem_cs_var_options = get_option('wp_rem_cs_var_options');
+		$custom_font_weight = '';
+		
+		if( $key != '' ){
+			$content_font_type = (isset( $wp_rem_cs_var_options['wp_rem_cs_var_'. $key .'_type'] )) ? $wp_rem_cs_var_options['wp_rem_cs_var_'. $key .'_type'] : '';
+			$wp_rem_custom_fonts = isset($wp_rem_cs_var_options['wp_rem_custom_fonts']) ? $wp_rem_cs_var_options['wp_rem_custom_fonts'] : '';
+
+			if( $content_font_type == 'custom_fonts' && is_array($wp_rem_custom_fonts) && !empty($wp_rem_custom_fonts)){
+				$custom_content_font_key = (isset( $wp_rem_cs_var_options['wp_rem_cs_var_custom_'. $key .''] )) ? $wp_rem_cs_var_options['wp_rem_cs_var_custom_'. $key .''] : '';
+				$custom_content_font_weight = (isset( $wp_rem_cs_var_options['wp_rem_cs_var_custom_'. $key .'_weight'] )) ? $wp_rem_cs_var_options['wp_rem_cs_var_custom_'. $key .'_weight'] : '400';
+				if( $custom_content_font_key != '' ){
+					$font_woff = isset($wp_rem_custom_fonts['woff'][$custom_content_font_key]) ? $wp_rem_custom_fonts['woff'][$custom_content_font_key] : '';
+					$font_ttf = isset($wp_rem_custom_fonts['ttf'][$custom_content_font_key]) ? $wp_rem_custom_fonts['ttf'][$custom_content_font_key] : '';
+					$font_svg = isset($wp_rem_custom_fonts['svg'][$custom_content_font_key]) ? $wp_rem_custom_fonts['svg'][$custom_content_font_key] : '';
+					$font_eot = isset($wp_rem_custom_fonts['eot'][$custom_content_font_key]) ? $wp_rem_custom_fonts['eot'][$custom_content_font_key] : '';
+
+					if (( isset( $font_woff ) && $font_woff != '' ) && ( isset( $font_woff ) && $font_woff != '' ) && ( isset( $font_woff ) && $font_woff != '' ) && ( isset( $font_woff ) && $font_woff != '' ) ){
+						echo 'font-weight: ' . $custom_content_font_weight . ' !important;';
+					}
+				}
+			}
+		}
+	}
 }
 

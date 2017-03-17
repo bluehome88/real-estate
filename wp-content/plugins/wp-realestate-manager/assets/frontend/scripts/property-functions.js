@@ -32,6 +32,82 @@ function top_map_change_cords(counter) {
     }
 }
 
+jQuery(document).on('change', '.dev-property-list-enquiry-check', function () {
+    var _this = $(this);
+    var _this_id = _this.attr('data-id');
+    var pop_buton = $('#prop-enquiry-pop-list-box');
+    var _appending_inp = $('#prop-enquiry-list-all');
+    if (_this.is(":checked")) {
+        if (_appending_inp.val() == '') {
+            _appending_inp.val(_this_id);
+        } else {
+            var new_val = _appending_inp.val() + ',' + _this_id;
+            _appending_inp.val(new_val);
+        }
+    } else {
+        if (_appending_inp.val() != '') {
+            var strVal = _appending_inp.val();
+            var dataArray = strVal.split(",");
+            var valIndex = dataArray.indexOf(_this_id);
+            if (valIndex > -1) {
+                dataArray.splice(valIndex, 1);
+                strVal = dataArray.join(',');
+            }
+            _appending_inp.val(strVal);
+        }
+    }
+    if (_appending_inp.val() != '') {
+        pop_buton.show();
+    } else {
+        pop_buton.hide();
+    }
+    pop_buton.find('#wp_rem_property_id').val(_appending_inp.val());
+});
+
+jQuery(document).on('click', '.dev-prop-notes-login', function () {
+    $('#sign-in').modal('show');
+    $('#sign-in').find('div[id^="user-login-tab-"]').addClass('active in');
+    $('#sign-in').find('div[id^="user-register-"]').removeClass('active in');
+});
+
+jQuery(document).on('click', '.submit-prop-notes', function () {
+    var ajax_url = wp_rem_globals.ajax_url;
+    var that = $(this);
+    var prop_id = $(this).data('id');
+    var prop_notes = $('#prop-notes-' + prop_id).find('textarea').val();
+
+    var prop_note_btn = $('#property-note-' + prop_id);
+
+    if (prop_notes != '') {
+        that.prop('disabled', true);
+        var thisObj = $('#prop-notes-' + prop_id).find(".submit-prop-notes-btn");
+        wp_rem_show_loader("#prop-notes-" + prop_id + " .submit-prop-notes-btn", "", "button_loader", thisObj);
+        var data_vals = 'adding_notes=true&prop_id=' + prop_id + '&prop_notes=' + prop_notes + '&action=wp_rem_adding_property_notes';
+        $.ajax({
+            url: ajax_url,
+            method: "POST",
+            data: data_vals,
+            dataType: "json"
+        }).done(function (response) {
+            wp_rem_show_response(response, '', thisObj);
+            that.prop('disabled', false);
+            if (response.type == 'success') {
+                $('#prop-notes-' + prop_id).find('textarea').val('');
+                $('#prop-notes-' + prop_id).modal('toggle');
+                prop_note_btn.removeAttr('data-toggle');
+                prop_note_btn.removeAttr('data-target');
+                prop_note_btn.removeAttr('href');
+                var new_html = prop_note_btn.attr('data-afterlabel') + ' ' + '<i class="' + prop_note_btn.attr('data-aftericon') + '"></i>';
+                prop_note_btn.html(new_html);
+            }
+        }).fail(function () {
+            that.prop('disabled', false);
+        });
+    } else {
+        alert(wp_rem_globals.some_txt_error);
+    }
+});
+
 jQuery(document).ready(function () {
     jQuery(function () {
         var $checkboxes = jQuery("input[type=checkbox]");
@@ -43,15 +119,28 @@ jQuery(document).ready(function () {
         });
     });
 });
-function wp_rem_property_content(counter) {
+
+function wp_rem_property_content(counter, view_type, animate_to) {
     //"use strict";
-    counter = counter || '';     
+
+    counter = counter || '';
+    animate_to = animate_to || '';
+    var view_type = view_type || '';
     // move to top when search filter apply
-    jQuery('html, body').animate({
-        scrollTop: jQuery("#wp-rem-property-content-" + counter).offset().top - 120
-    }, 700);
+
+    if (animate_to != 'false') {
+        jQuery('html, body').animate({
+            scrollTop: jQuery("#wp-rem-property-content-" + counter).offset().top - 120
+        }, 700);
+    }
     var property_arg = jQuery("#property_arg" + counter).html();
     var this_frm = jQuery("#frm_property_arg" + counter);
+
+
+    var split_map = jQuery(".wp-rem-split-map-wrap").size();
+    if (split_map > 0) {
+        view_type = 'split_map';
+    }
 
     var ads_list_count = jQuery("#ads_list_count_" + counter).val();
     var ads_list_flag = jQuery("#ads_list_flag_" + counter).val();
@@ -70,7 +159,7 @@ function wp_rem_property_content(counter) {
             // top map
             top_map_change_cords(counter);
         }
-       
+
         jQuery('#Property-content-' + counter + ' .property').addClass('slide-loader');
         jQuery('#wp-rem-data-property-content-' + counter + ' .slide-loader-holder').addClass('slide-loader');
         if (typeof (propertyFilterAjax) != 'undefined') {
@@ -80,7 +169,7 @@ function wp_rem_property_content(counter) {
             type: 'POST',
             dataType: 'HTML',
             url: wp_rem_globals.ajax_url,
-            data: data_vals + '&action=wp_rem_properties_content&property_arg=' + property_arg,
+            data: data_vals + '&action=wp_rem_properties_content&view_type=' + view_type + '&property_arg=' + property_arg,
             success: function (response) {
                 jQuery('body').removeClass('wp-rem-changing-view');
                 jQuery('#Property-content-' + counter).html(response);
@@ -100,6 +189,18 @@ function wp_rem_property_content(counter) {
                         $(this).load();
                 });
                 // add class when image loaded
+                if ($(".property-grid").hasClass("modern") == false) {
+                    if ($(".property-grid, .blog.blog-grid .blog-post, .member-grid .post-inner-member").length > 0) {
+                        $(".property-grid, .blog.blog-grid .blog-post, .member-grid .post-inner-member").matchHeight();
+                    }
+                } else {
+                    $(".property-grid.modern .text-holder").matchHeight();
+                }
+                if ($(".property-grid.modern .post-title, .property-grid.modern .price-holder").length > 0) {
+                    $(".property-grid.modern .post-title").matchHeight();
+                    $(".property-grid.modern .price-holder").matchHeight();
+                }
+
             }
         });
     }
@@ -118,7 +219,7 @@ function wp_rem_property_content_without_filters(counter, page_var, page_num, aj
         type: 'POST',
         dataType: 'HTML',
         url: wp_rem_globals.ajax_url,
-        data: data_vals + '&action=wp_rem_properties_content&view_type='+view_type+'&property_arg=' + property_arg,
+        data: data_vals + '&action=wp_rem_properties_content&view_type=' + view_type + '&property_arg=' + property_arg,
         success: function (response) {
             jQuery('#Property-content-' + counter).html(response);
             // Replace double & from string.
@@ -282,28 +383,58 @@ function wp_rem_property_type_search_fields(thisObj, counter, price_switch) {
     });
 }
 
-function wp_rem_property_type_cate_fields(thisObj, counter, cats_switch) {
+function wp_rem_property_type_price_type_field(thisObj, counter, price_type_switch, view, color) {
     "use strict";
+    if (typeof view === 'undefined') {
+        view = 'default';
+    }
+    if (typeof color === 'undefined') {
+        color = 'none';
+    }
+    var cate_loader = '<strong class="search_title">' + wp_rem_property_functions_string.price_type + '</strong><b class="spinner-label">' + wp_rem_property_functions_string.all + '</b><span class="cate-spinning"><i class="icon-spinner"></i></span>';
+    jQuery('#property_type_price_type_field_' + counter).html(cate_loader);
+    jQuery.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: wp_rem_globals.ajax_url,
+        data: '&action=wp_rem_property_type_price_type_field&property_short_counter=' + counter + '&property_type_slug=' + thisObj.value + '&view=' + view + '&price_type_switch=' + price_type_switch,
+        success: function (response) {
+            jQuery('#property_type_price_type_field_' + counter).html('');
+            jQuery('#property_type_price_type_field_' + counter).html(response.html);
+        }
+    });
+}
+
+function wp_rem_property_type_cate_fields(thisObj, counter, cats_switch, view, color) {
+    "use strict";
+    if (typeof view === 'undefined') {
+        view = 'default';
+    }
+    if (typeof color === 'undefined') {
+        color = 'none';
+    }
     var cate_loader = '<b class="spinner-label">' + wp_rem_property_functions_string.property_type + '</b><span class="cate-spinning"><i class="icon-spinner"></i></span>';
     jQuery('#property_type_cate_fields_' + counter).html(cate_loader);
     jQuery.ajax({
         type: 'POST',
         dataType: 'json',
         url: wp_rem_globals.ajax_url,
-        data: '&action=wp_rem_property_type_cate_fields&property_short_counter=' + counter + '&property_type_slug=' + thisObj.value + '&cats_switch=' + cats_switch,
+        data: '&action=wp_rem_property_type_cate_fields&property_short_counter=' + counter + '&property_type_slug=' + thisObj.value + '&view=' + view + '&color=' + color + '&cats_switch=' + cats_switch,
         success: function (response) {
             jQuery('#property_type_cate_fields_' + counter).html('');
             jQuery('#property_type_cate_fields_' + counter).html(response.html);
         }
     });
-} 
+}
+
 function wp_rem_empty_loc_polygon(counter) {
     if (jQuery("#frm_property_arg" + counter + " input[name=loc_polygon_path]").length) {
         jQuery("#frm_property_arg" + counter + " input[name=loc_polygon_path]").val('');
     }
 }
-function wp_rem_property_view_switch(view, counter, property_short_counter) {
+function wp_rem_property_view_switch(view, counter, property_short_counter, view_type) {
     "use strict";
+    var view_type = view_type || '';
     jQuery.ajax({
         type: 'POST',
         dataType: 'HTML',
@@ -312,7 +443,7 @@ function wp_rem_property_view_switch(view, counter, property_short_counter) {
         success: function () {
             jQuery('[data-toggle="popover"]').popover();
             jQuery('body').addClass('wp-rem-changing-view');
-            wp_rem_property_content(counter);
+            wp_rem_property_content(counter, view_type);
         }
     });
 }
@@ -326,7 +457,7 @@ function wp_rem_property_pagenation_ajax(page_var, page_num, counter, ajax_filte
     if (ajax_filter == 'false') {
         wp_rem_property_content_without_filters(counter, page_var, page_num, ajax_filter, view_type);
     } else {
-        wp_rem_property_content(counter);
+        wp_rem_property_content(counter, view_type);
     }
 }
 
@@ -367,4 +498,33 @@ function wp_rem_search_features(element, counter) {
     } else {
         jQuery('#property_type_fields_' + counter + ' .features-list .advance-trigger').find('i').removeClass(expand_class).addClass('icon-plus')
     }
+}
+function wp_rem_property_hide(thisObj, property_id, member_id, property_short_counter) {
+
+    "use strict";
+    var hide_icon_class = jQuery(thisObj).find("i").attr('class');
+    var loader_class = 'icon-spinner icon-spin';
+    jQuery(thisObj).find("i").removeClass(hide_icon_class).addClass(loader_class);
+    var dataString = 'property_id=' + property_id + '&member_id=' + member_id + '&action=wp_rem_property_hide_submit&property_short_counter=' + property_short_counter;
+            jQuery.ajax({
+                type: "POST",
+                url: wp_rem_globals.ajax_url,
+                data: dataString,
+                dataType: "json",
+                success: function (response) {
+                    if (response.status == true) {
+                        jQuery(thisObj).closest('.property-row').hide({
+                            duration: 1000
+                        }); // add new record in hide  
+                        if (jQuery('#hidden-property-' + property_short_counter).length) {        // use this if you are using id to check
+                            jQuery('#hidden-property-' + property_short_counter).append(response.new_element);
+                        } else {
+                            var hidden_string = '<div class="real-estate-hidden-property"><div class="row"><div id="hidden-property-' + property_short_counter + '" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"></div></div></div>';
+                            jQuery('#real-estate-property-' + property_short_counter).append(hidden_string);
+                            jQuery('#hidden-property-' + property_short_counter).append(response.new_element);
+                        }
+
+                    }
+                }
+            });
 }

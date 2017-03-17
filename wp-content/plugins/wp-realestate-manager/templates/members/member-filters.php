@@ -4,7 +4,7 @@
  * default variable which is getting from ajax request or shotcode
  * $member_short_counter, $property_arg
  */
-global $wp_rem_plugin_options, $wp_rem_form_fields, $wp_rem_form_fields_frontend, $wp_rem_post_property_types, $wp_rem_shortcode_properties_frontend, $wp_rem_search_fields;
+global $wp_rem_plugin_options, $wp_rem_form_fields_frontend, $wp_rem_post_property_types, $wp_rem_shortcode_properties_frontend, $wp_rem_search_fields;
 
 
 
@@ -15,8 +15,14 @@ wp_enqueue_script('datetimepicker');
 $property_type_slug = '';
 $search_title = isset($_REQUEST['search_title']) ? $_REQUEST['search_title'] : '';
 $member_type = isset($_REQUEST['member_type']) ? $_REQUEST['member_type'] : '';
+
+$wp_rem_opt_array = array(
+	'id' => 'property_counter',
+	'classes' => 'property-counter',
+	'std' => absint($member_short_counter),
+);
+$wp_rem_form_fields_frontend->wp_rem_form_hidden_render($wp_rem_opt_array);
 ?>
-<input type="hidden" class="property-counter" value="<?php echo absint($member_short_counter); ?>">
 <div class="main-search member-search">
     <h5><?php echo wp_rem_plugin_text_srt('wp_rem_member_find_real_members'); ?></h5>    
     <form method="GET" id="top-search-form-<?php echo wp_rem_allow_special_char($member_short_counter); ?>"  onsubmit="wp_rem_top_search('<?php echo wp_rem_allow_special_char($member_short_counter); ?>');">
@@ -33,7 +39,7 @@ $member_type = isset($_REQUEST['member_type']) ? $_REQUEST['member_type'] : '';
                             'classes' => 'input-field',
                             'extra_atr' => ' placeholder=" ' . wp_rem_plugin_text_srt('wp_rem_member_search_enter_name') . '"',
                         );
-                        $wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+                        $wp_rem_form_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
                         ?>
                     </label>
                 </div>
@@ -77,7 +83,16 @@ $member_type = isset($_REQUEST['member_type']) ? $_REQUEST['member_type'] : '';
                 </div>
                 <div class="field-holder search-btn">
                     <div class="search-btn-loader-<?php echo wp_rem_allow_special_char($member_short_counter); ?> input-button-loader">
-                        <input value="<?php echo wp_rem_plugin_text_srt('wp_rem_property_search'); ?>" class="bgcolor" type="submit">
+						<?php
+						$wp_rem_form_fields_frontend->wp_rem_form_text_render(
+								array(
+									'cust_name' => '',
+									'classes' => 'bgcolor',
+									'std' => wp_rem_plugin_text_srt('wp_rem_property_search').'',
+									'cust_type' => "submit",
+								)
+						);
+						?>
                     </div>
                 </div>
             </div>

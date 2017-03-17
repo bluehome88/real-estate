@@ -3,7 +3,7 @@
 /**
  * Start Function  how to Create Theme Options in Backend 
  */
-if (!function_exists('wp_rem_settings_options_page')) {
+if ( ! function_exists('wp_rem_settings_options_page') ) {
 
     function wp_rem_settings_options_page() {
 
@@ -163,16 +163,16 @@ if (!function_exists('wp_rem_settings_options_page')) {
 /**
  * Start Function  how to Create Theme Options setting in Backend 
  */
-if (!function_exists('wp_rem_settings_option')) {
+if ( ! function_exists('wp_rem_settings_option') ) {
 
     function wp_rem_settings_option() {
         global $wp_rem_setting_options, $gateways;
         $wp_rem_theme_menus = get_registered_nav_menus();
         $wp_rem_plugin_options = get_option('wp_rem_plugin_options');
-        $on_off_option = array("show" => "on", "hide" => "off");
+        $on_off_option = array( "show" => "on", "hide" => "off" );
 
         $wp_rem_min_days = array();
-        for ($days = 1; $days < 11; $days ++) {
+        for ( $days = 1; $days < 11; $days ++  ) {
             $wp_rem_min_days[$days] = "$days day";
         }
 
@@ -297,22 +297,22 @@ if (!function_exists('wp_rem_settings_option')) {
 
 
         // General Settings
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_generl_options'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_generl_options'),
             "id" => "tab-general-page-settings",
             "extra" => 'class="wp_rem_tab_block" data-title="' . wp_rem_plugin_text_srt('wp_rem_plugin_options_generl_options') . '"',
             "type" => "sub-heading",
             "help_text" => "",
         );
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_generl_options'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_generl_options'),
             "id" => "tab-user-settings",
             "std" => wp_rem_plugin_text_srt('wp_rem_plugin_options_generl_options'),
             "type" => "section",
             "options" => ""
         );
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_user_hdr_lgn'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_user_hdr_lgn'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_user_hdr_lgn_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_user_hdr_lgn_hint'),
             "id" => "user_dashboard_switchs",
             "std" => "on",
             "type" => "checkbox",
@@ -321,71 +321,91 @@ if (!function_exists('wp_rem_settings_option')) {
 
 
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_property_settings'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_property_settings'),
             "id" => "tab-property-options",
             "std" => wp_rem_plugin_text_srt('wp_rem_plugin_options_property_settings'),
             "type" => "section",
             "options" => ""
         );
-		$wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_create_property_btn_switch'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_create_property_btn_switch'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_create_property_btn_switch_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_create_property_btn_switch_hint'),
             "id" => "create_listing_button",
             "std" => "on",
             "type" => "checkbox",
             "options" => $on_off_option
         );
-		$wp_rem_setting_options[] = array(
+        $wp_rem_setting_options[] = array(
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_create_property_pge'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_create_property_pge_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_create_property_pge_hint'),
             "id" => "wp_rem_create_property_page",
             "std" => "",
             "type" => "select_dashboard",
+            'custom_page_select' => true,
             "options" => '',
         );
         $wp_rem_setting_options[] = array(
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_member_dashboard'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_member_dashboard_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_member_dashboard_hint'),
             "id" => "wp_rem_member_dashboard",
             "std" => "",
             "type" => "select_dashboard",
+            'custom_page_select' => true,
             "options" => '',
         );
         $wp_rem_setting_options[] = array(
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_pkgs_detail_page'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_pkgs_detail_page_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_pkgs_detail_page_hint'),
             "id" => "wp_rem_package_page",
             "std" => "",
             "type" => "select_dashboard",
+            'custom_page_select' => true,
             "options" => '',
         );
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_search_result'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_search_result'),
             "desc" => '',
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_search_result_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_search_result_hint'),
             "id" => "wp_rem_search_result_page",
             "std" => '',
             "type" => "select_dashboard",
+            'custom_page_select' => true,
             "options" => ''
         );
 
-		$wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_options_compare_properties'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_options_email_logs'),
+            "id" => "tab-email-logs-options",
+            "std" => wp_rem_plugin_text_srt('wp_rem_options_email_logs'),
+            "type" => "section",
+            "options" => ""
+        );
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_options_email_logs'),
+            "desc" => "",
+            "hint_text" => '',
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_options_enable_disable_email_logs'),
+            "id" => "email_logs",
+            "std" => "off",
+            "type" => "checkbox",
+            "options" => $on_off_option
+        );
+
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_options_compare_properties'),
             "id" => "tab-property-options",
             "std" => wp_rem_plugin_text_srt('wp_rem_options_compare_properties'),
             "type" => "section",
             "options" => ""
         );
-		$wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_options_compare_switch'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_options_compare_switch'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_options_compare_switch_label_desc'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_options_compare_switch_label_desc'),
             "id" => "all_compare_buttons",
             "std" => "on",
             "type" => "checkbox",
@@ -395,14 +415,15 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_select_compare_page'),
             "desc" => '',
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_select_compare_page_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_select_compare_page_hint'),
             "id" => "wp_rem_compare_list_page",
             "std" => '',
             "type" => "select_dashboard",
+            'custom_page_select' => true,
             "options" => ''
         );
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_submissions'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_submissions'),
             "id" => "tab-settings-submissions",
             "std" => wp_rem_plugin_text_srt('wp_rem_plugin_options_submissions'),
             "type" => "section",
@@ -410,10 +431,10 @@ if (!function_exists('wp_rem_settings_option')) {
         );
 
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_property_publish_pend'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_property_publish_pend'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_property_publish_pend_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_property_publish_pend_hint'),
             "id" => "properties_review_option",
             "std" => "on",
             "type" => "checkbox",
@@ -447,7 +468,7 @@ if (!function_exists('wp_rem_settings_option')) {
 
 
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_dflt_lstng_cs_field'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_dflt_lstng_cs_field'),
             "id" => "tab-custom-fields-options",
             "std" => wp_rem_plugin_text_srt('wp_rem_plugin_options_property_cs_field'),
             "type" => "section",
@@ -463,25 +484,25 @@ if (!function_exists('wp_rem_settings_option')) {
             "type" => "text",
         );
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_terms_policy'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_terms_policy'),
             "id" => "tab-term-policy-options",
             "std" => wp_rem_plugin_text_srt('wp_rem_plugin_options_terms_policy'),
             "type" => "section",
             "options" => ""
         );
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_terms_plicy_onoff'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_terms_plicy_onoff'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_terms_plicy_onoff_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_terms_plicy_onoff_hint'),
             "id" => "term_policy_switch",
             "std" => "on",
             "type" => "checkbox",
             "options" => $on_off_option
         );
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_term_policy_descr'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_term_policy_descr'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_term_policy_descr_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_term_policy_descr_hint'),
             "id" => "term_policy_description",
             "std" => "",
             "type" => "textarea",
@@ -521,17 +542,17 @@ if (!function_exists('wp_rem_settings_option')) {
             'options' => ''
         );
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_auto_apporal'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_auto_apporal'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_auto_apporal_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_auto_apporal_hint'),
             "id" => "member_review_option",
             "std" => "on",
             "type" => "checkbox",
             "options" => $on_off_option
         );
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_profile_image'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_profile_image'),
             "desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_profile_image_desc'),
             "hint_text" => '',
             "echo" => false,
@@ -566,25 +587,25 @@ if (!function_exists('wp_rem_settings_option')) {
             "type" => "member_types",
         );
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_announcments'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_announcments'),
             "id" => "tab-announcements-options",
             "std" => wp_rem_plugin_text_srt('wp_rem_plugin_options_announcments'),
             "type" => "section",
             "options" => ""
         );
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_announcement_title_dshbrd'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_announcement_title_dshbrd'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_announcement_title_dshbrd_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_announcement_title_dshbrd_hint'),
             "id" => "dashboard_announce_title",
             "std" => '',
             "type" => "text",
         );
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_announcement_desc_dashboard'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_announcement_desc_dashboard'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_announcement_desc_dashboard_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_announcement_desc_dashboard_hint'),
             "id" => "dashboard_announce_description",
             "std" => "",
             "type" => "textarea",
@@ -600,7 +621,7 @@ if (!function_exists('wp_rem_settings_option')) {
         );
 
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_dashboard_paginationsz'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_dashboard_paginationsz'),
             "id" => "",
             "std" => wp_rem_plugin_text_srt('wp_rem_plugin_options_dashboard_paginationsz'),
             "type" => "section",
@@ -618,7 +639,7 @@ if (!function_exists('wp_rem_settings_option')) {
 
         $wp_rem_setting_options = apply_filters('wp_rem_activity_notification_plugin_settings', $wp_rem_setting_options);
 
-        $wp_rem_setting_options[] = array("col_heading" => "",
+        $wp_rem_setting_options[] = array( "col_heading" => "",
             "type" => "col-right-text",
             "help_text" => ""
         );
@@ -630,7 +651,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "type" => "sub-heading"
         );
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_yelp_places_cats'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_yelp_places_cats'),
             "id" => "tab-yelp-places-options",
             "std" => wp_rem_plugin_text_srt('wp_rem_plugin_options_yelp_places_cats'),
             "type" => "section",
@@ -647,7 +668,7 @@ if (!function_exists('wp_rem_settings_option')) {
         );
 
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_default_mortgage'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_default_mortgage'),
             "id" => "tab-mortgage-options",
             "std" => wp_rem_plugin_text_srt('wp_rem_plugin_options_mortgage_std'),
             "type" => "section",
@@ -670,8 +691,17 @@ if (!function_exists('wp_rem_settings_option')) {
             "std" => '',
             "type" => "text",
         );
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_payment_calculator_description'),
+            "desc" => "",
+            "hint_text" => '',
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_payment_calculator_description_hint'),
+            "id" => "mortgage_static_text_block",
+            "std" => "",
+            "type" => "textarea",
+            'wp_rem_editor' => true,
+        );
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_environmental_desc'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_environmental_desc'),
             "id" => "",
             "std" => wp_rem_plugin_text_srt('wp_rem_plugin_options_environmental_desc'),
             "type" => "section",
@@ -679,36 +709,36 @@ if (!function_exists('wp_rem_settings_option')) {
         );
 
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_environmental_text'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_environmental_text'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_environmental_text_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_environmental_text_hint'),
             "id" => "property_static_envior_text",
             "std" => "",
             "type" => "text",
         );
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_environmental_desc'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_environmental_desc'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_environmental_desc_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_environmental_desc_hint'),
             "id" => "property_static_text_block",
             "std" => "",
             "type" => "textarea",
             'wp_rem_editor' => true,
         );
         //
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_options_property_detail_views'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_options_property_detail_views'),
             "id" => "",
             "std" => wp_rem_plugin_text_srt('wp_rem_options_property_detail_views'),
             "type" => "section",
             "options" => ""
         );
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_options_property_detail_views'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_options_property_detail_views'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_options_property_detail_views_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_options_property_detail_views_hint'),
             "id" => "property_detail_page_view",
             "std" => "",
             "type" => "select",
@@ -728,7 +758,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "multi_val" => true,
             "extra_atts" => 'id="wp-rem-top-map-slider-div"',
         );
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_options_property_detail_top_map'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_options_property_detail_top_map'),
             "desc" => "",
             "hint_text" => '',
             "id" => "property_detail_page_top_map",
@@ -736,7 +766,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "type" => "checkbox",
             "options" => $on_off_option
         );
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_options_property_detail_top_slider'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_options_property_detail_top_slider'),
             "desc" => "",
             "hint_text" => '',
             "id" => "property_detail_page_top_slider",
@@ -744,7 +774,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "type" => "checkbox",
             "options" => $on_off_option
         );
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_list_meta_sticky'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_list_meta_sticky'),
             "desc" => "",
             "hint_text" => '',
             "id" => "property_detail_page_sticky_navigation",
@@ -763,7 +793,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "multi_val" => false,
             "extra_atts" => 'id="wp-rem-content-gallery-div"',
         );
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_options_property_detail_content_gallery'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_options_property_detail_content_gallery'),
             "desc" => "",
             "hint_text" => '',
             "id" => "property_detail_page_content_gallery",
@@ -774,7 +804,7 @@ if (!function_exists('wp_rem_settings_option')) {
         $wp_rem_setting_options[] = array(
             "type" => "division_close",
         );
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_options_property_detail_content_bottom_member_info'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_options_property_detail_content_bottom_member_info'),
             "desc" => "",
             "hint_text" => '',
             "id" => "property_detail_page_content_bottom_member_info",
@@ -790,7 +820,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "multi_val" => false,
             "extra_atts" => 'id="wp-rem-sidebar-map-div"',
         );
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_options_property_detail_sidebar_map'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_options_property_detail_sidebar_map'),
             "desc" => "",
             "hint_text" => '',
             "id" => "property_detail_page_sidebar_map",
@@ -808,7 +838,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "multi_val" => true,
             "extra_atts" => 'id="wp-rem-sidebar-gallery-div"',
         );
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_options_property_detail_sidebar_gallery'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_options_property_detail_sidebar_gallery'),
             "desc" => "",
             "hint_text" => '',
             "id" => "property_detail_page_sidebar_gallery",
@@ -826,7 +856,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "multi_val" => false,
             "extra_atts" => 'id="wp-rem-sidebar-member-info-div"',
         );
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_options_property_detail_sidebar_member_info'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_options_property_detail_sidebar_member_info'),
             "desc" => "",
             "hint_text" => '',
             "id" => "property_detail_page_sidebar_member_info",
@@ -837,7 +867,7 @@ if (!function_exists('wp_rem_settings_option')) {
         $wp_rem_setting_options[] = array(
             "type" => "division_close",
         );
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_options_property_detail_sidebar_mortgage_calculator'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_options_property_detail_sidebar_mortgage_calculator'),
             "desc" => "",
             "hint_text" => '',
             "id" => "property_detail_page_sidebar_calculator",
@@ -845,7 +875,15 @@ if (!function_exists('wp_rem_settings_option')) {
             "type" => "checkbox",
             "options" => $on_off_option
         );
-        $wp_rem_setting_options[] = array("col_heading" => "",
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_user_meta_social_networks'),
+            "desc" => "",
+            "hint_text" => '',
+            "id" => "property_detail_page_social_network",
+            "std" => "off",
+            "type" => "checkbox",
+            "options" => $on_off_option
+        );
+        $wp_rem_setting_options[] = array( "col_heading" => "",
             "type" => "col-right-text",
             "help_text" => ""
         );
@@ -867,7 +905,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "type" => "sub-heading"
         );
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_gateway_settings'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_gateway_settings'),
             "id" => "tab-gateways-settings",
             "std" => wp_rem_plugin_text_srt('wp_rem_plugin_options_gateway_settings'),
             "type" => "section",
@@ -875,19 +913,19 @@ if (!function_exists('wp_rem_settings_option')) {
         );
         $wp_rem_gateways_id = WP_REM_FUNCTIONS()->rand_id();
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_vat_onoff'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_vat_onoff'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_vat_onoff_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_vat_onoff_hint'),
             "id" => "vat_switch",
             "std" => "on",
             "type" => "checkbox",
             "options" => $on_off_option
         );
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_vat_in_percent'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_vat_in_percent'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_vat_in_percent_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_vat_in_percent_hint'),
             "id" => "payment_vat",
             "std" => "",
             "type" => "text",
@@ -895,14 +933,14 @@ if (!function_exists('wp_rem_settings_option')) {
 
 
 
-        if (class_exists('WooCommerce')) {
+        if ( class_exists('WooCommerce') ) {
 
             $use_wooC_gateways = isset($wp_rem_plugin_options['wp_rem_use_woocommerce_gateway']) ? $wp_rem_plugin_options['wp_rem_use_woocommerce_gateway'] : '';
             $is_gateways_display = ( $use_wooC_gateways == 'on' ) ? 'style="display:none;"' : 'style="display:block;"';
-            $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_woocommerece_pat_gateway'),
+            $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_woocommerece_pat_gateway'),
                 "desc" => "",
                 "hint_text" => '',
-				"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_woocommerece_pat_gateway_hint'),
+                "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_woocommerece_pat_gateway_hint'),
                 "id" => "use_woocommerce_gateway",
                 "std" => "off",
                 "type" => "checkbox",
@@ -920,25 +958,25 @@ if (!function_exists('wp_rem_settings_option')) {
         }
 
         $gtws_settings = new WP_REM_PAYMENTS();
-        if (is_array($gateways) && sizeof($gateways) > 0) {
-            foreach ($gateways as $key => $value) {
-                if (class_exists($key)) {
+        if ( is_array($gateways) && sizeof($gateways) > 0 ) {
+            foreach ( $gateways as $key => $value ) {
+                if ( class_exists($key) ) {
                     $settings = new $key();
                     $gtw_settings = $settings->settings($wp_rem_gateways_id);
-                    foreach ($gtw_settings as $key => $params) {
+                    foreach ( $gtw_settings as $key => $params ) {
                         $wp_rem_setting_options[] = $params;
                     }
                 }
             }
         }
 
-        if (class_exists('WooCommerce')) {
+        if ( class_exists('WooCommerce') ) {
             $wp_rem_setting_options[] = array(
                 "type" => "division_close",
             );
         }
 
-        $wp_rem_setting_options[] = array("col_heading" => wp_rem_plugin_text_srt('wp_rem_plugin_options_payment_text'),
+        $wp_rem_setting_options[] = array( "col_heading" => wp_rem_plugin_text_srt('wp_rem_plugin_options_payment_text'),
             "type" => "col-right-text",
             "hint_text" => "",
             "help_text" => ""
@@ -948,21 +986,21 @@ if (!function_exists('wp_rem_settings_option')) {
          */
         // Default location
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_default_location'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_default_location'),
             "id" => "tab-general-default-location",
             "type" => "sub-heading",
             "extra" => 'class="wp_rem_tab_block" data-title="' . wp_rem_plugin_text_srt('wp_rem_plugin_options_default_location') . '"',
             "help_text" => wp_rem_plugin_text_srt('wp_rem_plugin_options_default_location_hint'),
         );
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_default_location'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_default_location'),
             "id" => "tab-settings-default-location",
             "std" => wp_rem_plugin_text_srt('wp_rem_plugin_options_default_location'),
             "type" => "section",
             "options" => "",
         );
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_map_marker_icon'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_map_marker_icon'),
             "desc" => "",
             "hint_text" => "",
             "id" => "map_marker_icon",
@@ -971,7 +1009,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "type" => "upload logo"
         );
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_map_cluster_icon'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_map_cluster_icon'),
             "desc" => "",
             "hint_text" => "",
             "id" => "map_cluster_icon",
@@ -980,7 +1018,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "type" => "upload logo"
         );
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_map_slider_view_icon'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_map_slider_view_icon'),
             "desc" => "",
             "hint_text" => "",
             "id" => "map_slider_view_icon",
@@ -989,7 +1027,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "type" => "upload logo"
         );
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_map_view_icon'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_map_view_icon'),
             "desc" => "",
             "hint_text" => "",
             "id" => "map_view_icon",
@@ -998,7 +1036,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "type" => "upload logo"
         );
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_map_street_view_icon'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_map_street_view_icon'),
             "desc" => "",
             "hint_text" => "",
             "id" => "map_street_view_icon",
@@ -1011,7 +1049,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_zoom_level'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_zoom_level_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_zoom_level_hint'),
             "id" => "map_zoom_level",
             "std" => "9",
             "classes" => "wp-rem-dev-req-field-admin wp-rem-number-field wp-rem-range-field",
@@ -1019,10 +1057,10 @@ if (!function_exists('wp_rem_settings_option')) {
             "type" => "text"
         );
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_map_style'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_map_style'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => '',
+            "label_desc" => '',
             "id" => "def_map_style",
             "std" => "",
             "type" => "select",
@@ -1058,7 +1096,7 @@ if (!function_exists('wp_rem_settings_option')) {
             'type' => 'textarea'
         );
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_street_address'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_street_address'),
             "desc" => "",
             "hint_text" => "",
             "id" => "default_locations",
@@ -1068,7 +1106,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "city_hint" => '',
             "address_hint" => wp_rem_plugin_text_srt('wp_rem_plugin_options_street_address_hint'),
         );
-        $wp_rem_setting_options[] = array("col_heading" => wp_rem_plugin_text_srt('wp_rem_plugin_options_default_location'),
+        $wp_rem_setting_options[] = array( "col_heading" => wp_rem_plugin_text_srt('wp_rem_plugin_options_default_location'),
             "type" => "col-right-text",
             "extra" => "div",
             "help_text" => wp_rem_plugin_text_srt('wp_rem_plugin_options_col_hdng_dflt_location_hint'),
@@ -1093,7 +1131,7 @@ if (!function_exists('wp_rem_settings_option')) {
             'options' => ''
         );
 
-        $wp_rem_setting_options[] = array('name' => wp_rem_plugin_text_srt('wp_rem_plugin_options_backend_loc_and_level'),
+        $wp_rem_setting_options[] = array( 'name' => wp_rem_plugin_text_srt('wp_rem_plugin_options_backend_loc_and_level'),
             'desc' => '',
             'hint_text' => '',
             'id' => 'locations_level_selector',
@@ -1105,7 +1143,7 @@ if (!function_exists('wp_rem_settings_option')) {
             'name' => wp_rem_plugin_text_srt('wp_rem_plugin_options_backend_geo_loc'),
             'desc' => '',
             'hint_text' => '',
-			'label_desc' => wp_rem_plugin_text_srt('wp_rem_plugin_options_backend_geo_loc_share'),
+            'label_desc' => wp_rem_plugin_text_srt('wp_rem_plugin_options_backend_geo_loc_share'),
             'id' => 'map_geo_location',
             'main_id' => 'wp_rem_map_geo_location',
             'std' => '',
@@ -1116,7 +1154,7 @@ if (!function_exists('wp_rem_settings_option')) {
             'name' => wp_rem_plugin_text_srt('wp_rem_plugin_options_backend_auto_country_detection'),
             'desc' => '',
             'hint_text' => '',
-			'label_desc' => wp_rem_plugin_text_srt('wp_rem_plugin_options_backend_auto_country_detection_hint'),
+            'label_desc' => wp_rem_plugin_text_srt('wp_rem_plugin_options_backend_auto_country_detection_hint'),
             'id' => 'map_auto_country_detection',
             'main_id' => 'wp_rem_map_auto_country_detection',
             'std' => '',
@@ -1127,7 +1165,7 @@ if (!function_exists('wp_rem_settings_option')) {
             'name' => wp_rem_plugin_text_srt('wp_rem_plugin_options_backend_max_adrs_lmt'),
             'desc' => '',
             'hint_text' => '',
-			'label_desc' => wp_rem_plugin_text_srt('wp_rem_plugin_options_backend_max_adrs_lmt_hint'),
+            'label_desc' => wp_rem_plugin_text_srt('wp_rem_plugin_options_backend_max_adrs_lmt_hint'),
             'id' => 'map_address_maximum_text_limit',
             'main_id' => 'wp_rem_map_address_maximum_text_limit',
             'std' => '',
@@ -1139,7 +1177,7 @@ if (!function_exists('wp_rem_settings_option')) {
             'name' => wp_rem_plugin_text_srt('wp_rem_plugin_options_backend_drawing_tools'),
             'desc' => '',
             'hint_text' => '',
-			'label_desc' => wp_rem_plugin_text_srt('wp_rem_plugin_options_backend_drawing_tools_hint'),
+            'label_desc' => wp_rem_plugin_text_srt('wp_rem_plugin_options_backend_drawing_tools_hint'),
             'id' => 'drawing_tools',
             'main_id' => 'wp_rem_map_drawing_tools',
             'std' => '',
@@ -1150,7 +1188,7 @@ if (!function_exists('wp_rem_settings_option')) {
             'name' => wp_rem_plugin_text_srt('wp_rem_plugin_options_drawing_tool_line_clr'),
             'desc' => '',
             'hint_text' => '',
-			'label_desc' => wp_rem_plugin_text_srt('wp_rem_plugin_options_drawing_tool_line_clr_hint'),
+            'label_desc' => wp_rem_plugin_text_srt('wp_rem_plugin_options_drawing_tool_line_clr_hint'),
             'id' => 'drawing_tools_line_color',
             'main_id' => 'wp_rem_map_drawing_tools_line_color',
             'std' => '#000000',
@@ -1161,7 +1199,7 @@ if (!function_exists('wp_rem_settings_option')) {
             'name' => wp_rem_plugin_text_srt('wp_rem_plugin_options_drawing_tool_fill_clr'),
             'desc' => '',
             'hint_text' => '',
-			'label_desc' => wp_rem_plugin_text_srt('wp_rem_plugin_options_drawing_tool_fill_clr_hint'),
+            'label_desc' => wp_rem_plugin_text_srt('wp_rem_plugin_options_drawing_tool_fill_clr_hint'),
             'id' => 'drawing_tools_fill_color',
             'main_id' => 'wp_rem_map_drawing_tools_fill_color',
             'std' => '#000000',
@@ -1172,7 +1210,7 @@ if (!function_exists('wp_rem_settings_option')) {
             'name' => wp_rem_plugin_text_srt('wp_rem_plugin_options_drawing_tool_auto_cmplte'),
             'desc' => '',
             'hint_text' => '',
-			'label_desc' => wp_rem_plugin_text_srt('wp_rem_plugin_options_drawing_tool_auto_cmplte_hint'),
+            'label_desc' => wp_rem_plugin_text_srt('wp_rem_plugin_options_drawing_tool_auto_cmplte_hint'),
             'id' => 'location_autocomplete',
             'main_id' => 'wp_rem_map_location_autocomplete',
             'std' => '',
@@ -1208,7 +1246,7 @@ if (!function_exists('wp_rem_settings_option')) {
         );
 
 
-        $wp_rem_setting_options[] = array('col_heading' => '',
+        $wp_rem_setting_options[] = array( 'col_heading' => '',
             'type' => 'col-right-text',
             'help_text' => ''
         );
@@ -1220,14 +1258,14 @@ if (!function_exists('wp_rem_settings_option')) {
          * Map Nearby Settings
          */
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_map_nearby_place'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_map_nearby_place'),
             "id" => "tab-map-nearby-places",
             "type" => "sub-heading",
             "extra" => 'class="wp_rem_tab_block" data-title="' . wp_rem_plugin_text_srt('wp_rem_plugin_options_map_nearby_place') . '"',
             "help_text" => wp_rem_plugin_text_srt('wp_rem_plugin_options_map_nearby_place_hint'),
         );
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_map_nearby_place'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_map_nearby_place'),
             "id" => "tab-map-nearby-places",
             "std" => wp_rem_plugin_text_srt('wp_rem_plugin_options_map_nearby_place'),
             "type" => "section",
@@ -1237,7 +1275,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_map_nearby_place'),
             "type" => "map_nearby_places",
         );
-        $wp_rem_setting_options[] = array('col_heading' => '',
+        $wp_rem_setting_options[] = array( 'col_heading' => '',
             'type' => 'col-right-text',
             'help_text' => ''
         );
@@ -1301,7 +1339,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "options" => $on_off_option
         );
 
-        $wp_rem_setting_options[] = array("col_heading" => "",
+        $wp_rem_setting_options[] = array( "col_heading" => "",
             "type" => "col-right-text",
             "help_text" => ""
         );
@@ -1328,7 +1366,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_login_twitter'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_login_twitter_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_login_twitter_hint'),
             "id" => "twitter_api_switch",
             "std" => "on",
             "type" => "checkbox"
@@ -1337,7 +1375,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_login_facebook'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_login_facebook_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_login_facebook_hint'),
             "id" => "facebook_login_switch",
             "std" => "on",
             "type" => "checkbox",
@@ -1348,13 +1386,13 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_login_google'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_login_google_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_login_google_hint'),
             "id" => "google_login_switch",
             "std" => "on",
             "type" => "checkbox",
             "options" => $on_off_option
         );
-        $wp_rem_setting_options[] = array("col_heading" => "",
+        $wp_rem_setting_options[] = array( "col_heading" => "",
             "type" => "col-right-text",
             "help_text" => ""
         );
@@ -1378,7 +1416,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_twitter_cons_key'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_twitter_cons_key_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_twitter_cons_key_hint'),
             "id" => "consumer_key",
             "std" => "",
             "type" => "text"
@@ -1387,7 +1425,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_twitter_cons_secret'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_twitter_cons_secret_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_twitter_cons_secret_hint'),
             "id" => "consumer_secret",
             "std" => "",
             "type" => "text"
@@ -1396,7 +1434,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_twitter_access_token'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_twitter_access_token_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_twitter_access_token_hint'),
             "id" => "access_token",
             "std" => "",
             "type" => "text"
@@ -1405,7 +1443,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_twitter_access_token_secret'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_twitter_access_token_secret_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_twitter_access_token_secret_hint'),
             "id" => "access_token_secret",
             "std" => "",
             "type" => "text"
@@ -1423,7 +1461,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_facebook_app_id'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_facebook_app_id_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_facebook_app_id_hint'),
             "id" => "facebook_app_id",
             "std" => "",
             "classes" => "wp-rem-number-field",
@@ -1433,7 +1471,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_facebook_secret'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_facebook_secret_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_facebook_secret_hint'),
             "id" => "facebook_secret",
             "std" => "",
             "type" => "text"
@@ -1443,7 +1481,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_facebook_access_token'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_facebook_access_token_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_facebook_access_token_hint'),
             "id" => "facebook_access_token",
             "std" => "",
             "type" => "fb_access_token"
@@ -1462,7 +1500,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_google_client_id'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_google_client_id_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_google_client_id_hint'),
             "id" => "google_client_id",
             "std" => "",
             "type" => "text"
@@ -1471,7 +1509,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_google_client_secret'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_google_client_secret_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_google_client_secret_hint'),
             "id" => "google_client_secret",
             "std" => "",
             "type" => "text"
@@ -1480,7 +1518,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_google_api_key'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_google_api_key_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_google_api_key_hint'),
             "id" => "google_api_key",
             "std" => "",
             "type" => "text"
@@ -1489,7 +1527,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_google_redirect'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_save_post_property_status'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_save_post_property_status'),
             "id" => "google_login_redirect_url",
             "std" => "",
             "type" => "text"
@@ -1503,10 +1541,10 @@ if (!function_exists('wp_rem_settings_option')) {
             "type" => "section",
             "options" => ""
         );
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_api_setting_captcha'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_api_setting_captcha'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_api_setting_captcha_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_api_setting_captcha_hint'),
             "id" => "captcha_switch",
             "std" => "on",
             "type" => "checkbox",
@@ -1516,7 +1554,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_captcha_site_key'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_captcha_site_key_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_captcha_site_key_hint'),
             "id" => "sitekey",
             "std" => "",
             "type" => "text",
@@ -1525,7 +1563,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_captcha_secret_key'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_captcha_secret_key_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_captcha_secret_key_hint'),
             "id" => "secretkey",
             "std" => "",
             "type" => "text",
@@ -1547,7 +1585,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_linkedin_app_id'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_linkedin_app_id_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_linkedin_app_id_hint'),
             "id" => "linkedin_app_id",
             "std" => "",
             "type" => "text"
@@ -1556,7 +1594,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_linkedin_secret'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_linkedin_secret_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_linkedin_secret_hint'),
             "id" => "linkedin_secret",
             "std" => "",
             "type" => "text"
@@ -1565,7 +1603,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_linkedin_access_token'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_linkedin_access_token_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_linkedin_access_token_hint'),
             "id" => "linkedin_access_token",
             "std" => "",
             "type" => "linkedin_access_token"
@@ -1590,7 +1628,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_yelp_app_id'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_yelp_app_id_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_yelp_app_id_hint'),
             "id" => "yelp_app_id",
             "std" => "",
             "type" => "text"
@@ -1599,7 +1637,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_yelp_app_secret'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_yelp_app_secret_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_yelp_app_secret_hint'),
             "id" => "yelp_secret",
             "std" => "",
             "type" => "text"
@@ -1608,7 +1646,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_yelp_access_token'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_yelp_access_token_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_yelp_access_token_hint'),
             "id" => "yelp_access_token",
             "std" => "",
             "type" => "yelp_access_token"
@@ -1628,13 +1666,13 @@ if (!function_exists('wp_rem_settings_option')) {
             "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_walk_score_app_id'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_walk_score_app_id_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_walk_score_app_id_hint'),
             "id" => "walkscore_api_key",
             "std" => "",
             "type" => "text"
         );
 
-        $wp_rem_setting_options[] = array("col_heading" => wp_rem_plugin_text_srt('wp_rem_plugin_options_api_settings'),
+        $wp_rem_setting_options[] = array( "col_heading" => wp_rem_plugin_text_srt('wp_rem_plugin_options_api_settings'),
             "type" => "col-right-text",
             "help_text" => ""
         );
@@ -1666,13 +1704,13 @@ if (!function_exists('wp_rem_settings_option')) {
             "options" => array()
         );
 
-        $wp_rem_setting_options[] = array("col_heading" => wp_rem_plugin_text_srt('wp_rem_plugin_options_ads_management'),
+        $wp_rem_setting_options[] = array( "col_heading" => wp_rem_plugin_text_srt('wp_rem_plugin_options_ads_management'),
             "type" => "col-right-text",
             "help_text" => ""
         );
 
         /* social Network setting */
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing'),
             "id" => "tab-social-icons",
             "extra" => 'class="wp_rem_tab_block" data-title="' . wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing') . '"',
             "type" => "sub-heading"
@@ -1685,76 +1723,76 @@ if (!function_exists('wp_rem_settings_option')) {
             'options' => ''
         );
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing'),
             "desc" => "",
             "hint_text" => "",
             "id" => "social_share",
             "std" => "on",
-            "type" => "checkbox");
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing_facebook'),
+            "type" => "checkbox" );
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing_facebook'),
             "desc" => "",
             "hint_text" => "",
             "id" => "facebook_share",
             "std" => "on",
-            "type" => "checkbox");
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing_twitter'),
+            "type" => "checkbox" );
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing_twitter'),
             "desc" => "",
             "hint_text" => "",
             "id" => "twitter_share",
             "std" => "on",
-            "type" => "checkbox");
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing_google_plus'),
+            "type" => "checkbox" );
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing_google_plus'),
             "desc" => "",
             "hint_text" => "",
             "id" => "google_plus_share",
             "std" => "on",
-            "type" => "checkbox");
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing_pinterest'),
+            "type" => "checkbox" );
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing_pinterest'),
             "desc" => "",
             "hint_text" => "",
             "id" => "pintrest_share",
             "std" => "on",
             "type" => "checkbox"
         );
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing_tumbler'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing_tumbler'),
             "desc" => "",
             "hint_text" => "",
             "id" => "tumblr_share",
             "std" => "on",
-            "type" => "checkbox");
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing_dribble'),
+            "type" => "checkbox" );
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing_dribble'),
             "desc" => "",
             "hint_text" => "",
             "id" => "dribbble_share",
             "std" => "off",
-            "type" => "checkbox");
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing_instagram'),
+            "type" => "checkbox" );
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing_instagram'),
             "desc" => "",
             "hint_text" => "",
             "id" => "instagram_share",
             "std" => "on",
-            "type" => "checkbox");
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing_stumble_upon'),
+            "type" => "checkbox" );
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing_stumble_upon'),
             "desc" => "",
             "hint_text" => "",
             "id" => "stumbleupon_share",
             "std" => "on",
-            "type" => "checkbox");
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing_youtube'),
+            "type" => "checkbox" );
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing_youtube'),
             "desc" => "",
             "hint_text" => "",
             "id" => "youtube_share",
             "std" => "on",
-            "type" => "checkbox");
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing_share_more'),
+            "type" => "checkbox" );
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_sharing_share_more'),
             "desc" => "",
             "hint_text" => "",
             "id" => "share_share",
             "std" => "off",
-            "type" => "checkbox");
+            "type" => "checkbox" );
         /* social network end */
 
-        $wp_rem_setting_options[] = array("col_heading" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_icon'),
+        $wp_rem_setting_options[] = array( "col_heading" => wp_rem_plugin_text_srt('wp_rem_plugin_options_social_icon'),
             "type" => "col-right-text",
             "help_text" => ""
         );
@@ -1766,7 +1804,7 @@ if (!function_exists('wp_rem_settings_option')) {
         $wp_rem_setting_options = apply_filters('wp_rem__plugin_addons_options', $wp_rem_setting_options);
         // End wp_rem Add-ons.
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_import_export'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_import_export'),
             "fontawesome" => 'icon-refresh3',
             "id" => "tab-import-export-options",
             "std" => "",
@@ -1775,14 +1813,14 @@ if (!function_exists('wp_rem_settings_option')) {
         );
 
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_import_export'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_import_export'),
             "id" => "tab-import-export-options",
             "extra" => 'class="wp_rem_tab_block" data-title="' . wp_rem_plugin_text_srt('wp_rem_plugin_options_import_export') . '"',
             "type" => "sub-heading"
         );
 
 
-        $wp_rem_setting_options[] = array("name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_backup'),
+        $wp_rem_setting_options[] = array( "name" => wp_rem_plugin_text_srt('wp_rem_plugin_options_backup'),
             "desc" => "",
             "hint_text" => '',
             "id" => "backup_options",
@@ -1806,7 +1844,7 @@ if (!function_exists('wp_rem_settings_option')) {
             "type" => "user_import_export",
         );
 
-        $wp_rem_setting_options[] = array('name' => wp_rem_plugin_text_srt('wp_rem_plugin_options_backup_locations'),
+        $wp_rem_setting_options[] = array( 'name' => wp_rem_plugin_text_srt('wp_rem_plugin_options_backup_locations'),
             'desc' => '',
             'hint_text' => '',
             'id' => 'backup_locations',
@@ -1814,7 +1852,7 @@ if (!function_exists('wp_rem_settings_option')) {
             'type' => 'backup_locations'
         );
 
-        $wp_rem_setting_options[] = array('name' => wp_rem_plugin_text_srt('wp_rem_plugin_options_backup_property_type_cats'),
+        $wp_rem_setting_options[] = array( 'name' => wp_rem_plugin_text_srt('wp_rem_plugin_options_backup_property_type_cats'),
             'desc' => '',
             'hint_text' => '',
             'id' => 'backup_property_type_categories',
@@ -1822,7 +1860,7 @@ if (!function_exists('wp_rem_settings_option')) {
             'type' => 'backup_property_type_categories'
         );
 
-        $wp_rem_setting_options[] = array("col_heading" => wp_rem_plugin_text_srt('wp_rem_plugin_options_import_export'),
+        $wp_rem_setting_options[] = array( "col_heading" => wp_rem_plugin_text_srt('wp_rem_plugin_options_import_export'),
             "type" => "col-right-text",
             "help_text" => ""
         );
@@ -1874,56 +1912,22 @@ if (!function_exists('wp_rem_settings_option')) {
             "options" => $on_off_option
         );
 
-        $wp_rem_agency_list = array('' => wp_rem_plugin_text_srt('wp_rem_plugin_options_slct_agency'));
-        $wp_rem_member_list = array('' => wp_rem_plugin_text_srt('wp_rem_plugin_options_slct_member'));
-        $args = array(
-            'orderby' => 'nicename',
-            'role' => 'wp_rem_member',
-            'meta_query' =>
-            array(
-                array(
-                    'relation' => 'AND',
-                    array(
-                        'key' => 'wp_rem_user_type',
-                        'value' => 'supper-admin',
-                        'compare' => '=',
-                    ),
-                )
-            )
-        );
-
-        $wp_rem_users = get_users($args);
-        foreach ($wp_rem_users as $user) {
-            $wp_rem_company_id = get_user_meta($user->ID, 'wp_rem_company', true);
-            $profile_type = get_post_meta($wp_rem_company_id, 'wp_rem_member_profile_type', true);
-            if ($profile_type != '' && $profile_type == 'company') {
-                $wp_rem_agency_list[$user->ID] = $user->display_name;
-            } else {
-                $wp_rem_member_list[$user->ID] = $user->display_name;
-            }
-        }
+        $wp_rem_agency_list = array( '' => wp_rem_plugin_text_srt('wp_rem_plugin_options_slct_agency') );
+        $wp_rem_member_list = array( '' => wp_rem_plugin_text_srt('wp_rem_plugin_options_slct_member') );
 
         $wp_rem_setting_options[] = array(
-            'name' => wp_rem_plugin_text_srt('wp_rem_plugin_options_demo_member'),
+            'name' => wp_rem_plugin_text_srt('wp_rem_plugin_options_demo_user'),
             "desc" => "",
             "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_demo_member_hint'),
-            'id' => 'demo_user_member',
-            "std" => "",
-            "classes" => "chosen-select",
-            "type" => "select",
-            "options" => $wp_rem_member_list,
-        );
-
-        $wp_rem_setting_options[] = array(
-            'name' => wp_rem_plugin_text_srt('wp_rem_plugin_options_demo_agency'),
-            "desc" => "",
-            "hint_text" => '',
-			"label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_demo_agency_hint'),
+            "label_desc" => wp_rem_plugin_text_srt('wp_rem_plugin_options_demo_user_hint'),
             'id' => 'demo_user_agency',
             "std" => "",
             "classes" => "chosen-select",
-            "type" => "select",
+            "type" => "custom_select",
+            'main_wraper' => true,
+            'main_wraper_class' => 'demo_user_agency_holder',
+            'main_wraper_extra' => ' onclick="wp_rem_load_dropdown_values(\'demo_user_agency_holder\', \'demo_user_agency\', \'wp_rem_load_all_agencies_options\');"',
+            'markup' => '<span class="select-loader"></span>',
             "options" => $wp_rem_agency_list,
         );
 

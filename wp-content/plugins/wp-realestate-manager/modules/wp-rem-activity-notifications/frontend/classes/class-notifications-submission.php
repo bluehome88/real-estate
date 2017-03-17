@@ -22,6 +22,7 @@ if ( ! class_exists( 'Wp_rem_Activity_Notifications_Submission' ) ) {
          * @Array contains element id, element type, sender and reciever ids.
          */
         public function wp_rem_add_notification_callback( $data_array ) {
+            wp_enqueue_script('wp-rem-notifications-js');
             $reciever_id = $this->reciever_id_by_type( $data_array );
             $notification_icon = $this->notification_icon( $data_array );
             if( $data_array['type'] != 'order_messages' && $data_array['type'] != 'inquiry' ){

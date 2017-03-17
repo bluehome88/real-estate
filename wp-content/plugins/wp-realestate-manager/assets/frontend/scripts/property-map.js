@@ -257,8 +257,8 @@ function wp_rem_property_map(dataobj, db_cords) {
                 var mcOptions;
                 var clusterStyles = [
                     {
-                        textColor: '#222222',
-                        opt_textColor: '#222222',
+                        textColor: '#ffffff',
+                        opt_textColor: '#ffffff',
                         url: cluster_icon,
                         height: 40,
                         width: 40,
@@ -700,3 +700,85 @@ var onMapClickHandler = function (event) {
     that.on('mouseleave', onMapMouseleaveHandler);
 }
 jQuery(document).on('click', '.wp-rem-property-map', onMapClickHandler);
+
+/*
+ * Map Block
+ */
+
+$(".widget-map, .map-sec-holder").click(function() {
+    $(".widget-map #googleMap1, #contactMap1, #contactMap2, #contactMap3, #contactMap4 ").css("pointer-events", "auto");
+});
+
+$(".widget-map, .map-sec-holder").mouseleave(function() {
+    $(".widget-map #googleMap1, #contactMap1, #contactMap2, #contactMap3, #contactMap4").css("pointer-events", "none");
+});
+
+jQuery(document).on("click", ".map-holder .map-actions li", function() {
+    "use strict";
+    var this_id = jQuery(this).attr("id");
+    if (this_id == "slider-view" || this_id == "slider-view1") {
+        jQuery(".dominant-places").hide();
+        jQuery(".wp-rem-property-banner").removeClass("hidden");
+        jQuery(".wp-rem-property-map").addClass("hidden");
+        jQuery(".map-switch").show();
+        if (jQuery(".banner .property-banner-slider .swiper-container").length != "") {
+            var mySwiper = new Swiper(".banner .property-banner-slider .swiper-container", {
+                pagination: ".swiper-pagination",
+                paginationClickable: true,
+                loop: true,
+                grabCursor: true,
+                nextButton: ".banner .property-banner-slider .swiper-button-next",
+                prevButton: ".banner .property-banner-slider .swiper-button-prev",
+                spaceBetween: 30,
+                autoplay: 3e3,
+                effect: "fade"
+            });
+        }
+    }
+    if (this_id == "map-view" || this_id == "map-view1") {
+        if (map != undefined && map != 'undefined' && map != '') {
+            panorama = map.getStreetView();
+            panorama.setVisible(false);
+            jQuery(".slider-view").removeClass("active");
+            jQuery(".map-view-street").removeClass("active");
+            jQuery(".map-view").addClass("active");
+            jQuery(".wp-rem-property-map").removeClass("hidden");
+            jQuery(".wp-rem-property-banner").addClass("hidden");
+            jQuery(".map-switch").hide();
+            jQuery(".dominant-places").show();
+            var new_latitude = jQuery(".map-view").data('lat');
+            var new_longitude = jQuery(".map-view").data('lng');
+            google.maps.event.trigger(map, 'resize');
+            var NewMapCenter = map.getCenter();
+            if( typeof new_latitude == 'undefined' ){
+                var new_latitude = NewMapCenter.lat();
+            }
+            if( typeof new_longitude == 'undefined' ){
+                var new_longitude = NewMapCenter.lng();
+            }
+            var mapResizeTimes = 0;
+            setTimeout(function() {
+                if (mapResizeTimes === 0) {
+                    map.setCenter(new google.maps.LatLng(new_latitude, new_longitude));
+                    mapResizeTimes++;
+                }
+            }, 500);
+        }
+    } else if (this_id == "map-view-street" || this_id == "map-view-street1") {
+        jQuery(".slider-view").removeClass("active");
+        jQuery(".map-view").removeClass("active");
+        jQuery(".map-view-street").addClass("active");
+        jQuery(".dominant-places").hide();
+        jQuery(".wp-rem-property-map").removeClass("hidden");
+        jQuery(".wp-rem-property-banner").addClass("hidden");
+        var panorama = map.getStreetView();
+        panorama.setVisible(true);
+    } else {
+        jQuery(".map-view").removeClass("active");
+        jQuery(".map-view-street").removeClass("active");
+        jQuery(".slider-view").addClass("active");
+    }
+});
+jQuery(document).ready(function($) {
+    jQuery(".map-switch").hide();
+});

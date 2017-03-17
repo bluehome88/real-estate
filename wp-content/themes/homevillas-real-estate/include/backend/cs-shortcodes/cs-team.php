@@ -400,14 +400,8 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_team') ) {
                                                 } else if (view == 'small') {
                                                     $('.small-hide-show').hide();
                                                 }
-
-
                                             }
                                         </script>
-
-                                        ),
-
-
                                     </div>
                                     <?php
                                 }

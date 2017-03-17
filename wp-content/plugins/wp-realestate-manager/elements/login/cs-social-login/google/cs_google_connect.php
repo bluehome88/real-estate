@@ -162,16 +162,13 @@ if ( ! function_exists( 'wp_rem_google_login_action' ) ) {
                                     update_user_meta( $ID, 'wp_rem_google_plus', $u['link'] );
                                 }
                                 if ( isset( $wp_rem_plugin_options['wp_rem_member_review_option'] ) && $wp_rem_plugin_options['wp_rem_member_review_option'] == 'on' ) {
-
-                                    $wpdb->update(
-                                            $wpdb->prefix . 'users', array( 'user_status' => 1 ), array( 'ID' => esc_sql( $ID ) )
+									$wpdb->update(
+                                        $wpdb->prefix . 'users', array( 'user_status' => 1 ), array( 'ID' => esc_sql( $ID ) )
                                     );
-                                    update_user_meta( $ID, 'wp_rem_user_status', 'active' );
                                 } else {
                                     $wpdb->update(
-                                            $wpdb->prefix . 'users', array( 'user_status' => 0 ), array( 'ID' => esc_sql( $ID ) )
+                                        $wpdb->prefix . 'users', array( 'user_status' => 0 ), array( 'ID' => esc_sql( $ID ) )
                                     );
-                                    update_user_meta( $ID, 'wp_rem_user_status', 'inactive' );
                                 }
 
                                 // add member entery
@@ -190,14 +187,8 @@ if ( ! function_exists( 'wp_rem_google_login_action' ) ) {
                                     update_user_meta( $ID, 'wp_rem_company', $company_ID );
                                     update_post_meta( $company_ID, 'wp_rem_email_address', $email );
 
+                                    update_post_meta($company_ID, 'wp_rem_member_user_type', 'reseller' );
 
-                                    $member_user_type    = wp_rem_get_transient_obj('member_user_type');
-                                    $member_user_type    = ( isset( $member_user_type ) && $member_user_type != '' )? $member_user_type : 'reseller';
-                                    update_post_meta($company_ID, 'wp_rem_member_user_type', $member_user_type);
-
-                                    if( $member_user_type == 'buyer' ){
-                                        update_user_meta($ID, 'wp_rem_permissions', $buyer_permissions);
-                                    }
 
                                     // Insert profile image
                                     if ( function_exists( 'upload_member_profile_image' ) ) {
@@ -207,7 +198,12 @@ if ( ! function_exists( 'wp_rem_google_login_action' ) ) {
                                                 update_post_meta($company_ID, 'wp_rem_profile_image', $wp_rem_member_image_id);
                                         }
                                     }
-                                    //
+                                    
+									if ( isset( $wp_rem_plugin_options['wp_rem_member_review_option'] ) && $wp_rem_plugin_options['wp_rem_member_review_option'] == 'on' ) {
+										update_post_meta( $company_ID, 'wp_rem_user_status', 'active' );
+									} else {
+										update_post_meta( $company_ID, 'wp_rem_user_status', 'pending' );
+									}
 
                                 }
                             } else {

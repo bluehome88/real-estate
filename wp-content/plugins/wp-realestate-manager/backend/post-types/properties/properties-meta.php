@@ -15,7 +15,7 @@ if ( ! class_exists('wp_rem_property_meta') ) {
             add_action('wp_ajax_property_type_dyn_fields', array( $this, 'property_type_change_fields' ));
             add_action('admin_footer-edit-tags.php', array( $this, 'wp_rem_remove_catmeta' ));
             add_filter('manage_edit-wp_rem_locations_columns', array( $this, 'theme_columns' ));
-            add_action('wp_ajax_wp_rem_property_off_day_to_list', array( $this, 'append_to_book_days_off' ));
+            add_action('wp_ajax_wp_rem_property_off_day_to_list_backend', array( $this, 'append_to_book_days_off' ));
 
             add_action('wp_ajax_wp_rem_meta_property_categories', array( $this, 'wp_rem_meta_property_categories' ));
             add_action('wp_ajax_nopriv_wp_rem_meta_property_categories', array( $this, 'wp_rem_meta_property_categories' ));
@@ -465,14 +465,14 @@ if ( ! class_exists('wp_rem_property_meta') ) {
                         'detail_view1' => wp_rem_plugin_text_srt('wp_rem_list_meta_view_1'),
                         'detail_view2' => wp_rem_plugin_text_srt('wp_rem_list_meta_view_2'),
                         'detail_view3' => wp_rem_plugin_text_srt('wp_rem_list_meta_view_3'),
-						'detail_view4' => wp_rem_plugin_text_srt('wp_rem_list_meta_view_4'),
+                        'detail_view4' => wp_rem_plugin_text_srt('wp_rem_list_meta_view_4'),
                     ),
                     'return' => true,
                 ),
             );
 
             $wp_rem_html_fields->wp_rem_select_field($wp_rem_opt_array);
-		}
+        }
 
         /**
          * Start Function How to add form options in html
@@ -649,7 +649,7 @@ if ( ! class_exists('wp_rem_property_meta') ) {
                 ),
             );
 
-            $wp_rem_html_fields->wp_rem_checkbox_field($wp_rem_opt_array); 
+            $wp_rem_html_fields->wp_rem_checkbox_field($wp_rem_opt_array);
 
             $wp_rem_opt_array = array(
                 'name' => wp_rem_plugin_text_srt('wp_rem_list_meta_no_of_pictures'),
@@ -934,7 +934,7 @@ if ( ! class_exists('wp_rem_property_meta') ) {
             $html .= $this->property_type_dyn_fields($property_type_slug);
             $html .= $this->feature_fields($property_type_slug, $post_id);
             $html .= $this->open_house_fields($property_type_slug, $post_id);
-            $html .= apply_filters('wp_rem_images_gallery_admin_fields', $post_id, $property_type_slug); 
+            $html .= apply_filters('wp_rem_images_gallery_admin_fields', $post_id, $property_type_slug);
             $html .= apply_filters('wp_rem_attachemnts_admin_fields', $post_id, $property_type_slug);
             $html .= apply_filters('wp_rem_floor_plans_admin_fields', $post_id, $property_type_slug);
             $html .= apply_filters('wp_rem_apartment_admin_fields', $post_id, $property_type_slug);
@@ -963,8 +963,13 @@ if ( ! class_exists('wp_rem_property_meta') ) {
             $time_to = isset($wp_rem_open_house_time_to) ? ' ' . $wp_rem_open_house_time_to : '';
             $start_date = strtotime($wp_rem_open_house_date . $time_from);
             $end_date = strtotime($wp_rem_open_house_date . $time_to);
-            update_post_meta($property_id, 'open_house_start', $start_date);
-            update_post_meta($property_id, 'open_house_end', $end_date);
+            if ( $wp_rem_open_house_date != '' && $wp_rem_open_house_time_from != '' && $wp_rem_open_house_time_to != '' ) {
+                update_post_meta($property_id, 'open_house_start', $start_date);
+                update_post_meta($property_id, 'open_house_end', $end_date);
+            } else {
+                update_post_meta($property_id, 'open_house_start', '');
+                update_post_meta($property_id, 'open_house_end', '');
+            }
         }
 
         function wp_rem_save_property_price_type() {
@@ -1134,7 +1139,7 @@ if ( ! class_exists('wp_rem_property_meta') ) {
 
             $wp_rem_sub_child = '';
 
-            $property_type_cats = array( '' => 'All Categories' );
+            $property_type_cats = array( '' => wp_rem_plugin_text_srt('wp_rem_property_property_all_categories') );
             $wp_rem_property_type_cats = get_post_meta($property_type_slug, 'wp_rem_property_type_cats', true);
             if ( isset($wp_rem_property_type_cats) && ! empty($wp_rem_property_type_cats) ) {
                 foreach ( $wp_rem_property_type_cats as $wp_rem_property_type_cat ) {
@@ -1317,7 +1322,7 @@ if ( ! class_exists('wp_rem_property_meta') ) {
                 'hint_text' => wp_rem_plugin_text_srt('wp_rem_select_suggested_tags_hint'),
                 //'echo' => true,
                 'multi' => true,
-                'desc' => sprintf('<a href="%s">'.wp_rem_plugin_text_srt('wp_rem_add_new_tag_link').'</a>', admin_url('edit-tags.php?taxonomy=property-tag&post_type=properties', wp_rem_server_protocol())),
+                'desc' => sprintf('<a href="%s">' . wp_rem_plugin_text_srt('wp_rem_add_new_tag_link') . '</a>', admin_url('edit-tags.php?taxonomy=property-tag&post_type=properties', wp_rem_server_protocol())),
                 'field_params' => array(
                     'std' => '', $wp_rem_property_type_tags,
                     'id' => 'tags',
@@ -1475,7 +1480,7 @@ if ( ! class_exists('wp_rem_property_meta') ) {
                                 } else {
                                     $chosen_class = 'chosen-select-no-single';
                                 }
-                               
+
                                 $wp_rem_opt_array = array(
                                     'name' => isset($cus_field['label']) ? $cus_field['label'] : '',
                                     'desc' => '',
@@ -1624,6 +1629,7 @@ if ( ! class_exists('wp_rem_property_meta') ) {
             $property_type_id = isset($property_type_post[0]->ID) ? $property_type_post[0]->ID : 0;
             $wp_rem_get_features = get_post_meta($property_type_id, 'feature_lables', true);
             $wp_rem_feature_icon = get_post_meta($property_type_id, 'wp_rem_feature_icon', true);
+            $wp_rem_feature_icon_group = get_post_meta($property_type_id, 'wp_rem_feature_icon_group', true);
 
 
             if ( is_array($wp_rem_get_features) && sizeof($wp_rem_get_features) > 0 ) {
@@ -1634,10 +1640,21 @@ if ( ! class_exists('wp_rem_property_meta') ) {
                     if ( isset($features) && $features <> '' ) {
                         $wp_rem_feature_name = isset($features) ? $features : '';
                         $icon = isset($wp_rem_feature_icon[$feat_key]) ? $wp_rem_feature_icon[$feat_key] : '';
-                        $html .= '
-				<li class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-					<input id="feat-' . $feat_rand . '" ' . (is_array($wp_rem_property_features) && in_array($wp_rem_feature_name, $wp_rem_property_features_array) ? ' checked="checked"' : '') . ' type="checkbox" value="' . $wp_rem_feature_name . "_icon" . $icon . '" name="wp_rem_property_feature_list[]"> <label for="feat-' . $feat_rand . '">  <i class="' . $icon . '"></i> ' . $wp_rem_feature_name . '</label>
-				</li>';
+                        $icon_group = isset($wp_rem_feature_icon_group[$feat_key]) ? $wp_rem_feature_icon_group[$feat_key] : '';
+                        $html .= '<li class="col-lg-6 col-md-6 col-sm-12 col-xs-12">';
+                        $wp_rem_opt_array = array(
+                            'std' => '' . $wp_rem_feature_name . "_icon" . $icon . '_icon' . $icon_group,
+                            'id' => 'feat-' . $feat_rand . '',
+                            'cust_name' => 'wp_rem_property_feature_list[]',
+                            'return' => true,
+                            'cust_type' => 'checkbox',
+                            'extra_atr' => ' ' . (is_array($wp_rem_property_features) && in_array($wp_rem_feature_name, $wp_rem_property_features_array) ? ' checked="checked"' : '') . '',
+                            'prefix_on' => false,
+                        );
+                        $html .=$wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+
+                        $html .= '<label for="feat-' . $feat_rand . '">  <i class="' . $icon . '"></i> ' . $wp_rem_feature_name . '</label>';
+                        $html .= '</li>';
                     }
                 }
                 $html .='</ul>';
@@ -1779,11 +1796,9 @@ if ( ! class_exists('wp_rem_property_meta') ) {
 
         public function property_book_days_off() {
             global $post;
-
             $property_add_counter = rand(10000000, 99999999);
             $html = '';
             $off_days_list = '';
-
             $get_property_off_days = get_post_meta($post->ID, 'wp_rem_calendar', true);
             if ( is_array($get_property_off_days) && sizeof($get_property_off_days) ) {
                 foreach ( $get_property_off_days as $get_off_day ) {
@@ -1792,9 +1807,7 @@ if ( ! class_exists('wp_rem_property_meta') ) {
             } else {
                 $off_days_list = '<li id="no-book-day-' . $property_add_counter . '" class="no-result-msg">' . wp_rem_plugin_text_srt('wp_rem_list_meta_no_of_days') . '</li>';
             }
-
             wp_enqueue_script('responsive-calendar');
-
             $html .= '
 			<div class="form-elements">
 				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
@@ -1830,7 +1843,6 @@ if ( ! class_exists('wp_rem_property_meta') ) {
 							<div class="days wp-rem-dev-calendar-days" data-group="days"></div>
 						</div>
 					</div>
-					
 				</div>
 				<script>
 					jQuery(document).ready(function () {
@@ -1857,18 +1869,18 @@ if ( ! class_exists('wp_rem_property_meta') ) {
                 $year = wp_rem_get_input('off_day_year', date('Y'), 'STRING');
                 $book_off_date = $year . '-' . $month . '-' . $day;
             }
-
             $formated_off_date = date_i18n(get_option('date_format'), strtotime($book_off_date));
-
             $rand_numb = rand(100000000, 999999999);
-
-            $html = '
+            $html = '';
+            $html .= '
 			<li id="day-remove-' . $rand_numb . '">
 				<div class="open-close-time opening-time">
 					<div class="date-sec">
-						<span>' . $formated_off_date . '</span>
-						<input type="hidden" value="' . $book_off_date . '" name="wp_rem_property_off_days[]">
-					</div>
+						<span>' . $formated_off_date . '</span>';
+            
+            $html .= '	<input type="hidden" value="' . $book_off_date . '" name="wp_rem_property_off_days[]">';
+            
+            $html .= '	</div>
 					<div class="time-sec">
 						<a id="wp-rem-dev-day-off-rem-' . $rand_numb . '" data-id="' . $rand_numb . '" href="javascript:void(0);"><i class="icon-close2"></i></a>
 					</div>
@@ -1931,7 +1943,7 @@ if ( ! class_exists('wp_rem_property_meta') ) {
         }
 
         function wp_rem_submit_meta_box($post, $args = array()) {
-            global $action, $post, $wp_rem_plugin_static_text;
+            global $action, $wp_rem_form_fields, $post, $wp_rem_plugin_static_text;
 
 
             $post_type = $post->post_type;
@@ -2004,32 +2016,87 @@ if ( ! class_exists('wp_rem_property_meta') ) {
                         if ( ! in_array($post->post_status, array( 'publish', 'future', 'private' )) || 0 == $post->ID ) {
                             if ( $can_publish ) :
                                 if ( ! empty($post->post_date_gmt) && time() < strtotime($post->post_date_gmt . ' +0000') ) :
-                                    ?>
-                                    <input name="original_publish" type="hidden" id="original_publish" value="<?php echo esc_html('wp_rem_schedule'); ?>" />
-                                    <?php submit_button(esc_html('wp_rem_schedule'), 'primary button-large', 'publish', false, array( 'accesskey' => 'p' )); ?>
-                                <?php else : ?>
-                                    <input name="original_publish" type="hidden" id="original_publish" value="<?php echo wp_rem_plugin_text_srt('wp_rem_publish'); ?>" />
-                                    <?php submit_button(wp_rem_plugin_text_srt('wp_rem_publish'), 'primary button-large', 'publish', false, array( 'accesskey' => 'p' )); ?>
-                                <?php
+                                    $wp_rem_opt_array = array(
+                                        'std' => wp_rem_plugin_text_srt('wp_rem_schedule'),
+                                        'id' => 'original_publish',
+                                        'cust_name' => 'original_publish',
+                                        'return' => false,
+                                        'cust_type' => 'hidden',
+                                        'prefix_on' => false,
+                                    );
+                                    $wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+
+                                    submit_button(esc_html('wp_rem_schedule'), 'primary button-large', 'publish', false, array( 'accesskey' => 'p' ));
+                                else :
+                                    $wp_rem_opt_array = array(
+                                        'std' => wp_rem_plugin_text_srt('wp_rem_publish'),
+                                        'id' => 'original_publish',
+                                        'cust_name' => 'original_publish',
+                                        'return' => false,
+                                        'cust_type' => 'hidden',
+                                        'prefix_on' => false,
+                                    );
+                                    $wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+                                    submit_button(wp_rem_plugin_text_srt('wp_rem_publish'), 'primary button-large', 'publish', false, array( 'accesskey' => 'p' ));
                                 endif;
                             else :
+                                $wp_rem_opt_array = array(
+                                    'std' => wp_rem_plugin_text_srt('wp_rem_submit_for_review'),
+                                    'id' => 'original_publish',
+                                    'cust_name' => 'original_publish',
+                                    'return' => false,
+                                    'cust_type' => 'hidden',
+                                    'prefix_on' => false,
+                                );
+                                $wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+                                submit_button(wp_rem_plugin_text_srt('wp_rem_submit_for_review'), 'primary button-large', 'publish', false, array( 'accesskey' => 'p' ));
                                 ?>
-                                <input name="original_publish" type="hidden" id="original_publish" value="<?php echo wp_rem_plugin_text_srt('wp_rem_submit_for_review'); ?>" />
-                                <?php submit_button(wp_rem_plugin_text_srt('wp_rem_submit_for_review'), 'primary button-large', 'publish', false, array( 'accesskey' => 'p' )); ?>
                             <?php
                             endif;
                         } else {
 
                             if ( isset($_GET['action']) && $_GET['action'] == 'edit' ) {
-                                ?>
-                                <input name="original_publish" type="hidden" id="original_publish" value="<?php echo wp_rem_plugin_text_srt('wp_rem_update'); ?>" />
-                                <input name="save" type="submit" class="button button-primary button-large" id="publish" accesskey="p" value="<?php echo wp_rem_plugin_text_srt('wp_rem_update'); ?>" />
-                                <?php
+                                $wp_rem_opt_array = array(
+                                    'std' => wp_rem_plugin_text_srt('wp_rem_update'),
+                                    'id' => 'original_publish',
+                                    'cust_name' => 'original_publish',
+                                    'return' => false,
+                                    'cust_type' => 'hidden',
+                                    'prefix_on' => false,
+                                );
+                                $wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+                                $wp_rem_opt_array = array(
+                                    'std' => wp_rem_plugin_text_srt('wp_rem_update'),
+                                    'id' => 'publish',
+                                    'cust_name' => 'save',
+                                    'return' => false,
+                                    'classes' => 'button button-primary button-large',
+                                    'cust_type' => 'submit',
+                                    'extra_atr' => ' accesskey="p"',
+                                    'prefix_on' => false,
+                                );
+                                $wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
                             } else {
-                                ?>
-                                <input name="original_publish" type="hidden" id="original_publish" value="<?php echo wp_rem_plugin_text_srt('wp_rem_publish'); ?>">
-                                <input type="submit" name="publish" id="publish" class="button button-primary button-large" value="<?php echo wp_rem_plugin_text_srt('wp_rem_publish'); ?>" accesskey="p">
-                                <?php
+                                $wp_rem_opt_array = array(
+                                    'std' => wp_rem_plugin_text_srt('wp_rem_publish'),
+                                    'id' => 'original_publish',
+                                    'cust_name' => 'original_publish',
+                                    'return' => false,
+                                    'cust_type' => 'hidden',
+                                    'prefix_on' => false,
+                                );
+                                $wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+                                $wp_rem_opt_array = array(
+                                    'std' => wp_rem_plugin_text_srt('wp_rem_publish'),
+                                    'id' => 'publish',
+                                    'cust_name' => 'publish',
+                                    'return' => false,
+                                    'classes' => 'button button-primary button-large',
+                                    'cust_type' => 'submit',
+                                    'extra_atr' => ' accesskey="p"',
+                                    'prefix_on' => false,
+                                );
+                                $wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
                             }
                         }
                         ?>

@@ -157,9 +157,9 @@ if ( $wp_rem_cs_var_page_margin_switch == 'on' ) {
 				$main_con_classes = 'col-lg-8 col-md-8 col-sm-12 col-xs-12';
 			}
 			
-			echo '<div class="col-xs-12">';
-			echo '<div class="container">';
-			echo '<div class="row">';
+			//echo '<div class="col-xs-12">';
+			//echo '<div class="container">';
+			//echo '<div class="row">';
 			?>
 
 			<div class="<?php echo esc_attr($main_con_classes) ?>">
@@ -185,9 +185,9 @@ if ( $wp_rem_cs_var_page_margin_switch == 'on' ) {
 				</aside>
 				<?php
 			}
-			echo '</div>';
-			echo '</div>';
-			echo '</div>';
+			//echo '</div>';
+			//echo '</div>';
+			//echo '</div>';
 		}
 		if ( $wp_rem_cs_var_page_container_switch == 'on' ) {
 			echo '</div>';

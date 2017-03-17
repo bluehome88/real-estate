@@ -1,6 +1,6 @@
 function theme_option_save(admin_url, theme_url) {
     "use strict";
-    
+
     jQuery(".form-msg > i").show();
     jQuery(".outerwrapp-layer,.loading_div").fadeIn(100);
     function newValues() {
@@ -332,16 +332,16 @@ function wp_rem_cs_var_google_fonts_type(att_id, id) {
     "use strict";
     var $ = jQuery;
     if (att_id === "google_fonts") {
-        jQuery('#wp_rem_cs_var_'+ id + '_select').show();
-        jQuery('.'+ id + '_holder').show();
-        jQuery('.custom_'+ id+ '_holder').hide();
-        jQuery('#wp_rem_cs_var_'+ id +'_att_select').show();
-        
-    }else{
-        jQuery('#wp_rem_cs_var_'+ id + '_select').hide();
-        jQuery('.'+ id + '_holder').hide();
-        jQuery('.custom_'+ id + '_holder').show();
-        jQuery('#wp_rem_cs_var_'+ id +'_att_select').hide();
+        jQuery('#wp_rem_cs_var_' + id + '_select').show();
+        jQuery('.' + id + '_holder').show();
+        jQuery('.custom_' + id + '_holder').hide();
+        jQuery('#wp_rem_cs_var_' + id + '_att_select').show();
+
+    } else {
+        jQuery('#wp_rem_cs_var_' + id + '_select').hide();
+        jQuery('.' + id + '_holder').hide();
+        jQuery('.custom_' + id + '_holder').show();
+        jQuery('#wp_rem_cs_var_' + id + '_att_select').hide();
     }
 }
 
@@ -392,22 +392,24 @@ function  wp_rem_cs_var_add_banner(admin_url) {
 var counter_social_network = 0;
 function wp_rem_cs_var_add_social_icon(admin_url) {
     "use strict";
-    
+
     counter_social_network++;
     var social_net_icon_path = jQuery("#wp_rem_cs_var_social_icon_input").val();
     var social_net_awesome = jQuery(".selected-icon i").attr("class");
+    var cs_icon_group = jQuery(".selected-icon i").closest('.cs-icon-choser').find('.cs-icon-library').val();
     var social_net_url = jQuery("#social_net_url_input").val();
     var social_net_tooltip = jQuery("#social_net_tooltip_input").val();
     var social_font_awesome_color = jQuery("#social_font_awesome_color").val();
     if (social_net_url != "" && (social_net_icon_path != "" || social_net_awesome != "")) {
         var dataString = 'social_net_icon_path=' + social_net_icon_path +
                 '&social_net_awesome=' + social_net_awesome +
+                '&cs_icon_group=' + cs_icon_group +
                 '&social_net_url=' + social_net_url +
                 '&social_net_tooltip=' + social_net_tooltip +
                 '&counter_social_network=' + counter_social_network +
                 '&social_font_awesome_color=' + social_font_awesome_color +
                 '&action=wp_rem_cs_var_add_social_icon';
-    jQuery(".add-social-icon-button").append(' <span class="loader-spinner"><i class="icon-spinner"></i></span>');
+        jQuery(".add-social-icon-button").append(' <span class="loader-spinner"><i class="icon-spinner"></i></span>');
         jQuery.ajax({
             type: "POST",
             url: admin_url,
@@ -430,7 +432,7 @@ function wp_rem_cs_var_add_social_icon(admin_url) {
 var counter_custom_font = 0;
 function wp_rem_cs_var_add_custom_fonts(admin_url) {
     "use strict";
-    
+
     counter_custom_font++;
     var custom_font_name = jQuery("#wp_rem_custom_font_name").val();
     var custom_font_woff = jQuery("#custom_fonts_woff").val();
@@ -451,6 +453,7 @@ function wp_rem_cs_var_add_custom_fonts(admin_url) {
             url: admin_url,
             data: dataString,
             success: function (response) {
+                jQuery(".wp-rem-custom-fonts-list-wrap").show();
                 jQuery(".wp-rem-custom-fonts-list-wrap .wp-rem-list-layout").append(response);
                 jQuery("#wp_rem_custom_font_name,#custom_fonts_woff,#custom_fonts_ttf,#custom_fonts_svg,#custom_fonts_eot").val("");
                 jQuery('.font-loader-spinner').remove();
@@ -470,7 +473,7 @@ function wp_rem_cs_var_clients(admin_url) {
     var clients_image = jQuery("#wp_rem_cs_var_clients_image").val();
     var clients_title = jQuery("#clients_title").val();
     var clients_url = jQuery("#clients_url").val();
-    if (clients_image != "" ) {
+    if (clients_image != "") {
         jQuery(".add-clients-button").append(' <span class="loader-spinner"><i class="icon-spinner"></i></span>');
         var dataString = 'clients_image=' + clients_image +
                 '&clients_title=' + clients_title +
@@ -612,4 +615,41 @@ function wp_rem_cs_var_set_headerbg(value) {
 function popup_over() {
     jQuery('[data-toggle="popover"]').popover({trigger: "hover", placement: "right"});
 }
-	
+
+function rem_load_all_pages(field_class, field_id, selected_page) {
+    jQuery('.' + field_class + ' .pages-loader').html("<img src='" + wp_rem_theme_options_vars.theme_url + "/assets/backend/images/ajax-loader2.gif' />").show();
+    jQuery.ajax({
+        type: "POST",
+        url: wp_rem_theme_options_vars.ajax_url,
+        data: 'action=rem_load_all_pages&selected_page=' + selected_page,
+        dataType: "json",
+        success: function (response) {
+            if (typeof response.html !== 'undefined') {
+                jQuery('.' + field_class).prop("onclick", null);
+                jQuery('.' + field_class).html('');
+                jQuery('.' + field_class).html(response.html);
+                jQuery('.' + field_class + ' .pages-loader').html('').hide();
+                setTimeout(function () {
+                    jQuery('.' + field_class + ' #wp_rem_cs_var_' + field_id).trigger('chosen:open');
+                }, 5);
+            }
+        }
+    });
+}
+
+function wp_rem_footer_views(view) {
+    if (view == "classic" || view == "advance") {
+        jQuery("#wp_rem_footer_style_dynamic").show();
+    } else {
+        jQuery("#wp_rem_footer_style_dynamic").hide();
+    }
+
+    if (view == "advance") {
+        jQuery("#wp_rem_footer_menu_dynamic").show();
+    } else {
+        jQuery("#wp_rem_footer_menu_dynamic").hide();
+    }
+
+
+}
+			

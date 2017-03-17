@@ -143,22 +143,19 @@ if ( ! class_exists('wp_rem_cs_theme_all_strings_2') ) {
 			$wp_rem_cs_var_static_text['wp_rem_cs_var_demo3_label'] = esc_html__('Home v3', 'homevillas-real-estate');
 			$wp_rem_cs_var_static_text['wp_rem_cs_var_demo4_label'] = esc_html__('Home v4', 'homevillas-real-estate');
 			$wp_rem_cs_var_static_text['wp_rem_cs_var_demo5_label'] = esc_html__('Home v5', 'homevillas-real-estate');
-
-            /*
-             * Tweets Strings
-             */
-            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_minute_ago'] = esc_html__('About a Minute Ago', 'homevillas-real-estate');
-            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_minutes_ago'] = esc_html__('%d Minutes Ago', 'homevillas-real-estate');
-            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_hour_ago'] = esc_html__('About an Hour Ago', 'homevillas-real-estate');
-            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_hours_ago'] = esc_html__('%d Hours Ago', 'homevillas-real-estate');
-            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_day_ago'] = esc_html__('About a Day Ago', 'homevillas-real-estate');
-            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_days_ago'] = esc_html__('%d Days Ago', 'homevillas-real-estate');
-            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_week_ago'] = esc_html__('About a Week Ago', 'homevillas-real-estate');
-            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_weeks_ago'] = esc_html__('%d Weeks Ago', 'homevillas-real-estate');
-            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_month_ago'] = esc_html__('About a Month Ago', 'homevillas-real-estate');
-            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_months_ago'] = esc_html__('%d Months Ago', 'homevillas-real-estate');
-            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_year_ago'] = esc_html__('About a year Ago', 'homevillas-real-estate');
-            $wp_rem_cs_var_static_text['wp_rem_cs_var_tweets_years_ago'] = esc_html__('%d years Ago', 'homevillas-real-estate');
+			$wp_rem_cs_var_static_text['wp_rem_cs_var_demo6_label'] = esc_html__('Home v6', 'homevillas-real-estate');
+			$wp_rem_cs_var_static_text['wp_rem_cs_var_demo7_label'] = esc_html__('Home v7', 'homevillas-real-estate');
+			$wp_rem_cs_var_static_text['wp_rem_cs_var_demo8_label'] = esc_html__('Home v8', 'homevillas-real-estate');
+			$wp_rem_cs_var_static_text['wp_rem_cs_var_demo9_label'] = esc_html__('Home v9', 'homevillas-real-estate');
+			$wp_rem_cs_var_static_text['wp_rem_cs_var_demo10_label'] = esc_html__('Home v10', 'homevillas-real-estate');
+			$wp_rem_cs_var_static_text['wp_rem_cs_var_demo11_label'] = esc_html__('Home v11', 'homevillas-real-estate');
+			$wp_rem_cs_var_static_text['wp_rem_cs_var_demo12_label'] = esc_html__('Home v12', 'homevillas-real-estate');
+			$wp_rem_cs_var_static_text['wp_rem_cs_var_demo13_label'] = esc_html__('Home v13', 'homevillas-real-estate');
+			$wp_rem_cs_var_static_text['wp_rem_cs_var_demo14_label'] = esc_html__('Home v14', 'homevillas-real-estate');
+			$wp_rem_cs_var_static_text['wp_rem_cs_var_demo15_label'] = esc_html__('Home v15', 'homevillas-real-estate');
+			$wp_rem_cs_var_static_text['wp_rem_cs_var_demo16_label'] = esc_html__('Home v16', 'homevillas-real-estate');
+			$wp_rem_cs_var_static_text['wp_rem_cs_var_rtl_label'] = esc_html__('RTL Demo', 'homevillas-real-estate');
+            
 
             /*
              * Meta Strings

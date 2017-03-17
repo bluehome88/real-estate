@@ -216,7 +216,7 @@ if ( ! class_exists('Wp_rem_Property_Type_Meta') ) {
                 'hint_text' => wp_rem_plugin_text_srt('wp_rem_select_cats_hint'),
                 'echo' => true,
                 'multi' => true,
-                'desc' => sprintf(wp_rem_plugin_text_srt('wp_rem_add_new_cats_link'), admin_url('edit-tags.php?taxonomy=property-category&post_type=properties', wp_rem_server_protocol())),
+                'desc' => sprintf('<a href="'. admin_url('edit-tags.php?taxonomy=property-category&post_type=properties', wp_rem_server_protocol()) .'">'. wp_rem_plugin_text_srt('wp_rem_add_new_cats_link') .'</a>'),
                 'field_params' => array(
                     'std' => '',
                     'id' => 'property_type_cats',
@@ -322,6 +322,7 @@ if ( ! class_exists('Wp_rem_Property_Type_Meta') ) {
             $post_id = $post->ID;
             $featured_lables = get_post_meta($post_id, 'feature_lables', true);
             $wp_rem_feature_icon = get_post_meta($post_id, 'wp_rem_feature_icon', true);
+            $wp_rem_feature_icon_group = get_post_meta($post_id, 'wp_rem_feature_icon_group', true);
             $wp_rem_enable_not_selected = get_post_meta($post_id, 'wp_rem_enable_not_selected', true);
             ?>
             <div id="tab-features_settings">
@@ -358,12 +359,12 @@ if ( ! class_exists('Wp_rem_Property_Type_Meta') ) {
                                     <label></label>
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                 <div class="element-label">
                                     <label><?php echo wp_rem_plugin_text_srt('wp_rem_options_feature_icon'); ?></label>
                                 </div>
                             </div>
-                            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <div class="element-label">
                                     <label><?php echo wp_rem_plugin_text_srt('wp_rem_options_feature_label'); ?> </label>
                                 </div>
@@ -377,6 +378,7 @@ if ( ! class_exists('Wp_rem_Property_Type_Meta') ) {
 
                             foreach ( $featured_lables as $key => $lable ) {
                                 $icon = isset($wp_rem_feature_icon[$key]) ? $wp_rem_feature_icon[$key] : '';
+                                $icon_group = isset($wp_rem_feature_icon_group[$key]) ? $wp_rem_feature_icon_group[$key] : 'default';
                                 ?>
                                 <li class="wp-rem-list-item">
                                     <div class="col-lg-1 col-md-1 col-sm-6 col-xs-12">
@@ -387,15 +389,15 @@ if ( ! class_exists('Wp_rem_Property_Type_Meta') ) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                         <!--For Simple Input Element-->
                                         <div class="input-element">
                                             <div class="input-holder">
-                                                <?php echo wp_rem_iconlist_plugin_options($icon, 'feature_icon' . $icon_rand_id . $counter, 'wp_rem_feature_icon'); ?>
+                                                <?php echo apply_filters( 'cs_icons_fields', $icon, 'feature_icon' . $icon_rand_id . $counter, 'wp_rem_feature_icon', $icon_group ); ?>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                         <!--For Simple Input Element-->
                                         <div class="input-element">
                                             <div class="input-holder">
@@ -639,6 +641,7 @@ if ( ! class_exists('Wp_rem_Property_Type_Meta') ) {
                 'feature_id' => '',
                 'wp_rem_feature_name' => '',
                 'wp_rem_feature_icon' => '',
+                'wp_rem_feature_icon_group' => 'default',
             );
             extract(shortcode_atts($wp_rem_defaults, $wp_rem_atts));
 
@@ -692,7 +695,9 @@ if ( ! class_exists('Wp_rem_Property_Type_Meta') ) {
 
             $html .= '<div class="form-elements"><div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 			<label>' . wp_rem_plugin_text_srt('wp_rem_icon') . '</label></div><div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">';
-            $html .= wp_rem_iconlist_plugin_options($wp_rem_feature_icon, 'feature_icon' . $counter_feature, 'wp_rem_feature_icon_array');
+            //$html .= wp_rem_iconlist_plugin_options($wp_rem_feature_icon, 'feature_icon' . $counter_feature, 'wp_rem_feature_icon_array');
+            
+            $html .= apply_filters( 'cs_icons_fields', $wp_rem_feature_icon, 'feature_icon' . $counter_feature, 'wp_rem_feature_icon_array');
 
             $html .= '</div></div>';
 
@@ -764,7 +769,10 @@ if ( ! class_exists('Wp_rem_Property_Type_Meta') ) {
 			<span id="e9_buttons_' . $id . '" style="display:none">\
 				<button autocomplete="off" type="button" class="btn btn-primary">Load from IcoMoon selection.json</button>
 			</span>';
-
+            
+            
+             $html = apply_filters( 'cs_icons_fields', $value, $id, $name, 'default' );
+            
             if ( isset($_POST['field']) && $_POST['field'] == 'icon' ) {
                 echo json_encode(array( 'icon' => $html ));
                 die;
@@ -868,7 +876,8 @@ if ( ! class_exists('Wp_rem_Property_Type_Meta') ) {
             $html .= $wp_rem_html_fields->wp_rem_select_field($wp_rem_opt_array);
             $html .= '<div class="form-elements"><div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 			<label>' . wp_rem_plugin_text_srt('wp_rem_icon') . '</label></div><div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">';
-            $html .= wp_rem_iconlist_plugin_options($wp_rem_property_taxonomy_icons, "property_type_icon" . $counter_category, "wp_rem_property_taxonomy_icon_array");
+            //$html .= wp_rem_iconlist_plugin_options($wp_rem_property_taxonomy_icons, "property_type_icon" . $counter_category, "wp_rem_property_taxonomy_icon_array");
+            $html .= apply_filters( 'cs_icons_fields', $wp_rem_property_taxonomy_icons, "property_type_icon" . $counter_category, "wp_rem_property_taxonomy_icon_array");
 
             $html .= '</div></div>';
             $wp_rem_opt_array = array(
@@ -1215,6 +1224,7 @@ if ( ! class_exists('Wp_rem_Property_Type_Meta') ) {
                 $feature_label = isset($_POST['feature_label']) ? $_POST['feature_label'] : '';
                 $enable_not_selected = isset($_POST['wp_rem_enable_not_selected']) ? $_POST['wp_rem_enable_not_selected'] : '';
                 $wp_rem_feature_icon = isset($_POST['wp_rem_feature_icon']) ? $_POST['wp_rem_feature_icon'] : '';
+                $wp_rem_feature_icon_group = isset($_POST['wp_rem_feature_icon_group']) ? $_POST['wp_rem_feature_icon_group'] : '';
                 $feature_array = array();
                 if ( ! empty($feature_label) ) {
                     foreach ( $feature_label as $key => $lablel ) {
@@ -1231,10 +1241,20 @@ if ( ! class_exists('Wp_rem_Property_Type_Meta') ) {
                         //}
                     }
                 }
+                
+                $feature_icons_group = array();
+                if ( ! empty($wp_rem_feature_icon_group) ) {
+                    foreach ( $wp_rem_feature_icon_group as $icon_group ) {
+                        // if ( $icon != '' ) {
+                        $feature_icons_group[] = $icon_group;
+                        //}
+                    }
+                }
 
                 update_post_meta($post_id, 'wp_rem_enable_not_selected', $enable_not_selected);
                 update_post_meta($post_id, 'feature_lables', $feature_array);
                 update_post_meta($post_id, 'wp_rem_feature_icon', $feature_icons);
+                update_post_meta($post_id, 'wp_rem_feature_icon_group', $feature_icons_group);
 
                 $wp_rem_categorys_array = isset($_POST['wp_rem_categorys_array']) ? $_POST['wp_rem_categorys_array'] : '';
                 $wp_rem_property_taxonomy_icon_array = isset($_POST['wp_rem_property_taxonomy_icon_array']) ? $_POST['wp_rem_property_taxonomy_icon_array'] : '';
@@ -1401,7 +1421,7 @@ if ( ! class_exists('Wp_rem_Property_Type_Meta') ) {
                 'args' => $field_args,
                 'return' => true,
             );
-            $wp_rem_html_fields->wp_rem_select_page_field($wp_rem_opt_array);
+            $wp_rem_html_fields->wp_rem_custom_select_page_field($wp_rem_opt_array);
 
             $wp_rem_opt_array = array(
                 'name' => wp_rem_plugin_text_srt('wp_rem_opening_hour_time_lapse'),

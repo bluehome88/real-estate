@@ -23,6 +23,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_2') ) {
             $wp_rem_static_text['wp_rem_property_type_meta_cancelaion_policy'] = esc_html__('* Cancellation Policy:', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_type_meta_check_here'] = esc_html__('Check here', 'wp-rem');
             $wp_rem_static_text['wp_rem_show_all_feature_item'] = esc_html__('Show all Feature Options', 'wp-rem');
+			$wp_rem_static_text['wp_rem_show_only_checked_features'] = esc_html__('Show only checked Features', 'wp-rem');
             $wp_rem_static_text['wp_rem_show_all_feature_item_desc'] = esc_html__('If you turn on this option then all feature option will be show on property detail page with checked / un-checked value, but if you turned off this option then only checked feature options will be show at property detail page.', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_type_meta_delete_row'] = esc_html__('Delate Row', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_type_meta_parent'] = esc_html__('Parent', 'wp-rem');
@@ -126,8 +127,8 @@ if ( ! class_exists('wp_rem_plugin_all_strings_2') ) {
             $wp_rem_static_text['wp_rem_plugin_options_user_hdr_lgn_hint'] = esc_html__('Dashboard and Front-End login/register option can be hide by turning off this switch.', 'wp-rem');
             $wp_rem_static_text['wp_rem_plugin_options_member_dashboard'] = esc_html__('Account Page', 'wp-rem');
             $wp_rem_static_text['wp_rem_plugin_options_member_dashboard_hint'] = esc_html__('Select page for member dashboard here. This page is set in page template drop down. To create member dashboard page, go to Pages > Add new page, set the page template to "member" in the right menu.', 'wp-rem');
-            $wp_rem_static_text['wp_rem_plugin_options_create_property_btn_switch'] = esc_html__('Create Property Button Switch', 'homevillas-real-estate');
-            $wp_rem_static_text['wp_rem_plugin_options_create_property_btn_switch_hint'] = esc_html__('Turn this switch "ON" to show create property button in header otherwise switch it off ', 'homevillas-real-estate');
+            $wp_rem_static_text['wp_rem_plugin_options_create_property_btn_switch'] = esc_html__('Create Property Button Switch', 'wp-rem');
+            $wp_rem_static_text['wp_rem_plugin_options_create_property_btn_switch_hint'] = esc_html__('Turn this switch "ON" to show create property button in header otherwise switch it off ', 'wp-rem');
 			$wp_rem_static_text['wp_rem_plugin_options_create_property_pge'] = esc_html__('Property Submission Page ', 'wp-rem');
             $wp_rem_static_text['wp_rem_plugin_options_create_property_pge_hint'] = esc_html__('Select property submission page.', 'wp-rem');
             $wp_rem_static_text['wp_rem_plugin_options_dashboard_pagination'] = esc_html__('User Account Pagination', 'wp-rem');
@@ -334,7 +335,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_2') ) {
             $wp_rem_static_text['wp_rem_plugin_options_adv_settings'] = esc_html__('Advance Settings', 'wp-rem');
             $wp_rem_static_text['wp_rem_plugin_options_demo_user_login'] = esc_html__('Demo User Login', 'wp-rem');
             $wp_rem_static_text['wp_rem_plugin_options_slct_agency'] = esc_html__('Please Select Agency', 'wp-rem');
-            $wp_rem_static_text['wp_rem_plugin_options_slct_member'] = esc_html__('', 'wp-rem');
+            $wp_rem_static_text['wp_rem_plugin_options_slct_member'] = esc_html__('Please Select Member', 'wp-rem');
             $wp_rem_static_text['wp_rem_plugin_options_demo_member'] = esc_html__('Member', 'wp-rem');
             $wp_rem_static_text['wp_rem_plugin_options_demo_member_hint'] = esc_html__('Please select a user for member login', 'wp-rem');
             $wp_rem_static_text['wp_rem_plugin_options_demo_agency'] = esc_html__('Agency', 'wp-rem');
@@ -567,12 +568,19 @@ if ( ! class_exists('wp_rem_plugin_all_strings_2') ) {
             $wp_rem_static_text['wp_rem_property_search_flter_wt_keyword'] = esc_html__('What is Keyword search?', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_slider_sorry'] = esc_html__('Sorry', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_grid_listed_on'] = esc_html__('Listed on', 'wp-rem');
+			$wp_rem_static_text['wp_rem_property_hidden_heading'] = esc_html__('You have hidden %s on this page', 'wp-rem');
+
             $wp_rem_static_text['wp_rem_property_grid_by'] = esc_html__('by', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_slider_doesn_match'] = esc_html__('There are no properties matching your search.', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_featrd'] = esc_html__('featured', 'wp-rem');
+			$wp_rem_static_text['wp_rem_property_hide'] = esc_html__('Hide', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_leftflter_property_type'] = esc_html__('Property Types', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_leftflter_all_properties'] = esc_html__('All Properties', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_leftflter_open_house'] = esc_html__('Open House', 'wp-rem');
+			$wp_rem_static_text['wp_rem_property_leftflter_open_house_today_only'] = esc_html__('Today Only', 'wp-rem');
+			$wp_rem_static_text['wp_rem_property_leftflter_open_house_tomorrow_only'] = esc_html__('Tomorrow Only', 'wp-rem');
+			$wp_rem_static_text['wp_rem_property_leftflter_open_house_till_weekends'] = esc_html__('Till Week ends', 'wp-rem');
+			$wp_rem_static_text['wp_rem_property_leftflter_open_house_upcoming_weekends'] = esc_html__('Upcoming Weekend', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_leftflter_min'] = esc_html__('Min', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_leftflter_max'] = esc_html__('Max', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_leftflter_all'] = esc_html__('All', 'wp-rem');
@@ -626,7 +634,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_2') ) {
             $wp_rem_static_text['wp_rem_member_dashboard_account_stng'] = esc_html__('Account Settings', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_dashboard_team_members'] = esc_html__('Team Members', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_dashboard_signout'] = esc_html__('Sign out', 'wp-rem');
-            $wp_rem_static_text['wp_rem_member_dashboard_profile_not_active'] = esc_html__('Your profile status is not active.', 'wp-rem');
+            $wp_rem_static_text['wp_rem_member_dashboard_profile_not_active'] = esc_html__('Your profile status is not active. All of your property ads will not activate until your profile status will not active.', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_dashboard_want_to_profile'] = esc_html__('You Want To Delete?', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_dashboard_delete_yes'] = esc_html__('Yes, Delete', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_dashboard_delete_no'] = esc_html__('No, Cancel', 'wp-rem');
@@ -653,6 +661,9 @@ if ( ! class_exists('wp_rem_plugin_all_strings_2') ) {
             $wp_rem_static_text['wp_rem_alerts_biannualy2'] = esc_html__('Bi-Annually', 'wp-rem');
             $wp_rem_static_text['wp_rem_alerts_save_search'] = esc_html__('Save this search', 'wp-rem');
             $wp_rem_static_text['wp_rem_alerts_unsubcribe'] = esc_html__('Unsubscribe', 'wp-rem');
+            $wp_rem_static_text['wp_rem_alerts_map_view_properties'] = esc_html__('View Properties', 'wp-rem');
+            $wp_rem_static_text['wp_rem_alerts_map_or'] = esc_html__('OR', 'wp-rem');
+            $wp_rem_static_text['wp_rem_alerts_map_submit'] = esc_html__('Submit', 'wp-rem');
             $wp_rem_static_text['wp_rem_alerts_view_full_property'] = esc_html__('View Full Property', 'wp-rem');
             $wp_rem_static_text['wp_rem_alerts_property_found_at'] = esc_html__('New Properties Found at', 'wp-rem');
 
@@ -670,7 +681,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_2') ) {
             $wp_rem_static_text['wp_rem_favourite_dont_have_favourite'] = esc_html__('You don\'t have any favourite properties.', 'wp-rem');
             $wp_rem_static_text['wp_rem_favourite_fav_propert'] = esc_html__('Favourite Properties', 'wp-rem');
             $wp_rem_static_text['wp_rem_favourite_dont_hav_fav_propert'] = esc_html__('You don\'t have any favourite properties.', 'wp-rem');
-
+			
             /*
              * class bank transfer
              */
@@ -732,7 +743,8 @@ if ( ! class_exists('wp_rem_plugin_all_strings_2') ) {
             $wp_rem_static_text['wp_rem_options_property_detail_sidebar_member_info'] = esc_html__('Sidebar Member Info', 'wp-rem');
             $wp_rem_static_text['wp_rem_options_property_detail_sidebar_mortgage_calculator'] = esc_html__('Sidebar Mortgage Payment Calculator', 'wp-rem');
 
-
+			//hidden properties
+			$wp_rem_static_text['wp_rem_hidden_dont_hav_hidden_propert'] = esc_html__('You don\'t have any hidden properties.', 'wp-rem');
             /*
              * Currencies
              */
@@ -754,14 +766,17 @@ if ( ! class_exists('wp_rem_plugin_all_strings_2') ) {
             $wp_rem_static_text['wp_rem_shortcode_filter_next'] = esc_html__('Next', 'wp-rem');
             
 			$wp_rem_static_text['wp_rem_compare_label'] = esc_html__('Compare', 'wp-rem');
-			$wp_rem_static_text['wp_rem_compare_cannot_add_to_list'] = esc_html__('Cannot add to compare list.', 'wp-rem');
-			$wp_rem_static_text['wp_rem_compare_already_compared'] = esc_html__('Already Compared', 'wp-rem');
+			$wp_rem_static_text['wp_rem_compare_cannot_add_to_list'] = esc_html__('%s - cannot add to compare list', 'wp-rem');
+			$wp_rem_static_text['wp_rem_compare_already_compared'] = esc_html__('%s - already compared', 'wp-rem');
 			$wp_rem_static_text['wp_rem_compare_add_to_compare'] = esc_html__('Add to Compare', 'wp-rem');
 			$wp_rem_static_text['wp_rem_compare_added_successfully_to'] = esc_html__('Added successfully to', 'wp-rem');
+			$wp_rem_static_text['wp_rem_compare_added_to_compare'] = esc_html__('%s - added to compare', 'wp-rem');
+			$wp_rem_static_text['wp_rem_compare_clear_list'] = esc_html__('Clear List', 'wp-rem');
 			$wp_rem_static_text['wp_rem_compare_compare_list'] = esc_html__('compare list', 'wp-rem');
 			$wp_rem_static_text['wp_rem_compare_added_successfully_to_compare_list'] = esc_html__('Added successfully to compare list.', 'wp-rem');
 			$wp_rem_static_text['wp_rem_compare_already_have_properties'] = esc_html__('Compare list already have 3 properties for this property type.', 'wp-rem');
 			$wp_rem_static_text['wp_rem_compare_removed_from_compare_list'] = esc_html__('Removed from compare list.', 'wp-rem');
+			$wp_rem_static_text['wp_rem_compare_was_removed_from_compare'] = esc_html__('%s was removed from compare', 'wp-rem');
 			$wp_rem_static_text['wp_rem_compare_remove_to_compare'] = esc_html__('Remove to Compare', 'wp-rem');
 			$wp_rem_static_text['wp_rem_compare_shortcode_heading'] = esc_html__('REM: Properties Compare', 'wp-rem');
 			$wp_rem_static_text['wp_rem_compare_compare_list_is_empty'] = esc_html__('Your compare list is empty, Please add at least two item in list then try it. %s', 'wp-rem');
@@ -773,6 +788,15 @@ if ( ! class_exists('wp_rem_plugin_all_strings_2') ) {
 			$wp_rem_static_text['wp_rem_options_compare_switch_label_desc'] = esc_html__('Turn this switch "ON" to show compare properties button otherwise switch it off.', 'wp-rem');
 			$wp_rem_static_text['wp_rem_shortcode_compare_switch'] = esc_html__('Compare Switch', 'wp-rem');
 			$wp_rem_static_text['wp_rem_shortcode_compare_error'] = esc_html__('Error', 'wp-rem');
+			$wp_rem_static_text['wp_rem_shortcode_compare_label'] = esc_html__('Compare', 'wp-rem');
+			$wp_rem_static_text['wp_rem_shortcode_compared_label'] = esc_html__('Compared', 'wp-rem');
+			$wp_rem_static_text['wp_rem_options_email_logs'] = esc_html__('Email Logs', 'wp-rem');
+			$wp_rem_static_text['wp_rem_options_enable_disable_email_logs'] = esc_html__('Enable/Disable sent email logs', 'wp-rem');
+			$wp_rem_static_text['wp_rem_register_login_demo_user'] = esc_html__('Demo User', 'wp-rem');
+			$wp_rem_static_text['wp_rem_plugin_options_demo_user'] = esc_html__('Demo User', 'wp-rem');
+			$wp_rem_static_text['wp_rem_plugin_options_demo_user_hint'] = esc_html__('Please select a user for demo login', 'wp-rem');
+                        
+			$wp_rem_static_text['wp_rem_payment_woocommerce_enable'] = esc_html__('Woocommerce currency options are being used, please use the settings page for woocommerce to modify currency settings.', 'wp-rem');
 			return $wp_rem_static_text;
         }
 

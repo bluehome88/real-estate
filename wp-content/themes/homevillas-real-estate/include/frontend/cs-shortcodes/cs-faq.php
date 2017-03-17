@@ -29,6 +29,11 @@ if ( ! function_exists( 'wp_rem_cs_faq_shortcode' ) ) {
         $wp_rem_cs_var_column_size = isset( $wp_rem_cs_var_column_size ) ? $wp_rem_cs_var_column_size : '';
         $wp_rem_cs_var_faq_main_title = isset( $wp_rem_cs_var_faq_main_title ) ? $wp_rem_cs_var_faq_main_title : '';
         $wp_rem_cs_var_faq_sub_title = isset( $wp_rem_cs_var_faq_sub_title ) ? $wp_rem_cs_var_faq_sub_title : '';
+        $faq_classs = '';
+        if($wp_rem_cs_var_faq_view == 'modern'){
+            $faq_classs = ' modern'; 
+        }
+        
         if ( isset( $wp_rem_cs_var_column_size ) && $wp_rem_cs_var_column_size != '' ) {
             if ( function_exists( 'wp_rem_cs_var_custom_column_class' ) ) {
                 $column_class = wp_rem_cs_var_custom_column_class( $wp_rem_cs_var_column_size );
@@ -46,7 +51,7 @@ if ( ! function_exists( 'wp_rem_cs_faq_shortcode' ) ) {
             $html .= '</div>';
         }
         $page_element_size  = isset( $atts['faq_element_size'] )? $atts['faq_element_size'] : 100;
-        return '<div class="' . wp_rem_cs_var_page_builder_element_sizes($page_element_size) . ' "><div class="faqs">'.wp_rem_cs_allow_special_char($html).'</div></div>';
+        return '<div class="' . wp_rem_cs_var_page_builder_element_sizes($page_element_size) . ' "><div class="faqs'.$faq_classs.'">'.wp_rem_cs_allow_special_char($html).'</div></div>';
         
         
     }
@@ -72,6 +77,7 @@ if ( ! function_exists( 'wp_rem_cs_faq_item_shortcode' ) ) {
         $defaults = array(
             'wp_rem_cs_var_faq_title' => 'Title',
             'wp_rem_cs_var_icon_box' => '',
+            'wp_rem_cs_var_icon_box_group' => 'default',
             'wp_rem_cs_var_faq_active' => 'yes',
         );
         extract( shortcode_atts( $defaults, $atts ) );
@@ -80,9 +86,10 @@ if ( ! function_exists( 'wp_rem_cs_faq_item_shortcode' ) ) {
         $wp_rem_cs_var_icon_box = isset( $wp_rem_cs_var_icon_box ) ? $wp_rem_cs_var_icon_box : '';
         $wp_rem_cs_var_faq_active = isset( $wp_rem_cs_var_faq_active ) ? $wp_rem_cs_var_faq_active : '';
 
-            if ( isset( $wp_rem_cs_var_icon_box ) && $wp_rem_cs_var_icon_box != '' ) {
-                $wp_rem_cs_var_acc_icon .= '<i class="' . esc_html ( $wp_rem_cs_var_icon_box ) . '"></i>';
-            }
+        if ( isset( $wp_rem_cs_var_icon_box ) && $wp_rem_cs_var_icon_box != '' ) {
+             wp_enqueue_style('cs_icons_data_css_'.$wp_rem_cs_var_icon_box_group );
+            $wp_rem_cs_var_acc_icon .= '<i class="' . esc_html ( $wp_rem_cs_var_icon_box ) . '"></i>';
+        }
        
         $faq_count = 0;
         $faq_count = rand( 4045, 99999 );

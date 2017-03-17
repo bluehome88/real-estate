@@ -4,7 +4,7 @@
  * Wp_rem_Flickr Class
  *
  * @package Wp Rem */
-if (!class_exists('Wp_rem_contact')) {
+if ( ! class_exists('Wp_rem_contact') ) {
 
     /**
       Wp_rem_contact class used to implement the custom contact widget.
@@ -20,7 +20,7 @@ if (!class_exists('Wp_rem_contact')) {
             parent::__construct(
                     'wp_rem_contact', // Base ID.
                     wp_rem_cs_var_theme_text_srt('wp_rem_var_contact'), // Name.
-                    array('classname' => 'widget-ad', 'description' => wp_rem_cs_var_theme_text_srt('wp_rem_var_contact_description'),)
+                    array( 'classname' => 'widget-ad', 'description' => wp_rem_cs_var_theme_text_srt('wp_rem_var_contact_description'), )
             );
         }
 
@@ -33,7 +33,7 @@ if (!class_exists('Wp_rem_contact')) {
             global $wp_rem_cs_var_form_fields, $wp_rem_cs_var_html_fields, $wp_rem_cs_var_static_text;
 
             $cs_rand_id = rand(23789, 934578930);
-            $instance = wp_parse_args((array) $instance, array('title' => '', 'contact_code' => ''));
+            $instance = wp_parse_args((array) $instance, array( 'title' => '', 'contact_code' => '', 'show_icon' => '' ));
             $title = $instance['title'];
             $address_content = isset($instance['address_content']) ? esc_attr($instance['address_content']) : '';
             $contact_code = $instance['contact_code'];
@@ -42,6 +42,9 @@ if (!class_exists('Wp_rem_contact')) {
             $email = isset($instance['email']) ? esc_attr($instance['email']) : '';
             $description = isset($instance['description']) ? esc_attr($instance['description']) : '';
             $contact_logo = isset($instance['contact_logo']) ? esc_attr($instance['contact_logo']) : '';
+            $show_icon = isset($instance['show_icon']) ? esc_attr($instance['show_icon']) : '';
+
+
 
             $wp_rem_opt_array = array(
                 'name' => wp_rem_cs_var_theme_text_srt('wp_rem_var_title_field'),
@@ -125,9 +128,7 @@ if (!class_exists('Wp_rem_contact')) {
                     'return' => true,
                 ),
             );
-
             $wp_rem_cs_var_html_fields->wp_rem_cs_var_textarea_field($wp_rem_opt_array);
-
             $wp_rem_opt_array = array(
                 'name' => wp_rem_cs_var_theme_text_srt('wp_rem_var_contact_phone'),
                 'desc' => '',
@@ -143,6 +144,24 @@ if (!class_exists('Wp_rem_contact')) {
                 ),
             );
             $wp_rem_cs_var_html_fields->wp_rem_cs_var_text_field($wp_rem_opt_array);
+            $wp_rem_opt_array = array(
+                'name' => wp_rem_cs_var_theme_text_srt('wp_rem_var_widget_contact_info_show_icon'),
+                'desc' => '',
+                'hint_text' => '',
+                'echo' => true,
+                'field_params' => array(
+                    'std' => $show_icon,
+                    'cust_name' => wp_rem_cs_allow_special_char($this->get_field_name('show_icon')),
+                    'cust_id' => wp_rem_cs_allow_special_char($this->get_field_id('show_icon')),
+                    'id' => '',
+                    'options' => array(
+                        'yes' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_thumbnail_display_show_yes'),
+                        'no' => wp_rem_cs_var_theme_text_srt('wp_rem_cs_var_thumbnail_display_show_no'),
+                    ),
+                    'return' => true,
+                ),
+            );
+            $wp_rem_cs_var_html_fields->wp_rem_cs_var_select_field($wp_rem_opt_array);
         }
 
         /**
@@ -162,6 +181,7 @@ if (!class_exists('Wp_rem_contact')) {
             $instance['email'] = esc_sql($new_instance['email']);
             $instance['description'] = esc_sql($new_instance['description']);
             $instance['contact_logo'] = esc_sql($new_instance['contact_logo']);
+            $instance['show_icon'] = esc_sql($new_instance['show_icon']);
             return $instance;
         }
 
@@ -185,35 +205,44 @@ if (!class_exists('Wp_rem_contact')) {
             $description = empty($instance['description']) ? '' : $instance['description'];
             $contact_logo = empty($instance['contact_logo']) ? '' : $instance['contact_logo'];
             $showcount = empty($instance['showcount']) ? '' : $instance['showcount'];
+            $show_icon = empty($instance['show_icon']) ? '' : $instance['show_icon'];
             echo '<div class="widget widget-text">';
-            if ('' !== $title) {
+            if ( '' !== $title ) {
                 echo wp_rem_cs_allow_special_char($args['before_title'] . $title . $args['after_title']);
             }
-            $showcount = ( '' !== $showcount || !is_integer($showcount) ) ? $showcount : 2;
-            echo '<div class="map-holder"> ';
-            if (filter_var($contact_logo, FILTER_VALIDATE_URL) != FALSE) {
+            $showcount = ( '' !== $showcount || ! is_integer($showcount) ) ? $showcount : 2;
+            echo '<div class="logowidget"> ';
+            if ( filter_var($contact_logo, FILTER_VALIDATE_URL) != FALSE ) {
                 echo '<img src="' . esc_url($contact_logo) . '" alt="" />';
             }
             echo '</div>';
-            if ('' !== $description) {
+            if ( '' !== $description ) {
                 echo '<p>' . esc_html($description) . '</p>';
             }
             echo '<ul>';
-
-            if ('' !== $address_content) {
-                echo '<li> <i class="icon-map-marker2"></i>
-                        ' . esc_html($address_content) . '
-                    </li>';
+            if ( '' !== $address_content ) {
+                echo '<li>';
+                if ( isset($show_icon) && $show_icon == 'yes' ) {
+                    echo '<i class="icon-map-marker2"></i>';
+                }
+                echo esc_html($address_content);
+                echo '</li>';
             }
-            if ('' !== $phone) {
-                echo '<li> <i class="icon-phone"></i>
-                        ' . esc_html($phone) . '
-                    </li>';
+            if ( '' !== $phone ) {
+                echo '<li>';
+                if ( isset($show_icon) && $show_icon == 'yes' ) {
+                    echo '<i class="icon-phone"></i>';
+                }
+                echo esc_html($phone);
+                echo '</li>';
             }
-            if ('' !== $email) {
-                echo '<li> <i class="icon-envelope3"></i>
-                        <a href="mailto:' . esc_html($email) . '">' . esc_html($email) . '</a>
-                    </li>';
+            if ( '' !== $email ) {
+                echo '<li>';
+                if ( isset($show_icon) && $show_icon == 'yes' ) {
+                    echo '<i class="icon-envelope3"></i>';
+                }
+                echo '<a href="mailto:' . esc_html($email) . '">' . esc_html($email) . '</a>';
+                echo '</li>';
             }
             echo '</ul>';
 

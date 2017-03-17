@@ -22,8 +22,8 @@ if (!class_exists('Wp_rem_Email')) {
             $this->email_post_type_name = 'emails';
             add_action('init', array($this, 'register_post_type_callback'));
             add_action('add_meta_boxes', array($this, 'add_metabox_callback'));
-            add_action('wp_ajax_process_emails', array($this, 'process_emails_callback'));
-            add_action('wp_ajax_nopriv_process_emails', array($this, 'process_emails_callback'));
+            add_action('wp_ajax_process_emails', array($this, 'process_emails_callback'), 20);
+            add_action('wp_ajax_nopriv_process_emails', array($this, 'process_emails_callback'), 20);
 
             add_filter('wp_rem_plugin_option_smtp_tab', array($this, 'create_plugin_option_smtp_tab'), 10, 1);
             add_filter('wp_rem_smtp_plugin_options', array($this, 'create_smtp_plugin_options'), 10, 1);
@@ -240,7 +240,8 @@ if (!class_exists('Wp_rem_Email')) {
         }
 
         public function process_emails_callback() {
-            $args = array(
+			
+			$args = array(
                 'post_type' => $this->email_post_type_name
             );
             $post_id = isset($_REQUEST['email_id']) ? $_REQUEST['email_id'] : 0;
@@ -260,7 +261,6 @@ if (!class_exists('Wp_rem_Email')) {
                 while ($query->have_posts()) {
                     $query->the_post();
                     $wp_rem_post_id = get_the_ID();
-                    var_dump($wp_rem_post_id);
                     $wp_rem_subject = get_the_title();
                     $wp_rem_message = get_the_content();
                     $wp_rem_send_to = get_post_meta($wp_rem_post_id, 'email_send_to', true);
@@ -277,6 +277,7 @@ if (!class_exists('Wp_rem_Email')) {
                             });
                         }
                     }
+					
                     $wp_rem_confirm = wp_mail($wp_rem_send_to, $wp_rem_subject, $wp_rem_message, $wp_rem_headers);
                     update_post_meta($wp_rem_post_id, 'email_status', 'processed');
                     update_post_meta($wp_rem_post_id, 'mailer_response', $wp_rem_confirm + "");
@@ -538,7 +539,9 @@ if (!class_exists('Wp_rem_Email')) {
          */
 
         public function send_mail_callback($args) {
-
+			global $wp_rem_plugin_options;
+			$wp_rem_email_logs = isset( $wp_rem_plugin_options['wp_rem_email_logs'] ) ? $wp_rem_plugin_options['wp_rem_email_logs'] : '';
+		
             $wp_rem_send_to = (isset($args['to'])) ? $args['to'] : '';
             $wp_rem_subject = (isset($args['subject'])) ? $args['subject'] : '';
             $wp_rem_message = (isset($args['message'])) ? $args['message'] : '';
@@ -564,11 +567,16 @@ if (!class_exists('Wp_rem_Email')) {
             ));
 
             if ($post_id != 0) {
-                wp_remote_get(admin_url('admin-ajax.php?action=process_emails&post_id=' . $post_id), array('timeout' => 0, 'httpversion' => '1.1'));
+                    wp_remote_get(admin_url('admin-ajax.php?action=process_emails&post_id=' . $post_id), array('timeout' => 0, 'httpversion' => '1.1'));
             }
             if ($class_obj != '') {
                 $class_obj->is_email_sent = true;
             }
+			
+			if( $wp_rem_email_logs != 'on' && $post_id != '' && is_numeric($post_id) && get_post_type($post_id) == $this->email_post_type_name ){
+				wp_delete_post($post_id);
+				delete_post_meta($post_id);
+			}
         }
 
         /**

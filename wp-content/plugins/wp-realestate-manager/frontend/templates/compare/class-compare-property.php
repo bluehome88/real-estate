@@ -16,9 +16,13 @@ if ( ! class_exists('wp_rem_compare_properties') ) {
 			add_action('wp_ajax_wp_rem_removing_compare', array( $this, 'wp_rem_removing_compare' ));
 			add_action('wp_ajax_nopriv_wp_rem_removing_compare', array( $this, 'wp_rem_removing_compare' ));
 			
-			add_action('wp_rem_compare_btn', array( $this, 'wp_rem_property_compare_button' ), 10, 3);
-			add_action('wp_rem_detail_compare_btn', array( $this, 'wp_rem_property_detail_compare_button' ), 10, 1);
+			add_action('wp_ajax_wp_rem_clear_compare', array( $this, 'wp_rem_clear_compare_callback' ));
+			add_action('wp_ajax_nopriv_wp_rem_clear_compare', array( $this, 'wp_rem_clear_compare_callback' ));
 			
+			add_action('wp_rem_compare_btn', array( $this, 'wp_rem_property_compare_button' ), 10, 3);
+			add_filter('wp_rem_is_compare', array( $this, 'wp_rem_property_is_compare' ), 10, 2);
+			add_action('wp_rem_detail_compare_btn', array( $this, 'wp_rem_property_detail_compare_button' ), 10, 1);
+			add_action('wp_footer', array( $this,'wp_rem_property_compare_response')); 
 			add_shortcode('wp_rem_compare_property', array( $this, 'wp_rem_compare_properties_listing' ));
 			
 			add_action( 'wp_ajax_wp_rem_cs_var_page_builder_wp_rem_compare_property', array( $this, 'wp_rem_cs_var_page_builder_wp_rem_compare_property' ));
@@ -30,8 +34,28 @@ if ( ! class_exists('wp_rem_compare_properties') ) {
 			add_filter('wp_rem_properties_shortcode_admin_default_attributes', array( $this, 'wp_rem_properties_shortcode_admin_default_attributes_callback' ), 11, 1);
 			add_action( 'wp_rem_compare_properties_element_field', array( $this, 'wp_rem_compare_properties_element_field_callback' ), 11, 1);
 			add_filter( 'wp_rem_save_properties_shortcode_admin_fields', array( $this, 'wp_rem_save_properties_shortcode_admin_fields_callback' ), 11, 3);
+			
+			
 		}
 		
+		public function wp_rem_clear_compare_callback(){
+			$property_id = isset($_POST['property_id']) ? $_POST['property_id'] : '';
+			$property_type_id = isset($_POST['type_id']) ? $_POST['type_id'] : '';
+			if( $property_type_id != '' ){
+				if ( isset($_COOKIE['wp_rem_compare_list']) && $_COOKIE['wp_rem_compare_list'] != '' ) {
+					$cookie_compare_list = stripslashes($_COOKIE['wp_rem_compare_list']);
+					$cookie_compare_list = json_decode($cookie_compare_list, true);
+				}
+				$cookie_compare_list["type_{$property_type_id}"] = '';
+				$cookie_compare_list_clear = json_encode($cookie_compare_list);
+				setcookie('wp_rem_compare_list', $cookie_compare_list_clear, time() + 86400, '/');
+				echo json_encode(array( 'type' => 'success'));
+			}else{
+				echo json_encode(array( 'type' => 'error' ));
+			}
+			die;
+		}
+
 		public function wp_rem_properties_shortcode_admin_default_attributes_callback( $attributes = array() ){
 			$attributes['compare_property_switch'] = '';
 			return $attributes;
@@ -71,7 +95,10 @@ if ( ! class_exists('wp_rem_compare_properties') ) {
 
 		public function wp_rem_compare_add() {
 			global $wp_rem_plugin_options;
-
+			$compare_listing_url = isset($wp_rem_plugin_options['wp_rem_compare_list_page']) ? $wp_rem_plugin_options['wp_rem_compare_list_page'] : '';
+			if ( $compare_listing_url != '' ) {
+				$compare_listing_url = esc_url(get_permalink($compare_listing_url));
+			}
 			$cookie_compare_list_add = $cookie_compare_list = array();
 			$cookie_compare_list = '';
 			if ( isset($_COOKIE['wp_rem_compare_list']) && $_COOKIE['wp_rem_compare_list'] != '' ) {
@@ -90,7 +117,9 @@ if ( ! class_exists('wp_rem_compare_properties') ) {
 			} else {
 				$property_type_id = '';
 			}
-			
+			$added_compare = '0';
+			$before_btn = '<div class="compare-list-btn-holder">';
+			$after_btn = '</div>';
 			$mark_msg = wp_rem_plugin_text_srt( 'wp_rem_compare_cannot_add_to_list' );
 			if ( $property_type_id != '' ) {
 				if ( $wp_rem_check_action == 'check' ) {
@@ -104,15 +133,25 @@ if ( ! class_exists('wp_rem_compare_properties') ) {
 						}
 					}
 					if ( $already_in_list == true ) {
-						$mark_msg = wp_rem_plugin_text_srt( 'wp_rem_compare_already_compared' );
+						$mark_msg = sprintf('<i class="icon-compare_arrows"></i> '. wp_rem_plugin_text_srt( 'wp_rem_compare_already_compared' ), get_the_title($wp_rem_prop_id));
+						if ( $compare_listing_url != '' ) {
+							$mark_msg .= $before_btn;
+								$mark_msg .= ' <a class="compare-page" href="'. esc_url($compare_listing_url) .'">'. wp_rem_plugin_text_srt( 'wp_rem_compare_compare_list' ) .'</a>';
+							$mark_msg .= $after_btn;
+							$added_compare = '1';
+						}
 						$add_to_compare_already = wp_rem_plugin_text_srt( 'wp_rem_compare_add_to_compare' );
 					} else {
-						$compare_listing_url = isset($wp_rem_plugin_options['wp_rem_compare_list_page']) ? $wp_rem_plugin_options['wp_rem_compare_list_page'] : '';
+						$added_compare = '1';
 						if ( $compare_listing_url != '' ) {
-							$compare_listing_url = esc_url(get_permalink($compare_listing_url));
-							$added_succesfully_msg = sprintf(wp_rem_plugin_text_srt( 'wp_rem_compare_added_successfully_to' ). ' <a class="compare-page" href="%s">'. wp_rem_plugin_text_srt( 'wp_rem_compare_compare_list' ) .'.</a>', $compare_listing_url);
+							$added_succesfully_msg = '<i class="icon-compare_arrows"></i> ';
+							$added_succesfully_msg .= sprintf(wp_rem_plugin_text_srt( 'wp_rem_compare_added_to_compare' ), get_the_title($wp_rem_prop_id));
+							$added_succesfully_msg .= $before_btn;
+								$added_succesfully_msg .= ' <a class="compare-page" href="'. esc_url($compare_listing_url) .'">'. wp_rem_plugin_text_srt( 'wp_rem_compare_compare_list' ) .'</a>';
+							$added_succesfully_msg .= $after_btn;
 						} else {
-							$added_succesfully_msg = wp_rem_plugin_text_srt( 'wp_rem_compare_added_successfully_to_compare_list' );
+							$added_succesfully_msg = '<i class="icon-compare_arrows"></i> ';
+							$added_succesfully_msg .= sprintf(wp_rem_plugin_text_srt( 'wp_rem_compare_added_to_compare' ), get_the_title($wp_rem_prop_id));
 						}
 
 						if ( isset($cookie_compare_list) && ! isset($cookie_compare_list["type_{$property_type_id}"]) ) {
@@ -136,8 +175,15 @@ if ( ! class_exists('wp_rem_compare_properties') ) {
 								$mark_msg = $added_succesfully_msg;
 							} else if ( isset($type_session_arr['list_ids']) && is_array($type_session_arr['list_ids']) && sizeof($type_session_arr['list_ids']) >= 3 ) {
 								$mark_msg = wp_rem_plugin_text_srt( 'wp_rem_compare_already_have_properties' );
+								$mark_msg .= $before_btn;
+									if ( $compare_listing_url != '' ) {
+										$mark_msg .= ' <a class="compare-page" href="'. esc_url($compare_listing_url) .'">'. wp_rem_plugin_text_srt( 'wp_rem_compare_compare_list' ) .'</a>';
+									}
+									$mark_msg .= ' <a data-id="'. $wp_rem_prop_id .'" data-type-id="'. $property_type_id .'" class="clear-list" href="javascript:void(0)">'. wp_rem_plugin_text_srt( 'wp_rem_compare_clear_list' ) .'</a>';
+								$mark_msg .= $after_btn;
 								$add_to_compare_already = wp_rem_plugin_text_srt( 'wp_rem_compare_add_to_compare' );
 								$mark_msg .= '<script>jQuery("#check-list' . $wp_rem_prop_id . '").attr("checked", false);</script>';
+								$added_compare = '0';
 							} else if ( ! isset($type_session_arr['list_ids']) ) {
 								$cookie_compare_list["type_{$property_type_id}"] = array(
 									'type_id' => $property_type_id,
@@ -146,6 +192,7 @@ if ( ! class_exists('wp_rem_compare_properties') ) {
 								$cookie_compare_list_add = json_encode($cookie_compare_list);
 								setcookie('wp_rem_compare_list', $cookie_compare_list_add, time() + 86400, '/');
 								$mark_msg = $added_succesfully_msg;
+								$added_compare = '0';
 							}
 						} else {
 							$cookie_compare_list = array(
@@ -157,6 +204,7 @@ if ( ! class_exists('wp_rem_compare_properties') ) {
 							$cookie_compare_list_add = json_encode($cookie_compare_list);
 							setcookie('wp_rem_compare_list', $cookie_compare_list_add, time() + 86400, '/');
 							$mark_msg = $added_succesfully_msg;
+							$added_compare = '1';
 						}
 					}
 				} else {
@@ -175,11 +223,27 @@ if ( ! class_exists('wp_rem_compare_properties') ) {
 							}
 						}
 					}
-					$mark_msg = wp_rem_plugin_text_srt( 'wp_rem_compare_removed_from_compare_list' );
+					
+					$mark_msg = '<i class="icon-warning3"></i> ';
+					$mark_msg .= sprintf(wp_rem_plugin_text_srt( 'wp_rem_compare_was_removed_from_compare' ), get_the_title($wp_rem_prop_id));
+					if ( $compare_listing_url != '' ) {
+						$mark_msg .= $before_btn;
+							$mark_msg .= ' <a class="compare-page" href="'. esc_url($compare_listing_url) .'">'. wp_rem_plugin_text_srt( 'wp_rem_compare_compare_list' ) .'</a>';
+						$mark_msg .= $after_btn;
+					}
+					
 					$add_to_compare = wp_rem_plugin_text_srt( 'wp_rem_compare_add_to_compare' );
+					$added_compare = '0';
 				}
 			} else {
-				$mark_msg = wp_rem_plugin_text_srt( 'wp_rem_compare_cannot_add_to_list' );
+				$mark_msg = sprintf('<i class="icon-compare_arrows"></i> '. wp_rem_plugin_text_srt( 'wp_rem_compare_cannot_add_to_list' ), get_the_title($wp_rem_prop_id));
+				if ( $compare_listing_url != '' ) {
+					$mark_msg .= $before_btn;
+						$mark_msg .= ' <a class="compare-page" href="'. esc_url($compare_listing_url) .'">'. wp_rem_plugin_text_srt( 'wp_rem_compare_compare_list' ) .'</a>';
+					$mark_msg .= $after_btn;
+				}
+				$added_compare = '0';
+				
 			}
 			$compare_msg = '';
 			if ( $add_to_compare != '' ) {
@@ -189,7 +253,7 @@ if ( ! class_exists('wp_rem_compare_properties') ) {
 			} else {
 				$compare_msg = wp_rem_plugin_text_srt( 'wp_rem_compare_remove_to_compare' );
 			}
-			echo json_encode(array( 'mark' => $mark_msg, 'compare' => $compare_msg ));
+			echo json_encode(array( 'mark' => $mark_msg, 'compare' => $compare_msg, 'type' => $added_compare ));
 			die;
 		}
 		
@@ -236,6 +300,49 @@ if ( ! class_exists('wp_rem_compare_properties') ) {
 			die;
 		}
 		
+		public function wp_rem_property_compare_response() {
+			?>
+			<div class="compare-message">
+				<div class="compare-success compare-large">
+					<div class="compare-close"><i class="icon-cross"></i></div>
+					<div class="compare-title"></div>
+					<div class="compare-text">
+					</div>
+					</div>
+				</div>
+			</div>
+			<?php
+		}
+		
+		public function wp_rem_property_is_compare($prop_id = '', $show_compare = 'no' ) {
+			global $property_random_id, $wp_rem_plugin_options;
+			$prop_is_compare = '';
+			$wp_rem_all_compare_buttons = isset($wp_rem_plugin_options['wp_rem_all_compare_buttons']) ? $wp_rem_plugin_options['wp_rem_all_compare_buttons'] : '';
+			if( $wp_rem_all_compare_buttons == 'on' && $show_compare == 'yes' ){
+				wp_enqueue_script('wp-rem-property-compare');
+				$cookie_compare_list = '';
+				if ( isset($_COOKIE['wp_rem_compare_list']) && $_COOKIE['wp_rem_compare_list'] != '' ) {
+					$cookie_compare_list = stripslashes($_COOKIE['wp_rem_compare_list']);
+					$cookie_compare_list = json_decode($cookie_compare_list, true);
+				}
+
+				$property_type_slug = get_post_meta($prop_id, 'wp_rem_property_type', true);
+				if ($property_type_slug != '') {
+					$property_type_post = get_posts(array('posts_per_page' => '1', 'post_type' => 'property-type', 'name' => "$property_type_slug", 'post_status' => 'publish'));
+					$property_type_id = isset($property_type_post[0]->ID) ? $property_type_post[0]->ID : 0;
+				} else {
+					$property_type_id = '';
+				}
+				if (isset($cookie_compare_list["type_{$property_type_id}"]['list_ids'])) {
+					$wp_rem_type_comp_list = $cookie_compare_list["type_{$property_type_id}"]['list_ids'];
+					if (is_array($wp_rem_type_comp_list) && in_array($prop_id, $wp_rem_type_comp_list)) {
+						$prop_is_compare = ' active';
+					}
+				}
+				return $prop_is_compare;
+			}
+		}
+		
 		public function wp_rem_property_compare_button($prop_id = '', $show_compare = 'no', $tooltip = 'no' ) {
 			global $property_random_id, $wp_rem_plugin_options;
 			$wp_rem_all_compare_buttons = isset($wp_rem_plugin_options['wp_rem_all_compare_buttons']) ? $wp_rem_plugin_options['wp_rem_all_compare_buttons'] : '';
@@ -255,20 +362,23 @@ if ( ! class_exists('wp_rem_compare_properties') ) {
 					$property_type_id = '';
 				}
 				$prop_compare_check = '';
+				$pro_compare_class = '';
 				if (isset($cookie_compare_list["type_{$property_type_id}"]['list_ids'])) {
 					$wp_rem_type_comp_list = $cookie_compare_list["type_{$property_type_id}"]['list_ids'];
 					if (is_array($wp_rem_type_comp_list) && in_array($prop_id, $wp_rem_type_comp_list)) {
 						$prop_compare_check = ' checked="checked"';
+						$pro_compare_class = ' compared';
 					}
 				}
 				$html = '';
-				$html .= '<div class="checkbox compare-checkbox">';
+				$html .= '<div class="compare-property '. esc_html($pro_compare_class) .'">';
 					if( $tooltip == 'yes'){
 						$html .= '<span class="compare-label">' . wp_rem_plugin_text_srt( 'wp_rem_compare_label' ) . '</span>';
 					}
 					$html .= '<input type="checkbox" ' . $prop_compare_check . ' class="wp_rem_compare_check_add" data-id="' . absint($prop_id). '" data-random = "' . absint($prop_id) . '" name="list" value="check-listn" id="check-list' . absint($prop_id) . '">';
-					$html .= '<label for="check-list' . absint($prop_id) . '"><span class="wp-rem-compare-loader-' . absint($prop_id) . '"></span>' . wp_rem_plugin_text_srt( 'wp_rem_compare_label' ) . '</label>';
+					$html .= '<label for="check-list' . absint($prop_id) . '"><i class="icon-compare_arrows"></i><span class="wp-rem-compare-loader-' . absint($prop_id) . '"></span><em>' . wp_rem_plugin_text_srt( 'wp_rem_compare_label' ) . '</em></label>';
 				$html .= '</div>';
+                                
 				echo force_balance_tags($html);
 			}
 		}

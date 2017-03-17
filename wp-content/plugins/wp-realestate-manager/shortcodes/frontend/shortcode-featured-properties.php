@@ -65,7 +65,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Featured_Properties_Frontend') ) {
                 extract($property_arg);
             }
 
-            $posts_per_page = '-1';
+            $posts_per_page = '6';
 
             $element_filter_arr = '';
             $content_columns = 'col-lg-12 col-md-12 col-sm-12 col-xs-12'; // if filteration not true
@@ -80,7 +80,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Featured_Properties_Frontend') ) {
             $property_featured = isset($atts['property_featured']) ? $atts['property_featured'] : 'all';
             $property_type = isset($atts['property_type']) ? $atts['property_type'] : '';
 
-            $posts_per_page = isset($atts['posts_per_page']) ? $atts['posts_per_page'] : '-1';
+            $posts_per_page = isset($atts['posts_per_page']) ? $atts['posts_per_page'] : '6';
 
             $element_filter_arr[] = array(
                 'key' => 'wp_rem_property_posted',
@@ -186,13 +186,14 @@ if ( ! class_exists('Wp_rem_Shortcode_Featured_Properties_Frontend') ) {
                             if ("" != jQuery(".featured-multiple-properties-<?php echo $property_short_counter; ?>").length) {
                                 new Swiper(".featured-multiple-properties-<?php echo $property_short_counter; ?>", {
                                     slidesPerView: 3,
-                                    slidesPerColumn: 2,
                                     paginationClickable: !1,
-                                    nextButton: ".swiper-button-next",
-                                    prevButton: ".swiper-button-prev",
+                                    nextButton: ".swiper-button-prev.default",
+                                    prevButton: ".swiper-button-next.default",
                                     spaceBetween: 30,
-                                    //autoplay: 3000,
                                     speed: 2000,
+                                    onInit: function (swiper) {
+                                        jQuery.fn.matchHeight._update();
+                                    },
                                     breakpoints: {
                                         1024: {
                                             slidesPerView: 3,
