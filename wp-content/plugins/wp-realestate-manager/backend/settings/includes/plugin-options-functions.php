@@ -116,20 +116,20 @@ if ( ! function_exists('wp_rem_pl_opt_backup_generate') ) {
 if ( ! function_exists('wp_rem_get_settings_demo') ) {
 
     function wp_rem_get_settings_demo($wp_rem_demo_file = '') {
-        global $wp_filesystem;
-        $backup_url = '';
-        if ( false === ($creds = request_filesystem_credentials($backup_url, '', false, false, array()) ) ) {
-            return true;
-        }
-        if ( ! WP_Filesystem($creds) ) {
-            request_filesystem_credentials($backup_url, '', true, false, array());
-            return true;
-        }
+        // global $wp_filesystem;
+        // $backup_url = '';
+        // if ( false === ($creds = request_filesystem_credentials($backup_url, '', false, false, array()) ) ) {
+        //     return true;
+        // }
+        // if ( ! WP_Filesystem($creds) ) {
+        //     request_filesystem_credentials($backup_url, '', true, false, array());
+        //     return true;
+        // }
         $wp_rem_upload_dir = wp_rem::plugin_dir() . 'backend/settings/demo/';
         $wp_rem_filename = trailingslashit($wp_rem_upload_dir) . $wp_rem_demo_file;
         $wp_rem_demo_data = array();
         if ( is_file($wp_rem_filename) ) {
-            $get_options_file = $wp_filesystem->get_contents($wp_rem_filename);
+            $get_options_file = file_get_contents($wp_rem_filename);
 
             $wp_rem_demo_data = $get_options_file;
         }

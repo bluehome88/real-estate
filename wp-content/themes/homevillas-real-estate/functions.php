@@ -576,14 +576,17 @@ if ( ! function_exists('wp_rem_cs_require_theme_files') ) {
 
     function wp_rem_cs_require_theme_files($wp_rem_cs_path = '') {
         global $wp_filesystem;
-        $backup_url = '';
-        if ( false === ($creds = request_filesystem_credentials($backup_url, '', false, false, array()) ) ) {
-            return true;
+        if (!$wp_filesystem) {
+            $wp_filesystem = new WP_Filesystem_Direct(1);
         }
-        if ( ! WP_Filesystem($creds) ) {
-            request_filesystem_credentials($backup_url, '', true, false, array());
-            return true;
-        }
+        // $backup_url = '';
+        // if (false === ($creds = request_filesystem_credentials($backup_url, '', false, false, array()) )) {
+        //     return true;
+        // }
+        // if (!WP_Filesystem($creds)) {
+        //     request_filesystem_credentials($backup_url, '', true, false, array());
+        //     return true;
+        // }
         $wp_rem_cs_sh_front_dir = trailingslashit(get_template_directory()) . $wp_rem_cs_path;
         $wp_rem_cs_all_f_list = $wp_filesystem->dirlist($wp_rem_cs_sh_front_dir);
         if ( is_array($wp_rem_cs_all_f_list) && sizeof($wp_rem_cs_all_f_list) > 0 ) {
