@@ -312,7 +312,12 @@ function add_event_listners(strings, $) {
     $("select").trigger("chosen:updated");
 
     var property_doing = $("#property-sets-holder").attr('data-doing');
-
+    
+    $(document).on('click', '.dir-purchased-packages .dev-property-pakcge-step', function (e) {
+        var pkg_id = $(this).data('id');
+        $('#package-'+ pkg_id).prop('checked', true);
+    });
+    
     $(document).on('click', '.dev-property-pakcge-step', function (e) {
         e.stopPropagation();
         var this_id = $(this).data('main-id');
@@ -322,7 +327,7 @@ function add_event_listners(strings, $) {
         var pkg_ppric = $(this).data('ppric');
         var img_nums = $(this).data('picnum');
         var doc_nums = $(this).data('docnum');
-        $('#package-'+ pkg_id).prop('checked', true);
+        
         var is_form_valid = validate_register_add_property_form($(this).parents('ul#wp-rem-dev-main-con-' + this_id));
 
         if (is_form_valid) {
@@ -610,13 +615,22 @@ function add_event_listners(strings, $) {
 
     $(document).on('click', '#register-property-order', function (e) {
         e.stopPropagation();
-
-        if (property_doing == 'updating' && ($("input[name='wp_rem_property_package']:checked").length > 0 && ($("input[name='wp_rem_property_package']:checked").parents('td').find('a').attr('data-ppric') != 'free')) || ($("input[name='wp_rem_property_active_package']:checked").length > 0 && ($("input[name='wp_rem_property_active_package']:checked").parents('td').find('a').attr('data-ppric') != 'free'))) {
+        
+        var free_pkg = 'false';
+        if( $("input[name='wp_rem_property_package']:checked").length > 0 && $("input[name='wp_rem_property_package']:checked").parents('td').find('a').attr('data-ppric') == 'free' ){
+            free_pkg = 'true';
+        }else if($("input[name='wp_rem_property_active_package']:checked").length > 0 && $("input[name='wp_rem_property_active_package']:checked").parents('td').find('a').attr('data-ppric') == 'free'){
+            free_pkg = 'true';
+        }else if( $(".dir-purchased-packages input[name='wp_rem_property_active_package']:checked").length > 0 && $(".dir-purchased-packages input[name='wp_rem_property_active_package']:checked").attr('data-ppric') == 'free' ){
+            free_pkg = 'true';
+        }
+        
+        if (property_doing == 'updating' && free_pkg != 'true' ) {
             var returnType = wp_rem_validation_process(jQuery(".wp-rem-dev-payment-form"));
             if (returnType == false) {
                 return false;
             }
-        } else if (property_doing != 'updating' && ($("input[name='wp_rem_property_package']:checked").parents('td').find('a').attr('data-ppric') != 'free')) {
+        } else if (property_doing != 'updating' && free_pkg != 'true' ) {
             var returnType = wp_rem_validation_process(jQuery(".wp-rem-dev-payment-form"));
             if (returnType == false) {
                 return false;
