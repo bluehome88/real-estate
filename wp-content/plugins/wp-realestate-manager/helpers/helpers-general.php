@@ -2157,20 +2157,25 @@ function wp_rem_property_price($property_id, $wp_rem_property_price, $guidprice_
         $property_info_price .= ' ' . wp_rem_get_currency($wp_rem_property_price_ttd, true);
     } else {
         if ($price_type == 'variant_month' || $price_type == 'variant_week') {
-            $property_info_price = 'Rental Price USD ' . wp_rem_get_currency($wp_rem_property_price, true);
-            $property_info_price .= $price_type_;
+            if ($wp_rem_property_price) {
+                $property_info_price = '<div>Rental Price USD ' . wp_rem_get_currency($wp_rem_property_price, true);
+                $property_info_price .= $price_type_ . '</div>';
+            }
             if ($wp_rem_property_price_ttd) {
-                $property_info_price .= '<br>Rental Price TTD ' . wp_rem_get_currency($wp_rem_property_price_ttd, true);
-                $property_info_price .= $price_type_ttd;
+                $property_info_price .= '<div>Rental Price TTD ' . wp_rem_get_currency($wp_rem_property_price_ttd, true);
+                $property_info_price .= $price_type_ttd . '</div>';
             }
         } else {
             $wp_rem_property_price = '';
+            $property_info_price = '';
             $wp_rem_property_price = get_post_meta($property_id, 'wp_rem_property_price', true);
             $wp_rem_property_price_ttd = get_post_meta($property_id, 'wp_rem_property_price_ttd', true);
 
-            $property_info_price = 'Sale Price USD ' . wp_rem_get_currency($wp_rem_property_price, true);
+            if ($wp_rem_property_price) {
+                $property_info_price = '<div>Sale Price USD ' . wp_rem_get_currency($wp_rem_property_price, true) . '</div>';
+            }
             if ($wp_rem_property_price_ttd) {
-                $property_info_price .= '<br>Sale Price TTD ' . wp_rem_get_currency($wp_rem_property_price_ttd, true);
+                $property_info_price .= '<div>Sale Price TTD ' . wp_rem_get_currency($wp_rem_property_price_ttd, true) . '</div>';
             }
         }
     }
