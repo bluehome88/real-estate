@@ -12,6 +12,7 @@ $wp_rem_property_price_options = get_post_meta($post_id, 'wp_rem_property_price_
 $wp_rem_property_price = '';
 if ($wp_rem_property_price_options == 'price') {
     $wp_rem_property_price = get_post_meta($post_id, 'wp_rem_property_price', true);
+    $wp_rem_property_price_ttd = get_post_meta($post_id, 'wp_rem_property_price_ttd', true);
 } else if ($wp_rem_property_price_options == 'on-call') {
     $wp_rem_property_price = wp_rem_plugin_text_srt('wp_rem_nearby_properties_price_on_request');
 }
@@ -166,39 +167,39 @@ if (!empty($wp_rem_property_category) && is_array($wp_rem_property_category)) {
                                     <?php if (isset($wp_rem_post_loc_address_property) && $wp_rem_post_loc_address_property != '') { ?>
                                         <address><i class="icon- icon-location-pin2"></i><?php echo esc_html($wp_rem_post_loc_address_property); ?></address>
                                     <?php } ?>
-									<div class="property-data">
-										<ul>
-											<?php if ($wp_rem_property_is_featured == 'on') { ?>
-												<li class="featured-property">
-													<span class="bgcolor"><?php echo wp_rem_plugin_text_srt('wp_rem_property_featured'); ?></span>
-												</li>
-											<?php }
-											?>
-											<li><i class="icon-home"></i><?php echo wp_rem_property_type_link($property_type_id); ?> <?php if( $wp_rem_cate_str != '' ){ echo wp_rem_plugin_text_srt('wp_rem_property_type_in'); } ?></li>
-											<?php if( $wp_rem_cate_str != '' ){ ?>
-												<li><strong><?php echo wp_rem_allow_special_char($wp_rem_cate_str); ?></strong></li>
-											<?php } ?>
-											<li><?php
-												$favourite_label = wp_rem_plugin_text_srt('wp_rem_property_favourite');
-												$favourite_label = wp_rem_plugin_text_srt('wp_rem_property_favourite');
-												$figcaption_div = true;
-												$book_mark_args = array(
-													'before_label' => $favourite_label,
-													'after_label' => $favourite_label,
-													'before_icon' => '<i class="icon-heart-o"></i>',
-													'after_icon' => '<i class="icon-heart5"></i>',
-												);
-												do_action('wp_rem_favourites_frontend_button', $post_id, $book_mark_args, $figcaption_div);
-												?></li>
-										</ul>
-									</div>
-									<?php if( $wp_rem_social_network === 'on'){ ?>
-										<div class="property-social-links">
-											<span class="social-share"><?php echo wp_rem_plugin_text_srt('wp_rem_property_social_share_text') ?></span>
-											<?php do_action('wp_rem_social_sharing'); ?>
-										</div>
-									<?php } ?>
-									<?php do_action('wp_rem_detail_compare_btn', $post_id); ?>
+                                    <div class="property-data">
+                                        <ul>
+                                            <?php if ($wp_rem_property_is_featured == 'on') { ?>
+                                                <li class="featured-property">
+                                                    <span class="bgcolor"><?php echo wp_rem_plugin_text_srt('wp_rem_property_featured'); ?></span>
+                                                </li>
+                                            <?php }
+                                            ?>
+                                            <li><i class="icon-home"></i><?php echo wp_rem_property_type_link($property_type_id); ?> <?php if( $wp_rem_cate_str != '' ){ echo wp_rem_plugin_text_srt('wp_rem_property_type_in'); } ?></li>
+                                            <?php if( $wp_rem_cate_str != '' ){ ?>
+                                                <li><strong><?php echo wp_rem_allow_special_char($wp_rem_cate_str); ?></strong></li>
+                                            <?php } ?>
+                                            <li><?php
+                                                $favourite_label = wp_rem_plugin_text_srt('wp_rem_property_favourite');
+                                                $favourite_label = wp_rem_plugin_text_srt('wp_rem_property_favourite');
+                                                $figcaption_div = true;
+                                                $book_mark_args = array(
+                                                    'before_label' => $favourite_label,
+                                                    'after_label' => $favourite_label,
+                                                    'before_icon' => '<i class="icon-heart-o"></i>',
+                                                    'after_icon' => '<i class="icon-heart5"></i>',
+                                                );
+                                                do_action('wp_rem_favourites_frontend_button', $post_id, $book_mark_args, $figcaption_div);
+                                                ?></li>
+                                        </ul>
+                                    </div>
+                                    <?php if( $wp_rem_social_network === 'on'){ ?>
+                                        <div class="property-social-links">
+                                            <span class="social-share"><?php echo wp_rem_plugin_text_srt('wp_rem_property_social_share_text') ?></span>
+                                            <?php do_action('wp_rem_social_sharing'); ?>
+                                        </div>
+                                    <?php } ?>
+                                    <?php do_action('wp_rem_detail_compare_btn', $post_id); ?>
                                 </div>
                                 <?php do_action('wp_rem_enquire_arrange_buttons_element_html', $post_id); ?>
                             </div>
@@ -413,7 +414,7 @@ if (!empty($wp_rem_property_category) && is_array($wp_rem_property_category)) {
                                         <?php if (isset($wp_rem_member_phone_num) && $wp_rem_member_phone_num != '') { ?>
                                             <strong><a href="tel:<?php echo esc_html(str_replace(' ', '', $wp_rem_member_phone_num)); ?>"><?php echo esc_html($wp_rem_member_phone_num); ?></a></strong>
                                         <?php } ?>
-                                        <?php if (isset($wp_rem_post_loc_address_member) && $wp_rem_post_loc_address_member != '') { ?>	
+                                        <?php if (isset($wp_rem_post_loc_address_member) && $wp_rem_post_loc_address_member != '') { ?> 
                                             <ul>
                                                 <li><?php echo esc_html($wp_rem_post_loc_address_member); ?></li>
                                             </ul>
@@ -423,11 +424,11 @@ if (!empty($wp_rem_property_category) && is_array($wp_rem_property_category)) {
                                             <?php echo do_action('wp_rem_opening_hours_element_html', $wp_rem_property_member_id); ?>  
                                         </div>
                                         <?php
-										$target_modal = 'sign-in';
+                                        $target_modal = 'sign-in';
                                         $target_class = ' wp-rem-open-signin-tab';
                                         if (is_user_logged_in()) {
                                             $target_class = '';
-											$target_modal = ' data-toggle="modal" data-target="#enquiry-modal"';
+                                            $target_modal = ' data-toggle="modal" data-target="#enquiry-modal"';
                                         }
                                         ?>    
                                         <a href="javascript:void(0);" class="submit-btn bgcolor<?php echo esc_attr($target_class); ?>"<?php echo $target_modal; ?>><?php echo wp_rem_plugin_text_srt('wp_rem_property_contact_member'); ?></a>

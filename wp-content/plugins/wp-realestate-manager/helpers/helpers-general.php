@@ -2136,22 +2136,43 @@ function wp_rem_property_price($property_id, $wp_rem_property_price, $guidprice_
 
     $price_type = get_post_meta($property_id, 'wp_rem_price_type', true);
     $price_monthy = get_post_meta($property_id, 'wp_rem_month_price', true);
+    $price_monthy_ttd = get_post_meta($property_id, 'wp_rem_month_price_ttd', true);
     $price_weekly = get_post_meta($property_id, 'wp_rem_week_price', true);
+    $price_weekly_ttd = get_post_meta($property_id, 'wp_rem_week_price_ttd', true);
     if ($price_type == 'variant_month' || $price_type == 'variant_week') {
-        $price_type = ' ' . wp_rem_plugin_text_srt('wp_rem_price_type_pcm');
-        $price_type .= $guidprice_before . ' (' . wp_rem_get_currency($price_weekly, true) . ' ' . wp_rem_plugin_text_srt('wp_rem_price_type_pw') . ')' . $guidprice_after;
+        $price_type_ = ' ' . wp_rem_plugin_text_srt('wp_rem_price_type_pcm');
+        $price_type_ttd = $price_type_;
+        $price_type_ttd .= $guidprice_before . ' (' . wp_rem_get_currency($price_weekly_ttd, true) . ' ' . wp_rem_plugin_text_srt('wp_rem_price_type_pw') . ')' . $guidprice_after;
+        $price_type_ .= $guidprice_before . ' (' . wp_rem_get_currency($price_weekly, true) . ' ' . wp_rem_plugin_text_srt('wp_rem_price_type_pw') . ')' . $guidprice_after;
         $wp_rem_property_price = $price_monthy;
+        $wp_rem_property_price_ttd = $price_monthy_ttd;
     } else {
         if (isset($wp_rem_plugin_options['fixed_price_opt'][$price_type])) {
-            $price_type = ' ' . $price_type_before . $wp_rem_plugin_options['fixed_price_opt'][$price_type] . $price_type_after;
+            $price_type_ = ' ' . $price_type_before . $wp_rem_plugin_options['fixed_price_opt'][$price_type] . $price_type_after;
         }
     }
     if ($price_type_position == 'left') {
-        $property_info_price = $price_type;
+        $property_info_price = $price_type_;
         $property_info_price .= wp_rem_get_currency($wp_rem_property_price, true);
+        $property_info_price .= ' ' . wp_rem_get_currency($wp_rem_property_price_ttd, true);
     } else {
-        $property_info_price = wp_rem_get_currency($wp_rem_property_price, true);
-        $property_info_price .= $price_type;
+        if ($price_type == 'variant_month' || $price_type == 'variant_week') {
+            $property_info_price = 'Rental Price USD ' . wp_rem_get_currency($wp_rem_property_price, true);
+            $property_info_price .= $price_type_;
+            if ($wp_rem_property_price_ttd) {
+                $property_info_price .= '<br>Rental Price TTD ' . wp_rem_get_currency($wp_rem_property_price_ttd, true);
+                $property_info_price .= $price_type_ttd;
+            }
+        } else {
+            $wp_rem_property_price = '';
+            $wp_rem_property_price = get_post_meta($property_id, 'wp_rem_property_price', true);
+            $wp_rem_property_price_ttd = get_post_meta($property_id, 'wp_rem_property_price_ttd', true);
+
+            $property_info_price = 'Sale Price USD ' . wp_rem_get_currency($wp_rem_property_price, true);
+            if ($wp_rem_property_price_ttd) {
+                $property_info_price .= '<br>Sale Price TTD ' . wp_rem_get_currency($wp_rem_property_price_ttd, true);
+            }
+        }
     }
 
     return $property_info_price;

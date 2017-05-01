@@ -60,7 +60,8 @@ if ( ! class_exists('wp_rem_plugin_all_strings_4') ) {
             $wp_rem_static_text['wp_rem_list_meta_none'] = esc_html__('None', 'wp-rem');
             $wp_rem_static_text['wp_rem_list_meta_on_call'] = esc_html__('On Call', 'wp-rem');
             $wp_rem_static_text['wp_rem_list_meta_price'] = esc_html__('Price', 'wp-rem');
-            $wp_rem_static_text['wp_rem_list_meta_ad_price'] = esc_html__('Ad Price', 'wp-rem');
+            $wp_rem_static_text['wp_rem_list_meta_ad_price'] = esc_html__('USD Price', 'wp-rem');
+            $wp_rem_static_text['wp_rem_list_meta_ad_price_ttd'] = esc_html__('TTD Price', 'wp-rem');
             $wp_rem_static_text['wp_rem_list_meta_price_type'] = esc_html__('Price Type', 'wp-rem');
             $wp_rem_static_text['wp_rem_list_meta_step_2'] = esc_html__('Step 2: What type of property are you marketing?', 'wp-rem');
             $wp_rem_static_text['wp_rem_list_meta_date'] = esc_html__('Date', 'wp-rem');
