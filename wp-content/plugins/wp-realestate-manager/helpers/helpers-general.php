@@ -2177,6 +2177,9 @@ function wp_rem_property_price($property_id, $wp_rem_property_price, $guidprice_
             if ($wp_rem_property_price_ttd) {
                 $property_info_price .= '<div>Sale Price TTD ' . wp_rem_get_currency($wp_rem_property_price_ttd, true) . '</div>';
             }
+            if ($wp_rem_property_price || $wp_rem_property_price_ttd) {
+                $property_info_price .= '<span>' . $price_type_ . '</span>';
+            }
         }
     }
 
