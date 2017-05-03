@@ -213,7 +213,7 @@ if (!class_exists('post_type_packages')) {
 		}
 
         public function wp_rem_package_shortcode_function($atts) {
-            global $wp_rem_html_fields_frontend, $wp_rem_plugin_options;
+            global $wp_rem_html_fields_frontend, $wp_rem_plugin_options, $current_user;
             $single_package_dashboard = isset($wp_rem_plugin_options['wp_rem_package_page']) ? $wp_rem_plugin_options['wp_rem_package_page'] : '';
             $page_link = get_the_permalink($single_package_dashboard);
             $atts = shortcode_atts(

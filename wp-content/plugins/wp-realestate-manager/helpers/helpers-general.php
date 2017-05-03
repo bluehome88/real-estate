@@ -534,7 +534,6 @@ if (!function_exists('wp_rem_map_content')) {
         }
         $html .= '</div>';
         $html .= '</div>';
-
         $html .= "<script type='text/javascript'>
                     jQuery(document).ready(function() {
 						var center = new google.maps.LatLng(" . $map_lat . ", " . $map_lon . ");  
@@ -542,7 +541,7 @@ if (!function_exists('wp_rem_map_content')) {
 						function initialize() {
 							var myLatlng = new google.maps.LatLng(" . $map_lat . ", " . $map_lon . ");
 							var mapOptions = {
-								zoom: " . $map_zoom . ",
+								zoom: " . /* $map_zoom */ 15 . ",
 								scrollwheel: " . $map_scrollwheel . ",
 								draggable: " . $map_draggable . ",
 								streetViewControl: false,
@@ -560,8 +559,8 @@ if (!function_exists('wp_rem_map_content')) {
 
         $html .= "map = new google.maps.Map(document.getElementById('map_canvas" . $map_dynmaic_no . "'), mapOptions);";
 
-        if ($wp_rem_map_circle == 'on') {
-
+        // if ($wp_rem_map_circle == 'on') {
+            
             $html .= "var circle = new google.maps.Circle({
 									center: center,
 									map: map,
@@ -571,7 +570,7 @@ if (!function_exists('wp_rem_map_content')) {
 									strokeColor: '#FF6600',
 									strokeWeight: 1         // CIRCLE BORDER.     
 								});";
-        }
+        // }
 
         $html .= "
 		directionsDisplay.setMap(map);
@@ -644,6 +643,10 @@ if (!function_exists('wp_rem_map_content')) {
 					title: '',
 					icon: '" . $map_marker_icon . "',
 					shadow: ''
+				});
+
+				marker.addListener('drag', function(event) {                     
+					circle.setOptions({center:{lat:event.latLng.lat(),lng:event.latLng.lng()}});        
 				});
 				
 				all_branches_markers.push( marker );
