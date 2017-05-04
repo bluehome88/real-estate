@@ -154,12 +154,12 @@ if ( ! function_exists('wp_rem_cs_header_view_1') ) {
                 <div class="nav-area <?php echo esc_html($sticky_header_class); ?>">
                     <div class="container">
                         <div class="row">
-                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                                 <div class="main-nav">
                                     <?php wp_rem_cs_header_main_menu(); ?>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                 <div class="login-area">
                                     <?php
                                     wp_rem_cs_social_network(2, '', '', 'social-media');
