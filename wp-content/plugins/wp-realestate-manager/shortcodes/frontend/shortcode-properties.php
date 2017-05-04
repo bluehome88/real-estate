@@ -514,6 +514,7 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
             </script>
             <?php
             // top categories
+            $element_property_top_category = 'no';
             if ($element_property_top_category == 'yes') {
                 $property_top_categries_loop_obj = wp_rem_get_cached_obj('property_result_cached_top_categries_loop_obj', $top_categries_args, 12, false, 'wp_query');
             }
