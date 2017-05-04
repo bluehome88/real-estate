@@ -1685,6 +1685,20 @@ if (!function_exists('wp_rem_get_cached_obj')) {
             }
         } else {
             if ($type == 'wp_query') {
+            	if (@$GLOBALS['wp_rem_split_map_shortcode_atts']['property_category']) {
+            	    $property_categories = $GLOBALS['wp_rem_split_map_shortcode_atts']['property_category'];
+            	    $property_categories = str_replace(['&#8221;', '&#8243;', '”', '″'], '', $property_categories);
+            	    $property_categories = explode(',', $property_categories);
+
+            	    $args['tax_query'] = array(
+            	        'relation' => 'AND',
+            	        array(
+            	          'taxonomy' => 'property-category',
+            	          'field'    => 'term_id',
+            	          'terms'    => $property_categories
+            	        )
+            	    );
+            	}
                 $property_loop_obj = new WP_Query($args);
             } else if ($type == 'get_term') {
                 $property_loop_obj = array();

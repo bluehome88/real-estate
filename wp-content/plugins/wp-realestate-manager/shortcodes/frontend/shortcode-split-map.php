@@ -31,6 +31,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Split_Map_Frontend') ) {
          */
 
         public function wp_rem_split_map_shortcode_callback($atts, $content = "") {
+            $GLOBALS['wp_rem_split_map_shortcode_atts'] = $atts;
             wp_enqueue_script('wp-rem-prettyPhoto');
             wp_enqueue_style('wp-rem-prettyPhoto');
             wp_enqueue_script('wp-rem-bootstrap-slider');

@@ -115,6 +115,9 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
             if (isset($property_arg) && $property_arg != '' && !empty($property_arg)) {
                 extract($property_arg);
             }
+
+            $GLOBALS['wp_rem_split_map_shortcode_atts'] = @$atts;
+
             $default_date_time_formate = 'd-m-Y H:i:s';
             // getting if user set it with his choice
             if (false === ( $property_view = wp_rem_get_transient_obj('wp_rem_property_view' . $property_short_counter) )) {
