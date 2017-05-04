@@ -465,7 +465,7 @@ if ($property_loop_obj->have_posts()) {
                                             <?php
                                         }
                                         do_action('wp_rem_compare_btn', $property_id, $compare_property_switch);
-                                        if ($property_hide_switch == 'yes') {
+                                        if (@$property_hide_switch == 'yes') {
                                             ?><a class="hide-btn wp-rem-open-signin-tab" href="javascript:void(0)" onclick="wp_rem_property_hide(this, '<?php echo intval($property_id); ?>', '<?php echo intval($user_id); ?>', '<?php echo intval($property_short_counter); ?>');"><i class="icon-block"></i><?php echo wp_rem_plugin_text_srt('wp_rem_property_hide'); ?></a><?php
                                         }
                                         ?>
