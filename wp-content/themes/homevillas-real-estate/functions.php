@@ -14,6 +14,8 @@ require_once trailingslashit(get_template_directory()) . 'include/cs-global-func
 require_once trailingslashit(get_template_directory()) . 'include/backend/cs-global-variables.php';
 require_once trailingslashit(get_template_directory()) . 'include/cs-theme-functions.php';
 require_once trailingslashit(get_template_directory()) . 'include/cs-helpers.php';
+
+define('SCRIPTS_VER', '4.7.4');
 /**
  * Sets up theme defaults and registers support for various WordPress features.     *
  * Note that this function is hooked into the after_setup_theme hook, which
@@ -241,12 +243,12 @@ if ( ! function_exists('wp_rem_cs_scripts_1') ) {
         global $wp_rem_cs_var_options;
         $wp_rem_cs_responsive_site = isset($wp_rem_cs_var_options['wp_rem_cs_var_responsive']) ? $wp_rem_cs_var_options['wp_rem_cs_var_responsive'] : '';
 
-        $theme_version = wp_rem_cs_get_theme_version();
+        $theme_version = SCRIPTS_VER;
         wp_enqueue_style('bootstrap_css', get_template_directory_uri() . '/assets/frontend/css/bootstrap.css');
         wp_enqueue_style('bootstrap-theme', get_template_directory_uri() . '/assets/frontend/css/bootstrap-theme.css');
         wp_enqueue_style('chosen', trailingslashit(get_template_directory_uri()) . 'assets/frontend/css/chosen.css');
         wp_enqueue_style('swiper', trailingslashit(get_template_directory_uri()) . 'assets/frontend/css/swiper.css');
-        wp_enqueue_style('wp-rem-style', get_stylesheet_uri());
+        wp_enqueue_style('wp-rem-style', get_stylesheet_uri(), [], SCRIPTS_VER);
         wp_enqueue_style('blog-boxed', get_template_directory_uri() . '/assets/frontend/css/blog-boxed.css'); // temperory
         wp_enqueue_style('aston', get_template_directory_uri() . '/assets/frontend/css/aston.css'); // temperory
         wp_enqueue_style('wp-rem-widget', get_template_directory_uri() . '/assets/frontend/css/widget.css');
