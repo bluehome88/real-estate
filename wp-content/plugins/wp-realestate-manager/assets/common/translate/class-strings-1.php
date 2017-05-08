@@ -310,7 +310,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_1') ) {
             $wp_rem_static_text['wp_rem_property_mailing_information'] = esc_html__('Mailing Information', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_env_res'] = esc_html__('ENVIRONMENTAL RESPONSIBILITY', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_select_categories'] = esc_html__('Select Categories', 'wp-rem');
-            $wp_rem_static_text['wp_rem_property_categories'] = esc_html__('How would you describe the ', 'wp-rem');
+            $wp_rem_static_text['wp_rem_property_categories'] = esc_html__('How would you describe the property?', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_no_custom_field_found'] = esc_html__('No Custom Field Found', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_off_days'] = esc_html__('Off Days', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_opening_hours'] = esc_html__('Opening Hours', 'wp-rem');
