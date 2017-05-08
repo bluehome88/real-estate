@@ -264,6 +264,19 @@ if ( ! class_exists('Wp_rem_Shortcode_Propertiesearch_Frontend') ) {
             $popup_link_text = isset($atts['popup_link_text']) ? $atts['popup_link_text'] : '';
             $wp_rem_search_result_page = isset($wp_rem_plugin_options['wp_rem_search_result_page']) ? $wp_rem_plugin_options['wp_rem_search_result_page'] : '';
             $wp_rem_search_result_page = ( $wp_rem_search_result_page != '' ) ? get_permalink($wp_rem_search_result_page) : '';
+            $wp_rem_search_result_page_url = $wp_rem_search_result_page;
+            $wp_rem_search_result_page_button_text = 'Default search';
+
+            // defualt view
+            if (get_the_ID() == '1180') {
+                $wp_rem_search_result_page_button_text = 'Map view';
+                $wp_rem_search_result_page_url = get_permalink('1985');
+            } 
+            // split view
+            if (get_the_ID() == '1985') {
+                $wp_rem_search_result_page = get_permalink('1985');
+            } 
+
             // Property Search View
             $propertysearch_view = isset($atts['propertysearch_view']) ? $atts['propertysearch_view'] : 'fancy';
 
@@ -271,7 +284,9 @@ if ( ! class_exists('Wp_rem_Shortcode_Propertiesearch_Frontend') ) {
             set_query_var('popup_link_text', $popup_link_text);
             set_query_var('content', $content);
             set_query_var('atts', $atts);
+            set_query_var('wp_rem_search_result_page_url', $wp_rem_search_result_page_url);
             set_query_var('wp_rem_search_result_page', $wp_rem_search_result_page);
+            set_query_var('wp_rem_search_result_page_button_text', $wp_rem_search_result_page_button_text);
             set_query_var('property_short_counter', $property_short_counter);
             if ( $propertysearch_view == 'list' ) {
                 wp_rem_get_template_part('propertysearch', 'list-filters', 'propertysearch');

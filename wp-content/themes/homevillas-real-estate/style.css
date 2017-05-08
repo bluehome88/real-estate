@@ -2778,3 +2778,10 @@ bottom: 0; height: 50%; left: 0; position: absolute; width: 100%; }
 .newsletter.boxed .field-holder input[type='submit']{ margin: 0; border-radius: 0; height: 53px; font-weight: 300; font-size: 16px; }
 .newsletter.boxed .field-holder:before { position: absolute; left: 20px; top:50%; content: "\e028"; font-family: 'icomoon'; font-size: 18px; color: #585858; -webkit-transform: translateY(-50%); -moz-transform: translateY(-50%); -ms-transform: translateY(-50%); -o-transform: translateY(-50%); transform: translateY(-50%); margin: -36px 0 0 0;}
 /*Newsletter Boxed Style*/
+.search-result-type-btn { position: absolute; right: 14px; bottom: -31px; border-radius: 0; padding: 0; height: auto; }
+.btn.bgcolor.search-result-type-btn { background: none !important; }
+.search-result-type-btn a { text-decoration: underline; color: #5a2e8a; font-size: 13px; line-height: 30px; }
+.wp-rem-propertysearch { position: absolute; top: 0; left: 0; right: 0; background: #d7d7d7; padding: 30px 65px; z-index: 100; }
+.main-search .field-holder.advanced-btn { width: 155px !important; }
+.wp-rem-split-map-wrap .split-map-holder { top: 100px !important; }
+.wp-rem-split-map-wrap .filters-sidebar { top: 85px !important; }

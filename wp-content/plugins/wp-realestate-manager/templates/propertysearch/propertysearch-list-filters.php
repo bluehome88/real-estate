@@ -155,6 +155,9 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
                 ?>  
             </div>
         </div>
+        <div class="btn bgcolor search-result-type-btn">
+            <a href="<?= $wp_rem_search_result_page_url ?>"><?= $wp_rem_search_result_page_button_text ?></a>
+        </div>
     </div>
     <?php
     if ( $property_type_slug != '' && $propertysearch_advance_filter_switch == 'yes' ) {
