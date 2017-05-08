@@ -216,6 +216,7 @@ if (!empty($wp_rem_property_category) && is_array($wp_rem_property_category)) {
                             $wp_rem_property_summary = isset($wp_rem_property_summary) ? $wp_rem_property_summary : '';
                             if ($wp_rem_property_summary != '' || $content != '') {
                                 ?>
+                                <?= do_shortcode('[really_simple_share button="facebook_share_new"]') ?>
                                 <div id="property-detail" class="description-holder">
                                     <?php if ($wp_rem_property_summary != '') { ?>
                                         <div class="property-feature">
