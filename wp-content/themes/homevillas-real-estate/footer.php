@@ -347,14 +347,14 @@ if ( 'on' <> $wp_rem_cs_var_maintenance_footer_switch && get_the_id() == $wp_rem
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <?php if ( $wp_rem_cs_var_footer_app_store != '' || $wp_rem_cs_var_google_store != '' ) { ?>
+                                <?php /* if ( $wp_rem_cs_var_footer_app_store != '' || $wp_rem_cs_var_google_store != '' ) { ?>
                                     <div class="widget widget-app">
                                         <a href="<?php echo esc_url($wp_rem_cs_var_footer_app_store_url); ?>"><img src="<?php echo esc_url($wp_rem_cs_var_footer_app_store); ?>" alt=""></a>
                                         <a href="<?php echo esc_url($wp_rem_cs_var_google_store_url); ?>"><img src="<?php echo esc_url($wp_rem_cs_var_google_store); ?>" alt=""></a>
                                     </div>
                                     <?php
                                 }
-                                ?>
+                                */?>
                                 <? /* ?>
                                 <div class="footer-currency">
                                     <?php do_action('wp_rem_before_app_in_footer'); // hook for currency and language in footer    ?>
