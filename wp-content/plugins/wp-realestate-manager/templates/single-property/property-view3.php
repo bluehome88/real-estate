@@ -486,6 +486,7 @@ if (($top_map == 'on' || ($top_slider == 'on' && $count_all > 0)) && $member_pro
                             $wp_rem_property_summary = isset($wp_rem_property_summary) ? $wp_rem_property_summary : '';
                             if ($wp_rem_property_summary != '' || $content != '') {
                                 ?>
+                                <?= do_shortcode('[really_simple_share button="facebook_share_new"]') ?>
                                 <div id="property-detail" class="description-holder">
                                     <?php if ($wp_rem_property_summary != '') { ?>
                                         <div class="property-feature">
