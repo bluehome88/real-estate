@@ -49,14 +49,14 @@ header#header.default-v2 .main-header.sticky-active,
 #header.modern.transparent.sticky-active .main-header,
 #header.default.default-v2 .sticky-header.sticky-active
 {
-background-color: !important;
+background-color:#ffffff !important;
 }
 .classic.no-transparent .main-header .top-header .contact-info, .classic.no-transparent .main-header .top-header .contact-info i, .classic.no-transparent .main-header .top-header .contact-info a, .classic.no-transparent .main-header .top-header .contact-info small, .classic.no-transparent .main-header .top-header .contact-info span, .classic.no-transparent .main-header .social-media li a, .classic.no-transparent .main-header .login-area > a, .classic.no-transparent .main-header .login-area > i, .logged-in .classic.no-transparent .main-header .user-dashboard-menu-children > a
 {
-color: !important;
+color:#ffffff !important;
 }
 .classic.no-transparent .main-header .login-area > a     {
-border-left-color: !important;
+border-left-color:#ffffff !important;
 }		
 #header.header1 .main-header .nav-area.sticky-header.sticky-active .main-navigation > ul > li > ul,
 header#header.default-v2 .main-header.sticky-active .main-navigation > ul > li > ul, 
@@ -67,7 +67,7 @@ header#header.default-v2 .main-header.sticky-active .main-navigation > ul > li >
 .advance .main-header.sticky-header.sticky-active .top-header .main-navigation > ul > li > ul, 
 #header.modern.transparent.sticky-active .main-header .main-navigation > ul > li > ul
 {
-border-bottom-color: !important;
+border-bottom-color:#ffffff !important;
 }
 #header.header1 .main-header .nav-area.sticky-header.sticky-active .main-nav > nav > ul > li > a,
 header#header.default-v2 .main-header.sticky-active .main-nav > nav > ul > li > a, 
@@ -81,7 +81,7 @@ header#header.default-v2 .main-header.sticky-active .main-nav > nav > ul > li > 
 #header.header1 .main-header .nav-area.sticky-header.sticky-active .login-option > .user-dashboard-menu > ul > li > a,
 #header.header1 .main-header .nav-area.sticky-header.sticky-active .login-option > .user-dashboard-menu > ul > li > a i
 {
-color: !important;
+color:#ffffff !important;
 }
 .main-navigation .sub-menu-label > span,
 .main-header .main-nav li a i,
@@ -136,13 +136,13 @@ color: !important;
 .column-content ul li:before,
 .property-medium.modern .property-price,
 .grid-default-slider .property-grid.default .price-holder .property-price{
-color: !important;
+color:#5a2e8a !important;
 }
 .field-input::-webkit-input-placeholder,
 .wp-rem-filters form .field-holder .field-input::-moz-placeholder,
 .wp-rem-filters form .field-holder .field-input:-ms-input-placeholder,
 .wp-rem-filters form .field-holder .field-input:-moz-placeholder {
-color: !important;
+color:#5a2e8a !important;
 }
 .cs-calltoaction a,
 .contact-property ul .contact-info li,
@@ -201,24 +201,24 @@ div.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box > div > div.xdsoft
 .payment-holder input[type='submit'], .payment-holder input[type='button'], .property-back-dashboard a, .wp-rem-top-map-holder ul.map-actions li.map-draw-tools a.delete-draw-area,
 .contact-property ul.contact-info li i,
 .contact-property.modern ul.contact-info:before {
-background-color: !important;
+background-color:#5a2e8a !important;
 }
 .gm-style .gm-style-iw > div::-webkit-scrollbar-thumb,
 .gm-style .gm-style-iw > div::-webkit-scrollbar-track,
 {
-background-color: !important;
+background-color:#5a2e8a !important;
 }
 .show-more-property .element-title .show-more-property, .map-holder .map-actions li.active a, ul.property-radios li input[type='radio']:checked + label, ul.property-radios li input[type='radio'] + label:hover, .create-properties-cats ul.property-cats-list li input[type='radio']:checked + label, .create-properties-cats ul.property-cats-list li label:hover, .switchs-holder2 .acc-submit, .type-holder-main .loader-holder
 {
-border-color: !important;
+border-color:#5a2e8a !important;
 }
 .type-categry-holder-main .loader-holder, .type-holder-main .loader-holder:before, .type-categry-holder-main .loader-holder:before, .property-medium .img-holder:before, .property-grid .img-holder:before
 {
-border-left-color: !important;
+border-left-color:#5a2e8a !important;
 }
 .border-bottom-color
 {
-border-bottom-color: !important;
+border-bottom-color:#5a2e8a !important;
 }
 .back-page-url a:before
 {
@@ -263,6 +263,8 @@ h6, h6 a{
 font:700 Normal  14px/20px "Montserrat", sans-serif !important;letter-spacing: 0px !important;text-transform: uppercase !important;color: #000000 !important;			}
 .section-title h2{
 font:700 Normal  30px/30px "Montserrat", sans-serif !important;letter-spacing: 1px !important;text-transform: uppercase !important;color: #000000 !important;			}
+.element-title h2{
+font-size:20px !important;letter-spacing: 0px !important;text-transform: none !important;			}
 .post-title h4 a{
 font:700 Normal  18px/24px "Montserrat", sans-serif !important;letter-spacing: 1px !important;text-transform: capitalize !important;color: #000000 !important;			}
 .cs-page-title h1 {

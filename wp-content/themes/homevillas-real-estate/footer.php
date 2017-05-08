@@ -355,9 +355,11 @@ if ( 'on' <> $wp_rem_cs_var_maintenance_footer_switch && get_the_id() == $wp_rem
                                     <?php
                                 }
                                 ?>
+                                <? /* ?>
                                 <div class="footer-currency">
                                     <?php do_action('wp_rem_before_app_in_footer'); // hook for currency and language in footer    ?>
                                 </div>
+                                <? */ ?>
                             </div>
                         </div>
                     </div>
