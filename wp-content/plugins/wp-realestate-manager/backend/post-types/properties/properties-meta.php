@@ -597,7 +597,7 @@ if ( ! class_exists('wp_rem_property_meta') ) {
                     'std' => '',
                     'id' => 'property_status',
                     'classes' => 'chosen-select-no-single',
-                    'options' => array( 'awaiting-activation' => wp_rem_plugin_text_srt('wp_rem_property_awaiting_activation'), 'active' => wp_rem_plugin_text_srt('wp_rem_property_active'), 'inactive' => wp_rem_plugin_text_srt('wp_rem_property_inactive'), 'delete' => wp_rem_plugin_text_srt('wp_rem_property_delete') ),
+                    'options' => array( 'active' => wp_rem_plugin_text_srt('wp_rem_property_active'), 'awaiting-activation' => wp_rem_plugin_text_srt('wp_rem_property_awaiting_activation'), 'inactive' => wp_rem_plugin_text_srt('wp_rem_property_inactive'), 'delete' => wp_rem_plugin_text_srt('wp_rem_property_delete') ),
                     'return' => true,
                 ),
             );
