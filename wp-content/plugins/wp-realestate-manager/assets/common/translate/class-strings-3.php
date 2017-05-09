@@ -471,7 +471,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_3') ) {
             $wp_rem_static_text['wp_rem_member_add_list_cancel'] = esc_html__('Cancel', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_add_list_choose_pkg'] = esc_html__('Choose Package', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_recent_heading'] = esc_html__('Similar Properties', 'wp-rem'); 
-            $wp_rem_static_text['wp_rem_properties_show_more'] = esc_html__('Show More Property', 'wp-rem');
+            $wp_rem_static_text['wp_rem_properties_show_more'] = esc_html__('Show More Properties', 'wp-rem');
             $wp_rem_static_text['wp_rem_properties_properties_found'] = esc_html__('Property(s) Found', 'wp-rem');
             $wp_rem_static_text['wp_rem_properties_sort_by'] = esc_html__('Sort By', 'wp-rem');
             $wp_rem_static_text['wp_rem_properties_prev'] = esc_html__('Prev', 'wp-rem');
@@ -798,7 +798,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_3') ) {
             $wp_rem_static_text['wp_rem_listsearch_best_home'] = esc_html__('Search Best Home', 'wp-rem');
             $wp_rem_static_text['wp_rem_listsearch_advanced'] = esc_html__('Advance', 'wp-rem');
             $wp_rem_static_text['wp_rem_listfilter_advanced'] = esc_html__('Featured', 'wp-rem');
-            $wp_rem_static_text['wp_rem_listfilter_showmore'] = esc_html__('Show More Property', 'wp-rem');
+            $wp_rem_static_text['wp_rem_listfilter_showmore'] = esc_html__('Show More Properties', 'wp-rem');
             $wp_rem_static_text['wp_rem_memberlist_dont_have'] = esc_html__("You don't have any ads.", 'wp-rem');
             $wp_rem_static_text['wp_rem_memberlist_edit'] = esc_html__('Edit', 'wp-rem');
 
