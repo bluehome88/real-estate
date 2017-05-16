@@ -511,6 +511,8 @@ if ( ! class_exists('Wp_rem_Plugin_Functions') ) {
             $wp_rem_obj->wp_rem_google_place_scripts();
             $wp_rem_obj->wp_rem_autocomplete_scripts();
 
+            $wp_rem_post_loc_country = 'trinidad-and-tobago';
+
             $locations_data = array(
                 'data' => array(
                     'country' => array(),
@@ -543,7 +545,7 @@ if ( ! class_exists('Wp_rem_Plugin_Functions') ) {
             $location_cities_list = '';
             $location_towns_list = '';
             $iso_code_list_admin = '';
-
+            
             if ( isset($wp_rem_location_countries) && ! empty($wp_rem_location_countries) ) {
                 $selected_iso_code = '';
                 foreach ( $wp_rem_location_countries as $key => $country ) {
