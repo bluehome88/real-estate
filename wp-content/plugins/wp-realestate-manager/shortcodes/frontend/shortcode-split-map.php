@@ -1102,6 +1102,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Split_Map_Frontend') ) {
             public function property_location_filter($location_slug, $all_post_ids) {
                 $radius = isset($_REQUEST['radius']) ? $_REQUEST['radius'] : '';
                 $search_type = isset($_REQUEST['search_type']) ? $_REQUEST['search_type'] : 'autocomplete';
+                $location_slug = sanitize_title($location_slug);
 
                 if ( $search_type == 'autocomplete' && $radius == 0 ) {
 
