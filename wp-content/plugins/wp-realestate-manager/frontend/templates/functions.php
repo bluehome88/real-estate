@@ -835,7 +835,7 @@ if ( ! function_exists('wp_rem_get_custom_locations_property_filter') ) {
                             'cust_id' => 'wp-rem-locations-field',
                             'classes' => "wp-rem-location-field " . $location_field_text . " " . $location_field_text . $property_short_counter . ' input-field wp-rem-locations-field' . $property_short_counter,
                             'extra_atr' => 'data-id="' . $property_short_counter . '" placeholder="' . wp_rem_plugin_text_srt('wp_rem_func_all_locations') . '" autocomplete="off"',
-                            'std' => 'Trinidad & Tobago',
+                            'std' => @$_GET['location'] ?: 'Trinidad and Tobago',
                             'return' => true,
                         )
                 );

@@ -72,6 +72,9 @@ if ( ! class_exists('Wp_rem_Plugin_Functions') ) {
             $wp_rem_data = array();
             foreach ( $_POST as $key => $value ) {
                 if ( strstr($key, 'wp_rem_') ) {
+                    if ($key === 'wp_rem_post_loc_country_property') {
+                        wp_set_object_terms($post_id, $_POST['wp_rem_post_loc_country_property'], 'wp_rem_locations');
+                    }
                     if ( $key == 'wp_rem_transaction_expiry_date' || $key == 'wp_rem_property_expired' || $key == 'wp_rem_property_posted' || $key == 'wp_rem_user_last_activity_date' || $key == 'wp_rem_user_last_activity_date' ) {
                         if ( ($key == 'wp_rem_user_last_activity_date' && $value == '') || $key == 'wp_rem_user_last_activity_date' ) {
                             $value = date('d-m-Y H:i:s');
