@@ -3108,7 +3108,13 @@ function wp_rem_load_dropdown_values( field_class, field_id, action ){
 }
 
 jQuery(function ($) {
-    var wp_rem_property_expired_ = $('#wp_rem_property_expired');
-    wp_rem_property_expired_.val('01-01-2040');
-    wp_rem_property_expired_.closest('.form-elements').hide();
+    $('#wp_rem_property_expired').val('01-01-2040')
+        .closest('.form-elements').hide();
+        
+    $('#wp_rem_transaction_property_pic_num').val(100)
+        .closest('.form-elements').hide();
+    $('#wp_rem_transaction_property_doc_num').val(100)
+        .closest('.form-elements').hide();
+    $('#wp_rem_transaction_property_tags_num').val(100)
+        .closest('.form-elements').hide();
 });
