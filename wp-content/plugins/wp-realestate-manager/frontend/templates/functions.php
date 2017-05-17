@@ -840,7 +840,10 @@ if ( ! function_exists('wp_rem_get_custom_locations_property_filter') ) {
                         )
                 );
             }
-            $search_type = isset($_REQUEST['search_type']) ? $_REQUEST['search_type'] : 'custom';
+            $search_type = !isset($_REQUEST['location']) ? 'autocomplete' : '';
+            if (!$search_type) {
+                $search_type = isset($_REQUEST['search_type']) ? $_REQUEST['search_type'] : 'custom';
+            }
             $output .= '<input type="hidden" name="search_type" class="search_type" value="' . $search_type . '">';
             $output .= '</div>';
             $output .= '<div class="wp-rem-all-locations' . $property_short_counter . '">';
