@@ -232,13 +232,14 @@ if ( ! function_exists( 'wp_rem_cs_var_contact_submit' ) ) {
 					<td>' . esc_html($_SERVER["REMOTE_ADDR"]) . '</td>
 				  </tr>
 				</table>';
-                $headers = "From: " . esc_html($contact_name) . "\r\n";
+
+                // $headers = 'From: "'. esc_html($contact_name) .'" <'. esc_html($contact_email) .'>' . "\r\n";
                 $headers .= "Reply-To: " . esc_html($contact_email) . "\r\n";
                 $headers .= "Content-type: text/html; charset=utf-8" . "\r\n";
                 $headers .= "MIME-Version: 1.0" . "\r\n";
                 $attachments = '';
 
-                $respose = mail( $wp_rem_cs_contact_email, $subjecteEmail, $message, $headers );
+                $respose = wp_mail( $wp_rem_cs_contact_email, $subjecteEmail, $message, $headers );
 				if ( $respose ) {
                     $json['type'] = "success";
                     $json['msg'] = esc_html( $wp_rem_cs_contact_succ_msg );
