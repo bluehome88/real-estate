@@ -84,6 +84,10 @@ if ( ! class_exists('wp_rem_features_element') ) {
             $wp_rem_property_image = get_post_meta($post_id, 'wp_rem_property_image', true);
             $img_url = wp_get_attachment_url($wp_rem_property_image);
             $img_url = isset($img_url) ? $img_url : '';
+            $video_id = $wp_rem_property_video;
+            if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $wp_rem_property_video, $match)) {
+                $video_id = $match[1];
+            }
 
             if ( isset($wp_rem_property_video) && $wp_rem_property_video != '' ) {
                 ?>
@@ -92,27 +96,7 @@ if ( ! class_exists('wp_rem_features_element') ) {
                         <h3><?php echo wp_rem_plugin_text_srt('wp_rem_features_property_video'); ?></h3>
                     </div>
                     <div class="video-fit-holder">
-                        <?php
-                        //$property_gallery_first_image_url = '';
-                        if ( function_exists('property_gallery_first_image') ) {
-                            $gallery_video_image_args = array(
-                                'property_id' => $post_id,
-                                'size' => 'wp_rem_media_9',
-                                'class' => '',
-                                'return_type' => 'url',
-                                'default_image_src' => esc_url(wp_rem::plugin_url() . 'assets/frontend/images/no-image9x6.jpg')
-                            );
-                            $property_gallery_first_image_url = property_gallery_first_image($gallery_video_image_args);
-                        }
-                        ?>
-                <?php if ( $property_gallery_first_image_url != '' ) { ?>
-                            <div class="img-holder" style="background-image:url(<?php echo esc_url($property_gallery_first_image_url); ?>)">
-                                <span class="play-btn"> 
-                                    <a id="play-video" data-video="<?php echo esc_url($wp_rem_property_video); ?>?autoplay=1" class="video-btn" href="javascript:void(0);"><i class="icon-play_arrow"></i></a> 
-                                </span>
-                            </div>
-                        <?php } ?>
-                <?php echo wp_oembed_get(esc_url($wp_rem_property_video), array( 'height' => 56 )); ?>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/<?= $video_id ?>" frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>		
                 <?php
