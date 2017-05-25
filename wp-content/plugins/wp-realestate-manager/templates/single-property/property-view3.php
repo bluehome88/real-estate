@@ -442,10 +442,10 @@ if (($top_map == 'on' || ($top_slider == 'on' && $count_all > 0)) && $member_pro
                                         <h2><?php the_title(); ?></h2>
                                         <?php
                                     }
-                                    if (isset($wp_rem_post_loc_address_property) && $wp_rem_post_loc_address_property != '') {
+                                    /* if (isset($wp_rem_post_loc_address_property) && $wp_rem_post_loc_address_property != '') {
                                         ?>
                                         <address><i class="icon- icon-location-pin2"></i><?php echo esc_html($wp_rem_post_loc_address_property); ?></address>
-                                    <?php } ?>
+                                    <?php } */ ?>
 									<div class="property-data">
 										<ul>
 											<?php if ($wp_rem_property_is_featured == 'on') { ?>
