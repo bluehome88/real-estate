@@ -2786,3 +2786,4 @@ bottom: 0; height: 50%; left: 0; position: absolute; width: 100%; }
 .wp-rem-split-map-wrap .split-map-holder { top: 100px !important; }
 .wp-rem-split-map-wrap .filters-sidebar { top: 85px !important; }
 .real-estate-property figure figcaption { width: 31% !important; height: 20% !important; top: auto !important; bottom: 0; }
+.main-post.slider .gallery-top .swiper-slide figure img { height: 660px; }
