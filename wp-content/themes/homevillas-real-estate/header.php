@@ -1,6 +1,8 @@
 <?php ob_start("ob_gzhandler");?>
 <?php 
-//
+global $post;
+
+require_once __DIR__ . '/custom/header-data.php';
 //
 //
 //$contents = ob_get_contents();
@@ -15,6 +17,8 @@
  * @package wp_rem_cs
  */
 do_action( 'wp_rem_cs_before_header' );
+
+$metakeywords = cetGetProductMetaKeywords(@$post->ID, @$post->post_title);
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -24,6 +28,9 @@ do_action( 'wp_rem_cs_before_header' );
     ?>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php if ($metakeywords) { ?>
+    <meta name="keywords" itemprop="keywords" content="<?= $metakeywords ?>" />
+    <?php } ?>
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
     <?php
