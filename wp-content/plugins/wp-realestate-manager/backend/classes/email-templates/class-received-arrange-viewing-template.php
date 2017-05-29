@@ -172,6 +172,9 @@ if (!class_exists('Wp_rem_received_arrange_viewing_email_template')) {
 
         function get_property_user_name() {
             $property_id = isset($this->form_fields['property_id']) ? $this->form_fields['property_id'] : '';
+            if (!$property_id) {
+                $property_id = $this->form_fields['wp_rem_property_id'];
+            }
             $property_member = get_post_meta($property_id, 'wp_rem_property_member', true);
             $property_user_id = wp_rem_user_id_form_company_id($property_member);
             $property_user_info = get_userdata($property_user_id);
@@ -180,6 +183,9 @@ if (!class_exists('Wp_rem_received_arrange_viewing_email_template')) {
 
         function get_property_user_email() {
             $property_id = isset($this->form_fields['property_id']) ? $this->form_fields['property_id'] : '';
+            if (!$property_id) {
+                $property_id = $this->form_fields['wp_rem_property_id'];
+            }
             $property_member = get_post_meta($property_id, 'wp_rem_property_member', true);
             $property_user_id = wp_rem_user_id_form_company_id($property_member);
             $property_user_info = get_userdata($property_user_id);
@@ -188,11 +194,17 @@ if (!class_exists('Wp_rem_received_arrange_viewing_email_template')) {
 
         function get_property_title() {
             $property_id = isset($this->form_fields['property_id']) ? $this->form_fields['property_id'] : '';
+            if (!$property_id) {
+                $property_id = $this->form_fields['wp_rem_property_id'];
+            }
             return esc_html(get_the_title($property_id));
         }
 
         function get_property_link() {
             $property_id = isset($this->form_fields['property_id']) ? $this->form_fields['property_id'] : '';
+            if (!$property_id) {
+                $property_id = $this->form_fields['wp_rem_property_id'];
+            }
             return esc_url(get_permalink($property_id));
         }
 

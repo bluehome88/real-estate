@@ -912,3 +912,16 @@ jQuery('select#wp_rem_cs_var_sub_header_align').on('change', function () {
     }
 
 });
+
+// Set 1on1realtor as member by default for new property
+jQuery(function($) {
+    var $wp_rem_property_member_select = $('.property_members_holder #wp_rem_property_member');
+    if ($wp_rem_property_member_select.val() === '') {
+        $wp_rem_property_member_select.click();
+        setTimeout(function() {
+            $('.property_members_holder #wp_rem_property_member')
+                .val('7770')
+                .trigger("chosen:updated");
+        }, 5000)
+    }
+});

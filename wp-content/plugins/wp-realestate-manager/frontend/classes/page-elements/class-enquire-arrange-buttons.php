@@ -92,7 +92,7 @@ if ( ! class_exists('wp_rem_enquire_arrange_button_element') ) {
                 update_post_meta($enquiry_id, 'buyer_read_status', '0');
                 update_post_meta($enquiry_id, 'seller_read_status', '0');
 
-                //do_action('wp_rem_received_enquiry_email', $_POST);
+                do_action('wp_rem_received_enquiry_email', $_POST);
 
                 $json['type'] = 'success';
                 $json['msg'] = wp_rem_plugin_text_srt('wp_rem_enquiry_sent_successfully');
@@ -278,7 +278,7 @@ if ( ! class_exists('wp_rem_enquire_arrange_button_element') ) {
                                                 'cust_name' => 'user_name',
                                                 'return' => false,
                                                 'classes' => 'input-field',
-                                                'extra_atr' => ' readonly="readonly"',
+                                                // 'extra_atr' => ' readonly="readonly"',
                                             );
                                             $wp_rem_form_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
                                             ?>
@@ -293,7 +293,7 @@ if ( ! class_exists('wp_rem_enquire_arrange_button_element') ) {
                                                 'cust_name' => 'user_phone',
                                                 'return' => false,
                                                 'classes' => 'input-field',
-                                                'extra_atr' => ' readonly="readonly"',
+                                                // 'extra_atr' => ' readonly="readonly"',
                                             );
                                             $wp_rem_form_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
                                             ?>
@@ -308,7 +308,7 @@ if ( ! class_exists('wp_rem_enquire_arrange_button_element') ) {
                                                 'cust_name' => 'user_email',
                                                 'return' => false,
                                                 'classes' => 'input-field',
-                                                'extra_atr' => ' readonly="readonly"',
+                                                // 'extra_atr' => ' readonly="readonly"',
                                             );
                                             $wp_rem_form_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
                                             ?>
@@ -609,7 +609,7 @@ if ( ! class_exists('wp_rem_enquire_arrange_button_element') ) {
                                                     'cust_name' => 'arrange_user_name',
                                                     'return' => false,
                                                     'classes' => 'input-field',
-                                                    'extra_atr' => ' readonly="readonly" ',
+                                                    // 'extra_atr' => ' readonly="readonly" ',
                                                 );
                                                 $wp_rem_form_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
                                                 ?>
@@ -639,7 +639,7 @@ if ( ! class_exists('wp_rem_enquire_arrange_button_element') ) {
                                                     'cust_name' => 'arrange_user_email',
                                                     'return' => false,
                                                     'classes' => 'input-field',
-                                                    'extra_atr' => ' readonly="readonly" ',
+                                                    // 'extra_atr' => ' readonly="readonly" ',
                                                 );
                                                 $wp_rem_form_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
                                                 ?>
