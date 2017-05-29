@@ -19,7 +19,7 @@ if ( ! class_exists('wp_rem_enquire_arrange_button_element') ) {
 
         public function wp_rem_send_enquire_arrange_submit_callback() {
             global $wp_rem_plugin_options;
-            if ( is_user_logged_in() ) {
+            // if ( is_user_logged_in() ) {
 
                 $user_name = wp_rem_get_input('user_name', NULL, 'STRING');
                 $user_phone = wp_rem_get_input('user_phone', NULL, 'STRING');
@@ -98,12 +98,12 @@ if ( ! class_exists('wp_rem_enquire_arrange_button_element') ) {
                 $json['msg'] = wp_rem_plugin_text_srt('wp_rem_enquiry_sent_successfully');
                 echo json_encode($json);
                 exit();
-            } else {
-                $json['type'] = 'error';
-                $json['msg'] = wp_rem_plugin_text_srt('wp_rem_enquire_arrange_login');
-                echo json_encode($json);
-                exit();
-            }
+            // } else {
+            //     $json['type'] = 'error';
+            //     $json['msg'] = wp_rem_plugin_text_srt('wp_rem_enquire_arrange_login');
+            //     echo json_encode($json);
+            //     exit();
+            // }
         }
 
         public function wp_rem_send_arrange_submit_callback() {
@@ -205,11 +205,11 @@ if ( ! class_exists('wp_rem_enquire_arrange_button_element') ) {
 				$target_modal = '';
 				$target_arrange_modal = '';
                 $target_class = ' wp-rem-open-signin-tab';
-                if ( is_user_logged_in() ) {
+                // if ( is_user_logged_in() ) {
                     $target_class = '';
 					$target_modal = ' data-toggle="modal" data-target="#enquiry-modal"';
 					$target_arrange_modal = ' data-toggle="modal" data-target="#arrange-modal"';
-                }
+                // }
                 ?>
                 <a class="enquire-btn<?php echo esc_attr($target_class); ?>" href="javascript:void(0);"<?php echo ($target_modal); ?>><i class="icon- icon-calendar-check-o"></i><?php echo wp_rem_plugin_text_srt('wp_rem_enquire_arrange_enquiry_now'); ?></a>
 

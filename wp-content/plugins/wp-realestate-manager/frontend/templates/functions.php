@@ -250,7 +250,7 @@ if ( ! function_exists('property_checks_enquire_lists_submit') ) {
 if ( ! function_exists('wp_rem_send_enquire_listing_submit_callback') ) {
 	function wp_rem_send_enquire_listing_submit_callback() {
 		global $wp_rem_plugin_options;
-		if ( is_user_logged_in() ) {
+		// if ( is_user_logged_in() ) {
 
 			$user_name = wp_rem_get_input('user_name', NULL, 'STRING');
 			$user_phone = wp_rem_get_input('user_phone', NULL, 'STRING');
@@ -341,12 +341,12 @@ if ( ! function_exists('wp_rem_send_enquire_listing_submit_callback') ) {
 				echo json_encode($json);
 				exit();
 			}
-		} else {
-			$json['type'] = 'error';
-			$json['msg'] = wp_rem_plugin_text_srt('wp_rem_enquire_arrange_login');
-			echo json_encode($json);
-			exit();
-		}
+		// } else {
+		// 	$json['type'] = 'error';
+		// 	$json['msg'] = wp_rem_plugin_text_srt('wp_rem_enquire_arrange_login');
+		// 	echo json_encode($json);
+		// 	exit();
+		// }
 	}
 	
 	add_action('wp_ajax_nopriv_wp_rem_send_enquire_listing_submit', 'wp_rem_send_enquire_listing_submit_callback');
