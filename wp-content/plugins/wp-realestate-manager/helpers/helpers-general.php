@@ -1068,7 +1068,8 @@ if (!function_exists('wp_rem_get_currency')) {
             }
         }
 
-        $price = WP_REM_FUNCTIONS()->num_format($price);
+        // $price = WP_REM_FUNCTIONS()->num_format($price);
+        $price = '$' . $price;
         if ($currency_symbol == true && is_numeric($price)) {
             $currency_sign = $before_currency . $default_currency . $after_currency;
             $price_str = $currency_sign . $price;
@@ -1103,8 +1104,8 @@ if (!function_exists('wp_rem_get_order_currency')) {
         $currency_sign = ( $currency_sign != '' ) ? $currency_sign : $default_currency;
         $currency_position = ( $currency_position != '' ) ? $currency_position : $currency_pos;
 
-        $price = WP_REM_FUNCTIONS()->num_format($price);
-
+        // $price = WP_REM_FUNCTIONS()->num_format($price);
+        $price = '$' . $price;
         $price_str = $currency_sign . $price;
         switch ($currency_position) {
             case 'left' :
