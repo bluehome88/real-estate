@@ -41,6 +41,27 @@ if ( ! class_exists('wp_rem_enquire_arrange_button_element') ) {
                     exit();
                 }
 
+                if ( empty($user_name) ) {
+                    $json['type'] = 'error';
+                    $json['msg'] = wp_rem_plugin_text_srt('wp_rem_enquiry_name_empty');
+                    echo json_encode($json);
+                    exit();
+                }
+                
+                if ( empty($user_phone) ) {
+                    $json['type'] = 'error';
+                    $json['msg'] = wp_rem_plugin_text_srt('wp_rem_enquiry_phone_empty');
+                    echo json_encode($json);
+                    exit();
+                }
+
+                if ( empty($user_email) ) {
+                    $json['type'] = 'error';
+                    $json['msg'] = wp_rem_plugin_text_srt('wp_rem_enquiry_email_empty');
+                    echo json_encode($json);
+                    exit();
+                }
+
                 if ( empty($user_message) ) {
                     $json['type'] = 'error';
                     $json['msg'] = wp_rem_plugin_text_srt('wp_rem_enquiry_msg_empty');
@@ -127,6 +148,27 @@ if ( ! class_exists('wp_rem_enquire_arrange_button_element') ) {
             if ( $property_member == $viewing_member ) {
                 $json['type'] = 'error';
                 $json['msg'] = wp_rem_plugin_text_srt('wp_rem_viewing_own_property_error');
+                echo json_encode($json);
+                exit();
+            }
+
+            if ( empty($arrange_user_name) ) {
+                $json['type'] = 'error';
+                $json['msg'] = wp_rem_plugin_text_srt('wp_rem_enquiry_name_empty');
+                echo json_encode($json);
+                exit();
+            }
+            
+            if ( empty($arrange_phone_num) ) {
+                $json['type'] = 'error';
+                $json['msg'] = wp_rem_plugin_text_srt('wp_rem_enquiry_phone_empty');
+                echo json_encode($json);
+                exit();
+            }
+
+            if ( empty($arrange_user_email) ) {
+                $json['type'] = 'error';
+                $json['msg'] = wp_rem_plugin_text_srt('wp_rem_enquiry_email_empty');
                 echo json_encode($json);
                 exit();
             }
@@ -278,6 +320,7 @@ if ( ! class_exists('wp_rem_enquire_arrange_button_element') ) {
                                                 'cust_name' => 'user_name',
                                                 'return' => false,
                                                 'classes' => 'input-field',
+                                                'extra_atr' => 'placeholder="Full Name"',
                                                 // 'extra_atr' => ' readonly="readonly"',
                                             );
                                             $wp_rem_form_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
@@ -293,6 +336,7 @@ if ( ! class_exists('wp_rem_enquire_arrange_button_element') ) {
                                                 'cust_name' => 'user_phone',
                                                 'return' => false,
                                                 'classes' => 'input-field',
+                                                'extra_atr' => 'placeholder="Telephone Number"',
                                                 // 'extra_atr' => ' readonly="readonly"',
                                             );
                                             $wp_rem_form_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
@@ -308,6 +352,7 @@ if ( ! class_exists('wp_rem_enquire_arrange_button_element') ) {
                                                 'cust_name' => 'user_email',
                                                 'return' => false,
                                                 'classes' => 'input-field',
+                                                'extra_atr' => 'placeholder="Email"',
                                                 // 'extra_atr' => ' readonly="readonly"',
                                             );
                                             $wp_rem_form_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
@@ -609,6 +654,7 @@ if ( ! class_exists('wp_rem_enquire_arrange_button_element') ) {
                                                     'cust_name' => 'arrange_user_name',
                                                     'return' => false,
                                                     'classes' => 'input-field',
+                                                    'extra_atr' => 'placeholder="Full Name"',
                                                     // 'extra_atr' => ' readonly="readonly" ',
                                                 );
                                                 $wp_rem_form_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
@@ -624,6 +670,7 @@ if ( ! class_exists('wp_rem_enquire_arrange_button_element') ) {
                                                     'cust_name' => 'arrange_phone_num',
                                                     'return' => false,
                                                     'classes' => 'input-field',
+                                                    'extra_atr' => 'placeholder="Telephone Number"',
                                                         //'extra_atr' => ' readonly="readonly" ',
                                                 );
                                                 $wp_rem_form_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
@@ -639,6 +686,7 @@ if ( ! class_exists('wp_rem_enquire_arrange_button_element') ) {
                                                     'cust_name' => 'arrange_user_email',
                                                     'return' => false,
                                                     'classes' => 'input-field',
+                                                    'extra_atr' => 'placeholder="Email"',
                                                     // 'extra_atr' => ' readonly="readonly" ',
                                                 );
                                                 $wp_rem_form_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
