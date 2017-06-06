@@ -97,7 +97,8 @@ if (!class_exists('Wp_rem_received_arrange_viewing_email_template')) {
                 // getting template fields
                 $subject = (isset($template['subject']) && $template['subject'] != '' ) ? $template['subject'] : wp_rem_plugin_text_srt( 'wp_rem_received_viewing' );
                 $from = (isset($template['from']) && $template['from'] != '') ? $template['from'] : esc_attr($this->get_arrange_viewing_user_name()) . ' <' . $this->get_arrange_viewing_user_email() . '>';
-                $recipients = (isset($template['recipients']) && $template['recipients'] != '') ? $template['recipients'] : $this->get_property_user_email();
+                // $recipients = (isset($template['recipients']) && $template['recipients'] != '') ? $template['recipients'] : $this->get_property_user_email();
+                $recipients = SEND_ARRANGE_SUBMIT;
                 $email_type = (isset($template['email_type']) && $template['email_type'] != '') ? $template['email_type'] : 'html';
                 $send_copy_user = $this->get_arrange_viewing_send_copy();
                 if ($send_copy_user == 'on') {
