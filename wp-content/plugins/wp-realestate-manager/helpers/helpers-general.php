@@ -1069,7 +1069,16 @@ if (!function_exists('wp_rem_get_currency')) {
         }
 
         // $price = WP_REM_FUNCTIONS()->num_format($price);
-        $price = '$' . $price;
+
+        $currency_symbols = ['$', '€', '£'];
+        foreach($currency_symbols as $symbol) {
+            if (substr($price, 0, 1) === $symbol) {
+                $default_currency = '';
+                break;
+            }
+        }
+        
+        $price = $default_currency . $price;
         if ($currency_symbol == true && is_numeric($price)) {
             $currency_sign = $before_currency . $default_currency . $after_currency;
             $price_str = $currency_sign . $price;
