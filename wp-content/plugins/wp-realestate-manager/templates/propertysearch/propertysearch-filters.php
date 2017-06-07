@@ -201,9 +201,9 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
                                 <?php
                                 $wp_rem_opt_array = array(
                                     'std' => '',
-                                    'id' => 'property_price',
+                                    'id' => 'price_minimum',
                                     'classes' => 'chosen-select',
-                                    'cust_name' => 'property_price',
+                                    'cust_name' => 'price_minimum',
                                     'options' => $property_price_array,
                                 );
                                 $wp_rem_form_fields_frontend->wp_rem_form_select_render($wp_rem_opt_array);
