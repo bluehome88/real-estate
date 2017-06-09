@@ -307,7 +307,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_1') ) {
             $wp_rem_static_text['wp_rem_property_type_hint'] = esc_html__('Select Property Type', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_custom_fields'] = esc_html__('Custom Fields', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_organization'] = esc_html__('Organization', 'wp-rem');
-            $wp_rem_static_text['wp_rem_property_mailing_information'] = esc_html__('Mailing Information', 'wp-rem');
+            $wp_rem_static_text['wp_rem_property_mailing_information'] = esc_html__('Location', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_env_res'] = esc_html__('ENVIRONMENTAL RESPONSIBILITY', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_select_categories'] = esc_html__('Select Categories', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_categories'] = esc_html__('How would you describe the property?', 'wp-rem');
@@ -834,7 +834,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_1') ) {
             $wp_rem_static_text['wp_rem_save_post_property_status_active'] = esc_html__('Active', 'wp-rem');
             $wp_rem_static_text['wp_rem_save_post_location_country'] = esc_html__('Country', 'wp-rem');
             $wp_rem_static_text['wp_rem_save_post_location_select_country'] = esc_html__('Select Country', 'wp-rem');
-            $wp_rem_static_text['wp_rem_save_post_location_state'] = esc_html__('State', 'wp-rem');
+            $wp_rem_static_text['wp_rem_save_post_location_state'] = esc_html__('City', 'wp-rem');
             $wp_rem_static_text['wp_rem_save_post_location_select_state'] = esc_html__('Select State', 'wp-rem');
             $wp_rem_static_text['wp_rem_save_post_location_city'] = esc_html__('City', 'wp-rem');
             $wp_rem_static_text['wp_rem_save_post_location_select_city'] = esc_html__('Select City', 'wp-rem');

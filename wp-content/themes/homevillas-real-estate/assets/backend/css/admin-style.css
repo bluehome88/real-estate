@@ -1950,7 +1950,4 @@ td.location-img-field label.browse-icon { margin-left: 10px; }
 .metabox-holder .inside { position: relative; }
 .metabox-holder .inside .builderload { position: absolute; right: auto; top: 32px; width: auto; z-index: 999; left: 50%; -webkit-transform: translateX(-50%); -moz-transform: translateX(-50%); -ms-transform: translateX(-50%); -o-transform: translateX(-50%); transform: translateX(-50%); }
 
-#wp_rem_org_name + #mailing_information { display: none; }
-#locations_wrap .opt-conts .form-elements:first-child { display: none; }
-#loc_state_property_container { display: none; }
 #loc_city_property_container { display: none; }
