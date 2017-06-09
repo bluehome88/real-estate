@@ -119,6 +119,7 @@ if ( $property_loop_obj->have_posts() ) {
             // end checking review on in property type
 
             $wp_rem_property_price = '';
+            $wp_rem_property_price_ttd = '';
             if ( $wp_rem_property_price_options == 'price' ) {
                 $wp_rem_property_price = get_post_meta($property_id, 'wp_rem_property_price', true);
                 $wp_rem_property_price_ttd = get_post_meta($property_id, 'wp_rem_property_price_ttd', true);
