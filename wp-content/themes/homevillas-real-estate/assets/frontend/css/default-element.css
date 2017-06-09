@@ -49,7 +49,7 @@ header#header.default-v2 .main-header.sticky-active,
 #header.modern.transparent.sticky-active .main-header,
 #header.default.default-v2 .sticky-header.sticky-active
 {
-background-color:#ffffff !important;
+/*background-color:#ffffff !important;*/
 }
 .classic.no-transparent .main-header .top-header .contact-info, .classic.no-transparent .main-header .top-header .contact-info i, .classic.no-transparent .main-header .top-header .contact-info a, .classic.no-transparent .main-header .top-header .contact-info small, .classic.no-transparent .main-header .top-header .contact-info span, .classic.no-transparent .main-header .social-media li a, .classic.no-transparent .main-header .login-area > a, .classic.no-transparent .main-header .login-area > i, .logged-in .classic.no-transparent .main-header .user-dashboard-menu-children > a
 {
