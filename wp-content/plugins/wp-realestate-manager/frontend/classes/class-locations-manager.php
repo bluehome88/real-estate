@@ -536,7 +536,7 @@ if ( ! class_exists('Wp_rem_Locations') ) {
         public function locations_theme_columns_content_callback($content, $column_name, $term_id) {
             if ( 'type' == $column_name ) {
                 $ancestors = get_ancestors($term_id, Wp_rem_Locations::$taxonomy_name);
-                $selected_levels = "country,state,city,town";
+                $selected_levels = "country,city,town";
                 $selected_levels = explode(',', get_option('location_selected_levels', $selected_levels));
 
                 $content = ucfirst($selected_levels[count($ancestors)]);

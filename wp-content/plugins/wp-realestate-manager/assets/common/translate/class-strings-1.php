@@ -835,7 +835,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_1') ) {
             $wp_rem_static_text['wp_rem_save_post_location_country'] = esc_html__('Country', 'wp-rem');
             $wp_rem_static_text['wp_rem_save_post_location_select_country'] = esc_html__('Select Country', 'wp-rem');
             $wp_rem_static_text['wp_rem_save_post_location_state'] = esc_html__('City', 'wp-rem');
-            $wp_rem_static_text['wp_rem_save_post_location_select_state'] = esc_html__('Select State', 'wp-rem');
+            $wp_rem_static_text['wp_rem_save_post_location_select_state'] = esc_html__('Select City', 'wp-rem');
             $wp_rem_static_text['wp_rem_save_post_location_city'] = esc_html__('City', 'wp-rem');
             $wp_rem_static_text['wp_rem_save_post_location_select_city'] = esc_html__('Select City', 'wp-rem');
             $wp_rem_static_text['wp_rem_save_post_location_town'] = esc_html__('Town', 'wp-rem');

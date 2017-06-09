@@ -104,7 +104,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_4') ) {
             $wp_rem_static_text['wp_rem_options_modfiying_warning'] = esc_html__('By modifying location levels your existing locations data may get useless as you change levels. So, it is recommended to backup and delete existing locations.', 'wp-rem');
             $wp_rem_static_text['wp_rem_options_locations_levels'] = esc_html__('Locations Levels', 'wp-rem');
             $wp_rem_static_text['wp_rem_options_country'] = esc_html__('Country', 'wp-rem');
-            $wp_rem_static_text['wp_rem_options_state'] = esc_html__('State', 'wp-rem');
+            $wp_rem_static_text['wp_rem_options_state'] = esc_html__('City', 'wp-rem');
             $wp_rem_static_text['wp_rem_options_city'] = esc_html__('City', 'wp-rem');
             $wp_rem_static_text['wp_rem_options_town'] = esc_html__('Town', 'wp-rem');
             $wp_rem_static_text['wp_rem_options_town_complete_address'] = esc_html__('Complete Address', 'wp-rem');
