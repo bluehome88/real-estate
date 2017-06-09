@@ -1341,10 +1341,18 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
             $maximum_price = ( isset($_REQUEST['price_maximum']) && $_REQUEST['price_maximum'] != '' ) ? $_REQUEST['price_maximum'] : '';
             $minimum_price = ( isset($_REQUEST['price_minimum']) && $_REQUEST['price_minimum'] != '' ) ? $_REQUEST['price_minimum'] : '';
             $price_type = ( isset($_REQUEST['price_type']) && $_REQUEST['price_type'] != '' ) ? $_REQUEST['price_type'] : '';
-            $filter_arr = array();
+            $filter_arr = array(
+                'relation' => 'OR'
+            );
             if ($minimum_price != '' && $minimum_price != 0) {
                 $filter_arr[] = array(
-                    'key' => 'wp_rem_property_price',
+                    'key' => 'wp_rem_property_price_num',
+                    'value' => $minimum_price,
+                    'compare' => '>=',
+                    'type' => 'NUMERIC',
+                );
+                $filter_arr[] = array(
+                    'key' => 'wp_rem_property_price_ttd_num',
                     'value' => $minimum_price,
                     'compare' => '>=',
                     'type' => 'NUMERIC',
@@ -1352,7 +1360,13 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
             }
             if ($maximum_price != '' && $maximum_price != 0) {
                 $filter_arr[] = array(
-                    'key' => 'wp_rem_property_price',
+                    'key' => 'wp_rem_property_price_num',
+                    'value' => $maximum_price,
+                    'compare' => '<=',
+                    'type' => 'NUMERIC',
+                );
+                $filter_arr[] = array(
+                    'key' => 'wp_rem_property_price_ttd_num',
                     'value' => $maximum_price,
                     'compare' => '<=',
                     'type' => 'NUMERIC',

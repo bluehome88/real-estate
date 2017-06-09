@@ -1095,6 +1095,23 @@ if ( ! class_exists('wp_rem_property_meta') ) {
                 $html .= $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
 
                 $wp_rem_opt_array = array(
+                    'name' => wp_rem_plugin_text_srt('wp_rem_list_meta_ad_price'),
+                    'desc' => '',
+                    'hint_text' => '',
+                    'main_wraper' => true,
+                    'main_wraper_class' => 'dynamic_price_field',
+                    'main_wraper_extra' => 'style="display:none;"',
+                    'echo' => false,
+                    'field_params' => array(
+                        'std' => '',
+                        'classes' => 'wp-rem-number-field ',
+                        'id' => 'property_price_num',
+                        'return' => true,
+                    ),
+                );
+                $html .= $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
+
+                $wp_rem_opt_array = array(
                     'name' => wp_rem_plugin_text_srt('wp_rem_list_meta_ad_price_ttd'),
                     'desc' => '',
                     'hint_text' => '',
@@ -1106,6 +1123,23 @@ if ( ! class_exists('wp_rem_property_meta') ) {
                         'std' => '',
                         'classes' => 'wp-rem-number-field ',
                         'id' => 'property_price_ttd',
+                        'return' => true,
+                    ),
+                );
+                $html .= $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
+
+                $wp_rem_opt_array = array(
+                    'name' => wp_rem_plugin_text_srt('wp_rem_list_meta_ad_price_ttd'),
+                    'desc' => '',
+                    'hint_text' => '',
+                    'main_wraper' => true,
+                    'main_wraper_class' => 'dynamic_price_field',
+                    'main_wraper_extra' => 'style="display:none;"',
+                    'echo' => false,
+                    'field_params' => array(
+                        'std' => '',
+                        'classes' => 'wp-rem-number-field ',
+                        'id' => 'property_price_ttd_num',
                         'return' => true,
                     ),
                 );

@@ -925,3 +925,20 @@ jQuery(function($) {
         }, 5000)
     }
 });
+
+jQuery(function($) {
+    var $property_price = $('#wp_rem_property_price');
+    var $property_price_ttd = $('#wp_rem_property_price_ttd');
+    var $wp_rem_property_price_num = $('#wp_rem_property_price_num');
+    var $wp_rem_property_price_ttd_num = $('#wp_rem_property_price_ttd_num');
+
+    $wp_rem_property_price_num.val($property_price.val().replace(/[^\/\d]/g,''));
+    $wp_rem_property_price_ttd_num.val($property_price_ttd.val().replace(/[^\/\d]/g,''));
+
+    $property_price.on('keypress keyup', (function () {
+        $wp_rem_property_price_num.val($(this).val().replace(/[^\/\d]/g,''));
+    }));
+    $property_price_ttd.on('keypress keyup', (function () {
+        $wp_rem_property_price_ttd_num.val($(this).val().replace(/[^\/\d]/g,''));
+    }));
+});
