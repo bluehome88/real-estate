@@ -213,7 +213,7 @@ if ($property_loop_obj->have_posts()) {
                                     do_action('wp_rem_favourites_frontend_button', $property_id, $book_mark_args, $figcaption_div);
                                     if (!empty($get_property_location)) {
                                         ?>
-                                        <ul class="property-location">
+                                        <ul class="property-locationd">
                                             <li><i class="icon-location-pin2"></i><span><?php echo esc_html(implode(', ', $get_property_location)); ?></span></li>
                                         </ul>
                                         <?php

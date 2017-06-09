@@ -382,13 +382,13 @@ if ( ! class_exists('wp_rem_plugin_all_strings_4') ) {
             $wp_rem_static_text['wp_rem_enquire_arrange_email_empty'] = esc_html__('Email address should not be empty', 'wp-rem');
             $wp_rem_static_text['wp_rem_enquire_arrange_email_not_valid'] = esc_html__('Please enter a valid  email address.', 'wp-rem');
             $wp_rem_static_text['wp_rem_enquire_arrange_message_sent_successfully'] = esc_html__('Your message has been sent successfully.', 'wp-rem');
-            $wp_rem_static_text['wp_rem_enquire_arrange_enquiry_now'] = esc_html__('Enquiry now', 'wp-rem');
+            $wp_rem_static_text['wp_rem_enquire_arrange_enquiry_now'] = esc_html__('Enquire Now', 'wp-rem');
             $wp_rem_static_text['wp_rem_enquire_arrange_arrange_viewing'] = esc_html__('Arrange viewing', 'wp-rem');
-            $wp_rem_static_text['wp_rem_enquire_arrange_request_inquiry'] = esc_html__('Request Enquiry', 'wp-rem');
+            $wp_rem_static_text['wp_rem_enquire_arrange_request_inquiry'] = esc_html__('Enquire Now', 'wp-rem');
             $wp_rem_static_text['wp_rem_enquire_arrange_send_copy'] = esc_html__('Send a copy to my email address', 'wp-rem');
             $wp_rem_static_text['wp_rem_enquire_arrange_viewing_times'] = esc_html__('Preferred Viewing Times', 'wp-rem');
             $wp_rem_static_text['wp_rem_enquire_arrange_viewing_times_optional'] = esc_html__('(Optional)', 'wp-rem');
-            $wp_rem_static_text['wp_rem_enquire_arrange_viewing_schedule'] = esc_html__('Select Schedule', 'wp-rem');
+            $wp_rem_static_text['wp_rem_enquire_arrange_viewing_schedule'] = esc_html__('Date', 'wp-rem');
             $wp_rem_static_text['wp_rem_enquire_arrange_calendar_month_jan'] = esc_html__('Jan', 'wp-rem');
             $wp_rem_static_text['wp_rem_enquire_arrange_calendar_month_feb'] = esc_html__('Feb', 'wp-rem');
             $wp_rem_static_text['wp_rem_enquire_arrange_calendar_month_mar'] = esc_html__('Mar', 'wp-rem');
