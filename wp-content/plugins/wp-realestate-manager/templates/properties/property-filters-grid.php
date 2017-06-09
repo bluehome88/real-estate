@@ -121,6 +121,7 @@ if ( $property_loop_obj->have_posts() ) {
             $wp_rem_property_price = '';
             if ( $wp_rem_property_price_options == 'price' ) {
                 $wp_rem_property_price = get_post_meta($property_id, 'wp_rem_property_price', true);
+                $wp_rem_property_price_ttd = get_post_meta($property_id, 'wp_rem_property_price_ttd', true);
             } else if ( $wp_rem_property_price_options == 'on-call' ) {
                 $wp_rem_property_price = wp_rem_plugin_text_srt('wp_rem_properties_price_on_request');
             }
@@ -200,14 +201,14 @@ if ( $property_loop_obj->have_posts() ) {
                                     <?php do_action('wp_rem_compare_btn', $property_id, $compare_property_switch); ?>
                                     <div class="caption-inner"> 
                                         <?php
-                                        if ( $wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '' ) {
+                                        if ( $wp_rem_property_type_price_switch == 'on' && ($wp_rem_property_price != '' || $wp_rem_property_price_ttd != '') ) {
                                             ?>
                                             <span class="property-price">
                                                 <?php
                                                 if ( $wp_rem_property_price_options == 'on-call' ) {
-                                                    echo force_balance_tags($wp_rem_property_price);
+                                                    echo force_balance_tags($wp_rem_property_price || $wp_rem_property_price_ttd);
                                                 } else {
-                                                    $property_info_price = wp_rem_property_price($property_id, $wp_rem_property_price, '<span class="guid-price">', '</span>');
+                                                    $property_info_price = wp_rem_property_price($property_id, $wp_rem_property_price || $wp_rem_property_price_ttd, '<span class="guid-price">', '</span>');
                                                     echo force_balance_tags($property_info_price);
                                                 }
                                                 ?>
@@ -260,13 +261,13 @@ if ( $property_loop_obj->have_posts() ) {
                             <?php } ?>
 
                         <?php } else { ?>
-                            <?php if ( $wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '' ) { ?>
+                            <?php if ( $wp_rem_property_type_price_switch == 'on' && ($wp_rem_property_price != '' || $wp_rem_property_price_ttd != '') ) { ?>
                                 <span class="property-price">
                                     <?php
                                     if ( $wp_rem_property_price_options == 'on-call' ) {
-                                        echo force_balance_tags($wp_rem_property_price);
+                                        echo force_balance_tags($wp_rem_property_price || $wp_rem_property_price_ttd);
                                     } else {
-                                        $property_info_price = wp_rem_property_price($property_id, $wp_rem_property_price, '<span class="guid-price">', '</span>');
+                                        $property_info_price = wp_rem_property_price($property_id, $wp_rem_property_price || $wp_rem_property_price_ttd, '<span class="guid-price">', '</span>');
                                         echo force_balance_tags($property_info_price);
                                     }
                                     ?>
