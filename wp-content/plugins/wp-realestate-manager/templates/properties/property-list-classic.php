@@ -65,7 +65,8 @@ if ( $property_page >= 2 ) {
 $columns_class = 'col-lg-12 col-md-12 col-sm-12 col-xs-12';
 $main_class = 'property-medium classic';
 
-$property_location_options = isset($atts['property_location']) ? $atts['property_location'] : '';
+// $property_location_options = isset($atts['property_location']) ? $atts['property_location'] : '';
+$property_location_options = 'state,country';
 if ( $property_location_options != '' ) {
     $property_location_options = explode(',', $property_location_options);
 }

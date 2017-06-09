@@ -64,7 +64,8 @@ if ( $property_page >= 2 ) {
 // end ads script
 $columns_class = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
 
-$property_location_options = isset($atts['property_location']) ? $atts['property_location'] : '';
+// $property_location_options = isset($atts['property_location']) ? $atts['property_location'] : '';
+$property_location_options = 'state,country';
 if ( $property_location_options != '' ) {
     $property_location_options = explode(',', $property_location_options);
 }

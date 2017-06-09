@@ -75,7 +75,8 @@ if ( $property_page >= 2 ) {
 // end ads script
 $columns_class = 'col-lg-4 col-md-4 col-sm-6 col-xs-12';
 $main_class = 'property-grid modern';
-$property_location_options = isset($atts['property_location']) ? $atts['property_location'] : '';
+// $property_location_options = isset($atts['property_location']) ? $atts['property_location'] : '';
+$property_location_options = 'state,country';
 if ( $property_location_options != '' ) {
     $property_location_options = explode(',', $property_location_options);
 }

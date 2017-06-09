@@ -70,7 +70,8 @@ if ( $property_view === 'v2' ) {
 } else {
     $main_class = 'property-grid ' . $property_view;
 }
-$property_location_options = isset($atts['property_location']) ? $atts['property_location'] : '';
+// $property_location_options = isset($atts['property_location']) ? $atts['property_location'] : '';
+$property_location_options = 'state,country';
 if ( $property_location_options != '' ) {
     $property_location_options = explode(',', $property_location_options);
 }
