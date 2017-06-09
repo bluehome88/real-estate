@@ -1890,6 +1890,7 @@ add_image_size('wp_rem_media_8', 340, 227, true);
 add_image_size('wp_rem_media_9', 750, 397, true);
 /* Single Featured Property Element */
 add_image_size('wp_rem_media_10', 535, 401, true);
+add_image_size('wp_rem_media_11', 1500, 1320, true);
 
 
 /**
