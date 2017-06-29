@@ -784,7 +784,7 @@ if ( ! class_exists('wp_rem_cs_var_frame_all_strings') ) {
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_contact_email'] = esc_html__('Email', 'homevillas-real-estate');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_contact_email_address'] = esc_html__('Example@domain.com', 'homevillas-real-estate');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_contact_phone_number'] = esc_html__('Phone Number', 'homevillas-real-estate');
-            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_contact_phone_number_placeholder'] = esc_html__('773.702.8650', 'homevillas-real-estate');
+            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_contact_phone_number_placeholder'] = esc_html__('868.702.8650', 'homevillas-real-estate');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_contact_button_text'] = esc_html__('Send A message', 'homevillas-real-estate');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_message'] = esc_html__('Message', 'homevillas-real-estate');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_contact_check_field'] = esc_html__('Subscribe and Get latest updates and offers by Email', 'homevillas-real-estate');
