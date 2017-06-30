@@ -431,7 +431,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_4') ) {
 // Start Frontend Gallery Elements.
             $wp_rem_static_text['wp_rem_gallery_all_photos'] = esc_html__('View all photos', 'wp-rem');
 // Start Frontend Nearby Properties Elements.
-            $wp_rem_static_text['wp_rem_nearby_properties_heading'] = esc_html__('Properties on the Market Nearby', 'wp-rem');
+            $wp_rem_static_text['wp_rem_nearby_properties_heading'] = esc_html__('Properties in the Market Nearby', 'wp-rem');
             $wp_rem_static_text['wp_rem_nearby_properties_price_on_request'] = esc_html__('Price On Request', 'wp-rem');
 // Start Frontend Opening Hours Elements.
             $wp_rem_static_text['wp_rem_opening_hours_open'] = esc_html__('Open', 'wp-rem');
