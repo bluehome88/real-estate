@@ -116,7 +116,7 @@ if ( ! class_exists('wp_rem_nearby_properties_element') ) {
                                                 $wp_rem_property_type = isset($wp_rem_property_type) ? $wp_rem_property_type : '';
                                                 if ( $property_type_post = get_page_by_path($wp_rem_property_type, OBJECT, 'property-type') )
                                                     $property_type_nearby_id = $property_type_post->ID;
-                                                $wp_rem_property_type_price_nearby_switch = get_post_meta($property_type_nearby_id, 'wp_rem_property_type_price', true);
+                                                $wp_rem_property_type_price_nearby_switch = get_post_meta(@$property_type_nearby_id, 'wp_rem_property_type_price', true);
                                                 ?>
                                                 <div class="swiper-slide">
                                                     <div class="property-grid">
