@@ -409,7 +409,7 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                     </ul>
                 <?php } ?>
             </div>
-            <?php if ($property_open_house_filter == 'yes') { ?>
+            <?php /* if ($property_open_house_filter == 'yes') { ?>
                 <div class="select-categories">
                     <h6><?php echo wp_rem_plugin_text_srt('wp_rem_property_leftflter_open_house'); ?></h6>
                     <?php wp_rem_property_search_reset_field($_REQUEST, $page_url, 'open_house'); ?>
@@ -602,7 +602,7 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                     <?php
                 }
             }
-            ?>
+            */ ?>
 
             <?php
             // $property_type getting from shortcode backend element
