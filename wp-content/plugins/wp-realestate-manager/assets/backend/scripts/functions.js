@@ -421,7 +421,7 @@ function chosen_selectionbox() {
         var config = {
             '.chosen-select': {width: "100%"},
             '.chosen-select-deselect': {allow_single_deselect: true},
-            '.chosen-select-no-single': {disable_search_threshold: 10, width: "100%"},
+            '.chosen-select-no-single': {disable_search_threshold: 10, width: "100%", search_contains: true},
             '.chosen-select-no-results': {no_results_text: 'Oops, nothing found!'},
             '.chosen-select-width': {width: "95%"}
         }
@@ -1249,7 +1249,7 @@ function wp_rem_createpop(data, type) {
         var config = {
             '.chosen-select': {width: "100%"},
             '.chosen-select-deselect': {allow_single_deselect: true},
-            '.chosen-select-no-single': {disable_search_threshold: 10, width: "100%"},
+            '.chosen-select-no-single': {disable_search_threshold: 10, width: "100%", search_contains: true},
             '.chosen-select-no-results': {no_results_text: 'Oops, nothing found!'},
             '.chosen-select-width': {width: "95%"}
         }

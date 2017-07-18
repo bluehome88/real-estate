@@ -317,7 +317,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Members_Frontend') ) {
                     var config = {
                         '.chosen-select': {width: "100%"},
                         '.chosen-select-deselect': {allow_single_deselect: true},
-                        '.chosen-select-no-single': {disable_search_threshold: 10, width: "100%"},
+                        '.chosen-select-no-single': {disable_search_threshold: 10, width: "100%", search_contains: true},
                         '.chosen-select-no-results': {no_results_text: '<?php echo wp_rem_plugin_text_srt('wp_rem_oops_nothing_found'); ?>'},
                         '.chosen-select-width': {width: "95%"}
                     };
