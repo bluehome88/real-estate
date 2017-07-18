@@ -660,7 +660,7 @@ banner-news-letter span { display: block; margin-bottom: 10px; }
 
 /*Contact Property Style Start*/
 
-.contact-property { padding: 50px; max-height: 506px; overflow: hidden; overflow-y: auto; }
+.contact-property { padding: 50px; }
 .contact-property .element-title { margin-bottom: 35px; }
 .contact-property .element-title p { margin: 0; width: 100%; }
 .contact-property ul.contact-info { margin: 0; padding: 0; }
