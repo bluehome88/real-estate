@@ -159,9 +159,9 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
             $show_more_property_button_switch = isset($atts['show_more_property_button_switch']) ? $atts['show_more_property_button_switch'] : 'no';
             $show_more_property_button_url = isset($atts['show_more_property_button_url']) ? $atts['show_more_property_button_url'] : '';
 
-            $filter_arr = '';
+            $filter_arr = array();
             $qryvar_sort_by_column = '';
-            $element_filter_arr = '';
+            $element_filter_arr = array();
             $content_columns = 'col-lg-12 col-md-12 col-sm-12 col-xs-12'; // if filteration not true
             $paging_var = 'property_page';
 
@@ -308,7 +308,7 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
             }
             if ($property_sort_by == 'recent') {
                 $qryvar_property_sort_type = 'DESC';
-                $qryvar_sort_by_column = 'post_date';
+                $qryvar_sort_by_column = '';
             } elseif ($property_sort_by == 'alphabetical') {
                 $qryvar_property_sort_type = 'ASC';
                 $qryvar_sort_by_column = 'post_title';
@@ -824,7 +824,7 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
 
         public function get_filter_arg($property_type, $property_short_counter = '', $exclude_meta_key = '') {
             global $wp_rem_post_property_types;
-            $filter_arr = '';
+            $filter_arr = array();
 
             //if (isset($_REQUEST['ajax_filter']) || isset($_REQUEST['advanced_search'])) {
             // if (isset($_REQUEST['advanced_search'])) {
