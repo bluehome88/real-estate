@@ -371,6 +371,22 @@ if ( 'on' <> $wp_rem_cs_var_maintenance_footer_switch && get_the_id() == $wp_rem
     </footer> <!-- /#footer -->
 <?php } ?> 
 </div> <!-- /.wrapper -->
+<!-- Modal -->
+<div class="main-search">
+    <div class="modal fade" id="mysearchModal" tabindex="-1" role="dialog" aria-labelledby="mysearchModalLabel" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                    <h4 class="modal-title" id="mysearchModalLabel"><?php echo wp_rem_plugin_text_srt('wp_rem_property_search_flter_wt_keyword'); ?></h4>
+                </div>
+                <div class="modal-body">
+                    <p><?php echo do_shortcode($content); ?></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <?php wp_footer(); ?>
 </body>
 </html>

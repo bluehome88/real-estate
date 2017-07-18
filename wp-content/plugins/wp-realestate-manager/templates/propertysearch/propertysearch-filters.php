@@ -35,20 +35,7 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
     <?php if ($popup_link_text != '') { ?>
         <div class="field-holder search-popup-holder">
             <a href="#" class="search-popup-btn" data-toggle="modal" data-target="#mysearchModal"><?php echo esc_html($popup_link_text); ?></a>
-            <!-- Modal -->
-            <div class="modal fade" id="mysearchModal" tabindex="-1" role="dialog" aria-labelledby="mysearchModalLabel" style="display: none;">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
-                            <h4 class="modal-title" id="mysearchModalLabel"><?php echo wp_rem_plugin_text_srt('wp_rem_property_search_flter_wt_keyword'); ?></h4>
-                        </div>
-                        <div class="modal-body">
-                            <p><?php echo do_shortcode($content); ?></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
     <?php } ?>
     <div role="tabpanel" class="tab-pane" id="home">
@@ -231,3 +218,4 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
         ?>
     </div>
 </form>
+            
