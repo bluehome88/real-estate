@@ -656,6 +656,7 @@ if ( ! class_exists('wp_rem_form_fields_frontend') ) {
                 if ( is_array($options) ) {
                     foreach ( $options as $key => $option ) {
                         if ( ! is_array($option) ) {
+                            if( isset( $price ) && $price && is_numeric( $key ) ) $option = wp_rem_get_currency( $option );
                             $wp_rem_output .= '<option ' . selected($key, $value, false) . ' value="' . $key . '">' . $option . '</option>';
                         }
                     }

@@ -192,6 +192,7 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
                                     'classes' => 'chosen-select',
                                     'cust_name' => 'price_minimum',
                                     'options' => $property_price_array,
+                                    'price' => true
                                 );
                                 $wp_rem_form_fields_frontend->wp_rem_form_select_render($wp_rem_opt_array);
                                 ?>

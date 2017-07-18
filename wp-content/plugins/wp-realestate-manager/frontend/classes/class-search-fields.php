@@ -275,6 +275,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                                                     'classes' => 'chosen-select-no-single',
                                                     'options' => $price_min,
                                                     'extra_atr' => 'onchange="wp_rem_property_content(\'' . $property_short_counter . '\');"',
+                                                    'price' => true
                                                 )
                                         );
                                         ?>
@@ -295,6 +296,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                                                     'classes' => 'chosen-select-no-single',
                                                     'options' => $price_max,
                                                     'extra_atr' => 'onchange="wp_rem_property_content(\'' . $property_short_counter . '\');"',
+                                                    'price' => true
                                                 )
                                         );
                                         ?>
