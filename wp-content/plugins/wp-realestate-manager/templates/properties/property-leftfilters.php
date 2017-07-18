@@ -87,7 +87,7 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
         }
 
 
-        if ($notifications_box == 'yes' && $draw_on_map_url != '') {
+        if ($notifications_box == 'yes') {
 
             //if ( isset( $reset_var ) && $reset_var > 0 ) {
             ?>    

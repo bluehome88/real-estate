@@ -89,8 +89,8 @@ class Wp_rem_Property_Alerts {
         require_once WP_REM_NOTIFICATIONS_INCLUDES_DIR . '/class-notifications-helpers.php';
         require_once WP_REM_NOTIFICATIONS_INCLUDES_DIR . '/class-notifications-member-ui.php';
         // Add hook for frontend UI.
-        // add_action('pre_wp_rem_properties_property', array( $this, 'frontend_ui_callback' ), 10, 0);
-        // add_action('wp_rem_save_search_element', array( $this, 'wp_rem_save_search_element_callback' ), 10, 0);
+        add_action('pre_wp_rem_properties_property', array( $this, 'frontend_ui_callback' ), 10, 0);
+        add_action('wp_rem_save_search_element', array( $this, 'wp_rem_save_search_element_callback' ), 10, 0);
         // Hook our function , create_daily_alert_schedule_callback(), into the action create_daily_alert_schedule.
         add_action('create_daily_alert_schedule_action', array( $this, 'create_daily_alert_schedule_callback' ));
         // temprary testing
