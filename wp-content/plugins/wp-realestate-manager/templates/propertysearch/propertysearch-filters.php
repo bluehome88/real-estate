@@ -184,7 +184,7 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
             $price_type_options = array();
             $wp_rem_price_interval = (int) $wp_rem_price_interval;
             $price_counter = $wp_rem_price_minimum_options;
-            $property_price_array = '';
+            $property_price_array = array();
             $property_price_array[''] = wp_rem_plugin_text_srt('wp_rem_search_filter_min_price');
             while ($price_counter <= $wp_rem_price_max_options) {
                 $property_price_array[$price_counter] = $price_counter;

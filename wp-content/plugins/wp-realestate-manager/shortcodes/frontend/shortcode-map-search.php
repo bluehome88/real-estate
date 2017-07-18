@@ -549,8 +549,8 @@ if (!class_exists('Wp_rem_Shortcode_Map_Search_front')) {
             }
 
             // property shortcode logic start
-            $filter_arr = '';
-            $element_filter_arr = '';
+            $filter_arr = array();
+            $element_filter_arr = array();
             $default_date_time_formate = 'd-m-Y H:i:s';
             if (isset($_REQUEST['property_type']) && $_REQUEST['property_type']) {
                 $property_type = $_REQUEST['property_type'];

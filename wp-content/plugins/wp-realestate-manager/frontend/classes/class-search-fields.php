@@ -881,7 +881,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
         }
 
         public function wp_rem_property_type_categories_options($property_type_slug = '') {
-            $property_cats_options = '';
+            $property_cats_options = array();
             if ( $property_type_slug != '' ) {
                 $property_type_id = $this->wp_rem_property_type_id_by_slug($property_type_slug);
                 $property_type_cats = get_post_meta($property_type_id, 'wp_rem_property_type_cats', true);

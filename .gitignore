@@ -1,3 +1,6 @@
 wp-content/uploads/
-
 local-config.php
+.htaccess
+real_estate.sublime-project
+real_estate.sublime-workspace
+wp-content/plugins/wp-migrate-db/

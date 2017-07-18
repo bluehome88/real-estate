@@ -154,8 +154,8 @@ if ( ! class_exists('Wp_rem_Shortcode_Split_Map_Frontend') ) {
             $show_more_property_button_switch = isset($atts['show_more_property_button_switch']) ? $atts['show_more_property_button_switch'] : 'no';
             $show_more_property_button_url = isset($atts['show_more_property_button_url']) ? $atts['show_more_property_button_url'] : '';
 
-            $filter_arr = '';
-            $element_filter_arr = '';
+            $filter_arr = array();
+            $element_filter_arr = array();
             $content_columns = 'col-lg-12 col-md-12 col-sm-12 col-xs-12'; // if filteration not true
             $paging_var = 'property_page';
 //print_r($_REQUEST);
