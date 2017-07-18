@@ -399,6 +399,7 @@ if (!class_exists('post_type_package_orders')) {
 										jQuery(function(){
 											jQuery("#wp_rem_transaction_expiry_date").datetimepicker({
 												format:"d-m-Y",
+                                                minDate: new Date(),
 												timepicker:false
 											});
 										});

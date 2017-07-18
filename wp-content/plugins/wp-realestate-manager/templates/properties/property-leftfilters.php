@@ -909,6 +909,7 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                                         jQuery( document ).ready(function() {
                                                 if (jQuery(".cs-calendar-from input").length != "") {
                                                 jQuery(".cs-calendar-from input").datetimepicker({
+                                                    minDate: new Date(),
                                                     timepicker:false,
                                                     format:	"Y/m/d",
 													scrollInput: false
@@ -916,6 +917,7 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                                             }
                                             if (jQuery(".cs-calendar-to input").length != "") {
                                                 jQuery(".cs-calendar-to input").datetimepicker({
+                                                    minDate: new Date(),
                                                     timepicker:false,
                                                     format:	"Y/m/d",
 													scrollInput: false

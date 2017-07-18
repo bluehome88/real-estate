@@ -437,6 +437,7 @@ if (!class_exists('wp_rem_cs_var_form_fields')) {
                                 jQuery(function(){
                                     jQuery("#' . $cust_id . '").datetimepicker({
                                         format:"' . $wp_rem_cs_var_format . '",
+                                        minDate: new Date(),
                                         timepicker:false
                                     });
                                 });

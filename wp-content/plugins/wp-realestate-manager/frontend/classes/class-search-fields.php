@@ -664,6 +664,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                 echo '<script type="text/javascript">
 						if (jQuery(".cs-calendar-from-' . $field_counter . ' input").length != "") {
 							jQuery(".cs-calendar-from-' . $field_counter . ' input").datetimepicker({
+                                minDate: new Date(),
 								timepicker:false,
 								format:	"Y/m/d",
 								scrollInput: false
@@ -671,6 +672,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
 						}
 						if (jQuery(".cs-calendar-to-' . $field_counter . ' input").length != "") {
 							jQuery(".cs-calendar-to-' . $field_counter . ' input").datetimepicker({
+                                minDate: new Date(),
 								timepicker:false,
 								format:	"Y/m/d",
 								scrollInput: false
@@ -682,6 +684,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
 						jQuery(window).load(function(){
 								if (jQuery(".cs-calendar-from-' . $field_counter . ' input").length != "") {
 								jQuery(".cs-calendar-from-' . $field_counter . ' input").datetimepicker({
+                                    minDate: new Date(),
 									timepicker:false,
 									format:	"Y/m/d",
 									scrollInput: false
@@ -689,6 +692,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
 							}
 							if (jQuery(".cs-calendar-to-' . $field_counter . ' input").length != "") {
 								jQuery(".cs-calendar-to-' . $field_counter . ' input").datetimepicker({
+                                    minDate: new Date(),
 									timepicker:false,
 									format:	"Y/m/d",
 									scrollInput: false

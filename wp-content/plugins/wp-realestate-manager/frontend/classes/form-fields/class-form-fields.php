@@ -386,6 +386,7 @@ if ( ! class_exists('wp_rem_form_fields_frontend') ) {
                                 jQuery(function(){
                                     jQuery("#wp_rem_' . $wp_rem_piker_id . '").datetimepicker({
                                         format:"' . $wp_rem_format . '",
+                                        minDate: new Date(),
                                         timepicker:false
                                     });
                                 });

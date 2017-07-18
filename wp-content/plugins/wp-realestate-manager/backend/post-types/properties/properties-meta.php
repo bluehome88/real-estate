@@ -1769,6 +1769,7 @@ if ( ! class_exists('wp_rem_property_meta') ) {
                 $html .= '<script type="text/javascript">
                                             jQuery(document).ready(function($) {
                                                 jQuery("#wp_rem_open_house_date").datetimepicker({
+                                                    minDate: new Date(),
                                                     timepicker:false,
                                                     format:	"Y/m/d",
                                                 });

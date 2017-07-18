@@ -906,6 +906,7 @@ jQuery(document).ready(function() {
     jQuery(document).ready(function() {
         if (jQuery(".cs-calendar-from input").length != "") {
             jQuery(".cs-calendar-from input").datetimepicker({
+                minDate: new Date(),
                 timepicker: false,
                 format: "Y/m/d",
             });
@@ -913,6 +914,7 @@ jQuery(document).ready(function() {
 
         if (jQuery(".cs-calendar-to input").length != "") {
             jQuery(".cs-calendar-to input").datetimepicker({
+                minDate: new Date(),
                 timepicker: false,
                 format: "Y/m/d",
             });
