@@ -371,12 +371,20 @@ function convertHTML(html) {
 
 function wp_rem_property_type_search_fields(thisObj, counter, price_switch) {
     "use strict";
-    $('.search-advanced-fields').block({ 
+    $('body.home .search-advanced-fields').block({ 
         message: null,
         overlayCSS: {
             backgroundColor: '#5a2e8a',
          },
     });
+
+    $('.search-form-element .search-advanced-fields').block({ 
+        message: null,
+        overlayCSS: {
+            backgroundColor: '#d7d7d7',
+         },
+    });
+
     jQuery.ajax({
         type: 'POST',
         dataType: 'json',
