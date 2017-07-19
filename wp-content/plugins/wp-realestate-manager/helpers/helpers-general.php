@@ -2162,6 +2162,69 @@ function wp_rem_property_price($property_id, $wp_rem_property_price, $guidprice_
     global $wp_rem_plugin_options;
 
     $price_type = get_post_meta($property_id, 'wp_rem_price_type', true);
+    
+    $price_monthy = get_post_meta($property_id, 'wp_rem_month_price', true);
+    $price_monthy_ttd = get_post_meta($property_id, 'wp_rem_month_price_ttd', true);
+    
+    $price_weekly = get_post_meta($property_id, 'wp_rem_week_price', true);
+    $price_weekly_ttd = get_post_meta($property_id, 'wp_rem_week_price_ttd', true);
+    
+    if ($price_type == 'variant_month' || $price_type == 'variant_week') {
+        $price_type_ = ' ' . wp_rem_plugin_text_srt('wp_rem_price_type_pcm');
+        $price_type_ttd = $price_type_;
+        $price_type_ttd .= $guidprice_before . ' (' . wp_rem_get_currency($price_weekly_ttd, true) . ' ' . wp_rem_plugin_text_srt('wp_rem_price_type_pw') . ')' . $guidprice_after;
+        $price_type_ .= $guidprice_before . ' (' . wp_rem_get_currency($price_weekly, true) . ' ' . wp_rem_plugin_text_srt('wp_rem_price_type_pw') . ')' . $guidprice_after;
+        $wp_rem_property_price = $price_monthy;
+        $wp_rem_property_price_ttd = $price_monthy_ttd;
+
+    } else {
+        if (isset($wp_rem_plugin_options['fixed_price_opt'][$price_type])) {
+            $price_type_ = ' ' . $price_type_before . $wp_rem_plugin_options['fixed_price_opt'][$price_type] . $price_type_after;
+        }
+    }
+    if ($price_type_position == 'left') {
+        $property_info_price = $price_type_;
+        $property_info_price .= wp_rem_get_currency($wp_rem_property_price, true);
+        $property_info_price .= ' ' . wp_rem_get_currency($wp_rem_property_price_ttd, true);
+    } else {
+        if ($price_type == 'variant_month' || $price_type == 'variant_week') {
+            $price_label = ( $price_type == 'variant_week') ? 'per week' : 'per month';
+            $_price =  ( $price_type == 'variant_week') ? $price_weekly : $price_monthy;
+            if ($_price) {
+                $property_info_price = '<div>Rental Price USD ' . wp_rem_get_currency($_price, true);
+                $property_info_price .= ' (' . $price_label . ')</div>';
+            }
+            $_price =  ( $price_type == 'variant_week') ? $price_weekly_ttd : $price_monthy_ttd;
+            if ($_price) {
+                $property_info_price .= '<div>Rental Price TTD ' . wp_rem_get_currency($_price, true);
+                $property_info_price .= ' (' . $price_label . ')</div>';
+            }
+        } else {
+            $wp_rem_property_price = '';
+            $property_info_price = '';
+            $wp_rem_property_price = get_post_meta($property_id, 'wp_rem_property_price', true);
+            $wp_rem_property_price_ttd = get_post_meta($property_id, 'wp_rem_property_price_ttd', true);
+
+            if ($wp_rem_property_price) {
+                $property_info_price = '<div>Sale Price USD ' . wp_rem_get_currency($wp_rem_property_price, true) . '</div>';
+            }
+            if ($wp_rem_property_price_ttd) {
+                $property_info_price .= '<div>Sale Price TTD ' . wp_rem_get_currency($wp_rem_property_price_ttd, true) . '</div>';
+            }
+            if ($wp_rem_property_price || $wp_rem_property_price_ttd) {
+                $property_info_price .= '<span>' . $price_type_ . '</span>';
+            }
+        }
+    }
+
+    return $property_info_price;
+}
+
+// kinolanka - backup 
+function wp_rem_property_price_old($property_id, $wp_rem_property_price, $guidprice_before = '', $guidprice_after = '', $price_type_before = '<span class="price-type">', $price_type_after = '</span>', $price_type_position = 'right') {
+    global $wp_rem_plugin_options;
+
+    $price_type = get_post_meta($property_id, 'wp_rem_price_type', true);
     $price_monthy = get_post_meta($property_id, 'wp_rem_month_price', true);
     $price_monthy_ttd = get_post_meta($property_id, 'wp_rem_month_price_ttd', true);
     $price_weekly = get_post_meta($property_id, 'wp_rem_week_price', true);
