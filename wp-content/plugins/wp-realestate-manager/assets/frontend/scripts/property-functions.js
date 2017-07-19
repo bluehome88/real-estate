@@ -371,6 +371,12 @@ function convertHTML(html) {
 
 function wp_rem_property_type_search_fields(thisObj, counter, price_switch) {
     "use strict";
+    $('.search-advanced-fields').block({ 
+        message: null,
+        overlayCSS: {
+            backgroundColor: '#5a2e8a',
+         },
+    });
     jQuery.ajax({
         type: 'POST',
         dataType: 'json',
@@ -379,6 +385,7 @@ function wp_rem_property_type_search_fields(thisObj, counter, price_switch) {
         success: function (response) {
             jQuery('#property_type_fields_' + counter).html('');
             jQuery('#property_type_fields_' + counter).html(response.html);
+            $('.search-advanced-fields').unblock(); 
         }
     });
 }

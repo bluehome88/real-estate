@@ -273,6 +273,8 @@ if ( ! function_exists('wp_rem_cs_scripts_1') ) {
         
         //wp_enqueue_script('wp-rem-maps-styles', trailingslashit(get_template_directory_uri()) . 'assets/backend/js/cs-map_styles.js', '', $theme_version, true);
         wp_enqueue_script('fitvids', get_template_directory_uri() . '/assets/frontend/js/fitvids.js', '', $theme_version, true);
+        // JQUERY BLOCK UI
+        wp_enqueue_script('blockui', get_template_directory_uri() . '/assets/frontend/js/jquery.blockUI.min.js', '', $theme_version, true);
         
         //wp_enqueue_script('skills-progress', get_template_directory_uri() . '/assets/frontend/js/skills-progress.js', '', $theme_version, true);
         
