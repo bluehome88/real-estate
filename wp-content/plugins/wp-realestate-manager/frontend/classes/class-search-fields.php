@@ -224,36 +224,47 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                     $price_max = array();
                     $price_min[''] = wp_rem_plugin_text_srt('wp_rem_search_filter_min_price');
                     $price_max[''] = wp_rem_plugin_text_srt('wp_rem_search_filter_max_price');
+                    // CALCULATING VALUES FOR PRICE FILTERS
 
+                    // default theme way
                     // while ( $price_counter <= $wp_rem_price_max_options ) {
+
                     //     $price_min[$price_counter] = $price_counter;
                     //     $price_max[$price_counter] = $price_counter;
                     //     $price_counter = $price_counter + $wp_rem_price_interval;
                     // }
-                    $max_price = $wp_rem_price_max_options;
-                    $next_price = $wp_rem_price_minimum_options;
-                    $price_min[$next_price] = $next_price;
-                    $price_max[$next_price] = $next_price;
-                    while( $next_price < $max_price ){
-                        if( $next_price < 10000 ){
-                            $next_price += $wp_rem_price_interval * 100;
-                        } else if( $next_price < 100000) {
-                            $next_price += $wp_rem_price_interval * 1000;
-                        } else if( $next_price < 1000000 ){
-                            $next_price += $wp_rem_price_interval * 10000;
-                        } else if( $next_price < 10000000 ){
-                            $next_price += $wp_rem_price_interval * 100000;
-                        } else if( $next_price < 100000000 ){
-                            $next_price += $wp_rem_price_interval * 1000000;
-                        }else if( $next_price < 1000000000 ){
-                            $next_price += $wp_rem_price_interval * 10000000;
-                        } else {
-                            $next_price += $wp_rem_price_interval * 10000000;
-                        }
-                        $price_min[$next_price] = $next_price;
-                        $price_max[$next_price] = $next_price;
-                    }
-                    $price_min['>'.$max_price] = $max_price;
+
+                    // custom way - doesn't loaded
+                    // $max_price = $wp_rem_price_max_options;
+                    // $next_price = $wp_rem_price_minimum_options;
+                    // $price_min[$next_price] = $next_price;
+                    // $price_max[$next_price] = $next_price;
+                    // while( $next_price < $max_price ){
+                    //     if( $next_price < 10000 ){
+                    //         $next_price += $wp_rem_price_interval * 100;
+                    //     } else if( $next_price < 100000) {
+                    //         $next_price += $wp_rem_price_interval * 1000;
+                    //     } else if( $next_price < 1000000 ){
+                    //         $next_price += $wp_rem_price_interval * 10000;
+                    //     } else if( $next_price < 10000000 ){
+                    //         $next_price += $wp_rem_price_interval * 100000;
+                    //     } else if( $next_price < 100000000 ){
+                    //         $next_price += $wp_rem_price_interval * 1000000;
+                    //     }else if( $next_price < 1000000000 ){
+                    //         $next_price += $wp_rem_price_interval * 10000000;
+                    //     } else {
+                    //         $next_price += $wp_rem_price_interval * 10000000;
+                    //     }
+                    //     $price_min[$next_price] = $next_price;
+                    //     $price_max[$next_price] = $next_price;
+                    // }
+                    // $price_min['>'.$max_price] = $max_price;
+                    // $price_max['>'.$max_price] = $max_price;
+
+                    // hardcore way - for speed reason
+                    $price_arr = kk_get_price_filter_values();
+                    $price_min = array_merge($price_min, $price_arr);
+                    $price_max = array_merge($price_max, $price_arr);
                     ?>
 
                     <?php
@@ -338,6 +349,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                 ?>
                 <script type="text/javascript">
                     chosen_selectionbox();
+
                 </script>
                 <?php
                 $content = ob_get_clean();
