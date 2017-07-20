@@ -176,7 +176,7 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
                     if ( $my_posts ) {
                         $property_type_id = $my_posts[0]->ID;
                     }
-                    
+
                     $price_type = get_post_meta($property_type_id, 'wp_rem_property_type_price_type', true);
                     // $wp_rem_price_minimum_options = get_post_meta($property_type_id, 'wp_rem_price_minimum_options', true);
                     // $wp_rem_price_minimum_options = ( ! empty($wp_rem_price_minimum_options) ) ? $wp_rem_price_minimum_options : 1;
@@ -295,3 +295,6 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
         <?php } ?>
     <?php } ?>
 </form>
+<script type="text/javascript">
+    kk_price_filter_handler('select[name=price_minimum]', 'select[name=price_maximum]');
+</script>

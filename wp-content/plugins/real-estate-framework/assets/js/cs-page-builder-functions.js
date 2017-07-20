@@ -702,6 +702,7 @@ function chosen_selectionbox() {
         }
     }
 }
+
 function popup_view_box() {
     $ = jQuery;
     $('.thumbnail').viewbox();

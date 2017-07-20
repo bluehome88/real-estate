@@ -2446,7 +2446,7 @@ function kk_format_user_price_numbers ( $price_numbers ){
     $raw = explode(',', $price_numbers);
     $result = array();
     foreach( $raw as $value ) {
-       if( is_integer( (int) $value ) ){
+       if( is_integer( (int) trim($value) ) ){
             $result[$value] = $value;
        }
     }

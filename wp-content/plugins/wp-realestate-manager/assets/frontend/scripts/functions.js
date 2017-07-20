@@ -1403,6 +1403,90 @@ function chosen_selectionbox() {
     }
 }
 
+// handle relationship between min and max filters
+function kk_price_filter_handler(min_sel, max_sel){
+    kk_price_filter_handle_min_onchange(min_sel, max_sel);
+    kk_price_filter_handle_max_onchange(min_sel, max_sel);
+    kk_price_filter_initial_state(min_sel, max_sel);
+}        
+
+function kk_price_filter_initial_state(min_sel, max_sel){
+    $(min_sel).trigger('change');
+    $(max_sel).trigger('change');
+}
+
+function kk_price_filter_handle_min_onchange(min_sel, max_sel){
+    $(document).on('change', min_sel, function(event) {
+        var min_chosen = $(this).val();
+        if( min_chosen.indexOf('>') != -1 ){
+            // chosen "> price" value
+            // hide all max price filter
+            kk_price_filter_hide_all_options(max_sel);
+        } else if( min_chosen == '' ){
+            // chosen default (placeholder) value
+            // show all max price filter
+            kk_price_filter_show_all_options(max_sel);
+        } else {
+            // chosen some number
+            // hide prices in max price filter that < current min value
+            kk_price_filter_change_max_options(min_chosen, max_sel);
+        }
+        $(max_sel).trigger('chosen:updated');
+    });
+}
+
+function kk_price_filter_handle_max_onchange(min_sel, max_sel){
+    $(document).on('change', max_sel, function(event) {
+        var max_chosen = $(this).val();
+        if( max_chosen == '' ){
+            // chosen default (placeholder) value
+            // show all min price filter
+            kk_price_filter_show_all_options(min_sel);
+        } else {
+            // chosen some number
+            // hide prices in min price filter that > current min value
+            kk_price_filter_change_min_options( max_chosen, min_sel );
+        }
+        $(min_sel).trigger('chosen:updated');
+    });
+}
+
+function kk_price_filter_change_min_options( max_chosen, min_select ){
+    $(min_select).find('option').each( function(index, el) {
+        var cur_val = Number($( this ).val().replace('>', ''));
+        if( cur_val > 0 && cur_val > Number(max_chosen) ){
+            $(this).hide();
+        } else {
+            $(this).show();
+        }
+    });
+}
+
+function kk_price_filter_change_max_options( min_chosen, max_select ){
+    $(max_select).find('option').each( function(index, el) {
+        cur_val = Number($( this ).val());
+        if( cur_val > 0 && cur_val < Number(min_chosen) ){
+            $(this).hide();
+        } else {
+            $(this).show();
+        }
+    });
+}
+
+function kk_price_filter_hide_all_options( select ){
+    $(select).find('option').each(function(index, el) {
+        if( $(this).val() != '' ){
+            $(this).hide();
+        }
+    });
+}
+
+function kk_price_filter_show_all_options( select ){
+    $(select).find('option').each(function(index, el) {
+            $(this).show();
+    });
+}
+
 function wp_rem_multicap_all_functions() {
     "use strict";
     var all_elements = jQuery(".g-recaptcha");
