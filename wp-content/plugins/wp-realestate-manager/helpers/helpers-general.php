@@ -2170,12 +2170,12 @@ function wp_rem_property_price($property_id, $wp_rem_property_price, $guidprice_
     $price_weekly_ttd = get_post_meta($property_id, 'wp_rem_week_price_ttd', true);
     
     if ($price_type == 'variant_month' || $price_type == 'variant_week') {
-        $price_type_ = ' ' . wp_rem_plugin_text_srt('wp_rem_price_type_pcm');
-        $price_type_ttd = $price_type_;
-        $price_type_ttd .= $guidprice_before . ' (' . wp_rem_get_currency($price_weekly_ttd, true) . ' ' . wp_rem_plugin_text_srt('wp_rem_price_type_pw') . ')' . $guidprice_after;
-        $price_type_ .= $guidprice_before . ' (' . wp_rem_get_currency($price_weekly, true) . ' ' . wp_rem_plugin_text_srt('wp_rem_price_type_pw') . ')' . $guidprice_after;
-        $wp_rem_property_price = $price_monthy;
-        $wp_rem_property_price_ttd = $price_monthy_ttd;
+        // $price_type_ = ' ' . wp_rem_plugin_text_srt('wp_rem_price_type_pcm');
+        // $price_type_ttd = $price_type_;
+        // $price_type_ttd .= $guidprice_before . ' (' . wp_rem_get_currency($price_weekly_ttd, true) . ' ' . wp_rem_plugin_text_srt('wp_rem_price_type_pw') . ')' . $guidprice_after;
+        // $price_type_ .= $guidprice_before . ' (' . wp_rem_get_currency($price_weekly, true) . ' ' . wp_rem_plugin_text_srt('wp_rem_price_type_pw') . ')' . $guidprice_after;
+        // $wp_rem_property_price = $price_monthy;
+        // $wp_rem_property_price_ttd = $price_monthy_ttd;
 
     } else {
         if (isset($wp_rem_plugin_options['fixed_price_opt'][$price_type])) {
