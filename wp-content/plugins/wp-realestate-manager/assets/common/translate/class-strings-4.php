@@ -293,7 +293,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_4') ) {
             // End Pagination.
             // Start Search Fields.
             $wp_rem_static_text['wp_rem_search_fields_other_features'] = esc_html__('Other Features', 'wp-rem');
-            $wp_rem_static_text['wp_rem_search_fields_price_type_all'] = esc_html__('All', 'wp-rem');
+            $wp_rem_static_text['wp_rem_search_fields_price_type_all'] = esc_html__('All price types', 'wp-rem');
             $wp_rem_static_text['wp_rem_search_fields_price_type_per_week'] = esc_html__('Per Week', 'wp-rem');
             $wp_rem_static_text['wp_rem_search_fields_price_type_per_month'] = esc_html__('Per Calendar Month', 'wp-rem');
             $wp_rem_static_text['wp_rem_search_fields_date_from'] = esc_html__('From', 'wp-rem');
