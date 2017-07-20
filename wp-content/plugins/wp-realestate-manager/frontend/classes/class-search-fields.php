@@ -208,7 +208,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                         $property_type_id = $my_posts[0]->ID;
                     }
                     // print '<pre>';
-                    // var_dump($my_posts);
+                    // var_dump(get_post_meta( $property_type_id));
                     // print '</pre>';
                     $price_type = get_post_meta($property_type_id, 'wp_rem_property_type_price_type', true);
                     // $wp_rem_price_minimum_options = get_post_meta($property_type_id, 'wp_rem_price_minimum_options', true);
@@ -262,8 +262,8 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                     // $price_max['>'.$max_price] = $max_price;
 
                     // hardcore way - for speed reason
-                    $price_min = kk_get_price_filter_values( wp_rem_plugin_text_srt('wp_rem_search_filter_min_price') );
-                    $price_max = kk_get_price_filter_values( wp_rem_plugin_text_srt('wp_rem_search_filter_max_price') );
+                    $price_min = kk_get_price_filter_values( $property_type_id, wp_rem_plugin_text_srt('wp_rem_search_filter_min_price') );
+                    $price_max = kk_get_price_filter_values( $property_type_id, wp_rem_plugin_text_srt('wp_rem_search_filter_max_price') );
                     ?>
 
                     <?php

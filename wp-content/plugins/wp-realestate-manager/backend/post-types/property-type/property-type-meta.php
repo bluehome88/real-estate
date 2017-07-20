@@ -962,12 +962,13 @@ if ( ! class_exists('Wp_rem_Property_Type_Meta') ) {
                 'name' => wp_rem_plugin_text_srt('wp_rem_property_type_meta_minimum_options_filter'),
                 'desc' => '',
                 'hint_text' => wp_rem_plugin_text_srt('wp_rem_property_type_meta_minimum_options_filter_desc'),
-                'echo' => true,
+                'echo' => false,
                 'field_params' => array(
                     'std' => '1',
                     'classes' => 'wp-rem-number-field',
                     'id' => 'price_minimum_options',
                     'cust_type' => 'number',
+                    // 'active' => 'in-active',
                     'return' => true,
                 ),
             );
@@ -977,7 +978,7 @@ if ( ! class_exists('Wp_rem_Property_Type_Meta') ) {
                 'name' => wp_rem_plugin_text_srt('wp_rem_property_type_meta_maximum_options_filter'),
                 'desc' => '',
                 'hint_text' => wp_rem_plugin_text_srt('wp_rem_property_type_meta_maximum_options_filter_desc'),
-                'echo' => true,
+                'echo' => false,
                 'field_params' => array(
                     'std' => '50000',
                     'classes' => 'wp-rem-number-field',
@@ -992,12 +993,27 @@ if ( ! class_exists('Wp_rem_Property_Type_Meta') ) {
                 'name' => wp_rem_plugin_text_srt('wp_rem_property_type_meta_man_max_interval'),
                 'desc' => '',
                 'hint_text' => wp_rem_plugin_text_srt('wp_rem_property_type_meta_man_max_interval_desc'),
-                'echo' => true,
+                'echo' => false,
                 'field_params' => array(
                     'std' => '50',
                     'classes' => 'wp-rem-number-field',
                     'id' => 'price_interval',
                     'cust_type' => 'number',
+                    'return' => true,
+                ),
+            );
+            $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
+
+            $wp_rem_opt_array = array(
+                'name' => 'Price Filter Values',
+                'desc' => '',
+                'hint_text' => 'Set values for min and max price inputs separeted by commas. All non digital values are skipped. Last value will be duplicate in form ">10000"',
+                'echo' => true,
+                'field_params' => array(
+                    'std' => '500,1000,1500',
+                    'classes' => 'wp-rem-number-field',
+                    'id' => 'price_filter_interval',
+                    'cust_type' => 'text',
                     'return' => true,
                 ),
             );

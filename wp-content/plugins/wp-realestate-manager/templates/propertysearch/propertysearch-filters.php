@@ -178,8 +178,8 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
             //     $price_counter = $price_counter + $wp_rem_price_interval;
             // }
             // $property_price_array = kk_get_price_filter_values( wp_rem_plugin_text_srt('wp_rem_search_filter_min_price') );
-            $price_min = kk_get_price_filter_values( wp_rem_plugin_text_srt('wp_rem_search_filter_min_price') );
-            $price_max = kk_get_price_filter_values( wp_rem_plugin_text_srt('wp_rem_search_filter_max_price') );
+            $price_min = kk_get_price_filter_values( $property_type_id, wp_rem_plugin_text_srt('wp_rem_search_filter_min_price') );
+            $price_max = kk_get_price_filter_values( $property_type_id, wp_rem_plugin_text_srt('wp_rem_search_filter_max_price') );
             ?>
             <?php if (($propertysearch_categories_switch == 'yes' ) || ($propertysearch_price_switch == 'yes' && !empty($property_price_array)) || $propertysearch_advance_filter_switch == 'yes') { ?>
                 <div id="property_type_fields_<?php echo wp_rem_allow_special_char($property_short_counter); ?>" class="search-advanced-fields" style="display:none;">

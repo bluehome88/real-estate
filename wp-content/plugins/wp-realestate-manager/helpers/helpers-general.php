@@ -2405,8 +2405,25 @@ if (!function_exists('wp_rem_calculate_price')) {
 
 }
 
-function kk_get_price_filter_values( $placeholder, $property_type_id = null ){
-    return array(
+function kk_get_price_filter_values( $property_type_id, $placeholder ){
+    $use_default = false;
+    $price_numbers = get_post_meta( $property_type_id, 'wp_rem_price_filter_interval', true );
+    if( !empty( $price_numbers ) ){
+        $price_numbers = kk_format_user_price_numbers( $price_numbers );
+        if( !empty( $price_numbers ) ){
+            $price_first = array( '' => $placeholder );
+            end($price_numbers);
+            $last_key = key($price_numbers);
+            reset($price_numbers);
+            $last = $price_numbers[$last_key];
+            $price_last = array( '>'.$last => $last );
+            $price_arr = $price_first + $price_numbers + $price_last;
+        } else $use_default = true;
+    } else $use_default = true;
+
+    if( $use_default) {
+        // some random array
+        $price_arr = array(
             '' => $placeholder,
             '500' => 500,
             '1000' => 1000,
@@ -2419,62 +2436,24 @@ function kk_get_price_filter_values( $placeholder, $property_type_id = null ){
             '7500' => 7500,
             '8500' => 8500,
             '9500' => 9500,
-            '10000' => 10000,
-            '15000' => 15000,
-            '20000' => 20000,
-            '25000' => 25000,
-            '30000' => 30000,
-            '35000' => 35000,
-            '40000' => 40000,
-            '50000' => 50000,
-            '55000' => 55000,
-            '60000' => 60000,
-            '65000' => 65000,
-            '70000' => 70000,
-            '75000' => 75000,
-            '80000' => 80000,
-            '85000' => 85000,
-            '90000' => 90000,
-            '95000' => 95000,
-            '100000' => 100000,
-            '150000' => 150000,
-            '200000' => 200000,
-            '250000' => 250000,
-            '300000' => 300000,
-            '350000' => 350000,
-            '400000' => 400000,
-            '450000' => 450000,
-            '500000' => 500000,
-            '550000' => 550000,
-            '600000' => 600000,
-            '650000' => 650000,
-            '700000' => 700000,
-            '750000' => 750000,
-            '800000' => 800000,
-            '850000' => 850000,
-            '900000' => 900000,
-            '1000000' => 1000000,
-            '1500000' => 1500000,
-            '2000000' => 2000000,
-            '2500000' => 2500000,
-            '3000000' => 3000000,
-            '3500000' => 3500000,
-            '4000000' => 4000000,
-            '4500000' => 4500000,
-            '5000000' => 5000000,
-            '5500000' => 5500000,
-            '6000000' => 6000000,
-            '6500000' => 6500000,
-            '7000000' => 7000000,
-            '7500000' => 7500000,
-            '8000000' => 8000000,
-            '8500000' => 8500000,
-            '9000000' => 9000000,
-            '9500000' => 9500000,
-            '10000000' => 10000000,
-            '>10000000' => 100000000,
+            '>9500' => 9500
         );
+    }
+    return $price_arr;    
 }
+
+function kk_format_user_price_numbers ( $price_numbers ){
+    $raw = explode(',', $price_numbers);
+    $result = array();
+    foreach( $raw as $value ) {
+       if( is_integer( (int) $value ) ){
+            $result[$value] = $value;
+       }
+    }
+    return $result;
+}
+    
+
 
 if (!function_exists('wp_rem_property_detail_page_view')) {
 

@@ -176,27 +176,29 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
                     if ( $my_posts ) {
                         $property_type_id = $my_posts[0]->ID;
                     }
-
+                    
                     $price_type = get_post_meta($property_type_id, 'wp_rem_property_type_price_type', true);
-                    $wp_rem_price_minimum_options = get_post_meta($property_type_id, 'wp_rem_price_minimum_options', true);
-                    $wp_rem_price_minimum_options = ( ! empty($wp_rem_price_minimum_options) ) ? $wp_rem_price_minimum_options : 1;
-                    $wp_rem_price_max_options = get_post_meta($property_type_id, 'wp_rem_price_max_options', true);
-                    $wp_rem_price_max_options = ( ! empty($wp_rem_price_max_options) ) ? $wp_rem_price_max_options : 50; //50000;
-                    $wp_rem_price_interval = get_post_meta($property_type_id, 'wp_rem_price_interval', true);
-                    $wp_rem_price_interval = ( ! empty($wp_rem_price_interval) ) ? $wp_rem_price_interval : 50;
+                    // $wp_rem_price_minimum_options = get_post_meta($property_type_id, 'wp_rem_price_minimum_options', true);
+                    // $wp_rem_price_minimum_options = ( ! empty($wp_rem_price_minimum_options) ) ? $wp_rem_price_minimum_options : 1;
+                    // $wp_rem_price_max_options = get_post_meta($property_type_id, 'wp_rem_price_max_options', true);
+                    // $wp_rem_price_max_options = ( ! empty($wp_rem_price_max_options) ) ? $wp_rem_price_max_options : 50; //50000;
+                    // $wp_rem_price_interval = get_post_meta($property_type_id, 'wp_rem_price_interval', true);
+                    // $wp_rem_price_interval = ( ! empty($wp_rem_price_interval) ) ? $wp_rem_price_interval : 50;
                     $price_type_options = array();
-                    $wp_rem_price_interval = (int) $wp_rem_price_interval;
-                    $price_counter = $wp_rem_price_minimum_options;
+                    // $wp_rem_price_interval = (int) $wp_rem_price_interval;
+                    // $price_counter = $wp_rem_price_minimum_options;
                     $price_min = array();
                     $price_max = array();
                     $price_min[''] = wp_rem_plugin_text_srt('wp_rem_property_search_flter_min_price');
                     $price_max[''] = wp_rem_plugin_text_srt('wp_rem_property_search_flter_max_price');
 
-                    while ( $price_counter <= $wp_rem_price_max_options ) {
-                        $price_min[$price_counter] = $price_counter;
-                        $price_max[$price_counter] = $price_counter;
-                        $price_counter = $price_counter + $wp_rem_price_interval;
-                    }
+                    // while ( $price_counter <= $wp_rem_price_max_options ) {
+                    //     $price_min[$price_counter] = $price_counter;
+                    //     $price_max[$price_counter] = $price_counter;
+                    //     $price_counter = $price_counter + $wp_rem_price_interval;
+                    // }
+                    $price_min = kk_get_price_filter_values( $property_type_id, wp_rem_plugin_text_srt('wp_rem_search_filter_min_price') );
+                    $price_max = kk_get_price_filter_values( $property_type_id, wp_rem_plugin_text_srt('wp_rem_search_filter_max_price') );
                     ?>
 
                     <?php
