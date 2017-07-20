@@ -184,22 +184,7 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
             <?php if (($propertysearch_categories_switch == 'yes' ) || ($propertysearch_price_switch == 'yes' && !empty($property_price_array)) || $propertysearch_advance_filter_switch == 'yes') { ?>
                 <div id="property_type_fields_<?php echo wp_rem_allow_special_char($property_short_counter); ?>" class="search-advanced-fields" style="display:none;">
 
-                    <?php// if ($propertysearch_price_switch == 'yes' && !empty($property_price_array)) { ?>
                          <div class="field-holder select-dropdown has-icon">
-                            <!-- <label>
-                                <i class="icon-dollar"></i>
-                                <?php
-                                // $wp_rem_opt_array = array(
-                                //     'std' => '',
-                                //     'id' => 'price_minimum',
-                                //     'classes' => 'chosen-select',
-                                //     'cust_name' => 'price_minimum',
-                                //     'options' => $property_price_array,
-                                //     'price' => true
-                                // );
-                                // $wp_rem_form_fields_frontend->wp_rem_form_select_render($wp_rem_opt_array);
-                                ?>
-                            </label> -->
                             <div class="wp-rem-min-max-price">
                                 <div class="select-categories"> 
                                     <ul>
@@ -243,7 +228,6 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
                                 </div>
                             </div>
                         </div>
-                    <?php //} ?>
                     <?php do_action('wp_rem_property_type_fields', $property_type_slug); ?>
                     <?php do_action('wp_rem_property_type_features', $property_type_slug, $property_short_counter); ?>
                     <?php
