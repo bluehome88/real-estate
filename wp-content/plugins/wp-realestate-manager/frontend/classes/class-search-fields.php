@@ -211,19 +211,19 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                     // var_dump($my_posts);
                     // print '</pre>';
                     $price_type = get_post_meta($property_type_id, 'wp_rem_property_type_price_type', true);
-                    $wp_rem_price_minimum_options = get_post_meta($property_type_id, 'wp_rem_price_minimum_options', true);
-                    $wp_rem_price_minimum_options = ( ! empty($wp_rem_price_minimum_options) ) ? $wp_rem_price_minimum_options : 1;
-                    $wp_rem_price_max_options = get_post_meta($property_type_id, 'wp_rem_price_max_options', true);
-                    $wp_rem_price_max_options = ( ! empty($wp_rem_price_max_options) ) ? $wp_rem_price_max_options : 50; //50000;
-                    $wp_rem_price_interval = get_post_meta($property_type_id, 'wp_rem_price_interval', true);
-                    $wp_rem_price_interval = ( ! empty($wp_rem_price_interval) ) ? $wp_rem_price_interval : 50;
+                    // $wp_rem_price_minimum_options = get_post_meta($property_type_id, 'wp_rem_price_minimum_options', true);
+                    // $wp_rem_price_minimum_options = ( ! empty($wp_rem_price_minimum_options) ) ? $wp_rem_price_minimum_options : 1;
+                    // $wp_rem_price_max_options = get_post_meta($property_type_id, 'wp_rem_price_max_options', true);
+                    // $wp_rem_price_max_options = ( ! empty($wp_rem_price_max_options) ) ? $wp_rem_price_max_options : 50; //50000;
+                    // $wp_rem_price_interval = get_post_meta($property_type_id, 'wp_rem_price_interval', true);
+                    // $wp_rem_price_interval = ( ! empty($wp_rem_price_interval) ) ? $wp_rem_price_interval : 50;
                     $price_type_options = array();
-                    $wp_rem_price_interval = (int) $wp_rem_price_interval;
-                    $price_counter = $wp_rem_price_minimum_options;
+                    // $wp_rem_price_interval = (int) $wp_rem_price_interval;
+                    // $price_counter = $wp_rem_price_minimum_options;
                     $price_min = array();
                     $price_max = array();
-                    $price_min[''] = wp_rem_plugin_text_srt('wp_rem_search_filter_min_price');
-                    $price_max[''] = wp_rem_plugin_text_srt('wp_rem_search_filter_max_price');
+                    // $price_min[''] = wp_rem_plugin_text_srt('wp_rem_search_filter_min_price');
+                    // $price_max[''] = wp_rem_plugin_text_srt('wp_rem_search_filter_max_price');
                     // CALCULATING VALUES FOR PRICE FILTERS
 
                     // default theme way
@@ -262,9 +262,8 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                     // $price_max['>'.$max_price] = $max_price;
 
                     // hardcore way - for speed reason
-                    $price_arr = kk_get_price_filter_values();
-                    $price_min = $price_min + $price_arr;
-                    $price_max = $price_max + $price_arr;
+                    $price_min = kk_get_price_filter_values( wp_rem_plugin_text_srt('wp_rem_search_filter_min_price') );
+                    $price_max = kk_get_price_filter_values( wp_rem_plugin_text_srt('wp_rem_search_filter_max_price') );
                     ?>
 
                     <?php

@@ -2405,8 +2405,9 @@ if (!function_exists('wp_rem_calculate_price')) {
 
 }
 
-function kk_get_price_filter_values(  ){
+function kk_get_price_filter_values( $placeholder, $property_type_id = null ){
     return array(
+            '' => $placeholder,
             '500' => 500,
             '1000' => 1000,
             '1500' => 1500,
