@@ -232,8 +232,6 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                     // }
                     $max_price = $wp_rem_price_max_options;
                     $next_price = $wp_rem_price_minimum_options;
-                    $price_min = array();
-                    $price_max = array();
                     $price_min[$next_price] = $next_price;
                     $price_max[$next_price] = $next_price;
                     while( $next_price < $max_price ){
@@ -249,13 +247,13 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                             $next_price += $wp_rem_price_interval * 1000000;
                         }else if( $next_price < 1000000000 ){
                             $next_price += $wp_rem_price_interval * 10000000;
-                        } else if( $next_price < 1000000000 ){
+                        } else {
                             $next_price += $wp_rem_price_interval * 10000000;
                         }
                         $price_min[$next_price] = $next_price;
                         $price_max[$next_price] = $next_price;
                     }
-                    $price_min['>'.$last_price] = $next_price;
+                    $price_min['>'.$max_price] = $max_price;
                     ?>
 
                     <?php
