@@ -263,8 +263,8 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
 
                     // hardcore way - for speed reason
                     $price_arr = kk_get_price_filter_values();
-                    $price_min = array_merge($price_min, $price_arr);
-                    $price_max = array_merge($price_max, $price_arr);
+                    $price_min = $price_min + $price_arr;
+                    $price_max = $price_max + $price_arr;
                     ?>
 
                     <?php
