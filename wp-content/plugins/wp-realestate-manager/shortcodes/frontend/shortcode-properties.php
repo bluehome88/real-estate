@@ -543,7 +543,9 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
             $property_loop_obj = wp_rem_get_cached_obj('property_result_cached_loop_obj1', $args, 12, false, 'wp_query');
 
             $property_totnum = $property_loop_obj->found_posts;
-            // d($args);
+            print '<pre>';
+            print_r($args);
+            print '</pre>';
             ?>
             <form id="frm_property_arg<?php echo absint($property_short_counter); ?>">
                 <div style="display:none" id='property_arg<?php echo absint($property_short_counter); ?>'><?php
