@@ -616,7 +616,7 @@ if (!class_exists('Wp_rem_Shortcode_Map_Search_front')) {
                 $filter_arr[] = $left_filter_arr;
             }
 
-            $all_post_ids = '';
+            $all_post_ids = array();
             if (!empty($post_ids)) {
                 $all_post_ids[] = $post_ids;
             }

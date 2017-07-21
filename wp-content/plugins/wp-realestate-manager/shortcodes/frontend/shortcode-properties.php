@@ -169,10 +169,10 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
             if (isset($_REQUEST['property_type']) && $_REQUEST['property_type'] != '') {
                 $property_type = $_REQUEST['property_type'];
             }
-            $property_price = '';
-            if (isset($_REQUEST['property_price']) && $_REQUEST['property_price']) {
-                $property_price = $_REQUEST['property_price'];
-            }
+            // $property_price = '';
+            // if (isset($_REQUEST['property_price']) && $_REQUEST['property_price']) {
+            //     $property_price = $_REQUEST['property_price'];
+            // }
 
             // posted date check
             // $element_filter_arr[] = array(
@@ -206,13 +206,13 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
                     'compare' => '=',
                 );
             }
-            if ($property_price != '' && $property_price != 'all') {
-                $element_filter_arr[] = array(
-                    'key' => 'wp_rem_property_price',
-                    'value' => $property_price,
-                    'compare' => '=',
-                );
-            }
+            // if ($property_price != '' && $property_price != 'all') {
+            //     $element_filter_arr[] = array(
+            //         'key' => 'wp_rem_property_price',
+            //         'value' => $property_price,
+            //         'compare' => '=',
+            //     );
+            // }
 			
 			// price type
 			if (isset($_REQUEST['price_type']) && $_REQUEST['price_type'] != '') {
@@ -288,7 +288,7 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
             }
             $post_ids = $this->property_open_house_filter('', $post_ids);
 
-            $post_ids = $this->property_price_filter('', $post_ids);
+            //$post_ids = $this->property_price_filter('', $post_ids);
 
             if (!empty($post_ids)) {
                 $all_post_ids = $post_ids;
@@ -543,9 +543,9 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
             $property_loop_obj = wp_rem_get_cached_obj('property_result_cached_loop_obj1', $args, 12, false, 'wp_query');
 
             $property_totnum = $property_loop_obj->found_posts;
-            print '<pre>';
-            print_r($args);
-            print '</pre>';
+            // print '<pre>';
+            // print_r($args);
+            // print '</pre>';
             ?>
             <form id="frm_property_arg<?php echo absint($property_short_counter); ?>">
                 <div style="display:none" id='property_arg<?php echo absint($property_short_counter); ?>'><?php
