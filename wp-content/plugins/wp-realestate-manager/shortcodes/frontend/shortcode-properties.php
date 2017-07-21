@@ -175,17 +175,17 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
             }
 
             // posted date check
-            $element_filter_arr[] = array(
-                'key' => 'wp_rem_property_posted',
-                'value' => strtotime(date($default_date_time_formate)),
-                'compare' => '<=',
-            );
+            // $element_filter_arr[] = array(
+            //     'key' => 'wp_rem_property_posted',
+            //     'value' => strtotime(date($default_date_time_formate)),
+            //     'compare' => '<=',
+            // );
 
-            $element_filter_arr[] = array(
-                'key' => 'wp_rem_property_expired',
-                'value' => strtotime(date($default_date_time_formate)),
-                'compare' => '>=',
-            );
+            // $element_filter_arr[] = array(
+            //     'key' => 'wp_rem_property_expired',
+            //     'value' => strtotime(date($default_date_time_formate)),
+            //     'compare' => '>=',
+            // );
 
             $element_filter_arr[] = array(
                 'key' => 'wp_rem_property_status',
@@ -224,20 +224,24 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
             }
 
             // min price
-			if (isset($_REQUEST['min_price']) && $_REQUEST['min_price'] != '') {
+			if (isset($_REQUEST['price_minimum']) && $_REQUEST['price_minimum'] != '') {
+                // remove ">" sign and others non digital if present
+                $_val = preg_replace("/[^0-9]/", "", $_REQUEST['price_minimum']);
                 $element_filter_arr[] = array(
                     'key' => 'wp_rem_property_price_ttd',
-                    'value' => $_REQUEST['min_price'],
-					'type'		=> 'NUMERIC',
+                    'value' => $_val,
+                    'type'      => 'NUMERIC',
                     'compare' => '>=',
                 );
             }
 
             // max price
-			if (isset($_REQUEST['max_price']) && $_REQUEST['max_price'] != '') {
+            if (isset($_REQUEST['price_maximum']) && $_REQUEST['price_maximum'] != '') {
+                // remove ">" sign and others non digital if present
+                $_val = preg_replace("/[^0-9]/", "", $_REQUEST['price_maximum']);
                 $element_filter_arr[] = array(
                     'key' => 'wp_rem_property_price_ttd',
-                    'value' => $_REQUEST['max_price'],
+                    'value' => $_val,
 					'type'		=> 'NUMERIC',
                     'compare' => '<=',
                 );
@@ -539,6 +543,7 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
             $property_loop_obj = wp_rem_get_cached_obj('property_result_cached_loop_obj1', $args, 12, false, 'wp_query');
 
             $property_totnum = $property_loop_obj->found_posts;
+            // d($args);
             ?>
             <form id="frm_property_arg<?php echo absint($property_short_counter); ?>">
                 <div style="display:none" id='property_arg<?php echo absint($property_short_counter); ?>'><?php
