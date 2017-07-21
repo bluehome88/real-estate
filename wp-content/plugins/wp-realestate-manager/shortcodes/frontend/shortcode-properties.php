@@ -214,7 +214,7 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
                 );
             }
 			
-			//
+			// price type
 			if (isset($_REQUEST['price_type']) && $_REQUEST['price_type'] != '') {
                 $element_filter_arr[] = array(
                     'key' => 'wp_rem_price_type',
@@ -222,23 +222,26 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
                     'compare' => '=',
                 );
             }
+
+            // min price
 			if (isset($_REQUEST['min_price']) && $_REQUEST['min_price'] != '') {
                 $element_filter_arr[] = array(
-                    'key' => 'wp_rem_property_price',
+                    'key' => 'wp_rem_property_price_ttd',
                     'value' => $_REQUEST['min_price'],
 					'type'		=> 'NUMERIC',
                     'compare' => '>=',
                 );
             }
+
+            // max price
 			if (isset($_REQUEST['max_price']) && $_REQUEST['max_price'] != '') {
                 $element_filter_arr[] = array(
-                    'key' => 'wp_rem_property_price',
+                    'key' => 'wp_rem_property_price_ttd',
                     'value' => $_REQUEST['max_price'],
 					'type'		=> 'NUMERIC',
                     'compare' => '<=',
                 );
             }
-			//
 			
             // If featured property.
             if ($property_property_featured == 'only-featured') {
