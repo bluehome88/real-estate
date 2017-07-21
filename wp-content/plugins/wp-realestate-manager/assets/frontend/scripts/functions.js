@@ -1886,3 +1886,7 @@ jQuery(document).on("click", ".delete-hidden-property", function () {
     });
     return false;
 });
+
+jQuery(document).ready(function($) {
+    kk_price_filter_handler('select[name=price_minimum]', 'select[name=price_maximum]');
+});

@@ -348,7 +348,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                 ?>
                 <script type="text/javascript">
                     chosen_selectionbox();
-                    kk_price_filter_handler('select[name=price_minimum]', 'select[name=price_maximum]');
+                   // kk_price_filter_handler('select[name=price_minimum]', 'select[name=price_maximum]');
                 </script>
                 <?php
                 $content = ob_get_clean();

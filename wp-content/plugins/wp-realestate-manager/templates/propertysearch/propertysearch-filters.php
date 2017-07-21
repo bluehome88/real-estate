@@ -249,6 +249,6 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
     </div>
 </form>
 <script type="text/javascript">
-    kk_price_filter_handler('select[name=price_minimum]', 'select[name=price_maximum]');
+//    kk_price_filter_handler('select[name=price_minimum]', 'select[name=price_maximum]');
 </script>
             
