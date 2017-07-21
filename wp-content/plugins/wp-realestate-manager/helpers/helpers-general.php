@@ -1038,6 +1038,7 @@ if (!function_exists('wp_rem_get_currency')) {
      */
     function wp_rem_get_currency($price = '', $currency_symbol = false, $before_currency = '', $after_currency = '', $currency_converter = true) {
         global $wp_rem_plugin_options;
+        $price = number_format( (int) $price );
         $price_str = '';
         $default_currency = isset($wp_rem_plugin_options['wp_rem_currency_sign']) ? $wp_rem_plugin_options['wp_rem_currency_sign'] : '$';
         $currency_pos = isset($wp_rem_plugin_options['wp_rem_currency_position']) ? $wp_rem_plugin_options['wp_rem_currency_position'] : 'left';
