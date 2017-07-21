@@ -236,8 +236,8 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
             }
 
             // max price
-            if (isset($_REQUEST['price_maximum']) && $_REQUEST['price_maximum'] != '') {
-                // remove ">" sign and others non digital if present
+            if (isset($_REQUEST['price_maximum']) && $_REQUEST['price_maximum'] != '' && strpos($_REQUEST['price_maximum'], '>') === false ) {
+                // remove non digital signs
                 $_val = preg_replace("/[^0-9]/", "", $_REQUEST['price_maximum']);
                 $element_filter_arr[] = array(
                     'key' => 'wp_rem_property_price_ttd',
