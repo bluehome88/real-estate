@@ -969,7 +969,7 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                                                         )
                                                 );
                                                 ?>
-                                                <div class="price-per-person"> 
+                                                <div class="price-per-person kk_slider"> 
                                                     <?php
                                                     $wp_rem_form_fields_frontend->wp_rem_form_text_render(
                                                             array(
@@ -980,7 +980,7 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
                                                             )
                                                     );
                                                     ?>
-                                                    <span class="rang-text"><?php echo esc_html($range_complete_str_first); ?> &nbsp; - &nbsp; <?php echo esc_html($range_complete_str_second); ?></span>
+                                                    <span class="rang-text"><span class="kk_slider_from"><?php echo esc_html($range_complete_str_first); ?></span>&nbsp; - &nbsp;<span class="kk_slider_to"><?php echo esc_html($range_complete_str_second); ?></span></span>
                                                 </div>
                                                 <?php
                                                 $increment_step = isset($cus_field['increment']) ? $cus_field['increment'] : 1;
@@ -1000,6 +1000,7 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
 																jQuery("#range-hidden-' . $query_str_var_name . $range_random_id . '").val(rang_slider_val); 
 																wp_rem_property_content("' . esc_html($property_short_counter) . '");
 															});
+                                                            kk_update_slider_params_onchange("#ex16b2' . $query_str_var_name . $range_random_id . '");
 														}
 													</script>';
                                                 } else {
@@ -1019,6 +1020,7 @@ $wp_rem_property_sidebar = isset($atts['wp_rem_property_sidebar']) ? $atts['wp_r
 																	jQuery("#range-hidden-' . $query_str_var_name . $range_random_id . '").val(rang_slider_val); 
 																	wp_rem_property_content("' . esc_html($property_short_counter) . '");
 																});
+                                                                kk_update_slider_params_onchange("#ex16b2' . $query_str_var_name . $range_random_id . '");
 															}
 														});
 													</script>';

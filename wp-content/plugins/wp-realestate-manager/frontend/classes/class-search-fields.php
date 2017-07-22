@@ -796,8 +796,8 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                                          )
                                  );
                                  ?>
-                            <div class="price-per-person">
-                                <span class="rang-text"><?php echo wp_rem_allow_special_char($field_label); ?>&nbsp;<?php echo esc_html($range_complete_str_first); ?> &nbsp; - &nbsp; <?php echo esc_html($range_complete_str_second); ?></span>
+                            <div class="price-per-person kk_slider">
+                                <span class="rang-text"><?php echo wp_rem_allow_special_char($field_label); ?>&nbsp;<span class="kk_slider_from"><?php echo esc_html($range_complete_str_first); ?></span> &nbsp; - &nbsp; <span class="kk_slider_to"><?php echo esc_html($range_complete_str_second); ?></span></span>
                                 <?php
                                 $wp_rem_form_fields_frontend->wp_rem_form_text_render(
                                         array(
@@ -823,6 +823,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
 											var rang_slider_val = jQuery("#ex16b1' . $rand_id . $query_str_var_name . '").val();
 											jQuery("#range-hidden-' . $query_str_var_name . '").val(rang_slider_val);    
 										});
+                                        kk_update_slider_params_onchange("#ex16b1' . $rand_id . $query_str_var_name . '");
 									}
 								</script>';
                             } else {
@@ -839,6 +840,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
 												var rang_slider_val = jQuery("#ex16b1' . $rand_id . $query_str_var_name . '").val();
 												jQuery("#range-hidden-' . $query_str_var_name . '").val(rang_slider_val);    
 											});
+                                            kk_update_slider_params_onchange("#ex16b1' . $rand_id . $query_str_var_name . '");
 										}
 									});
 								</script>';

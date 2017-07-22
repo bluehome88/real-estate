@@ -1487,6 +1487,17 @@ function kk_price_filter_show_all_options( select ){
     });
 }
 
+// update range slider view (for sqt field) on change
+function kk_update_slider_params_onchange( selector ){
+    $(selector).on( "change", function( el ){
+        var container = $(el.target).closest('.kk_slider');
+        var from = el.value.newValue[0];
+        var to = el.value.newValue[1];
+        container.find('.kk_slider_from').text(from);
+        container.find('.kk_slider_to').text(to);
+    });
+}
+
 function wp_rem_multicap_all_functions() {
     "use strict";
     var all_elements = jQuery(".g-recaptcha");
