@@ -2162,89 +2162,58 @@ if (!function_exists('wp_rem_cs_inline_enqueue_script')) {
 function wp_rem_property_price($property_id, $wp_rem_property_price, $guidprice_before = '', $guidprice_after = '', $price_type_before = '<span class="price-type">', $price_type_after = '</span>', $price_type_position = 'right') {
     global $wp_rem_plugin_options;
 
-    $price_type = get_post_meta($property_id, 'wp_rem_price_type', true);
     $property_info_price = '';
+    $price_line_1 = '';
+    $price_line_2 = '';
+    $price_type = get_post_meta($property_id, 'wp_rem_price_type', true);
+    $price = get_post_meta($property_id, 'wp_rem_property_price', true);
+    $price_ttd = get_post_meta($property_id, 'wp_rem_property_price_ttd', true);
 
-    // if ($price_type == 'variant_month' || $price_type == 'variant_week') {
-        // $price_type_ = ' ' . wp_rem_plugin_text_srt('wp_rem_price_type_pcm');
-        // $price_type_ttd = $price_type_;
-        // $price_type_ttd .= $guidprice_before . ' (' . wp_rem_get_currency($price_weekly_ttd, true) . ' ' . wp_rem_plugin_text_srt('wp_rem_price_type_pw') . ')' . $guidprice_after;
-        // $price_type_ .= $guidprice_before . ' (' . wp_rem_get_currency($price_weekly, true) . ' ' . wp_rem_plugin_text_srt('wp_rem_price_type_pw') . ')' . $guidprice_after;
-        // $wp_rem_property_price = $price_monthy;
-        // $wp_rem_property_price_ttd = $price_monthy_ttd;
+    if ($price_type == 'variant_month' || $price_type == 'variant_week') {
 
-    // } else {
-        
-    // }
-    // if ($price_type_position == 'left') {
-    //     $property_info_price = $price_type_;
-    //     $property_info_price .= wp_rem_get_currency($wp_rem_property_price, true);
-    //     $property_info_price .= ' ' . wp_rem_get_currency($wp_rem_property_price_ttd, true);
-    // } else {
+        // RENT PRICE
+       
+        $price_label = ( $price_type == 'variant_week') ? 'per week' : 'per month';
 
-        if ($price_type == 'variant_month' || $price_type == 'variant_week') {
-
-            // RENT PRICE
-           
-            $price_label = ( $price_type == 'variant_week') ? 'per week' : 'per month';
-
-            $price_monthy = get_post_meta($property_id, 'wp_rem_month_price', true);
-            $price_monthy_ttd = get_post_meta($property_id, 'wp_rem_month_price_ttd', true);
-            
-            $price_weekly = get_post_meta($property_id, 'wp_rem_week_price', true);
-            $price_weekly_ttd = get_post_meta($property_id, 'wp_rem_week_price_ttd', true);
-            
-            $price_line_1 = '';
-            $price_line_2 = '';
-
-            // Rent - USD
-            $_price =  ( $price_type == 'variant_week') ? $price_weekly : $price_monthy;
-            if ($_price) {
-                $price_line_1 = '<div>Rental Price USD ' . wp_rem_get_currency($_price, true);
-                $price_line_1 .= ' (' . $price_label . ')</div>';
-            }
-            
-            // Rent - TTD
-            $_price =  ( $price_type == 'variant_week') ? $price_weekly_ttd : $price_monthy_ttd;
-            if ($_price) {
-                $price_line_2 = '<div>Rental Price TTD ' . wp_rem_get_currency($_price, true);
-                $price_line_2 .= ' (' . $price_label . ')</div>';
-            }
-
-            $property_info_price = $price_line_1 . $price_line_2;
-
-        } else {
-
-            // SALE PRICE
-
-            $price_sale = get_post_meta($property_id, 'wp_rem_property_price', true);
-            $price_sale_ttd = get_post_meta($property_id, 'wp_rem_property_price_ttd', true);
-
-            $price_line_1 = '';
-            $price_line_2 = '';
-
-            // get fixed price type
-            if (isset($wp_rem_plugin_options['fixed_price_opt'][$price_type])) {
-                $price_type_ = ' ' . $price_type_before . $wp_rem_plugin_options['fixed_price_opt'][$price_type] . $price_type_after;
-            }
-            
-            // Sale - USD
-            if ($price_sale) {
-                $price_line_1 = '<div>Sale Price USD ' . wp_rem_get_currency($price_sale, true) . '</div>';
-            }
-
-            // Sale - TTD
-            if ($price_sale_ttd) {
-                $price_line_2 = '<div>Sale Price TTD ' . wp_rem_get_currency($price_sale_ttd, true) . '</div>';
-            }
-
-            if ($price_sale || $price_sale_ttd) {
-                $property_info_price = $price_line_1 . $price_line_2;
-                $property_info_price .= '<span>' . $price_type_ . '</span>';
-            }
-
+        // Rent - USD
+        if ($price) {
+            $price_line_1 = '<div>Rental Price USD ' . wp_rem_get_currency( $price, true );
+            $price_line_1 .= ' (' . $price_label . ')</div>';
         }
-    // }
+        
+        // Rent - TTD
+        if ($price_ttd) {
+            $price_line_2 = '<div>Rental Price TTD ' . wp_rem_get_currency($price_ttd, true);
+            $price_line_2 .= ' (' . $price_label . ')</div>';
+        }
+
+        $property_info_price = $price_line_1 . $price_line_2;
+
+    } else {
+
+        // SALE PRICE
+
+        // get fixed price type
+        if (isset($wp_rem_plugin_options['fixed_price_opt'][$price_type])) {
+            $_price_type = ' ' . $price_type_before . $wp_rem_plugin_options['fixed_price_opt'][$price_type] . $price_type_after;
+        }
+        
+        // Sale - USD
+        if ($price) {
+            $price_line_1 = '<div>Sale Price USD ' . wp_rem_get_currency($price, true) . '</div>';
+        }
+
+        // Sale - TTD
+        if ($price_ttd) {
+            $price_line_2 = '<div>Sale Price TTD ' . wp_rem_get_currency($price_ttd, true) . '</div>';
+        }
+
+        if ($price || $price_ttd) {
+            $property_info_price = $price_line_1 . $price_line_2;
+            $property_info_price .= '<span>' . $_price_type . '</span>';
+        }
+
+    }
 
     return $property_info_price;
 }
