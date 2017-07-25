@@ -198,7 +198,7 @@ if ( ! function_exists( 'wp_rem_cs_var_contact_submit' ) ) {
                 $json['msg'] = esc_html( wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_contact_email_should_not_be_empty' ) );
             } else {
                 $message = '
-				<table width="100%" border="1">
+				<table width="100%" border="0">
 				  <tr>
 					<td width="100"><strong>' . wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_contact_full_name' ) . '</strong></td>
 					<td>' . esc_html( $contact_name ) . '</td>

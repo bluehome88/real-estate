@@ -232,7 +232,7 @@ if ( ! class_exists('wp_rem_cs_var_frame_all_strings') ) {
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_email'] = __('Email', 'wp-rem-frame');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_enter_email'] = __('Type your email address', 'wp-rem-frame');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_website'] = __('Website', 'wp-rem-frame');
-            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_text_here'] = __('Text here...', 'wp-rem-frame');
+            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_text_here'] = __('Message', 'wp-rem-frame');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_leave_comment'] = __('Leave us a comment', 'wp-rem-frame');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_cancel_reply'] = __('Cancel reply', 'wp-rem-frame');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_post_comment'] = __('Post comments', 'wp-rem-frame');
@@ -788,7 +788,7 @@ if ( ! class_exists('wp_rem_cs_var_frame_all_strings') ) {
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_contact_button_text'] = esc_html__('Send A message', 'homevillas-real-estate');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_message'] = esc_html__('Message', 'homevillas-real-estate');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_contact_check_field'] = esc_html__('Subscribe and Get latest updates and offers by Email', 'homevillas-real-estate');
-            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_contact_received'] = esc_html__('Contact Form Received', 'homevillas-real-estate');
+            $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_contact_received'] = esc_html__('Contact Form Submission', 'homevillas-real-estate');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_contact_valid_email'] = esc_html__('Please enter a valid email.', 'homevillas-real-estate');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_contact_email_should_not_be_empty'] = esc_html__('Email should not be empty.', 'homevillas-real-estate');
             $wp_rem_cs_var_frame_static_text['wp_rem_cs_var_contact_full_name'] = esc_html__('Name', 'homevillas-real-estate');
