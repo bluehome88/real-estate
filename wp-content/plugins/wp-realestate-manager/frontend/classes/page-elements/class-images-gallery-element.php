@@ -39,7 +39,7 @@ if ( ! class_exists( 'Wp_rem_Images_Gallery_Element' ) ) {
 							foreach ( $gallery_ids_list as $gallery_idd ) {
 								if ( isset( $gallery_idd ) && $gallery_idd != '' ) {
 									if ( wp_get_attachment_url( $gallery_idd ) ) {
-										$image = wp_get_attachment_image_src( $gallery_idd, 'wp_rem_media_11' );
+										$image = wp_get_attachment_image_src( $gallery_idd, 'wp_rem_media_9' );
 										?>
 										<div class="swiper-slide">
 											<figure>
