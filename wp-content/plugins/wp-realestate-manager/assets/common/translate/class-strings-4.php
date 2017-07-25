@@ -54,7 +54,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_4') ) {
             $wp_rem_static_text['wp_rem_list_meta_floor_plan_element'] = esc_html__('Floor Plan Element', 'wp-rem');
             $wp_rem_static_text['wp_rem_list_meta_property_summary'] = esc_html__('Property Summary', 'wp-rem');
             $wp_rem_static_text['wp_rem_list_meta_per_week'] = esc_html__('Per Week', 'wp-rem');
-            $wp_rem_static_text['wp_rem_list_meta_per_cm'] = esc_html__('Per Calendar Month', 'wp-rem');
+            $wp_rem_static_text['wp_rem_list_meta_per_cm'] = esc_html__('Per Month', 'wp-rem');
             $wp_rem_static_text['wp_rem_list_meta_per_month'] = esc_html__('Per Month', 'wp-rem');
             $wp_rem_static_text['wp_rem_list_meta_price_option'] = esc_html__('Ad Price Option', 'wp-rem');
             $wp_rem_static_text['wp_rem_list_meta_none'] = esc_html__('None', 'wp-rem');
@@ -295,7 +295,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_4') ) {
             $wp_rem_static_text['wp_rem_search_fields_other_features'] = esc_html__('Other Features', 'wp-rem');
             $wp_rem_static_text['wp_rem_search_fields_price_type_all'] = esc_html__('All Price Types', 'wp-rem');
             $wp_rem_static_text['wp_rem_search_fields_price_type_per_week'] = esc_html__('Per Week', 'wp-rem');
-            $wp_rem_static_text['wp_rem_search_fields_price_type_per_month'] = esc_html__('Per Calendar Month', 'wp-rem');
+            $wp_rem_static_text['wp_rem_search_fields_price_type_per_month'] = esc_html__('Per Month', 'wp-rem');
             $wp_rem_static_text['wp_rem_search_fields_date_from'] = esc_html__('From', 'wp-rem');
             $wp_rem_static_text['wp_rem_search_fields_date_to'] = esc_html__('To', 'wp-rem');
 

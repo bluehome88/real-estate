@@ -511,7 +511,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_3') ) {
             $wp_rem_static_text['wp_rem_property_price_details'] = esc_html__('Price details', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_enter_price'] = esc_html__('Enter the price you\'d like displayed for the property below.', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_per_week'] = esc_html__('Per Week', 'wp-rem');
-            $wp_rem_static_text['wp_rem_property_per_calendar'] = esc_html__('Per Calendar Month', 'wp-rem');
+            $wp_rem_static_text['wp_rem_property_per_calendar'] = esc_html__('Per Month', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_price_options'] = esc_html__('Price Options', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_price_on_call'] = esc_html__('Price on Call', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_property_price'] = esc_html__('Property Price', 'wp-rem');
