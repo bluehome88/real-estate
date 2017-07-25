@@ -88,8 +88,8 @@ if ( ! class_exists( 'Wp_rem_Images_Gallery_Element' ) ) {
 				</div>
 			<?php
 			}
-						$if_top_loop = ( $gallery_counterr == 2 ) ? 'false' : 'true';
-						$if_thumb_loop = ( $gallery_counterr <= 8 ) ? 'false' : 'true';
+						$if_top_loop = ( isset( $gallery_counterr ) && $gallery_counterr == 2 ) ? 'false' : 'true';
+						$if_thumb_loop = ( isset( $gallery_counterr ) && $gallery_counterr <= 8 ) ? 'false' : 'true';
                         $wp_rem_cs_inline_script = '
                         jQuery(document).ready(function () {
                             if (jQuery(".main-post.slider .gallery-top, .main-post.slider .gallery-thumbs").length != "") {
