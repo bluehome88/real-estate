@@ -476,7 +476,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_3') ) {
             $wp_rem_static_text['wp_rem_properties_sort_by'] = esc_html__('Sort By', 'wp-rem');
             $wp_rem_static_text['wp_rem_properties_prev'] = esc_html__('Prev', 'wp-rem');
             $wp_rem_static_text['wp_rem_properties_next'] = esc_html__('Next', 'wp-rem');
-            $wp_rem_static_text['wp_rem_properties_price_on_request'] = esc_html__('Price On Request', 'wp-rem');
+            $wp_rem_static_text['wp_rem_properties_price_on_request'] = esc_html__('Call for Price', 'wp-rem');
 			$wp_rem_static_text['wp_rem_properties_hidden_text'] = esc_html__('Hidden', 'wp-rem');
             $wp_rem_static_text['wp_rem_properties_featured'] = esc_html__('Featured', 'wp-rem');
             $wp_rem_static_text['wp_rem_properties_members'] = esc_html__('Member: %s', 'wp-rem');
