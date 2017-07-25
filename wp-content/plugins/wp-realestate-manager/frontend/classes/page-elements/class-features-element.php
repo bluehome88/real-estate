@@ -168,7 +168,7 @@ if ( ! class_exists('wp_rem_features_element') ) {
                                 $feature_icon = ' <i class="' . $feature_icon . '"></i>';
                             }
                             $icon = '';
-                            if ( isset($features_list) && ! empty($features_list) ) {
+                            if ( isset($features_list) && !empty($features_list) ) {
                                 foreach ( $features_list as $feature_data ) {
                                     $feature_exploded = explode("_icon", $feature_data);
 
@@ -181,6 +181,8 @@ if ( ! class_exists('wp_rem_features_element') ) {
                                         $icon = 'icon-cross';
                                     }
                                 }
+                            } else {
+                                $icon = 'icon-cross';
                             }
                             $html .= '<li class="col-lg-4 col-md-4 col-sm-6 col-xs-12">' . $feature_icon . '<i class="' . $icon . '"></i></i>' . $label . '</li>';
                         }
