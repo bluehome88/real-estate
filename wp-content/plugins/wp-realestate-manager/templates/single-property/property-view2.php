@@ -12,7 +12,6 @@ $wp_rem_property_price_options = get_post_meta($post_id, 'wp_rem_property_price_
 $wp_rem_property_price = '';
 if ($wp_rem_property_price_options == 'price') {
     $wp_rem_property_price = get_post_meta($post_id, 'wp_rem_property_price', true);
-    $wp_rem_property_price_ttd = get_post_meta($post_id, 'wp_rem_property_price_ttd', true);
 } else if ($wp_rem_property_price_options == 'on-call') {
     $wp_rem_property_price = wp_rem_plugin_text_srt('wp_rem_nearby_properties_price_on_request');
 }

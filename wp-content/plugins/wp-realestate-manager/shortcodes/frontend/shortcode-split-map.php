@@ -1656,10 +1656,8 @@ if ( ! class_exists('Wp_rem_Shortcode_Split_Map_Frontend') ) {
 // end checking review on in property type
 
                         $wp_rem_property_price = '';
-                        $wp_rem_property_price_ttd = '';
                         if ( $wp_rem_property_price_options == 'price' ) {
                             $wp_rem_property_price = get_post_meta($property_id, 'wp_rem_property_price', true);
-                            $wp_rem_property_price_ttd = get_post_meta($property_id, 'wp_rem_property_price_ttd', true);
                         } else if ( $wp_rem_property_price_options == 'on-call' ) {
                             $wp_rem_property_price = wp_rem_plugin_text_srt('wp_rem_properties_price_on_request');
                         }
@@ -1673,15 +1671,15 @@ if ( ! class_exists('Wp_rem_Shortcode_Split_Map_Frontend') ) {
                         }
 
                         $property_info_price = '';
-                        if ( $wp_rem_property_type_price_switch == 'on' && ($wp_rem_property_price != '' || $wp_rem_property_price_ttd != '')) {
+                        if ( $wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '') {
                             $property_info_price .= '
 						<span class="property-price">
 							<span class="new-price text-color">';
 
                             if ( $wp_rem_property_price_options == 'on-call' ) {
-                                $property_info_price .= $wp_rem_property_price || $wp_rem_property_price_ttd;
+                                $property_info_price .= $wp_rem_property_price;
                             } else {
-                                $property_info_price .= wp_rem_property_price($property_id, $wp_rem_property_price || $wp_rem_property_price_ttd, '<span class="guid-price">', '</span>');
+                                $property_info_price .= wp_rem_property_price($property_id, $wp_rem_property_price, '<span class="guid-price">', '</span>');
                             }
                             $property_info_price .= '	
 							</span>
