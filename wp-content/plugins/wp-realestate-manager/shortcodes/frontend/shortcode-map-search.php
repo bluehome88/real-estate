@@ -750,7 +750,7 @@ if (!class_exists('Wp_rem_Shortcode_Map_Search_front')) {
                     }
 
                     $property_info_price = '';
-                    if ($wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '')) {
+                    if ($wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '') {
                         $property_info_price .= '
 						<span class="property-price">
 							<span class="new-price text-color">';
