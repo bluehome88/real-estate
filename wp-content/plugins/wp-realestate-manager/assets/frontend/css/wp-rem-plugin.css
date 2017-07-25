@@ -3160,6 +3160,7 @@ background: transparent;
 }
 .cluster div { color: #fff !important; }
 .search-query-filters { margin-bottom: 18px; }
+.save_search_map_popup .search-query-filters { margin-bottom: 0; }
 ul.tagit li.tagit-choice { position: relative; margin: 0 3px 3px; padding: 5px 10px 5px 10px; background-color: #fff; font-size: 13px; font-weight: normal; line-height: normal; display: inline-block; cursor: pointer; color: #a3a7ab; border: 1px solid #ccc; border-radius: 50px; }
 ul.tagit li.tagit-choice .tagit-label:not(a) { color: #a3a7ab; }
 .modal-form .property-alert ul.tagit li:first-child { margin-left: 0; }

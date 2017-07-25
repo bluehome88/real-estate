@@ -907,18 +907,6 @@ function wp_rem_property_top_map(top_dataobj, is_ajax) {
                             <div class="property-alert-box property-alert-box-map">\
                                 <div class="search-query-filters">\
                                     <a id="view-properties-' + map_id + '" href="javascript:void(0)" class="view-properties-btn" onclick="viewProperties(\'' + pathstr + '\')">' + wp_rem_top_gmap_strings.alert_view_prop + '</a>\
-                                    <span>' + wp_rem_top_gmap_strings.alert_or + '</span>\
-                                    <h6>' + wp_rem_top_gmap_strings.alert_save_search + '</h6>\
-                                </div>\
-                                <div class="newsletter">\
-                                    <div class="field-holder"><input type="text" placeholder="' + wp_rem_top_gmap_strings.alert_name + '" maxlength="75" class="form-control name-input-top"></div>\
-                                    <div class="field-holder"><input type="text" placeholder="' + wp_rem_top_gmap_strings.alert_email + '" class="form-control email-input-top alerts-email"></div>\
-                                    <div class="field-holder">\
-                                        <div class="propertyalert-submit-button input-button-loader">\
-                                            <input type="button" id="save-search-alert-' + map_id + '" class="map-propertyalert-submit" name="AlertsEmail" value="' + wp_rem_top_gmap_strings.alert_submit + '" onclick="saveSearchAlert(\'' + pathstr + '\')">\
-                                        </div>\
-                                    </div>\
-                                </div>\
                             </div>\
                         </div>\
                     </div>\
