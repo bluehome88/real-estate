@@ -658,7 +658,7 @@ if ( ! class_exists('wp_rem_form_fields_frontend') ) {
                         if ( ! is_array($option) ) {
                             if( isset( $price ) && $price && $key != '' ){
                                 $more_sign = ( strpos( $key, '>' ) !== false ) ? '&gt;' : '';
-                                $option = $more_sign . wp_rem_get_currency( $option ) . ' TDD';
+                                $option = $more_sign . wp_rem_get_currency( $option ) . ' TTD';
                             } 
                             $wp_rem_output .= '<option ' . selected($key, $value, false) . ' value="' . $key . '">' . $option . '</option>';
                         }
