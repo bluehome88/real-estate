@@ -110,7 +110,6 @@ if (!class_exists('Wp_rem_Shortcode_Map_Search_front')) {
                             <!-- start draw on map -->
                             <ul class="map-actions">
 
-                                <li><a data-placement="bottom" data-toggle="tooltip" onclick="wp_rem_getLocation('<?php echo absint($rand_numb) ?>');" title="<?php echo wp_rem_plugin_text_srt('wp_rem_map_search_geo_location'); ?>" id="geo-location-button-<?php echo absint($rand_numb) ?>" ><i class="icon-navigation"></i><!--<img src="<?php echo wp_rem::plugin_url() ?>assets/frontend/images/geo.svg" alt="">--></a></li>
                                 <?php
                                 if (wp_is_mobile()) {
                                     ?>
