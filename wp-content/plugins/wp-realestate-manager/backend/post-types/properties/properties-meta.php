@@ -24,7 +24,6 @@ if ( ! class_exists('wp_rem_property_meta') ) {
             add_action('save_post', array( $this, 'wp_rem_save_property_custom_fields_dates' ), 20);
             add_action('save_post', array( $this, 'wp_rem_save_property_features' ), 20);
             add_action('save_post', array( $this, 'wp_rem_save_property_open_house' ), 20);
-            add_action('save_post', array( $this, 'wp_rem_save_property_price_type' ), 20);
 
             add_action('save_post', array( $this, 'wp_rem_change_property_member' ), 1, 1);
             add_action('transition_post_status', array( $this, 'wp_rem_move_property_trash' ), 20, 3);
@@ -970,43 +969,6 @@ if ( ! class_exists('wp_rem_property_meta') ) {
                 update_post_meta($property_id, 'open_house_start', '');
                 update_post_meta($property_id, 'open_house_end', '');
             }
-        }
-
-        function wp_rem_save_property_price_type() {
-            $property_id = get_the_id();
-            $price_type = isset($_POST['wp_rem_price_type']) ? $_POST['wp_rem_price_type'] : '';
-            $price = isset($_POST['wp_rem_property_price']) ? $_POST['wp_rem_property_price'] : '';
-            $price_ttd = isset($_POST['wp_rem_property_price_ttd']) ? $_POST['wp_rem_property_price_ttd'] : '';
-            // $ - WEEK
-            if ( $price_type == 'variant_week' ) {
-                // $week_price = $price;
-                // $week_price = $price_ttd;
-                // $month_price = wp_rem_calculate_price($price, 'monthly');
-                update_post_meta($property_id, 'wp_rem_week_price', $price);
-                update_post_meta($property_id, 'wp_rem_week_price_ttd', $price_ttd);
-                // update_post_meta($property_id, 'wp_rem_month_price', $month_price);
-            }
-            // TTD - WEEK
-            // if ( $price_type == 'variant_week' ) {
-            //     $week_price = $price_ttd;
-                // $month_price = wp_rem_calculate_price($price_ttd, 'monthly');
-                // update_post_meta($property_id, 'wp_rem_month_price_ttd', $month_price);
-            // }
-            // $ - MONTH
-            if ( $price_type == 'variant_month' ) {
-                // $month_price = $price;
-                // $week_price = wp_rem_calculate_price($price, 'weekly');
-                // update_post_meta($property_id, 'wp_rem_week_price', $week_price);
-                update_post_meta($property_id, 'wp_rem_month_price', $price);
-                update_post_meta($property_id, 'wp_rem_month_price_ttd', $price_ttd);
-            }
-            // TTD - MONTH
-            // if ( $price_type == 'variant_month' && $price_ttd != '' ) {
-            //     $month_price = $price_ttd;
-                // $week_price = wp_rem_calculate_price($price_ttd, 'weekly');
-                // update_post_meta($property_id, 'wp_rem_week_price_ttd', $week_price);
-            //     update_post_meta($property_id, 'wp_rem_month_price_ttd', $month_price);
-            // }
         }
 
         function property_summary() {
