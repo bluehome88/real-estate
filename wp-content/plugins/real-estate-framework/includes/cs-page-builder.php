@@ -427,8 +427,8 @@ if ( ! function_exists( 'wp_rem_creating_shortcode' ) ) {
         $counters = apply_filters( 'wp_rem_cs_load_shortcode_counters', $counters );
         $section_shortcode  = '';
         //$column_rand_id = $post_data['column_rand_id'][$counters['column_container_no']];
-            $column_rand_id = $post_data['column_rand_id'][$counters['column_container_no']];
         foreach ( $post_data['total_column'] as $count_column ) {
+            $column_rand_id = $post_data['column_rand_id'][$counters['column_container_no']];
             $fields = array(
                     'wp_rem_cs_var_section_title' => is_set( $post_data['wp_rem_cs_var_section_title_array'][$counters['column_container_no']], '' ),
                     'wp_rem_cs_var_section_subtitle' => is_set( $post_data['wp_rem_cs_var_section_subtitle_array'][$counters['column_container_no']], '' ),
