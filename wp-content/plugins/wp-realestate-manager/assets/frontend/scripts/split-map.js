@@ -151,8 +151,15 @@ jQuery(document).ready(function() {
         var vCenter=rHeight/2;
         jQuery(".split-map-toggler").css({"top": vCenter});
         jQuery(".split-map-toggler").click(function(){
-            jQuery(this).toggleClass("active");
-            jQuery(".wp-rem-split-map-wrap .filters-sidebar").toggleClass("active");
+            if(jQuery(this).hasClass('active')){
+                jQuery(this).removeClass('active');
+                jQuery(".wp-rem-split-map-wrap .filters-sidebar").removeClass('active');
+            } else{
+                jQuery(this).addClass('active');
+                jQuery(".wp-rem-split-map-wrap .filters-sidebar").addClass('active');
+            }
+            // jQuery(this).toggleClass("active");
+            // jQuery(".wp-rem-split-map-wrap .filters-sidebar").toggleClass("active");
         });
         
         
@@ -164,8 +171,15 @@ jQuery(document).ready(function() {
         var vCenter=rHeight/2;
         jQuery(".split-map-toggler").css({"top": vCenter});
         jQuery(".split-map-toggler").click(function(){
-            jQuery(this).toggleClass("active");
-            jQuery(".wp-rem-split-map-wrap .filters-sidebar").toggleClass("active");
+            if(jQuery(this).hasClass('active')){
+                jQuery(this).removeClass('active');
+                jQuery(".wp-rem-split-map-wrap .filters-sidebar").removeClass('active');
+            } else{
+                jQuery(this).addClass('active');
+                jQuery(".wp-rem-split-map-wrap .filters-sidebar").addClass('active');
+            }
+            // jQuery(this).toggleClass("active");
+            // jQuery(".wp-rem-split-map-wrap .filters-sidebar").toggleClass("active");
         });
         kk_adjust_content_height();
     });
