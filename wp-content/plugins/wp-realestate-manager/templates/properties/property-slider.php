@@ -76,7 +76,7 @@ $flag = 1;
                         // end checking review on in property type
                         $wp_rem_property_type_price_switch = get_post_meta($property_type_id, 'wp_rem_property_type_price', true);
                         if ( $wp_rem_property_price_options == 'price' ) {
-                            $wp_rem_property_price = get_post_meta($property_id, 'wp_rem_property_price', true);
+                            $wp_rem_property_price = wp_rem_property_price( $property_id );
                         } else if ( $wp_rem_property_price_options == 'on-call' ) {
                             $wp_rem_property_price = wp_rem_plugin_text_srt('wp_rem_properties_price_on_request');
                         }
@@ -176,8 +176,7 @@ $flag = 1;
                                                     if ( $wp_rem_property_price_options == 'on-call' ) {
                                                         echo force_balance_tags($wp_rem_property_price);
                                                     } else {
-                                                        $property_info_price = wp_rem_property_price($property_id, $wp_rem_property_price, '<span class="guid-price">', '</span>', '<em>', '</em>');
-                                                        echo force_balance_tags($property_info_price);
+                                                        echo $wp_rem_property_price;
                                                     }
                                                     ?>
                                                 </span>

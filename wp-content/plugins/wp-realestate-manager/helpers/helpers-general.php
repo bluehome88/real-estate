@@ -2159,7 +2159,13 @@ if (!function_exists('wp_rem_cs_inline_enqueue_script')) {
 
 }
 
-function wp_rem_property_price($property_id, $wp_rem_property_price, $guidprice_before = '', $guidprice_after = '', $price_type_before = '<span class="price-type">', $price_type_after = '</span>', $price_type_position = 'right') {
+function kk_if_show_price( $property_id ){
+    $price = get_post_meta($property_id, 'wp_rem_property_price', true);
+    $price_ttd = get_post_meta($property_id, 'wp_rem_property_price_ttd', true);
+    return $price != '' || $price_ttd != '';
+}
+
+function wp_rem_property_price($property_id, $wp_rem_property_price = '', $guidprice_before = '', $guidprice_after = '', $price_type_before = '<span class="price-type">', $price_type_after = '</span>', $price_type_position = 'right') {
     global $wp_rem_plugin_options;
 
     $property_info_price = '';
