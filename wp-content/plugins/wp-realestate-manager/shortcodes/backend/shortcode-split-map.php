@@ -185,7 +185,24 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_wp_rem_split_map') ) {
                             );
 
                             $wp_rem_html_fields->wp_rem_select_field($wp_rem_opt_array);
+                            ?>
+                            <script>
+                                jQuery(document).ready(function () {
+                                    jQuery(".save_filter_by_categories").click(function () {
+                                        var MY_SELECT = jQuery('#wp_rem_filter_by_categories').get(0);
+                                        var selection = ChosenOrder.getSelectionOrder(MY_SELECT);
+                                        var filter_by_categories_vals = '';
+                                        var comma = '';
+                                        jQuery(selection).each(function (i) {
+                                            filter_by_categories_vals = filter_by_categories_vals + comma + selection[i];
+                                            comma = ',';
+                                        });
+                                        jQuery('#filter_by_categories_val').val(filter_by_categories_vals);
+                                    });
 
+                                });
+                            </script>
+                            <?php
                             // $categories_filter_array = array();
                             $categories_filter_array = get_terms( array(
                                             'taxonomy' => 'property-category',
@@ -202,7 +219,7 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_wp_rem_split_map') ) {
                                 'multi' => true,
                                 'field_params' => array(
                                     'std' => esc_attr($filter_by_categories),
-                                    'id' => 'filter_by_categories[]',
+                                    'id' => 'filter_by_categories',
                                     'classes' => 'chosen-select',
                                     'cust_name' => 'filter_by_categories[]',
                                     'return' => true,
@@ -212,6 +229,13 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_wp_rem_split_map') ) {
 
                             $wp_rem_html_fields->wp_rem_select_field($wp_rem_opt_array);
                             
+                            $wp_rem_cs_opt_array = array(
+                                'std' => $property_location,
+                                'cust_id' => 'filter_by_categories_val',
+                                'cust_name' => "filter_by_categories_val",
+                                'required' => false
+                            );
+                            $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_hidden_render($wp_rem_cs_opt_array);
 
                             ?>
                             <script>
@@ -938,7 +962,7 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_wp_rem_split_map') ) {
                                     'cust_id' => 'wp_rem_split_map_save',
                                     'cust_type' => 'button',
                                     'extra_atr' => 'onclick="javascript:_removerlay(jQuery(this))"',
-                                    'classes' => 'cs-wp_rem_cs-admin-btn save_property_locations_' . $property_rand_id . '',
+                                    'classes' => 'save_filter_by_categories cs-wp_rem_cs-admin-btn save_property_locations_' . $property_rand_id . '',
                                     'cust_name' => 'wp_rem_split_map_save',
                                     'return' => true,
                                 ),
@@ -1040,21 +1064,25 @@ if ( ! function_exists('wp_rem_cs_save_page_builder_data_wp_rem_split_map_callba
                     }
                 }
 
-                if ( isset($_POST['filter_by_categories'][$counters['wp_rem_cs_counter_wp_rem_split_map']]) && !empty( $_POST['filter_by_categories'][$counters['wp_rem_cs_counter_wp_rem_split_map']] ) ) {
-
-                    $cat_val = $_POST['filter_by_categories'][$counters['wp_rem_cs_counter_wp_rem_split_map']];
-
-                    if ( is_array( $cat_val ) ){ 
-
-                        $wp_rem_cs_bareber_wp_rem_split_map .= 'filter_by_categories="' . implode( ',', $cat_val ) . '" ';
-
-                    } else {
-
-                       $wp_rem_cs_bareber_wp_rem_split_map .= 'filter_by_categories="' . htmlspecialchars( $cat_val, ENT_QUOTES ) . '" ';
-
-                    }
-
+                if ( isset($data['filter_by_categories_val'][$counters['wp_rem_cs_counter_wp_rem_split_map']]) && $data['filter_by_categories_val'][$counters['wp_rem_cs_counter_wp_rem_split_map']] != '' ) {
+                    $wp_rem_cs_bareber_wp_rem_split_map .= 'filter_by_categories="' . htmlspecialchars($data['filter_by_categories_val'][$counters['wp_rem_cs_counter_wp_rem_split_map']], ENT_QUOTES) . '" ';
                 }
+
+                // if ( isset($data['filter_by_categories_val'][$counters['wp_rem_cs_counter_wp_rem_split_map']]) && $data['filter_by_categories_val'][$counters['wp_rem_cs_counter_wp_rem_split_map']] != '' ) {
+
+                //     $cat_val = $data['filter_by_categories'][$counters['wp_rem_cs_counter_wp_rem_split_map']];
+
+                //     if ( is_array( $cat_val ) ){ 
+
+                //         $wp_rem_cs_bareber_wp_rem_split_map .= 'filter_by_categories="' . implode( ',', $cat_val ) . '" ';
+
+                //     } else {
+
+                //        $wp_rem_cs_bareber_wp_rem_split_map .= 'filter_by_categories="' . htmlspecialchars( $cat_val, ENT_QUOTES ) . '" ';
+
+                //     }
+
+                // }
                     
 
                 // saving admin field using filter for add on
