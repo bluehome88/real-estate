@@ -31,6 +31,7 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_wp_rem_split_map') ) {
                 'split_map_subtitle' => '',
                 'split_map_title_alignment' => '',
                 'property_type' => '',
+                'filter_by_categories' => '',
                 'property_topmap' => '',
                 'property_map_position' => '',
                 'property_map_height' => '',
@@ -184,6 +185,34 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_wp_rem_split_map') ) {
                             );
 
                             $wp_rem_html_fields->wp_rem_select_field($wp_rem_opt_array);
+
+                            // $categories_filter_array = array();
+                            $categories_filter_array = get_terms( array(
+                                            'taxonomy' => 'property-category',
+                                            'fields' => 'id=>slug',
+                                            'hide_empty' => false,
+                                        ) );
+
+                            // filter properties by category
+                            $wp_rem_opt_array = array(
+                                'name' => 'Filter by Category',
+                                'desc' => '',
+                                'label_desc' => '',
+                                'echo' => true,
+                                'multi' => true,
+                                'field_params' => array(
+                                    'std' => $filter_by_categories,
+                                    'id' => 'category_filter[]',
+                                    'classes' => 'chosen-select',
+                                    'cust_name' => 'category_filter[]',
+                                    'return' => true,
+                                    'options' => $categories_filter_array
+                                ),
+                            );
+
+                            $wp_rem_html_fields->wp_rem_select_field($wp_rem_opt_array);
+                            
+
                             ?>
                             <script>
                                 function property_map_position<?php echo absint($property_rand_id); ?>() {
@@ -982,6 +1011,9 @@ if ( ! function_exists('wp_rem_cs_save_page_builder_data_wp_rem_split_map_callba
                 }
                 if ( isset($data['property_type'][$counters['wp_rem_cs_counter_wp_rem_split_map']]) && $data['property_type'][$counters['wp_rem_cs_counter_wp_rem_split_map']] != '' ) {
                     $wp_rem_cs_bareber_wp_rem_split_map .= 'property_type="' . htmlspecialchars($data['property_type'][$counters['wp_rem_cs_counter_wp_rem_split_map']], ENT_QUOTES) . '" ';
+                }
+                if ( isset($data['filter_by_categories'][$counters['wp_rem_cs_counter_wp_rem_split_map']]) && $data['filter_by_categories'][$counters['wp_rem_cs_counter_wp_rem_split_map']] != '' ) {
+                    $wp_rem_cs_bareber_wp_rem_split_map .= 'filter_by_categories="' . htmlspecialchars($data['filter_by_categories'][$counters['wp_rem_cs_counter_wp_rem_split_map']], ENT_QUOTES) . '" ';
                 }
                 if ( isset($data['property_topmap'][$counters['wp_rem_cs_counter_wp_rem_split_map']]) && $data['property_topmap'][$counters['wp_rem_cs_counter_wp_rem_split_map']] != '' ) {
                     $wp_rem_cs_bareber_wp_rem_split_map .= 'property_topmap="' . htmlspecialchars($data['property_topmap'][$counters['wp_rem_cs_counter_wp_rem_split_map']], ENT_QUOTES) . '" ';
