@@ -2789,3 +2789,4 @@ bottom: 0; height: 50%; left: 0; position: absolute; width: 100%; }
 .main-post.slider .gallery-top .swiper-slide figure img { height: 660px; }
 .property-favourite-list { display: none; }
 .notes-btn { display: none; }
+.enquire-btn{ word-spacing: 10px; }
