@@ -150,6 +150,7 @@ jQuery(document).ready(function() {
         var rHeight=windowHeight - headerHeight;
         var vCenter=rHeight/2;
         jQuery(".split-map-toggler").css({"top": vCenter});
+        jQuery(".split-map-toggler").off('click');
         jQuery(".split-map-toggler").click(function(){
             if(jQuery(this).hasClass('active')){
                 jQuery(this).removeClass('active');
