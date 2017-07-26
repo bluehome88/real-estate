@@ -202,9 +202,9 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_wp_rem_split_map') ) {
                                 'multi' => true,
                                 'field_params' => array(
                                     'std' => $filter_by_categories,
-                                    'id' => 'category_filter[]',
+                                    'id' => 'filter_by_categories[]',
                                     'classes' => 'chosen-select',
-                                    'cust_name' => 'category_filter[]',
+                                    'cust_name' => 'filter_by_categories[]',
                                     'return' => true,
                                     'options' => $categories_filter_array
                                 ),

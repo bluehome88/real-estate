@@ -544,6 +544,7 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
 
             $property_totnum = $property_loop_obj->found_posts;
             // print '<pre>';
+            // print_r($GLOBALS['wp_rem_split_map_shortcode_atts']);
             // print_r($args);
             // print '</pre>';
             ?>
