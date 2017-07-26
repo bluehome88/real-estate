@@ -1040,9 +1040,9 @@ if ( ! function_exists('wp_rem_cs_save_page_builder_data_wp_rem_split_map_callba
                     }
                 }
 
-                if ( isset($data['filter_by_categories'][$counters['wp_rem_cs_counter_wp_rem_split_map']]) && $data['filter_by_categories'][$counters['wp_rem_cs_counter_wp_rem_split_map']] != '' ) {
+                if ( isset($_POST['filter_by_categories'][$counters['wp_rem_cs_counter_wp_rem_split_map']]) && !empty( $_POST['filter_by_categories'][$counters['wp_rem_cs_counter_wp_rem_split_map']] ) ) {
 
-                    $cat_val = $data['filter_by_categories'][$counters['wp_rem_cs_counter_wp_rem_split_map']];
+                    $cat_val = $_POST['filter_by_categories'][$counters['wp_rem_cs_counter_wp_rem_split_map']];
 
                     if ( is_array( $cat_val ) ){ 
 
