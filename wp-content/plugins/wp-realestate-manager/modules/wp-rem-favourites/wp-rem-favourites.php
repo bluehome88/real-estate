@@ -447,6 +447,8 @@ if ( ! class_exists('Wp_rem_Favourites') ) {
          * @ favourites frontend buuton based on property id
          */
         public function wp_rem_favourites_frontend_button_callback($post_id = '', $args = array(), $figcaption_div = false) {
+            // remove favourite button
+            return;
             wp_enqueue_script('wp-rem-favourites-script');
             $before_label = '';
             $after_label = '';
