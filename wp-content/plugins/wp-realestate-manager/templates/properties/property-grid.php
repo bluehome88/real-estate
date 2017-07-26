@@ -166,10 +166,7 @@ if ($property_loop_obj->have_posts()) {
                                     </a>
 
                                     <figcaption>
-                                        <?php if ($wp_rem_property_is_featured == 'on') { ?>
-                                            <span class="featured"><?php echo wp_rem_plugin_text_srt('wp_rem_property_featrd'); ?></span>
-                                            <?php
-                                        }
+                                        <?php
                                         if ($property_view == 'grid') {
                                             echo fetch_property_open_house_grid_view_callback($property_id);
                                         }
@@ -194,6 +191,12 @@ if ($property_loop_obj->have_posts()) {
                                         </div>
                                     </figcaption>
                                 </figure>
+                                <?php
+                                 if ($wp_rem_property_is_featured == 'on') { ?>
+                                            <span class="featured"><?php echo wp_rem_plugin_text_srt('wp_rem_property_featrd'); ?></span>
+                                            <?php
+                                        }
+                                ?>
                             </div>
                             <?php if ($property_view != 'grid') { ?>
                                 <div class="text-holder">
@@ -442,9 +445,6 @@ if ($property_loop_obj->have_posts()) {
                                 </a>
 
                                 <figcaption>
-                                    <?php if ($wp_rem_property_is_featured == 'on') { ?>
-                                        <span class="featured"><?php echo wp_rem_plugin_text_srt('wp_rem_property_featrd'); ?></span>
-                                    <?php } ?>
                                     <?php
                                     if ($property_view == 'grid') {
                                         echo fetch_property_open_house_grid_view_callback($property_id);
@@ -473,6 +473,9 @@ if ($property_loop_obj->have_posts()) {
                                     </div>
                                 </figcaption>
                             </figure>
+                            <?php if ($wp_rem_property_is_featured == 'on') { ?>
+                                        <span class="featured"><?php echo wp_rem_plugin_text_srt('wp_rem_property_featrd'); ?></span>
+                                    <?php } ?>
                         </div>
                         <?php if ($property_view != 'grid') { ?>
                             <div class="text-holder">
