@@ -1696,8 +1696,8 @@ if (!function_exists('wp_rem_get_cached_obj')) {
             }
         } else {
             if ($type == 'wp_query') {
-            	if (@$GLOBALS['wp_rem_split_map_shortcode_atts']['property_category']) {
-            	    $property_categories = $GLOBALS['wp_rem_split_map_shortcode_atts']['property_category'];
+            	if (@$GLOBALS['wp_rem_split_map_shortcode_atts']['filter_by_categories']) {
+            	    $property_categories = $GLOBALS['wp_rem_split_map_shortcode_atts']['filter_by_categories'];
             	    $property_categories = str_replace(['&#8221;', '&#8243;', '”', '″'], '', $property_categories);
             	    $property_categories = explode(',', $property_categories);
 
