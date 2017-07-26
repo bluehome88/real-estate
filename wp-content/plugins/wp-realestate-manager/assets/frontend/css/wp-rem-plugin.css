@@ -227,7 +227,7 @@ color: #555;
 .real-estate-property .caption-inner .capture-count, .real-estate-property .hide-btn { font-size: 12px; font-weight: 700; line-height: 22px; display: inline-block; vertical-align: middle; color: #fff; background: rgba(0,0,0,.3); padding: 3px 8px 2px 26px; border-radius: 3px; position: relative; }
 .real-estate-property .caption-inner .capture-count i, .real-estate-property .hide-btn i { font-size: 14px; position: absolute; margin: 0; line-height: 20px; left: 6px; top: 4px; right: auto; }
 .real-estate-property a.property-video-btn { color: #fff; font-size: 14px; line-height: 27px; font-weight: 500; margin-right: 2px; display: inline-block; vertical-align: middle; background: rgba(0,0,0,.3); padding: 0 8px; border-radius: 3px; height: 27px; position: relative; }
-.real-estate-property span.cs-categories { position: absolute; top: 0; right: 0; color: #fff; font-size: 11px; line-height: 22px; font-weight: 500; margin-right: 2px; display: inline-block; vertical-align: middle; background: rgba(0,0,0,.3); padding: 0 8px; margin: 0; border-radius: 0; z-index: 13; }
+.real-estate-property span.cs-categories { position: absolute; top: 0; right: -55px; color: #fff; font-size: 11px; line-height: 22px; font-weight: 500; margin-right: 2px; display: inline-block; vertical-align: middle; background: rgba(0,0,0,.3); padding: 0 8px; margin: 0; border-radius: 0; z-index: 13; }
 .real-estate-property a.property-video-btn:hover, .real-estate-property .caption-inner .capture-count:hover, .real-estate-property .hide-btn:hover { background: rgba(0,0,0,.5); }
 .real-estate-property a.property-video-btn i { display: inline-block; vertical-align: top; font-size: 16px; line-height: 28px; margin-right: -1px; }
 .property-grid .text-holder { position: relative; display: inline-block; width: 100%; padding: 25px; background-color: #fff; }
@@ -3454,7 +3454,7 @@ select.rem-currency-field { width: 70px; height: 18px; }
 .property-grid.classic .post-category-list li:hover i { color: #fff; }
 .property-grid.classic .post-category-list li { font-size: 12px; font-style: normal; line-height: 22px; position: relative; margin: 0 10px 10px 0; padding: 0 12px 0 32px; color: #354e52; border: 1px solid #eee; border-radius: 20px; }
 .property-grid.classic .readmore-btn { font-size: 12px; line-height: normal; position: relative; float: right; margin: 5px 0 0; color: #fa8526; }
-.real-estate-property .property-grid.classic .img-holder .featured { left: -8px; }
+.real-estate-property .property-grid.classic .img-holder .featured { left: -8px; z-index: 1;}
 .property-grid.classic .post-category-list .readmore-holder { border: none; padding: 0; margin: 0; line-height: normal; border-radius: 0; }
 .property-grid.classic .post-category-list .readmore-holder .readmore-btn i { margin: 0 0 0 5px; position: initial; background-color: inherit; width: auto; height: auto; line-height: normal; border-radius: 0; font-size: 13px; }
 /*property Classic style*/
