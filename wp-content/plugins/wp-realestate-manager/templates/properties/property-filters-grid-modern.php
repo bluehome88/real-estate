@@ -245,7 +245,7 @@ if ( $property_loop_obj->have_posts() ) {
                                 <?php echo wp_rem_allow_special_char($cus_fields['content']); ?>
                             </ul>
                         <?php } ?>
-                        <?php if ( ($wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '') || $wp_rem_profile_image != '' ) { ?>
+                        <?php if ( $wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '' ) { ?>
                             <div class="price-holder">
                                 <?php if ( $wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '' ) { ?>
                                     <span class="property-price">
