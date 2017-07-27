@@ -124,7 +124,7 @@ if ( ! function_exists( 'wp_rem_cs_var_contact_us_data' ) ) {
         $html .= '<strong>' . wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_contact_last_name' ) . ' </strong>';
         $html .= '<div class="has-icon">';
         $html .= '<i class="icon-align-left2"></i>';
-        $html .= '<input class="field-input" name="contact_name_last" type="text" placeholder="' . wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_contact_last_name_placeholder' ) . '" required>';
+        $html .= '<input class="field-input" name="contact_name_last" type="text" placeholder="' . wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_contact_last_name_placeholder' ) . '">';
         $html .= '</div>';
         $html .= '</div>';
         $html .= '</div>';
