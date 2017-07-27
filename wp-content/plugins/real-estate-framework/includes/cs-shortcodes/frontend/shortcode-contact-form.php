@@ -213,6 +213,12 @@ if ( ! function_exists( 'wp_rem_cs_var_contact_submit' ) ) {
 					<td>' . esc_html( $contact_number ) . '</td>
 				  </tr>';
                 }
+                if ( $contact_name_last != '' ) {
+                    $message .= '<tr>
+                    <td><strong>' . 'Subject' . '</strong></td>
+                    <td>' . esc_html( $contact_name_last ) . '</td>
+                  </tr>';
+                }
                 if ( $contact_msg != '' ) {
                     $message .= '<tr>
 					<td><strong>' . wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_text_here' ) . '</strong></td>
