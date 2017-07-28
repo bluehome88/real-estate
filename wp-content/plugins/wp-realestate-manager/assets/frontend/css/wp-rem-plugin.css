@@ -1316,6 +1316,9 @@ color: transparent;
 color: transparent;
 }
 #growls.wp_rem_element_growl { position: absolute; top: 9px; bottom: auto; left: 0; padding: 0 30px; }
+@media (max-width: 450px) {
+  #growls.wp_rem_element_growl { position: static; }
+ }
 .modal-body.profile-info #growls.wp_rem_element_growl { top: -14px; }
 #growls.wp_rem_element_growl .growl { right: 0; margin: 0; padding: 0; color: #3c763d; background: none; }
 #growls.wp_rem_element_growl .growl .growl-close { display: none; }
