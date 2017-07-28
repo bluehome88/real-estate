@@ -672,7 +672,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_3') ) {
             $wp_rem_static_text['wp_rem_map_cancel_draw'] = esc_html__('Cancel Draw', 'wp-rem');
             $wp_rem_static_text['wp_rem_map_delete_area'] = esc_html__('Delete Area', 'wp-rem');
             $wp_rem_static_text['wp_rem_map_lock'] = esc_html__('Map Lock', 'wp-rem');
-            $wp_rem_static_text['wp_rem_map_records'] = esc_html__('Records found', 'wp-rem');
+            $wp_rem_static_text['wp_rem_map_records'] = esc_html__('properties found', 'wp-rem');
             $wp_rem_static_text['wp_rem_map_showing'] = esc_html__('Showing', 'wp-rem');
             $wp_rem_static_text['wp_rem_map_results'] = esc_html__('results', 'wp-rem');
             $wp_rem_static_text['wp_rem_options_file_import_success'] = esc_html__('File Import Successfully', 'wp-rem');
