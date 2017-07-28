@@ -133,7 +133,7 @@ if (!class_exists('Wp_rem_Shortcode_Map_Search_front')) {
                                 </li>
                             </ul>
                             <div id="property-records-<?php echo absint($rand_numb) ?>" class="property-records-sec" style="display: none;">
-                                <p><span id="total-records-<?php echo absint($rand_numb) ?>">0</span>&nbsp;<?php echo wp_rem_plugin_text_srt('wp_rem_map_search_records_found'); ?>,&nbsp;<?php echo wp_rem_plugin_text_srt('wp_rem_map_search_showing'); ?>&nbsp;<span id="showing-records-<?php echo absint($rand_numb) ?>">0</span>&nbsp;<?php echo wp_rem_plugin_text_srt('wp_rem_map_search_results'); ?></p>
+                                <p><span id="total-records-<?php echo absint($rand_numb) ?>">0</span>&nbsp;<?php echo wp_rem_plugin_text_srt('wp_rem_map_search_records_found'); ?></p>
                             </div>
                             <!-- end draw on map -->
                             <div class="wp-rem-top-gmap-holder">
