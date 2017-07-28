@@ -546,7 +546,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_4') ) {
             $wp_rem_static_text['wp_rem_map_search_geo_location'] = esc_html__('Geo Location', 'wp-rem');
             $wp_rem_static_text['wp_rem_map_search_map_unlock'] = esc_html__('Map UnLock', 'wp-rem');
             $wp_rem_static_text['wp_rem_map_search_map_lock'] = esc_html__('Map Lock', 'wp-rem');
-            $wp_rem_static_text['wp_rem_map_search_records_found'] = esc_html__('Records found', 'wp-rem');
+            $wp_rem_static_text['wp_rem_map_search_records_found'] = esc_html__('properties found', 'wp-rem');
             $wp_rem_static_text['wp_rem_map_search_showing'] = esc_html__('Showing', 'wp-rem');
             $wp_rem_static_text['wp_rem_map_search_results'] = esc_html__('results', 'wp-rem');
             $wp_rem_static_text['wp_rem_map_search_what_looking'] = esc_html__('What are you looking for?', 'wp-rem');
