@@ -299,6 +299,11 @@ function wp_rem_property_top_map(top_dataobj, is_ajax) {
                 mapTypeControl: false,
                 streetViewControl: false,
                 mapTypeId: map_type,
+                scrollwheel: false,
+                zoomControl: true,
+                  zoomControlOptions: {
+                      position: google.maps.ControlPosition.RIGHT_CENTER
+                  },
             });
         } else {
             map.panTo(new google.maps.LatLng(latitude, longitude));
