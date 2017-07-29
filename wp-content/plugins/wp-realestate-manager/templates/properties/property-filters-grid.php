@@ -152,6 +152,7 @@ if ( $property_loop_obj->have_posts() ) {
             } if ( $wp_rem_property_is_top_cat == 'on' ) {
                 $urgent = 'urgent';
             }
+
             ?>
             <div class="portfolio grid-fading animated <?php echo esc_html($columns_class); ?>">
                 <div class="<?php echo esc_html($main_class); ?> <?php echo esc_html($pro_is_compare); ?>">
@@ -236,6 +237,14 @@ if ( $property_loop_obj->have_posts() ) {
                                 <?php } ?>
                             </figcaption>
                         </figure>
+                        <?php 
+                        if ( $property_view == 'v1' ) { ?>
+                            <?php if ( $featured != '' ) { ?>
+                                <span class="featured"><?php echo wp_rem_plugin_text_srt('wp_rem_property_featured'); ?></span>
+                                <?php
+                            }
+                        }
+                        ?>
                     </div>
                     <div class="text-holder">
                         <?php if ( $property_view == 'v2' ) { ?>
