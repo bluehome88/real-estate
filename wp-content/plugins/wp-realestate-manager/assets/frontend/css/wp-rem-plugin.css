@@ -3912,7 +3912,7 @@ opacity:1;
 .logged-in.wp-rem-header-hidden .wp-rem-split-map-wrap ul.map-actions { top: 40px; }
 .wp-rem-split-map-wrap .split-map-container { background: #fff; }
 .wp-rem-split-map-wrap .filters-sidebar + .col-lg-9 { width: 100%; padding: 35px 50px 35px 50px; z-index: 1; background-color: #fff; min-height: 665px; }
-.wp-rem-split-map-wrap .split-map-toggler { position: absolute; top: 50%; font-size: 30px; margin-top: -15px; color: #d64521; background: #fff; padding: 10px; }
+.wp-rem-split-map-wrap .split-map-toggler { position: absolute; top: 50%; font-size: 30px; margin-top: -15px; color: #FF6428; background: #fff; padding: 10px; }
 .wp-rem-split-map-wrap .minimum-loading-list .input-group-btn-vertical { z-index: 0; }
 .wp-rem-split-map-wrap .input-group .form-control { z-index: 0; }
 /*map on left and right both*/
