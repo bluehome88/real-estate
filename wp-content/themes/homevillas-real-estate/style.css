@@ -2822,3 +2822,53 @@ bottom: 0; height: 50%; left: 0; position: absolute; width: 100%; }
     top: 50%;
     transform: translateY(-50%);
 }
+
+.map-places-radius-box .kk_row:after{
+  display: table;
+  content: '';
+  clear: both;
+}
+
+.map-places-radius-box .kk_col_1,
+.map-places-radius-box .kk_col_2{
+  float: left;
+}
+
+.map-places-radius-box .kk_col_1{
+  width: 60%;
+  padding-top: 7px;
+  font-weight: 600;
+}
+
+.map-places-radius-box .kk_col_2{
+  width: 40%;
+}
+
+.map-places-radius-box .kk_adjust_radius_container{
+  margin-bottom: 10px;
+}
+
+.map-places-radius-box .kk_adjust_radius_container div.kk_info{
+  text-align: right;
+  font-style: italic;
+}
+
+.map-places-radius-box .kk_adjust_radius_container input{
+  margin-bottom: 0;
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+ .map-places-radius-box .kk_col_1 {
+    padding-top: 6px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 991px) {
+ .map-places-radius-box .kk_col_1 {
+    width: 36%;
+  }
+  .map-places-radius-box .kk_col_2 {
+    width: 64%;
+  }
+}

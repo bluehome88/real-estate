@@ -464,14 +464,25 @@ if (!function_exists('wp_rem_map_content')) {
                 ?>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="map-places-radius-box">
-                        <label>
-                            <h5><?php echo wp_rem_plugin_text_srt('wp_rem_map_places_radius') ?></h5>
-                            <input type="text" id="map-radius-input-<?php echo esc_html($map_dynmaic_no) ?>" value="2000">
-                            <span><?php echo wp_rem_plugin_text_srt('wp_rem_map_places_put_radius_value') ?></span>
-                        </label>
+                        <h5>POINTS OF INTEREST (M)</h5>
+                        <div class="kk_adjust_radius_container">
+                            <div class="kk_row">
+                                <div class='kk_col_1'>
+                                    ADJUST RADIUS:
+                                </div>
+                                <div class="kk_col_2">
+                                    <input type="text" id="map-radius-input-<?php echo esc_html($map_dynmaic_no) ?>" value="2000">
+                                </div>
+                            </div>
+                            <div class="kk_info">
+                                <span><?php echo wp_rem_plugin_text_srt('wp_rem_map_places_put_radius_value') ?></span>
+                            </div>
+                        </div>
                     </div>
                     <div id="map-places-detail-<?php echo esc_html($map_dynmaic_no) ?>" class="map-places-detail-boxes"></div>
-                    <div id="map-direction-detail-<?php echo esc_html($map_dynmaic_no) ?>" style="display:none;"></div>
+                    <div>
+                        <div id="map-direction-detail-<?php echo esc_html($map_dynmaic_no) ?>" style="display:none;"></div>
+                    </div>
                 </div>
                 <?php
             endif;
