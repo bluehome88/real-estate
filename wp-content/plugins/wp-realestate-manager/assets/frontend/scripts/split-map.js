@@ -30,6 +30,8 @@ jQuery(document).ready(function() {
             wrapMarginBottom = 0;
         }
 
+        kk_adjust_content_height();
+
         function StickyMapTools(element) { 
             this.thisElement = element; 
             this.isSticky=false; 
@@ -148,9 +150,17 @@ jQuery(document).ready(function() {
         var rHeight=windowHeight - headerHeight;
         var vCenter=rHeight/2;
         jQuery(".split-map-toggler").css({"top": vCenter});
+        jQuery(".split-map-toggler").off('click');
         jQuery(".split-map-toggler").click(function(){
-            jQuery(this).toggleClass("active");
-            jQuery(".wp-rem-split-map-wrap .filters-sidebar").toggleClass("active");
+            if(jQuery(this).hasClass('active')){
+                jQuery(this).removeClass('active');
+                jQuery(".wp-rem-split-map-wrap .filters-sidebar").removeClass('active');
+            } else{
+                jQuery(this).addClass('active');
+                jQuery(".wp-rem-split-map-wrap .filters-sidebar").addClass('active');
+            }
+            // jQuery(this).toggleClass("active");
+            // jQuery(".wp-rem-split-map-wrap .filters-sidebar").toggleClass("active");
         });
         
         
@@ -162,7 +172,25 @@ jQuery(document).ready(function() {
         var vCenter=rHeight/2;
         jQuery(".split-map-toggler").css({"top": vCenter});
         jQuery(".split-map-toggler").click(function(){
-            jQuery(this).toggleClass("active");
-            jQuery(".wp-rem-split-map-wrap .filters-sidebar").toggleClass("active");
+            if(jQuery(this).hasClass('active')){
+                jQuery(this).removeClass('active');
+                jQuery(".wp-rem-split-map-wrap .filters-sidebar").removeClass('active');
+            } else{
+                jQuery(this).addClass('active');
+                jQuery(".wp-rem-split-map-wrap .filters-sidebar").addClass('active');
+            }
+            // jQuery(this).toggleClass("active");
+            // jQuery(".wp-rem-split-map-wrap .filters-sidebar").toggleClass("active");
         });
+        kk_adjust_content_height();
     });
+
+    function kk_adjust_content_height() {
+        // fix filter block height
+        var filter_height = $('.filters-sidebar .wp-rem-filters').outerHeight();
+        var filter_ads_height = $('.filters-sidebar .property-filters-ads').outerHeight();
+        // var filter_height = $('aside.filters-sidebar').outerHeight();
+        var min_content_height = filter_height + filter_ads_height + 100;
+        // var min_content_height = filter_height + 85;
+        $('.real-estate-property-content').css('min-height', min_content_height + 'px');
+    }

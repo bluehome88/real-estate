@@ -35,20 +35,7 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
     <?php if ($popup_link_text != '') { ?>
         <div class="field-holder search-popup-holder">
             <a href="#" class="search-popup-btn" data-toggle="modal" data-target="#mysearchModal"><?php echo esc_html($popup_link_text); ?></a>
-            <!-- Modal -->
-            <div class="modal fade" id="mysearchModal" tabindex="-1" role="dialog" aria-labelledby="mysearchModalLabel" style="display: none;">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
-                            <h4 class="modal-title" id="mysearchModalLabel"><?php echo wp_rem_plugin_text_srt('wp_rem_property_search_flter_wt_keyword'); ?></h4>
-                        </div>
-                        <div class="modal-body">
-                            <p><?php echo do_shortcode($content); ?></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
     <?php } ?>
     <div role="tabpanel" class="tab-pane" id="home">
@@ -175,42 +162,72 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
                 $property_type_id = $my_posts[0]->ID;
             }
 
-            $wp_rem_price_minimum_options = get_post_meta($property_type_id, 'wp_rem_price_minimum_options', true);
-            $wp_rem_price_minimum_options = (!empty($wp_rem_price_minimum_options) ) ? $wp_rem_price_minimum_options : 1;
-            $wp_rem_price_max_options = get_post_meta($property_type_id, 'wp_rem_price_max_options', true);
-            $wp_rem_price_max_options = (!empty($wp_rem_price_max_options) ) ? $wp_rem_price_max_options : 50; //50000;
-            $wp_rem_price_interval = get_post_meta($property_type_id, 'wp_rem_price_interval', true);
-            $wp_rem_price_interval = (!empty($wp_rem_price_interval) ) ? $wp_rem_price_interval : 50;
+            // $wp_rem_price_minimum_options = get_post_meta($property_type_id, 'wp_rem_price_minimum_options', true);
+            // $wp_rem_price_minimum_options = (!empty($wp_rem_price_minimum_options) ) ? $wp_rem_price_minimum_options : 1;
+            // $wp_rem_price_max_options = get_post_meta($property_type_id, 'wp_rem_price_max_options', true);
+            // $wp_rem_price_max_options = (!empty($wp_rem_price_max_options) ) ? $wp_rem_price_max_options : 50; //50000;
+            // $wp_rem_price_interval = get_post_meta($property_type_id, 'wp_rem_price_interval', true);
+            // $wp_rem_price_interval = (!empty($wp_rem_price_interval) ) ? $wp_rem_price_interval : 50;
             $price_type_options = array();
-            $wp_rem_price_interval = (int) $wp_rem_price_interval;
-            $price_counter = $wp_rem_price_minimum_options;
-            $property_price_array = '';
-            $property_price_array[''] = wp_rem_plugin_text_srt('wp_rem_search_filter_min_price');
-            while ($price_counter <= $wp_rem_price_max_options) {
-                $property_price_array[$price_counter] = $price_counter;
-                $price_counter = $price_counter + $wp_rem_price_interval;
-            }
+            // $wp_rem_price_interval = (int) $wp_rem_price_interval;
+            // $price_counter = $wp_rem_price_minimum_options;
+            // $property_price_array = array();
+            // $property_price_array[''] = wp_rem_plugin_text_srt('wp_rem_search_filter_min_price');
+            // while ($price_counter <= $wp_rem_price_max_options) {
+            //     $property_price_array[$price_counter] = $price_counter;
+            //     $price_counter = $price_counter + $wp_rem_price_interval;
+            // }
+            // $property_price_array = kk_get_price_filter_values( wp_rem_plugin_text_srt('wp_rem_search_filter_min_price') );
+            $price_min = kk_get_price_filter_values( $property_type_id, wp_rem_plugin_text_srt('wp_rem_search_filter_min_price') );
+            $price_max = kk_get_price_filter_values( $property_type_id, wp_rem_plugin_text_srt('wp_rem_search_filter_max_price') );
             ?>
             <?php if (($propertysearch_categories_switch == 'yes' ) || ($propertysearch_price_switch == 'yes' && !empty($property_price_array)) || $propertysearch_advance_filter_switch == 'yes') { ?>
                 <div id="property_type_fields_<?php echo wp_rem_allow_special_char($property_short_counter); ?>" class="search-advanced-fields" style="display:none;">
 
-                    <?php if ($propertysearch_price_switch == 'yes' && !empty($property_price_array)) { ?>
                          <div class="field-holder select-dropdown has-icon">
-                            <label>
-                                <i class="icon-dollar"></i>
-                                <?php
-                                $wp_rem_opt_array = array(
-                                    'std' => '',
-                                    'id' => 'price_minimum',
-                                    'classes' => 'chosen-select',
-                                    'cust_name' => 'price_minimum',
-                                    'options' => $property_price_array,
-                                );
-                                $wp_rem_form_fields_frontend->wp_rem_form_select_render($wp_rem_opt_array);
-                                ?>
-                            </label>
+                            <div class="wp-rem-min-max-price">
+                                <div class="select-categories"> 
+                                    <ul>
+                                        <li>
+                                            <?php
+                                            $price_min_checked = ( isset($_REQUEST['price_minimum']) && $_REQUEST['price_minimum'] ) ? $_REQUEST['price_minimum'] : '';
+                                            $wp_rem_form_fields_frontend->wp_rem_form_select_render(
+                                                    array(
+                                                        'simple' => true,
+                                                        'cust_name' => 'price_minimum',
+                                                        'std' => $price_min_checked,
+                                                        'classes' => 'chosen-select-no-single',
+                                                        'options' => $price_min,
+                                                        'extra_atr' => 'onchange="wp_rem_property_content(\'' . $property_short_counter . '\');"',
+                                                        'price' => true
+                                                    )
+                                            );
+                                            ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="select-categories"> 
+                                    <ul>
+                                        <li>
+                                            <?php
+                                            $price_max_checked = ( isset($_REQUEST['price_maximum']) && $_REQUEST['price_maximum'] ) ? $_REQUEST['price_maximum'] : '';
+                                            $wp_rem_form_fields_frontend->wp_rem_form_select_render(
+                                                    array(
+                                                        'simple' => true,
+                                                        'cust_name' => 'price_maximum',
+                                                        'std' => $price_max_checked,
+                                                        'classes' => 'chosen-select-no-single',
+                                                        'options' => $price_max,
+                                                        'extra_atr' => 'onchange="wp_rem_property_content(\'' . $property_short_counter . '\');"',
+                                                        'price' => true
+                                                    )
+                                            );
+                                            ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                    <?php } ?>
                     <?php do_action('wp_rem_property_type_fields', $property_type_slug); ?>
                     <?php do_action('wp_rem_property_type_features', $property_type_slug, $property_short_counter); ?>
                     <?php
@@ -231,3 +248,7 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
         ?>
     </div>
 </form>
+<script type="text/javascript">
+//    kk_price_filter_handler('select[name=price_minimum]', 'select[name=price_maximum]');
+</script>
+            

@@ -3,6 +3,7 @@
  * The template for displaying all pages
  */
 get_header();
+
 $var_arrays = array( 'post', 'wp_rem_cs_node', 'wp_rem_cs_sidebarLayout', 'column_class', 'wp_rem_cs_xmlObject', 'wp_rem_cs_node_id', 'column_attributes', 'wp_rem_cs_paged_id', 'wp_rem_cs_elem_id' );
 $page_global_vars = WP_REM_CS_VAR_GLOBALS()->globalizing($var_arrays);
 extract($page_global_vars);

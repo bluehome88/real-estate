@@ -110,7 +110,6 @@ if (!class_exists('Wp_rem_Shortcode_Map_Search_front')) {
                             <!-- start draw on map -->
                             <ul class="map-actions">
 
-                                <li><a data-placement="bottom" data-toggle="tooltip" onclick="wp_rem_getLocation('<?php echo absint($rand_numb) ?>');" title="<?php echo wp_rem_plugin_text_srt('wp_rem_map_search_geo_location'); ?>" id="geo-location-button-<?php echo absint($rand_numb) ?>" ><i class="icon-navigation"></i><!--<img src="<?php echo wp_rem::plugin_url() ?>assets/frontend/images/geo.svg" alt="">--></a></li>
                                 <?php
                                 if (wp_is_mobile()) {
                                     ?>
@@ -134,7 +133,7 @@ if (!class_exists('Wp_rem_Shortcode_Map_Search_front')) {
                                 </li>
                             </ul>
                             <div id="property-records-<?php echo absint($rand_numb) ?>" class="property-records-sec" style="display: none;">
-                                <p><span id="total-records-<?php echo absint($rand_numb) ?>">0</span>&nbsp;<?php echo wp_rem_plugin_text_srt('wp_rem_map_search_records_found'); ?>,&nbsp;<?php echo wp_rem_plugin_text_srt('wp_rem_map_search_showing'); ?>&nbsp;<span id="showing-records-<?php echo absint($rand_numb) ?>">0</span>&nbsp;<?php echo wp_rem_plugin_text_srt('wp_rem_map_search_results'); ?></p>
+                                <p><span id="total-records-<?php echo absint($rand_numb) ?>">0</span>&nbsp;<?php echo wp_rem_plugin_text_srt('wp_rem_map_search_records_found'); ?></p>
                             </div>
                             <!-- end draw on map -->
                             <div class="wp-rem-top-gmap-holder">
@@ -300,21 +299,22 @@ if (!class_exists('Wp_rem_Shortcode_Map_Search_front')) {
                                                     $property_type_id = $my_posts[0]->ID;
                                                 }
 
-                                                $wp_rem_price_minimum_options = get_post_meta($property_type_id, 'wp_rem_price_minimum_options', true);
-                                                $wp_rem_price_minimum_options = (!empty($wp_rem_price_minimum_options) ) ? $wp_rem_price_minimum_options : 1;
-                                                $wp_rem_price_max_options = get_post_meta($property_type_id, 'wp_rem_price_max_options', true);
-                                                $wp_rem_price_max_options = (!empty($wp_rem_price_max_options) ) ? $wp_rem_price_max_options : 50; //50000;
-                                                $wp_rem_price_interval = get_post_meta($property_type_id, 'wp_rem_price_interval', true);
-                                                $wp_rem_price_interval = (!empty($wp_rem_price_interval) ) ? $wp_rem_price_interval : 50;
+                                                // $wp_rem_price_minimum_options = get_post_meta($property_type_id, 'wp_rem_price_minimum_options', true);
+                                                // $wp_rem_price_minimum_options = (!empty($wp_rem_price_minimum_options) ) ? $wp_rem_price_minimum_options : 1;
+                                                // $wp_rem_price_max_options = get_post_meta($property_type_id, 'wp_rem_price_max_options', true);
+                                                // $wp_rem_price_max_options = (!empty($wp_rem_price_max_options) ) ? $wp_rem_price_max_options : 50; //50000;
+                                                // $wp_rem_price_interval = get_post_meta($property_type_id, 'wp_rem_price_interval', true);
+                                                // $wp_rem_price_interval = (!empty($wp_rem_price_interval) ) ? $wp_rem_price_interval : 50;
                                                 $price_type_options = array();
-                                                $wp_rem_price_interval = (int) $wp_rem_price_interval;
-                                                $price_counter = $wp_rem_price_minimum_options;
-                                                $property_price_array = '';
-                                                $property_price_array[''] = wp_rem_plugin_text_srt('wp_rem_search_filter_min_price'); 
-                                                while ($price_counter <= $wp_rem_price_max_options) {
-                                                    $property_price_array[$price_counter] = $price_counter; 
-                                                    $price_counter = $price_counter + $wp_rem_price_interval;
-                                                }
+                                                // $wp_rem_price_interval = (int) $wp_rem_price_interval;
+                                                // $price_counter = $wp_rem_price_minimum_options;
+                                                $property_price_array = array();
+                                                // $property_price_array[''] = wp_rem_plugin_text_srt('wp_rem_search_filter_min_price'); 
+                                                // while ($price_counter <= $wp_rem_price_max_options) {
+                                                //     $property_price_array[$price_counter] = $price_counter; 
+                                                //     $price_counter = $price_counter + $wp_rem_price_interval;
+                                                // }
+                                                $property_price_array = kk_get_price_filter_values( $property_type_id, wp_rem_plugin_text_srt('wp_rem_search_filter_min_price') );
                                                 ?>
                                                 <?php if (($propertysearch_categories_switch == 'yes' ) || ($propertysearch_price_switch == 'yes' && !empty($property_price_array)) || $propertysearch_advance_filter_switch == 'yes') { ?>
                                                     <div id="property_type_fields_<?php echo wp_rem_allow_special_char($rand_numb); ?>" class="search-advanced-fields" style="display:none;">
@@ -330,6 +330,7 @@ if (!class_exists('Wp_rem_Shortcode_Map_Search_front')) {
                                                                         'classes' => 'chosen-select',
                                                                         'cust_name' => 'property_price',
                                                                         'options' => $property_price_array,
+                                                                        'price' => true
                                                                     );
                                                                     $wp_rem_form_fields_frontend->wp_rem_form_select_render($wp_rem_opt_array);
                                                                     ?>
@@ -549,8 +550,8 @@ if (!class_exists('Wp_rem_Shortcode_Map_Search_front')) {
             }
 
             // property shortcode logic start
-            $filter_arr = '';
-            $element_filter_arr = '';
+            $filter_arr = array();
+            $element_filter_arr = array();
             $default_date_time_formate = 'd-m-Y H:i:s';
             if (isset($_REQUEST['property_type']) && $_REQUEST['property_type']) {
                 $property_type = $_REQUEST['property_type'];
@@ -614,7 +615,7 @@ if (!class_exists('Wp_rem_Shortcode_Map_Search_front')) {
                 $filter_arr[] = $left_filter_arr;
             }
 
-            $all_post_ids = '';
+            $all_post_ids = array();
             if (!empty($post_ids)) {
                 $all_post_ids[] = $post_ids;
             }
@@ -730,10 +731,8 @@ if (!class_exists('Wp_rem_Shortcode_Map_Search_front')) {
                     // end checking review on in property type
 
                     $wp_rem_property_price = '';
-                    $wp_rem_property_price_ttd = '';
                     if ($wp_rem_property_price_options == 'price') {
                         $wp_rem_property_price = get_post_meta($property_id, 'wp_rem_property_price', true);
-                        $wp_rem_property_price_ttd = get_post_meta($property_id, 'wp_rem_property_price_ttd', true);
                     } else if ($wp_rem_property_price_options == 'on-call') {
                         $wp_rem_property_price = wp_rem_plugin_text_srt('wp_rem_nearby_properties_price_on_request');
                     }
@@ -750,14 +749,14 @@ if (!class_exists('Wp_rem_Shortcode_Map_Search_front')) {
                     }
 
                     $property_info_price = '';
-                    if ($wp_rem_property_type_price_switch == 'on' && ($wp_rem_property_price != '' || $wp_rem_property_price_ttd != '')) {
+                    if ($wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '') {
                         $property_info_price .= '
 						<span class="property-price">
 							<span class="new-price text-color">';
                         if ($wp_rem_property_price_options == 'on-call') {
-                            $property_info_price .= $wp_rem_property_price || $wp_rem_property_price_ttd;
+                            $property_info_price .= $wp_rem_property_price;
                         } else {
-                            $property_info_price .= wp_rem_property_price($property_id, $wp_rem_property_price || $wp_rem_property_price_ttd, '<span class="guid-price">', '</span>');
+                            $property_info_price .= wp_rem_property_price($property_id, $wp_rem_property_price, '<span class="guid-price">', '</span>');
                         }
                         $property_info_price .= '	
 							</span>

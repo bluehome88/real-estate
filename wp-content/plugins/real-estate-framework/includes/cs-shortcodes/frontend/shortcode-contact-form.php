@@ -124,7 +124,7 @@ if ( ! function_exists( 'wp_rem_cs_var_contact_us_data' ) ) {
         $html .= '<strong>' . wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_contact_last_name' ) . ' </strong>';
         $html .= '<div class="has-icon">';
         $html .= '<i class="icon-align-left2"></i>';
-        $html .= '<input class="field-input" name="contact_name_last" type="text" placeholder="' . wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_contact_last_name_placeholder' ) . '" required>';
+        $html .= '<input class="field-input" name="contact_name_last" type="text" placeholder="' . wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_contact_last_name_placeholder' ) . '">';
         $html .= '</div>';
         $html .= '</div>';
         $html .= '</div>';
@@ -198,7 +198,7 @@ if ( ! function_exists( 'wp_rem_cs_var_contact_submit' ) ) {
                 $json['msg'] = esc_html( wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_contact_email_should_not_be_empty' ) );
             } else {
                 $message = '
-				<table width="100%" border="1">
+				<table width="100%" border="0">
 				  <tr>
 					<td width="100"><strong>' . wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_contact_full_name' ) . '</strong></td>
 					<td>' . esc_html( $contact_name ) . '</td>
@@ -212,6 +212,12 @@ if ( ! function_exists( 'wp_rem_cs_var_contact_submit' ) ) {
 					<td><strong>' . wp_rem_cs_var_frame_text_srt( 'wp_rem_cs_var_contact_phone_number' ) . '</strong></td>
 					<td>' . esc_html( $contact_number ) . '</td>
 				  </tr>';
+                }
+                if ( $contact_name_last != '' ) {
+                    $message .= '<tr>
+                    <td><strong>' . 'Subject' . '</strong></td>
+                    <td>' . esc_html( $contact_name_last ) . '</td>
+                  </tr>';
                 }
                 if ( $contact_msg != '' ) {
                     $message .= '<tr>

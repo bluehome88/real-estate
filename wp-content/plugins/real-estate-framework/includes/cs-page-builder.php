@@ -428,45 +428,45 @@ if ( ! function_exists( 'wp_rem_creating_shortcode' ) ) {
         $section_shortcode  = '';
         //$column_rand_id = $post_data['column_rand_id'][$counters['column_container_no']];
         foreach ( $post_data['total_column'] as $count_column ) {
-        $column_rand_id = $post_data['column_rand_id'][$counters['column_container_no']];
-        $fields = array(
-                'wp_rem_cs_var_section_title' => is_set( $post_data['wp_rem_cs_var_section_title_array'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_var_section_subtitle' => is_set( $post_data['wp_rem_cs_var_section_subtitle_array'][$counters['column_container_no']], '' ),
-                'title_sub_title_alignment' => is_set( $post_data['title_sub_title_alignment'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_section_background_option' => is_set( $post_data['wp_rem_cs_section_background_option'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_section_bg_image' => is_set( $post_data['wp_rem_cs_var_section_bg_image_array'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_section_bg_image_position' => is_set( $post_data['wp_rem_cs_section_bg_image_position'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_section_bg_image_repeat' => is_set( $post_data['wp_rem_cs_section_bg_image_repeat'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_section_flex_slider' => is_set( $post_data['wp_rem_cs_section_flex_slider'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_section_custom_slider' => is_set( $post_data['wp_rem_cs_section_custom_slider'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_section_video_url' => is_set( $post_data['wp_rem_cs_section_video_url'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_section_video_mute' => is_set( $post_data['wp_rem_cs_section_video_mute'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_section_video_autoplay' => is_set( $post_data['wp_rem_cs_section_video_autoplay'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_section_bg_color' => is_set( $post_data['wp_rem_cs_section_bg_color'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_section_titlt_color' => is_set( $post_data['wp_rem_cs_section_titlt_color'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_section_subtitlt_color' => is_set( $post_data['wp_rem_cs_section_subtitlt_color'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_section_padding_top' => is_set( $post_data['wp_rem_cs_section_padding_top'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_section_padding_top_mobile' => is_set( $post_data['wp_rem_cs_section_padding_top_mobile'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_section_padding_bottom' => is_set( $post_data['wp_rem_cs_section_padding_bottom'][$counters['column_container_no']], '0' ),
-                'wp_rem_cs_section_padding_bottom_mobile' => is_set( $post_data['wp_rem_cs_section_padding_bottom_mobile'][$counters['column_container_no']], '0' ),
-                'wp_rem_cs_section_border_bottom' => is_set( $post_data['wp_rem_cs_section_border_bottom'][$counters['column_container_no']], '0' ),
-                'wp_rem_cs_section_border_top' => is_set( $post_data['wp_rem_cs_section_border_top'][$counters['column_container_no']], '0' ),
-                'wp_rem_cs_section_border_color' => is_set( $post_data['wp_rem_cs_section_border_color'][$counters['column_container_no']], '0' ),
-                'wp_rem_cs_section_margin_top' => is_set( $post_data['wp_rem_cs_section_margin_top'][$counters['column_container_no']], '0' ),
-                'wp_rem_cs_section_margin_top_mobile' => is_set( $post_data['wp_rem_cs_section_margin_top_mobile'][$counters['column_container_no']], '0' ),
-                'wp_rem_cs_section_margin_bottom' => is_set( $post_data['wp_rem_cs_section_margin_bottom'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_section_margin_bottom_mobile' => is_set( $post_data['wp_rem_cs_section_margin_bottom_mobile'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_section_nopadding' => is_set( $post_data['wp_rem_cs_section_nopadding'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_section_parallax' => is_set( $post_data['wp_rem_cs_section_parallax'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_section_nomargin' => is_set( $post_data['wp_rem_cs_section_nomargin'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_section_css_id' => is_set( $post_data['wp_rem_cs_section_css_id'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_section_view' => is_set( $post_data['wp_rem_cs_section_view'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_layout' => is_set( $post_data['wp_rem_cs_layout'][$column_rand_id]['0'], '' ),
-                'wp_rem_cs_sidebar_left' => is_set( $post_data['wp_rem_cs_sidebar_left'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_sidebar_right' => is_set( $post_data['wp_rem_cs_sidebar_right'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_sidebar_left_second' => is_set( $post_data['wp_rem_cs_sidebar_left_second'][$counters['column_container_no']], '' ),
-                'wp_rem_cs_sidebar_right_second' => is_set( $post_data['wp_rem_cs_sidebar_right_second'][$counters['column_container_no']], '' ),
-            );
+            $column_rand_id = $post_data['column_rand_id'][$counters['column_container_no']];
+            $fields = array(
+                    'wp_rem_cs_var_section_title' => is_set( $post_data['wp_rem_cs_var_section_title_array'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_var_section_subtitle' => is_set( $post_data['wp_rem_cs_var_section_subtitle_array'][$counters['column_container_no']], '' ),
+                    'title_sub_title_alignment' => is_set( $post_data['title_sub_title_alignment'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_section_background_option' => is_set( $post_data['wp_rem_cs_section_background_option'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_section_bg_image' => is_set( $post_data['wp_rem_cs_var_section_bg_image_array'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_section_bg_image_position' => is_set( $post_data['wp_rem_cs_section_bg_image_position'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_section_bg_image_repeat' => is_set( $post_data['wp_rem_cs_section_bg_image_repeat'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_section_flex_slider' => is_set( $post_data['wp_rem_cs_section_flex_slider'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_section_custom_slider' => is_set( $post_data['wp_rem_cs_section_custom_slider'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_section_video_url' => is_set( $post_data['wp_rem_cs_section_video_url'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_section_video_mute' => is_set( $post_data['wp_rem_cs_section_video_mute'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_section_video_autoplay' => is_set( $post_data['wp_rem_cs_section_video_autoplay'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_section_bg_color' => is_set( $post_data['wp_rem_cs_section_bg_color'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_section_titlt_color' => is_set( $post_data['wp_rem_cs_section_titlt_color'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_section_subtitlt_color' => is_set( $post_data['wp_rem_cs_section_subtitlt_color'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_section_padding_top' => is_set( $post_data['wp_rem_cs_section_padding_top'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_section_padding_top_mobile' => is_set( $post_data['wp_rem_cs_section_padding_top_mobile'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_section_padding_bottom' => is_set( $post_data['wp_rem_cs_section_padding_bottom'][$counters['column_container_no']], '0' ),
+                    'wp_rem_cs_section_padding_bottom_mobile' => is_set( $post_data['wp_rem_cs_section_padding_bottom_mobile'][$counters['column_container_no']], '0' ),
+                    'wp_rem_cs_section_border_bottom' => is_set( $post_data['wp_rem_cs_section_border_bottom'][$counters['column_container_no']], '0' ),
+                    'wp_rem_cs_section_border_top' => is_set( $post_data['wp_rem_cs_section_border_top'][$counters['column_container_no']], '0' ),
+                    'wp_rem_cs_section_border_color' => is_set( $post_data['wp_rem_cs_section_border_color'][$counters['column_container_no']], '0' ),
+                    'wp_rem_cs_section_margin_top' => is_set( $post_data['wp_rem_cs_section_margin_top'][$counters['column_container_no']], '0' ),
+                    'wp_rem_cs_section_margin_top_mobile' => is_set( $post_data['wp_rem_cs_section_margin_top_mobile'][$counters['column_container_no']], '0' ),
+                    'wp_rem_cs_section_margin_bottom' => is_set( $post_data['wp_rem_cs_section_margin_bottom'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_section_margin_bottom_mobile' => is_set( $post_data['wp_rem_cs_section_margin_bottom_mobile'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_section_nopadding' => is_set( $post_data['wp_rem_cs_section_nopadding'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_section_parallax' => is_set( $post_data['wp_rem_cs_section_parallax'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_section_nomargin' => is_set( $post_data['wp_rem_cs_section_nomargin'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_section_css_id' => is_set( $post_data['wp_rem_cs_section_css_id'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_section_view' => is_set( $post_data['wp_rem_cs_section_view'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_layout' => is_set( $post_data['wp_rem_cs_layout'][$column_rand_id]['0'], '' ),
+                    'wp_rem_cs_sidebar_left' => is_set( $post_data['wp_rem_cs_sidebar_left'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_sidebar_right' => is_set( $post_data['wp_rem_cs_sidebar_right'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_sidebar_left_second' => is_set( $post_data['wp_rem_cs_sidebar_left_second'][$counters['column_container_no']], '' ),
+                    'wp_rem_cs_sidebar_right_second' => is_set( $post_data['wp_rem_cs_sidebar_right_second'][$counters['column_container_no']], '' ),
+                );
             $fields['wp_rem_cs_section_padding_top'] = ( $fields['wp_rem_cs_section_padding_top'] == '' )? '0' : $fields['wp_rem_cs_section_padding_top'];
             $fields['wp_rem_cs_section_padding_bottom'] = ( $fields['wp_rem_cs_section_padding_bottom'] == '' )? '0' : $fields['wp_rem_cs_section_padding_bottom'];
             $fields['wp_rem_cs_section_padding_top_mobile'] = ( $fields['wp_rem_cs_section_padding_top_mobile'] == '' )? '0' : $fields['wp_rem_cs_section_padding_top_mobile'];
@@ -502,6 +502,8 @@ if ( ! function_exists( 'wp_rem_creating_shortcode' ) ) {
             
            $counters['column_container_no']++;
         }
+
+        
         return $section_shortcode;
     }
 }

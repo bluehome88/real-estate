@@ -7,7 +7,7 @@ function wp_rem_date_range_filter( field_name, actionString, date_picker_positio
         autoUpdateInput: false,
         opens: date_picker_position,
         locale: {
-            format: 'DD/MM/YYYY'
+            format: 'DD/MM/YYYY',
         }
     },
     function(start, end) {

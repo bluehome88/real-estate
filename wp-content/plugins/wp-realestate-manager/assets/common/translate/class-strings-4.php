@@ -54,7 +54,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_4') ) {
             $wp_rem_static_text['wp_rem_list_meta_floor_plan_element'] = esc_html__('Floor Plan Element', 'wp-rem');
             $wp_rem_static_text['wp_rem_list_meta_property_summary'] = esc_html__('Property Summary', 'wp-rem');
             $wp_rem_static_text['wp_rem_list_meta_per_week'] = esc_html__('Per Week', 'wp-rem');
-            $wp_rem_static_text['wp_rem_list_meta_per_cm'] = esc_html__('Per Calendar Month', 'wp-rem');
+            $wp_rem_static_text['wp_rem_list_meta_per_cm'] = esc_html__('Per Month', 'wp-rem');
             $wp_rem_static_text['wp_rem_list_meta_per_month'] = esc_html__('Per Month', 'wp-rem');
             $wp_rem_static_text['wp_rem_list_meta_price_option'] = esc_html__('Ad Price Option', 'wp-rem');
             $wp_rem_static_text['wp_rem_list_meta_none'] = esc_html__('None', 'wp-rem');
@@ -293,9 +293,9 @@ if ( ! class_exists('wp_rem_plugin_all_strings_4') ) {
             // End Pagination.
             // Start Search Fields.
             $wp_rem_static_text['wp_rem_search_fields_other_features'] = esc_html__('Other Features', 'wp-rem');
-            $wp_rem_static_text['wp_rem_search_fields_price_type_all'] = esc_html__('All', 'wp-rem');
+            $wp_rem_static_text['wp_rem_search_fields_price_type_all'] = esc_html__('All Price Types', 'wp-rem');
             $wp_rem_static_text['wp_rem_search_fields_price_type_per_week'] = esc_html__('Per Week', 'wp-rem');
-            $wp_rem_static_text['wp_rem_search_fields_price_type_per_month'] = esc_html__('Per Calendar Month', 'wp-rem');
+            $wp_rem_static_text['wp_rem_search_fields_price_type_per_month'] = esc_html__('Per Month', 'wp-rem');
             $wp_rem_static_text['wp_rem_search_fields_date_from'] = esc_html__('From', 'wp-rem');
             $wp_rem_static_text['wp_rem_search_fields_date_to'] = esc_html__('To', 'wp-rem');
 
@@ -432,7 +432,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_4') ) {
             $wp_rem_static_text['wp_rem_gallery_all_photos'] = esc_html__('View all photos', 'wp-rem');
 // Start Frontend Nearby Properties Elements.
             $wp_rem_static_text['wp_rem_nearby_properties_heading'] = esc_html__('Properties in the Market Nearby', 'wp-rem');
-            $wp_rem_static_text['wp_rem_nearby_properties_price_on_request'] = esc_html__('Price On Request', 'wp-rem');
+            $wp_rem_static_text['wp_rem_nearby_properties_price_on_request'] = esc_html__('Call for Price', 'wp-rem');
 // Start Frontend Opening Hours Elements.
             $wp_rem_static_text['wp_rem_opening_hours_open'] = esc_html__('Open', 'wp-rem');
             $wp_rem_static_text['wp_rem_opening_hours_today_closed'] = esc_html__('Today : Closed', 'wp-rem');
@@ -546,7 +546,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_4') ) {
             $wp_rem_static_text['wp_rem_map_search_geo_location'] = esc_html__('Geo Location', 'wp-rem');
             $wp_rem_static_text['wp_rem_map_search_map_unlock'] = esc_html__('Map UnLock', 'wp-rem');
             $wp_rem_static_text['wp_rem_map_search_map_lock'] = esc_html__('Map Lock', 'wp-rem');
-            $wp_rem_static_text['wp_rem_map_search_records_found'] = esc_html__('Records found', 'wp-rem');
+            $wp_rem_static_text['wp_rem_map_search_records_found'] = esc_html__('properties found', 'wp-rem');
             $wp_rem_static_text['wp_rem_map_search_showing'] = esc_html__('Showing', 'wp-rem');
             $wp_rem_static_text['wp_rem_map_search_results'] = esc_html__('results', 'wp-rem');
             $wp_rem_static_text['wp_rem_map_search_what_looking'] = esc_html__('What are you looking for?', 'wp-rem');

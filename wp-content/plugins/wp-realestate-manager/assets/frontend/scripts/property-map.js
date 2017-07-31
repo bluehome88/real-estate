@@ -239,7 +239,7 @@ function wp_rem_property_map(dataobj, db_cords) {
                     } else {
                         jQuery('#total-records-' + map_id).html(actual_length);
                     }
-                    jQuery('#showing-records-' + map_id).html(actual_length);
+                    // jQuery('#showing-records-' + map_id).html(actual_length);
                     jQuery('#property-records-' + map_id).show();
                 }
 
@@ -507,7 +507,7 @@ function wp_rem_property_map(dataobj, db_cords) {
                                             } else {
                                                 jQuery('#total-records-' + map_id).html(trueCords);
                                             }
-                                            jQuery('#showing-records-' + map_id).html(trueCords);
+                                           // jQuery('#showing-records-' + map_id).html(trueCords);
                                             jQuery('#property-records-' + map_id).show();
 
                                             //clusters

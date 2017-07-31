@@ -119,10 +119,8 @@ if ( $property_loop_obj->have_posts() ) {
             // end checking review on in property type
 
             $wp_rem_property_price = '';
-            $wp_rem_property_price_ttd = '';
             if ( $wp_rem_property_price_options == 'price' ) {
-                $wp_rem_property_price = get_post_meta($property_id, 'wp_rem_property_price', true);
-                $wp_rem_property_price_ttd = get_post_meta($property_id, 'wp_rem_property_price_ttd', true);
+                $wp_rem_property_price = wp_rem_property_price( $property_id );
             } else if ( $wp_rem_property_price_options == 'on-call' ) {
                 $wp_rem_property_price = wp_rem_plugin_text_srt('wp_rem_properties_price_on_request');
             }
@@ -154,6 +152,7 @@ if ( $property_loop_obj->have_posts() ) {
             } if ( $wp_rem_property_is_top_cat == 'on' ) {
                 $urgent = 'urgent';
             }
+
             ?>
             <div class="portfolio grid-fading animated <?php echo esc_html($columns_class); ?>">
                 <div class="<?php echo esc_html($main_class); ?> <?php echo esc_html($pro_is_compare); ?>">
@@ -202,15 +201,14 @@ if ( $property_loop_obj->have_posts() ) {
                                     <?php do_action('wp_rem_compare_btn', $property_id, $compare_property_switch); ?>
                                     <div class="caption-inner"> 
                                         <?php
-                                        if ( $wp_rem_property_type_price_switch == 'on' && ($wp_rem_property_price != '' || $wp_rem_property_price_ttd != '') ) {
+                                        if ( $wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '') {
                                             ?>
                                             <span class="property-price">
                                                 <?php
                                                 if ( $wp_rem_property_price_options == 'on-call' ) {
-                                                    echo force_balance_tags($wp_rem_property_price || $wp_rem_property_price_ttd);
+                                                    echo force_balance_tags($wp_rem_property_price);
                                                 } else {
-                                                    $property_info_price = wp_rem_property_price($property_id, $wp_rem_property_price || $wp_rem_property_price_ttd, '<span class="guid-price">', '</span>');
-                                                    echo force_balance_tags($property_info_price);
+                                                    echo $wp_rem_property_price;
                                                 }
                                                 ?>
                                             </span>	
@@ -239,6 +237,14 @@ if ( $property_loop_obj->have_posts() ) {
                                 <?php } ?>
                             </figcaption>
                         </figure>
+                        <?php 
+                        if ( $property_view == 'v1' ) { ?>
+                            <?php if ( $featured != '' ) { ?>
+                                <span class="featured"><?php echo wp_rem_plugin_text_srt('wp_rem_property_featured'); ?></span>
+                                <?php
+                            }
+                        }
+                        ?>
                     </div>
                     <div class="text-holder">
                         <?php if ( $property_view == 'v2' ) { ?>
@@ -262,14 +268,13 @@ if ( $property_loop_obj->have_posts() ) {
                             <?php } ?>
 
                         <?php } else { ?>
-                            <?php if ( $wp_rem_property_type_price_switch == 'on' && ($wp_rem_property_price != '' || $wp_rem_property_price_ttd != '') ) { ?>
+                            <?php if ( $wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '') { ?>
                                 <span class="property-price">
                                     <?php
                                     if ( $wp_rem_property_price_options == 'on-call' ) {
-                                        echo force_balance_tags($wp_rem_property_price || $wp_rem_property_price_ttd);
+                                        echo force_balance_tags($wp_rem_property_price);
                                     } else {
-                                        $property_info_price = wp_rem_property_price($property_id, $wp_rem_property_price || $wp_rem_property_price_ttd, '<span class="guid-price">', '</span>');
-                                        echo force_balance_tags($property_info_price);
+                                       echo $wp_rem_property_price;
                                     }
                                     ?>
                                 </span>

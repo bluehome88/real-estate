@@ -386,6 +386,7 @@ if ( ! class_exists('wp_rem_form_fields_frontend') ) {
                                 jQuery(function(){
                                     jQuery("#wp_rem_' . $wp_rem_piker_id . '").datetimepicker({
                                         format:"' . $wp_rem_format . '",
+                                        minDate: new Date(),
                                         timepicker:false
                                     });
                                 });
@@ -655,6 +656,10 @@ if ( ! class_exists('wp_rem_form_fields_frontend') ) {
                 if ( is_array($options) ) {
                     foreach ( $options as $key => $option ) {
                         if ( ! is_array($option) ) {
+                            if( isset( $price ) && $price && $key != '' ){
+                                $more_sign = ( strpos( $key, '>' ) !== false ) ? '&gt;' : '';
+                                $option = $more_sign . wp_rem_get_currency( $option ) . ' TTD';
+                            } 
                             $wp_rem_output .= '<option ' . selected($key, $value, false) . ' value="' . $key . '">' . $option . '</option>';
                         }
                     }

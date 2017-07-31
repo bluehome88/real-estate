@@ -556,7 +556,7 @@ function chosen_selectionbox() {
         var config = {
             '.chosen-select': {width: "100%"},
             '.chosen-select-deselect': {allow_single_deselect: true},
-            '.chosen-select-no-single': {disable_search_threshold: 10, width: "100%"},
+            '.chosen-select-no-single': {disable_search_threshold: 10, width: "100%", search_contains: true},
             '.chosen-select-no-results': {no_results_text: 'Oops, nothing found!'},
             '.chosen-select-width': {width: "95%"}
 
@@ -926,19 +926,19 @@ jQuery(function($) {
     }
 });
 
-jQuery(function($) {
-    var $property_price = $('#wp_rem_property_price');
-    var $property_price_ttd = $('#wp_rem_property_price_ttd');
-    var $wp_rem_property_price_num = $('#wp_rem_property_price_num');
-    var $wp_rem_property_price_ttd_num = $('#wp_rem_property_price_ttd_num');
+// jQuery(function($) {
+//     var $property_price = $('#wp_rem_property_price');
+//     var $property_price_ttd = $('#wp_rem_property_price_ttd');
+//     var $wp_rem_property_price_num = $('#wp_rem_property_price_num');
+//     var $wp_rem_property_price_ttd_num = $('#wp_rem_property_price_ttd_num');
 
-    $wp_rem_property_price_num.val($property_price.val().replace(/[^\/\d]/g,''));
-    $wp_rem_property_price_ttd_num.val($property_price_ttd.val().replace(/[^\/\d]/g,''));
+//     $wp_rem_property_price_num.val($property_price.val().replace(/[^\/\d]/g,''));
+//     $wp_rem_property_price_ttd_num.val($property_price_ttd.val().replace(/[^\/\d]/g,''));
 
-    $property_price.on('keypress keyup', (function () {
-        $wp_rem_property_price_num.val($(this).val().replace(/[^\/\d]/g,''));
-    }));
-    $property_price_ttd.on('keypress keyup', (function () {
-        $wp_rem_property_price_ttd_num.val($(this).val().replace(/[^\/\d]/g,''));
-    }));
-});
+//     $property_price.on('keypress keyup', (function () {
+//         $wp_rem_property_price_num.val($(this).val().replace(/[^\/\d]/g,''));
+//     }));
+//     $property_price_ttd.on('keypress keyup', (function () {
+//         $wp_rem_property_price_ttd_num.val($(this).val().replace(/[^\/\d]/g,''));
+//     }));
+// });

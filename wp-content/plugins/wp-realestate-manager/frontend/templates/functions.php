@@ -2839,7 +2839,7 @@ if ( ! function_exists('wp_rem_property_views_count') ) {
         $wp_rem_property_views_count = get_post_meta($postID, "wp_rem_property_views_count", true);
         if ( ! isset($_COOKIE["wp_rem_property_views_count" . $postID]) ) {
             setcookie("wp_rem_property_views_count" . $postID, time() + 86400);
-            update_post_meta($postID, 'wp_rem_property_views_count', $wp_rem_property_views_count + 1);
+            update_post_meta($postID, 'wp_rem_property_views_count', (int) $wp_rem_property_views_count + 1);
         }
     }
 

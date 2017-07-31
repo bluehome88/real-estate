@@ -54,7 +54,7 @@ if ( ! class_exists( 'wp_rem_sidebar_map_element' ) ) {
 						'map_info' => '', //$wp_rem_post_comp_address,
 						'map_info_width' => '200',
 						'map_info_height' => '350',
-						'map_marker_icon' => $map_marker_icon,
+						'map_marker_icon' => '', //$map_marker_icon,
 						'map_show_marker' => 'true',
 						'map_controls' => 'true',
 						'map_draggable' => 'true',

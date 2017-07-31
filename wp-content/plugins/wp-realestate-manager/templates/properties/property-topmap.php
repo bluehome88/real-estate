@@ -126,7 +126,7 @@ if ($property_view == 'map') {
                 <li><a data-toggle="tooltip" title="<?php echo wp_rem_plugin_text_srt( 'wp_rem_map_lock' ) ?>" id="map-lock-<?php echo absint($rand_numb) ?>" class="map-unloked"><img src="<?php echo wp_rem::plugin_url() ?>assets/frontend/images/lock.svg" alt=""></a></li>
             </ul>
             <div id="property-records-<?php echo absint($rand_numb) ?>" class="property-records-sec" style="display: none;">
-                <p><span id="total-records-<?php echo absint($rand_numb) ?>">0</span>&nbsp;<?php echo wp_rem_plugin_text_srt( 'wp_rem_map_records' ) ?>,&nbsp;<?php echo wp_rem_plugin_text_srt( 'wp_rem_map_showing' ) ?>&nbsp;<span id="showing-records-<?php echo absint($rand_numb) ?>">0</span>&nbsp;<?php echo wp_rem_plugin_text_srt( 'wp_rem_map_results' ) ?></p>
+                <p><span id="total-records-<?php echo absint($rand_numb) ?>">0</span>&nbsp;<?php echo wp_rem_plugin_text_srt( 'wp_rem_map_records' ) ?></p>
             </div>
             <div id="map-loader-<?php echo absint($rand_numb) ?>" class="map-loader"><div class="loader-holder"><img src="<?php echo wp_rem::plugin_url() ?>assets/frontend/images/ajax-loader.gif" alt=""></div></div>
             <div id="wp-rem-property-map-<?php echo absint($rand_numb) ?>" style="height: <?php echo esc_html($map_height) ?>;"></div>

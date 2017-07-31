@@ -660,7 +660,7 @@ banner-news-letter span { display: block; margin-bottom: 10px; }
 
 /*Contact Property Style Start*/
 
-.contact-property { padding: 50px; max-height: 506px; overflow: hidden; overflow-y: auto; }
+.contact-property { padding: 50px; }
 .contact-property .element-title { margin-bottom: 35px; }
 .contact-property .element-title p { margin: 0; width: 100%; }
 .contact-property ul.contact-info { margin: 0; padding: 0; }
@@ -2786,6 +2786,89 @@ bottom: 0; height: 50%; left: 0; position: absolute; width: 100%; }
 .wp-rem-split-map-wrap .split-map-holder { top: 100px !important; }
 .wp-rem-split-map-wrap .filters-sidebar { top: 85px !important; }
 .real-estate-property figure figcaption { width: 31% !important; height: 20% !important; top: auto !important; bottom: 0; }
-.main-post.slider .gallery-top .swiper-slide figure img { height: 660px; }
 .property-favourite-list { display: none; }
 .notes-btn { display: none; }
+.enquire-btn{ word-spacing: 10px; }
+
+/*.main-post.slider .gallery-top .swiper-slide figure img { height: 660px; }
+
+@media (max-width: 650px) {
+  .main-post.slider .gallery-top .swiper-slide figure img { height: 572px; }
+}
+
+@media (max-width: 550px) {
+  .main-post.slider .gallery-top .swiper-slide figure img { height: 484px; }
+}
+
+@media (max-width: 450px) {
+  .main-post.slider .gallery-top .swiper-slide figure img { height: 396px; }
+}
+
+@media (max-width: 350px) {
+  .main-post.slider .gallery-top .swiper-slide figure img { height: 308px; }
+}*/
+
+.gallery-top .swiper-slide figure {
+    height: 0;
+    position: relative;
+    padding-bottom: 50%; /* 2:1 ratio */
+}
+
+.gallery-top .swiper-slide figure img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.map-places-radius-box .kk_row:after{
+  display: table;
+  content: '';
+  clear: both;
+}
+
+.map-places-radius-box .kk_col_1,
+.map-places-radius-box .kk_col_2{
+  float: left;
+}
+
+.map-places-radius-box .kk_col_1{
+  width: 60%;
+  padding-top: 7px;
+  font-weight: 600;
+}
+
+.map-places-radius-box .kk_col_2{
+  width: 40%;
+}
+
+.map-places-radius-box .kk_adjust_radius_container{
+  margin-bottom: 10px;
+}
+
+.map-places-radius-box .kk_adjust_radius_container div.kk_info{
+  text-align: right;
+  font-style: italic;
+}
+
+.map-places-radius-box .kk_adjust_radius_container input{
+  margin-bottom: 0;
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+ .map-places-radius-box .kk_col_1 {
+    padding-top: 6px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 991px) {
+ .map-places-radius-box .kk_col_1 {
+    width: 36%;
+  }
+  .map-places-radius-box .kk_col_2 {
+    width: 64%;
+  }
+}

@@ -2895,6 +2895,7 @@ if ( ! class_exists('Wp_rem_Member_Register_User_And_Property') ) {
 					<script type="text/javascript">
 						jQuery(document).ready(function($) {
 							jQuery("#wp_rem_open_house_date_' . $property_add_counter . '").datetimepicker({
+                                minDate: new Date(),
 								timepicker:false,
 								format:	"Y/m/d",
 							});

@@ -167,8 +167,8 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
                     $price_type_options = array();
                     $wp_rem_price_interval = (int) $wp_rem_price_interval;
                     $price_counter = $wp_rem_price_minimum_options;
-                    $price_min = '';
-                    $price_max = '';
+                    $price_min = array();
+                    $price_max = array();
                     $price_min[''] = wp_rem_plugin_text_srt('wp_rem_property_search_flter_min_price');
                     $price_max[''] = wp_rem_plugin_text_srt('wp_rem_property_search_flter_max_price');
 
@@ -223,6 +223,7 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
                                                     'classes' => 'chosen-select-no-single',
                                                     'options' => $price_min,
                                                     'extra_atr' => 'onchange="wp_rem_property_content(\'' . $property_short_counter . '\');"',
+                                                    'price' => true
                                                 )
                                         );
                                         ?>
@@ -242,6 +243,7 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
                                                     'classes' => 'chosen-select-no-single',
                                                     'options' => $price_max,
                                                     'extra_atr' => 'onchange="wp_rem_property_content(\'' . $property_short_counter . '\');"',
+                                                    'price' => true
                                                 )
                                         );
                                         ?>

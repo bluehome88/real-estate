@@ -69,6 +69,7 @@ $wp_rem_env_res_all_lists = get_post_meta($post_id, 'wp_rem_env_res', true);
 $wp_rem_env_res_title = get_post_meta($post_id, 'wp_rem_env_res_heading', true);
 $wp_rem_env_res_description = get_post_meta($post_id, 'wp_rem_env_res_description', true);
 $zoom_level = ( isset($wp_rem_plugin_options['wp_rem_map_zoom_level']) && $wp_rem_plugin_options['wp_rem_map_zoom_level'] != '' ) ? $wp_rem_plugin_options['wp_rem_map_zoom_level'] : 10;
+
 /*
  * Banner slider data
  */
@@ -82,7 +83,6 @@ $wp_rem_enable_yelp_places_element = get_post_meta($post_id, 'wp_rem_enable_yelp
 $wp_rem_enable_appartment_for_sale_element = get_post_meta($post_id, 'wp_rem_enable_appartment_for_sale_element', true);
 $wp_rem_enable_file_attachments_element = get_post_meta($post_id, 'wp_rem_enable_file_attachments_element', true);
 $wp_rem_enable_floot_plan_element = get_post_meta($post_id, 'wp_rem_enable_floot_plan_element', true);
-
 /*
  * Banner slider data end 
  */

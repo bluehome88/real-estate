@@ -159,9 +159,9 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
             $show_more_property_button_switch = isset($atts['show_more_property_button_switch']) ? $atts['show_more_property_button_switch'] : 'no';
             $show_more_property_button_url = isset($atts['show_more_property_button_url']) ? $atts['show_more_property_button_url'] : '';
 
-            $filter_arr = '';
+            $filter_arr = array();
             $qryvar_sort_by_column = '';
-            $element_filter_arr = '';
+            $element_filter_arr = array();
             $content_columns = 'col-lg-12 col-md-12 col-sm-12 col-xs-12'; // if filteration not true
             $paging_var = 'property_page';
 
@@ -169,23 +169,23 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
             if (isset($_REQUEST['property_type']) && $_REQUEST['property_type'] != '') {
                 $property_type = $_REQUEST['property_type'];
             }
-            $property_price = '';
-            if (isset($_REQUEST['property_price']) && $_REQUEST['property_price']) {
-                $property_price = $_REQUEST['property_price'];
-            }
+            // $property_price = '';
+            // if (isset($_REQUEST['property_price']) && $_REQUEST['property_price']) {
+            //     $property_price = $_REQUEST['property_price'];
+            // }
 
             // posted date check
-            $element_filter_arr[] = array(
-                'key' => 'wp_rem_property_posted',
-                'value' => strtotime(date($default_date_time_formate)),
-                'compare' => '<=',
-            );
+            // $element_filter_arr[] = array(
+            //     'key' => 'wp_rem_property_posted',
+            //     'value' => strtotime(date($default_date_time_formate)),
+            //     'compare' => '<=',
+            // );
 
-            $element_filter_arr[] = array(
-                'key' => 'wp_rem_property_expired',
-                'value' => strtotime(date($default_date_time_formate)),
-                'compare' => '>=',
-            );
+            // $element_filter_arr[] = array(
+            //     'key' => 'wp_rem_property_expired',
+            //     'value' => strtotime(date($default_date_time_formate)),
+            //     'compare' => '>=',
+            // );
 
             $element_filter_arr[] = array(
                 'key' => 'wp_rem_property_status',
@@ -206,15 +206,15 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
                     'compare' => '=',
                 );
             }
-            if ($property_price != '' && $property_price != 'all') {
-                $element_filter_arr[] = array(
-                    'key' => 'wp_rem_property_price',
-                    'value' => $property_price,
-                    'compare' => '=',
-                );
-            }
+            // if ($property_price != '' && $property_price != 'all') {
+            //     $element_filter_arr[] = array(
+            //         'key' => 'wp_rem_property_price',
+            //         'value' => $property_price,
+            //         'compare' => '=',
+            //     );
+            // }
 			
-			//
+			// price type
 			if (isset($_REQUEST['price_type']) && $_REQUEST['price_type'] != '') {
                 $element_filter_arr[] = array(
                     'key' => 'wp_rem_price_type',
@@ -222,23 +222,30 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
                     'compare' => '=',
                 );
             }
-			if (isset($_REQUEST['min_price']) && $_REQUEST['min_price'] != '') {
+
+            // min price
+			if (isset($_REQUEST['price_minimum']) && $_REQUEST['price_minimum'] != '') {
+                // remove ">" sign and others non digital if present
+                $_val = preg_replace("/[^0-9]/", "", $_REQUEST['price_minimum']);
                 $element_filter_arr[] = array(
-                    'key' => 'wp_rem_property_price',
-                    'value' => $_REQUEST['min_price'],
-					'type'		=> 'NUMERIC',
+                    'key' => 'wp_rem_property_price_ttd',
+                    'value' => $_val,
+                    'type'      => 'NUMERIC',
                     'compare' => '>=',
                 );
             }
-			if (isset($_REQUEST['max_price']) && $_REQUEST['max_price'] != '') {
+
+            // max price
+            if (isset($_REQUEST['price_maximum']) && $_REQUEST['price_maximum'] != '' && strpos($_REQUEST['price_maximum'], '>') === false ) {
+                // remove non digital signs
+                $_val = preg_replace("/[^0-9]/", "", $_REQUEST['price_maximum']);
                 $element_filter_arr[] = array(
-                    'key' => 'wp_rem_property_price',
-                    'value' => $_REQUEST['max_price'],
+                    'key' => 'wp_rem_property_price_ttd',
+                    'value' => $_val,
 					'type'		=> 'NUMERIC',
                     'compare' => '<=',
                 );
             }
-			//
 			
             // If featured property.
             if ($property_property_featured == 'only-featured') {
@@ -281,7 +288,7 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
             }
             $post_ids = $this->property_open_house_filter('', $post_ids);
 
-            $post_ids = $this->property_price_filter('', $post_ids);
+            //$post_ids = $this->property_price_filter('', $post_ids);
 
             if (!empty($post_ids)) {
                 $all_post_ids = $post_ids;
@@ -308,7 +315,7 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
             }
             if ($property_sort_by == 'recent') {
                 $qryvar_property_sort_type = 'DESC';
-                $qryvar_sort_by_column = 'post_date';
+                $qryvar_sort_by_column = '';
             } elseif ($property_sort_by == 'alphabetical') {
                 $qryvar_property_sort_type = 'ASC';
                 $qryvar_sort_by_column = 'post_title';
@@ -536,6 +543,10 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
             $property_loop_obj = wp_rem_get_cached_obj('property_result_cached_loop_obj1', $args, 12, false, 'wp_query');
 
             $property_totnum = $property_loop_obj->found_posts;
+            // print '<pre>';
+            // print_r($GLOBALS['wp_rem_split_map_shortcode_atts']);
+            // print_r($args);
+            // print '</pre>';
             ?>
             <form id="frm_property_arg<?php echo absint($property_short_counter); ?>">
                 <div style="display:none" id='property_arg<?php echo absint($property_short_counter); ?>'><?php
@@ -688,7 +699,7 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
                     var config = {
                         '.chosen-select': {width: "100%"},
                         '.chosen-select-deselect': {allow_single_deselect: true},
-                        '.chosen-select-no-single': {disable_search_threshold: 10, width: "100%"},
+                        '.chosen-select-no-single': {disable_search_threshold: 10, width: "100%", search_contains: true},
                         '.chosen-select-no-results': {no_results_text: 'Oops, nothing found!'},
                         '.chosen-select-width': {width: "95%"}
                     };
@@ -824,7 +835,7 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
 
         public function get_filter_arg($property_type, $property_short_counter = '', $exclude_meta_key = '') {
             global $wp_rem_post_property_types;
-            $filter_arr = '';
+            $filter_arr = array();
 
             //if (isset($_REQUEST['ajax_filter']) || isset($_REQUEST['advanced_search'])) {
             // if (isset($_REQUEST['advanced_search'])) {
@@ -1687,10 +1698,8 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
                     // end checking review on in property type
 
                     $wp_rem_property_price = '';
-                    $wp_rem_property_price_ttd = '';
                     if ($wp_rem_property_price_options == 'price') {
                         $wp_rem_property_price = get_post_meta($property_id, 'wp_rem_property_price', true);
-                        $wp_rem_property_price_ttd = get_post_meta($property_id, 'wp_rem_property_price_ttd', true);
                     } else if ($wp_rem_property_price_options == 'on-call') {
                         $wp_rem_property_price = wp_rem_plugin_text_srt('wp_rem_properties_price_on_request');
                     }
@@ -1704,15 +1713,15 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
                     }
 
                     $property_info_price = '';
-                    if ($wp_rem_property_type_price_switch == 'on' && ($wp_rem_property_price != '' || $wp_rem_property_price_ttd != '')) {
+                    if ($wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '') {
                         $property_info_price .= '
 						<span class="property-price">
 							<span class="new-price text-color">';
 
                         if ($wp_rem_property_price_options == 'on-call') {
-                            $property_info_price .= $wp_rem_property_price || $wp_rem_property_price_ttd;
+                            $property_info_price .= $wp_rem_property_price;
                         } else {
-                            $property_info_price .= wp_rem_property_price($property_id, $wp_rem_property_price || $wp_rem_property_price_ttd, '<span class="guid-price">', '</span>');
+                            $property_info_price .= wp_rem_property_price($property_id, $wp_rem_property_price, '<span class="guid-price">', '</span>');
                         }
                         $property_info_price .= '	
 							</span>

@@ -16,8 +16,8 @@ require_once trailingslashit(get_template_directory()) . 'include/cs-helpers.php
 
 define('SCRIPTS_VER', '4.7.4');
 
-define('RECEIVED_ENQUIRY_EMAIL', 'ameeta@simplyintense.com');
-define('SEND_ARRANGE_SUBMIT', 'ameeta@simplyintense.com');
+define('RECEIVED_ENQUIRY_EMAIL', 'admin@1on1realtors.com');
+define('SEND_ARRANGE_SUBMIT', 'admin@1on1realtors.com');
 /**
  * Sets up theme defaults and registers support for various WordPress features.     *
  * Note that this function is hooked into the after_setup_theme hook, which
@@ -273,6 +273,8 @@ if ( ! function_exists('wp_rem_cs_scripts_1') ) {
         
         //wp_enqueue_script('wp-rem-maps-styles', trailingslashit(get_template_directory_uri()) . 'assets/backend/js/cs-map_styles.js', '', $theme_version, true);
         wp_enqueue_script('fitvids', get_template_directory_uri() . '/assets/frontend/js/fitvids.js', '', $theme_version, true);
+        // JQUERY BLOCK UI
+        wp_enqueue_script('blockui', get_template_directory_uri() . '/assets/frontend/js/jquery.blockUI.min.js', '', $theme_version, true);
         
         //wp_enqueue_script('skills-progress', get_template_directory_uri() . '/assets/frontend/js/skills-progress.js', '', $theme_version, true);
         

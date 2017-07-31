@@ -227,7 +227,7 @@ color: #555;
 .real-estate-property .caption-inner .capture-count, .real-estate-property .hide-btn { font-size: 12px; font-weight: 700; line-height: 22px; display: inline-block; vertical-align: middle; color: #fff; background: rgba(0,0,0,.3); padding: 3px 8px 2px 26px; border-radius: 3px; position: relative; }
 .real-estate-property .caption-inner .capture-count i, .real-estate-property .hide-btn i { font-size: 14px; position: absolute; margin: 0; line-height: 20px; left: 6px; top: 4px; right: auto; }
 .real-estate-property a.property-video-btn { color: #fff; font-size: 14px; line-height: 27px; font-weight: 500; margin-right: 2px; display: inline-block; vertical-align: middle; background: rgba(0,0,0,.3); padding: 0 8px; border-radius: 3px; height: 27px; position: relative; }
-.real-estate-property span.cs-categories { position: absolute; top: 0; right: 0; color: #fff; font-size: 11px; line-height: 22px; font-weight: 500; margin-right: 2px; display: inline-block; vertical-align: middle; background: rgba(0,0,0,.3); padding: 0 8px; margin: 0; border-radius: 0; z-index: 13; }
+.real-estate-property span.cs-categories { position: absolute; top: 0; right: -55px; color: #fff; font-size: 11px; line-height: 22px; font-weight: 500; margin-right: 2px; display: inline-block; vertical-align: middle; background: rgba(0,0,0,.3); padding: 0 8px; margin: 0; border-radius: 0; z-index: 13; }
 .real-estate-property a.property-video-btn:hover, .real-estate-property .caption-inner .capture-count:hover, .real-estate-property .hide-btn:hover { background: rgba(0,0,0,.5); }
 .real-estate-property a.property-video-btn i { display: inline-block; vertical-align: top; font-size: 16px; line-height: 28px; margin-right: -1px; }
 .property-grid .text-holder { position: relative; display: inline-block; width: 100%; padding: 25px; background-color: #fff; }
@@ -1316,6 +1316,9 @@ color: transparent;
 color: transparent;
 }
 #growls.wp_rem_element_growl { position: absolute; top: 9px; bottom: auto; left: 0; padding: 0 30px; }
+@media (max-width: 450px) {
+  #growls.wp_rem_element_growl { position: static; padding: 0; }
+ }
 .modal-body.profile-info #growls.wp_rem_element_growl { top: -14px; }
 #growls.wp_rem_element_growl .growl { right: 0; margin: 0; padding: 0; color: #3c763d; background: none; }
 #growls.wp_rem_element_growl .growl .growl-close { display: none; }
@@ -3160,6 +3163,7 @@ background: transparent;
 }
 .cluster div { color: #fff !important; }
 .search-query-filters { margin-bottom: 18px; }
+.save_search_map_popup .search-query-filters { margin-bottom: 0; }
 ul.tagit li.tagit-choice { position: relative; margin: 0 3px 3px; padding: 5px 10px 5px 10px; background-color: #fff; font-size: 13px; font-weight: normal; line-height: normal; display: inline-block; cursor: pointer; color: #a3a7ab; border: 1px solid #ccc; border-radius: 50px; }
 ul.tagit li.tagit-choice .tagit-label:not(a) { color: #a3a7ab; }
 .modal-form .property-alert ul.tagit li:first-child { margin-left: 0; }
@@ -3453,7 +3457,7 @@ select.rem-currency-field { width: 70px; height: 18px; }
 .property-grid.classic .post-category-list li:hover i { color: #fff; }
 .property-grid.classic .post-category-list li { font-size: 12px; font-style: normal; line-height: 22px; position: relative; margin: 0 10px 10px 0; padding: 0 12px 0 32px; color: #354e52; border: 1px solid #eee; border-radius: 20px; }
 .property-grid.classic .readmore-btn { font-size: 12px; line-height: normal; position: relative; float: right; margin: 5px 0 0; color: #fa8526; }
-.real-estate-property .property-grid.classic .img-holder .featured { left: -8px; }
+.real-estate-property .property-grid.classic .img-holder .featured { left: -8px; z-index: 1;}
 .property-grid.classic .post-category-list .readmore-holder { border: none; padding: 0; margin: 0; line-height: normal; border-radius: 0; }
 .property-grid.classic .post-category-list .readmore-holder .readmore-btn i { margin: 0 0 0 5px; position: initial; background-color: inherit; width: auto; height: auto; line-height: normal; border-radius: 0; font-size: 13px; }
 /*property Classic style*/
@@ -3908,7 +3912,7 @@ opacity:1;
 .logged-in.wp-rem-header-hidden .wp-rem-split-map-wrap ul.map-actions { top: 40px; }
 .wp-rem-split-map-wrap .split-map-container { background: #fff; }
 .wp-rem-split-map-wrap .filters-sidebar + .col-lg-9 { width: 100%; padding: 35px 50px 35px 50px; z-index: 1; background-color: #fff; min-height: 665px; }
-.wp-rem-split-map-wrap .split-map-toggler { position: absolute; top: 50%; font-size: 30px; margin-top: -15px; color: #d64521; background: #fff; padding: 10px; }
+.wp-rem-split-map-wrap .split-map-toggler { position: absolute; top: 50%; font-size: 30px; margin-top: -15px; color: #FF6428; background: #fff; padding: 10px; }
 .wp-rem-split-map-wrap .minimum-loading-list .input-group-btn-vertical { z-index: 0; }
 .wp-rem-split-map-wrap .input-group .form-control { z-index: 0; }
 /*map on left and right both*/

@@ -102,7 +102,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Properties_with_Filters_Frontend') ) {
 
             $posts_per_page = '-1';
             $pagination = 'no';
-            $element_filter_arr = '';
+            $element_filter_arr = array();
             $content_columns = 'col-lg-12 col-md-12 col-sm-12 col-xs-12'; // if filteration not true
             $paging_var = 'paged_id';
             $default_date_time_formate = 'd-m-Y H:i:s';

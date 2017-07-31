@@ -464,14 +464,25 @@ if (!function_exists('wp_rem_map_content')) {
                 ?>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="map-places-radius-box">
-                        <label>
-                            <h5><?php echo wp_rem_plugin_text_srt('wp_rem_map_places_radius') ?></h5>
-                            <input type="text" id="map-radius-input-<?php echo esc_html($map_dynmaic_no) ?>" value="2000">
-                            <span><?php echo wp_rem_plugin_text_srt('wp_rem_map_places_put_radius_value') ?></span>
-                        </label>
+                        <h5>POINTS OF INTEREST (M)</h5>
+                        <div class="kk_adjust_radius_container">
+                            <div class="kk_row">
+                                <div class='kk_col_1'>
+                                    ADJUST RADIUS:
+                                </div>
+                                <div class="kk_col_2">
+                                    <input type="text" id="map-radius-input-<?php echo esc_html($map_dynmaic_no) ?>" value="2000">
+                                </div>
+                            </div>
+                            <div class="kk_info">
+                                <span><?php echo wp_rem_plugin_text_srt('wp_rem_map_places_put_radius_value') ?></span>
+                            </div>
+                        </div>
                     </div>
                     <div id="map-places-detail-<?php echo esc_html($map_dynmaic_no) ?>" class="map-places-detail-boxes"></div>
-                    <div id="map-direction-detail-<?php echo esc_html($map_dynmaic_no) ?>" style="display:none;"></div>
+                    <div>
+                        <div id="map-direction-detail-<?php echo esc_html($map_dynmaic_no) ?>" style="display:none;"></div>
+                    </div>
                 </div>
                 <?php
             endif;
@@ -1038,6 +1049,7 @@ if (!function_exists('wp_rem_get_currency')) {
      */
     function wp_rem_get_currency($price = '', $currency_symbol = false, $before_currency = '', $after_currency = '', $currency_converter = true) {
         global $wp_rem_plugin_options;
+        $price = number_format( (int) $price );
         $price_str = '';
         $default_currency = isset($wp_rem_plugin_options['wp_rem_currency_sign']) ? $wp_rem_plugin_options['wp_rem_currency_sign'] : '$';
         $currency_pos = isset($wp_rem_plugin_options['wp_rem_currency_position']) ? $wp_rem_plugin_options['wp_rem_currency_position'] : 'left';
@@ -1695,8 +1707,8 @@ if (!function_exists('wp_rem_get_cached_obj')) {
             }
         } else {
             if ($type == 'wp_query') {
-            	if (@$GLOBALS['wp_rem_split_map_shortcode_atts']['property_category']) {
-            	    $property_categories = $GLOBALS['wp_rem_split_map_shortcode_atts']['property_category'];
+            	if (@$GLOBALS['wp_rem_split_map_shortcode_atts']['filter_by_categories']) {
+            	    $property_categories = $GLOBALS['wp_rem_split_map_shortcode_atts']['filter_by_categories'];
             	    $property_categories = str_replace(['&#8221;', '&#8243;', '”', '″'], '', $property_categories);
             	    $property_categories = explode(',', $property_categories);
 
@@ -2158,7 +2170,73 @@ if (!function_exists('wp_rem_cs_inline_enqueue_script')) {
 
 }
 
-function wp_rem_property_price($property_id, $wp_rem_property_price, $guidprice_before = '', $guidprice_after = '', $price_type_before = '<span class="price-type">', $price_type_after = '</span>', $price_type_position = 'right') {
+function kk_if_show_price( $property_id ){
+    $price = get_post_meta($property_id, 'wp_rem_property_price', true);
+    $price_ttd = get_post_meta($property_id, 'wp_rem_property_price_ttd', true);
+    return $price != '' || $price_ttd != '';
+}
+
+function wp_rem_property_price($property_id, $wp_rem_property_price = '', $guidprice_before = '', $guidprice_after = '', $price_type_before = '<span class="price-type">', $price_type_after = '</span>', $price_type_position = 'right') {
+    global $wp_rem_plugin_options;
+
+    $property_info_price = '';
+    $price_line_1 = '';
+    $price_line_2 = '';
+    $price_type = get_post_meta($property_id, 'wp_rem_price_type', true);
+    $price = get_post_meta($property_id, 'wp_rem_property_price', true);
+    $price_ttd = get_post_meta($property_id, 'wp_rem_property_price_ttd', true);
+
+    if ($price_type == 'variant_month' || $price_type == 'variant_week') {
+
+        // RENT PRICE
+       
+        $price_label = ( $price_type == 'variant_week') ? 'per week' : 'per month';
+
+        // Rent - USD
+        if ($price) {
+            $price_line_1 = '<div>Rental Price USD ' . wp_rem_get_currency( $price, true );
+            $price_line_1 .= ' (' . $price_label . ')</div>';
+        }
+        
+        // Rent - TTD
+        if ($price_ttd) {
+            $price_line_2 = '<div>Rental Price TTD ' . wp_rem_get_currency($price_ttd, true);
+            $price_line_2 .= ' (' . $price_label . ')</div>';
+        }
+
+        $property_info_price = $price_line_1 . $price_line_2;
+
+    } else {
+
+        // SALE PRICE
+
+        // get fixed price type
+        if (isset($wp_rem_plugin_options['fixed_price_opt'][$price_type])) {
+            $_price_type = ' ' . $price_type_before . $wp_rem_plugin_options['fixed_price_opt'][$price_type] . $price_type_after;
+        }
+        
+        // Sale - USD
+        if ($price) {
+            $price_line_1 = '<div>Sale Price USD ' . wp_rem_get_currency($price, true) . '</div>';
+        }
+
+        // Sale - TTD
+        if ($price_ttd) {
+            $price_line_2 = '<div>Sale Price TTD ' . wp_rem_get_currency($price_ttd, true) . '</div>';
+        }
+
+        if ($price || $price_ttd) {
+            $property_info_price = $price_line_1 . $price_line_2;
+            $property_info_price .= '<span>' . $_price_type . '</span>';
+        }
+
+    }
+
+    return $property_info_price;
+}
+
+// kinolanka - backup 
+function wp_rem_property_price_old($property_id, $wp_rem_property_price, $guidprice_before = '', $guidprice_after = '', $price_type_before = '<span class="price-type">', $price_type_after = '</span>', $price_type_position = 'right') {
     global $wp_rem_plugin_options;
 
     $price_type = get_post_meta($property_id, 'wp_rem_price_type', true);
@@ -2341,6 +2419,56 @@ if (!function_exists('wp_rem_calculate_price')) {
     }
 
 }
+
+function kk_get_price_filter_values( $property_type_id, $placeholder ){
+    $use_default = false;
+    $price_numbers = get_post_meta( $property_type_id, 'wp_rem_price_filter_interval', true );
+    if( !empty( $price_numbers ) ){
+        $price_numbers = kk_format_user_price_numbers( $price_numbers );
+        if( !empty( $price_numbers ) ){
+            $price_first = array( '' => $placeholder );
+            end($price_numbers);
+            $last_key = key($price_numbers);
+            reset($price_numbers);
+            $last = $price_numbers[$last_key];
+            $price_last = array( '>'.$last => $last );
+            $price_arr = $price_first + $price_numbers + $price_last;
+        } else $use_default = true;
+    } else $use_default = true;
+
+    if( $use_default) {
+        // some random array
+        $price_arr = array(
+            '' => $placeholder,
+            '500' => 500,
+            '1000' => 1000,
+            '1500' => 1500,
+            '2500' => 2500,
+            '3500' => 3500,
+            '4500' => 4500,
+            '5500' => 5500,
+            '6500' => 6500,
+            '7500' => 7500,
+            '8500' => 8500,
+            '9500' => 9500,
+            '>9500' => 9500
+        );
+    }
+    return $price_arr;    
+}
+
+function kk_format_user_price_numbers ( $price_numbers ){
+    $raw = explode(',', $price_numbers);
+    $result = array();
+    foreach( $raw as $value ) {
+       if( is_integer( (int) trim($value) ) ){
+            $result[$value] = $value;
+       }
+    }
+    return $result;
+}
+    
+
 
 if (!function_exists('wp_rem_property_detail_page_view')) {
 

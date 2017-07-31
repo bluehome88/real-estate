@@ -207,27 +207,63 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                     if ( $my_posts ) {
                         $property_type_id = $my_posts[0]->ID;
                     }
-
+                    // print '<pre>';
+                    // var_dump(get_post_meta( $property_type_id));
+                    // print '</pre>';
                     $price_type = get_post_meta($property_type_id, 'wp_rem_property_type_price_type', true);
-                    $wp_rem_price_minimum_options = get_post_meta($property_type_id, 'wp_rem_price_minimum_options', true);
-                    $wp_rem_price_minimum_options = ( ! empty($wp_rem_price_minimum_options) ) ? $wp_rem_price_minimum_options : 1;
-                    $wp_rem_price_max_options = get_post_meta($property_type_id, 'wp_rem_price_max_options', true);
-                    $wp_rem_price_max_options = ( ! empty($wp_rem_price_max_options) ) ? $wp_rem_price_max_options : 50; //50000;
-                    $wp_rem_price_interval = get_post_meta($property_type_id, 'wp_rem_price_interval', true);
-                    $wp_rem_price_interval = ( ! empty($wp_rem_price_interval) ) ? $wp_rem_price_interval : 50;
+                    // $wp_rem_price_minimum_options = get_post_meta($property_type_id, 'wp_rem_price_minimum_options', true);
+                    // $wp_rem_price_minimum_options = ( ! empty($wp_rem_price_minimum_options) ) ? $wp_rem_price_minimum_options : 1;
+                    // $wp_rem_price_max_options = get_post_meta($property_type_id, 'wp_rem_price_max_options', true);
+                    // $wp_rem_price_max_options = ( ! empty($wp_rem_price_max_options) ) ? $wp_rem_price_max_options : 50; //50000;
+                    // $wp_rem_price_interval = get_post_meta($property_type_id, 'wp_rem_price_interval', true);
+                    // $wp_rem_price_interval = ( ! empty($wp_rem_price_interval) ) ? $wp_rem_price_interval : 50;
                     $price_type_options = array();
-                    $wp_rem_price_interval = (int) $wp_rem_price_interval;
-                    $price_counter = $wp_rem_price_minimum_options;
-                    $price_min = '';
-                    $price_max = '';
-                    $price_min[''] = wp_rem_plugin_text_srt('wp_rem_search_filter_min_price');
-                    $price_max[''] = wp_rem_plugin_text_srt('wp_rem_search_filter_max_price');
+                    // $wp_rem_price_interval = (int) $wp_rem_price_interval;
+                    // $price_counter = $wp_rem_price_minimum_options;
+                    $price_min = array();
+                    $price_max = array();
+                    // $price_min[''] = wp_rem_plugin_text_srt('wp_rem_search_filter_min_price');
+                    // $price_max[''] = wp_rem_plugin_text_srt('wp_rem_search_filter_max_price');
+                    // CALCULATING VALUES FOR PRICE FILTERS
 
-                    while ( $price_counter <= $wp_rem_price_max_options ) {
-                        $price_min[$price_counter] = $price_counter;
-                        $price_max[$price_counter] = $price_counter;
-                        $price_counter = $price_counter + $wp_rem_price_interval;
-                    }
+                    // default theme way
+                    // while ( $price_counter <= $wp_rem_price_max_options ) {
+
+                    //     $price_min[$price_counter] = $price_counter;
+                    //     $price_max[$price_counter] = $price_counter;
+                    //     $price_counter = $price_counter + $wp_rem_price_interval;
+                    // }
+
+                    // custom way - doesn't loaded
+                    // $max_price = $wp_rem_price_max_options;
+                    // $next_price = $wp_rem_price_minimum_options;
+                    // $price_min[$next_price] = $next_price;
+                    // $price_max[$next_price] = $next_price;
+                    // while( $next_price < $max_price ){
+                    //     if( $next_price < 10000 ){
+                    //         $next_price += $wp_rem_price_interval * 100;
+                    //     } else if( $next_price < 100000) {
+                    //         $next_price += $wp_rem_price_interval * 1000;
+                    //     } else if( $next_price < 1000000 ){
+                    //         $next_price += $wp_rem_price_interval * 10000;
+                    //     } else if( $next_price < 10000000 ){
+                    //         $next_price += $wp_rem_price_interval * 100000;
+                    //     } else if( $next_price < 100000000 ){
+                    //         $next_price += $wp_rem_price_interval * 1000000;
+                    //     }else if( $next_price < 1000000000 ){
+                    //         $next_price += $wp_rem_price_interval * 10000000;
+                    //     } else {
+                    //         $next_price += $wp_rem_price_interval * 10000000;
+                    //     }
+                    //     $price_min[$next_price] = $next_price;
+                    //     $price_max[$next_price] = $next_price;
+                    // }
+                    // $price_min['>'.$max_price] = $max_price;
+                    // $price_max['>'.$max_price] = $max_price;
+
+                    // hardcore way - for speed reason
+                    $price_min = kk_get_price_filter_values( $property_type_id, wp_rem_plugin_text_srt('wp_rem_search_filter_min_price') );
+                    $price_max = kk_get_price_filter_values( $property_type_id, wp_rem_plugin_text_srt('wp_rem_search_filter_max_price') );
                     ?>
 
                     <?php
@@ -275,6 +311,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                                                     'classes' => 'chosen-select-no-single',
                                                     'options' => $price_min,
                                                     'extra_atr' => 'onchange="wp_rem_property_content(\'' . $property_short_counter . '\');"',
+                                                    'price' => true
                                                 )
                                         );
                                         ?>
@@ -295,6 +332,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                                                     'classes' => 'chosen-select-no-single',
                                                     'options' => $price_max,
                                                     'extra_atr' => 'onchange="wp_rem_property_content(\'' . $property_short_counter . '\');"',
+                                                    'price' => true
                                                 )
                                         );
                                         ?>
@@ -310,6 +348,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                 ?>
                 <script type="text/javascript">
                     chosen_selectionbox();
+                   // kk_price_filter_handler('select[name=price_minimum]', 'select[name=price_maximum]');
                 </script>
                 <?php
                 $content = ob_get_clean();
@@ -664,6 +703,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                 echo '<script type="text/javascript">
 						if (jQuery(".cs-calendar-from-' . $field_counter . ' input").length != "") {
 							jQuery(".cs-calendar-from-' . $field_counter . ' input").datetimepicker({
+                                minDate: new Date(),
 								timepicker:false,
 								format:	"Y/m/d",
 								scrollInput: false
@@ -671,6 +711,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
 						}
 						if (jQuery(".cs-calendar-to-' . $field_counter . ' input").length != "") {
 							jQuery(".cs-calendar-to-' . $field_counter . ' input").datetimepicker({
+                                minDate: new Date(),
 								timepicker:false,
 								format:	"Y/m/d",
 								scrollInput: false
@@ -682,6 +723,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
 						jQuery(window).load(function(){
 								if (jQuery(".cs-calendar-from-' . $field_counter . ' input").length != "") {
 								jQuery(".cs-calendar-from-' . $field_counter . ' input").datetimepicker({
+                                    minDate: new Date(),
 									timepicker:false,
 									format:	"Y/m/d",
 									scrollInput: false
@@ -689,6 +731,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
 							}
 							if (jQuery(".cs-calendar-to-' . $field_counter . ' input").length != "") {
 								jQuery(".cs-calendar-to-' . $field_counter . ' input").datetimepicker({
+                                    minDate: new Date(),
 									timepicker:false,
 									format:	"Y/m/d",
 									scrollInput: false
@@ -753,8 +796,8 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
                                          )
                                  );
                                  ?>
-                            <div class="price-per-person">
-                                <span class="rang-text"><?php echo wp_rem_allow_special_char($field_label); ?>&nbsp;<?php echo esc_html($range_complete_str_first); ?> &nbsp; - &nbsp; <?php echo esc_html($range_complete_str_second); ?></span>
+                            <div class="price-per-person kk_slider">
+                                <span class="rang-text"><?php echo wp_rem_allow_special_char($field_label); ?>&nbsp;<span class="kk_slider_from"><?php echo esc_html($range_complete_str_first); ?></span> &nbsp; - &nbsp; <span class="kk_slider_to"><?php echo esc_html($range_complete_str_second); ?></span></span>
                                 <?php
                                 $wp_rem_form_fields_frontend->wp_rem_form_text_render(
                                         array(
@@ -780,6 +823,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
 											var rang_slider_val = jQuery("#ex16b1' . $rand_id . $query_str_var_name . '").val();
 											jQuery("#range-hidden-' . $query_str_var_name . '").val(rang_slider_val);    
 										});
+                                        kk_update_slider_params_onchange("#ex16b1' . $rand_id . $query_str_var_name . '");
 									}
 								</script>';
                             } else {
@@ -796,6 +840,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
 												var rang_slider_val = jQuery("#ex16b1' . $rand_id . $query_str_var_name . '").val();
 												jQuery("#range-hidden-' . $query_str_var_name . '").val(rang_slider_val);    
 											});
+                                            kk_update_slider_params_onchange("#ex16b1' . $rand_id . $query_str_var_name . '");
 										}
 									});
 								</script>';
@@ -881,7 +926,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
         }
 
         public function wp_rem_property_type_categories_options($property_type_slug = '') {
-            $property_cats_options = '';
+            $property_cats_options = array();
             if ( $property_type_slug != '' ) {
                 $property_type_id = $this->wp_rem_property_type_id_by_slug($property_type_slug);
                 $property_type_cats = get_post_meta($property_type_id, 'wp_rem_property_type_cats', true);

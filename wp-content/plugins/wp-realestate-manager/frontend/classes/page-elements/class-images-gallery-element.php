@@ -29,6 +29,7 @@ if ( ! class_exists( 'Wp_rem_Images_Gallery_Element' ) ) {
 			$gallery_limit = wp_rem_cred_limit_check( $post_id, 'wp_rem_transaction_property_pic_num' );
 			$gallery_ids_list = get_post_meta( $post_id, 'wp_rem_detail_page_gallery_ids', true );
 			$gallery_pics_allowed = get_post_meta($post_id, 'wp_rem_transaction_property_pic_num', true);
+
 			if ( is_array( $gallery_ids_list ) && sizeof( $gallery_ids_list ) > 0 && $gallery_pics_allowed > 0 ) { ?>
 				<div class="main-post slider">
 					<div class="swiper-container gallery-top">
@@ -38,7 +39,7 @@ if ( ! class_exists( 'Wp_rem_Images_Gallery_Element' ) ) {
 							foreach ( $gallery_ids_list as $gallery_idd ) {
 								if ( isset( $gallery_idd ) && $gallery_idd != '' ) {
 									if ( wp_get_attachment_url( $gallery_idd ) ) {
-										$image = wp_get_attachment_image_src( $gallery_idd, 'wp_rem_media_11' );
+										$image = wp_get_attachment_image_src( $gallery_idd, 'wp_rem_media_9' );
 										?>
 										<div class="swiper-slide">
 											<figure>
@@ -87,6 +88,8 @@ if ( ! class_exists( 'Wp_rem_Images_Gallery_Element' ) ) {
 				</div>
 			<?php
 			}
+						$if_top_loop = ( isset( $gallery_counterr ) && $gallery_counterr == 2 ) ? 'false' : 'true';
+						$if_thumb_loop = ( isset( $gallery_counterr ) && $gallery_counterr <= 8 ) ? 'false' : 'true';
                         $wp_rem_cs_inline_script = '
                         jQuery(document).ready(function () {
                             if (jQuery(".main-post.slider .gallery-top, .main-post.slider .gallery-thumbs").length != "") {
@@ -95,7 +98,7 @@ if ( ! class_exists( 'Wp_rem_Images_Gallery_Element' ) ) {
                                     nextButton: ".main-post.slider .swiper-button-next",
                                     prevButton: ".main-post.slider .swiper-button-prev",
                                     spaceBetween: 0,
-                                    loop: true,
+                                    loop: '.$if_top_loop.',
                                     loopedSlides: 15
                                 });
 
@@ -103,7 +106,7 @@ if ( ! class_exists( 'Wp_rem_Images_Gallery_Element' ) ) {
                                     spaceBetween: 5,
                                     slidesPerView: 7,
                                     touchRatio: .2,
-                                    loop: true,
+                                    loop: '.$if_thumb_loop.',
                                     loopedSlides: 15,
                                     //looped slides should be the same
                                     slideToClickedSlide: true,

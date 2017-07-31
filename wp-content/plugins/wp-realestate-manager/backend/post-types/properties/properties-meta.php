@@ -24,7 +24,6 @@ if ( ! class_exists('wp_rem_property_meta') ) {
             add_action('save_post', array( $this, 'wp_rem_save_property_custom_fields_dates' ), 20);
             add_action('save_post', array( $this, 'wp_rem_save_property_features' ), 20);
             add_action('save_post', array( $this, 'wp_rem_save_property_open_house' ), 20);
-            add_action('save_post', array( $this, 'wp_rem_save_property_price_type' ), 20);
 
             add_action('save_post', array( $this, 'wp_rem_change_property_member' ), 1, 1);
             add_action('transition_post_status', array( $this, 'wp_rem_move_property_trash' ), 20, 3);
@@ -972,37 +971,6 @@ if ( ! class_exists('wp_rem_property_meta') ) {
             }
         }
 
-        function wp_rem_save_property_price_type() {
-            $property_id = get_the_id();
-            $price_type = isset($_POST['wp_rem_price_type']) ? $_POST['wp_rem_price_type'] : '';
-            $price = isset($_POST['wp_rem_property_price']) ? $_POST['wp_rem_property_price'] : '';
-            $price_ttd = isset($_POST['wp_rem_property_price_ttd']) ? $_POST['wp_rem_property_price_ttd'] : '';
-            if ( $price_type == 'variant_week' && $price != '' ) {
-                $week_price = $price;
-                $month_price = wp_rem_calculate_price($price, 'monthly');
-                update_post_meta($property_id, 'wp_rem_week_price', $week_price);
-                update_post_meta($property_id, 'wp_rem_month_price', $month_price);
-            }
-            if ( $price_type == 'variant_week' && $price_ttd != '' ) {
-                $week_price = $price_ttd;
-                $month_price = wp_rem_calculate_price($price_ttd, 'monthly');
-                update_post_meta($property_id, 'wp_rem_week_price_ttd', $week_price);
-                update_post_meta($property_id, 'wp_rem_month_price_ttd', $month_price);
-            }
-            if ( $price_type == 'variant_month' && $price != '' ) {
-                $month_price = $price;
-                $week_price = wp_rem_calculate_price($price, 'weekly');
-                update_post_meta($property_id, 'wp_rem_week_price', $week_price);
-                update_post_meta($property_id, 'wp_rem_month_price', $month_price);
-            }
-            if ( $price_type == 'variant_month' && $price_ttd != '' ) {
-                $month_price = $price_ttd;
-                $week_price = wp_rem_calculate_price($price_ttd, 'weekly');
-                update_post_meta($property_id, 'wp_rem_week_price_ttd', $week_price);
-                update_post_meta($property_id, 'wp_rem_month_price_ttd', $month_price);
-            }
-        }
-
         function property_summary() {
             global $post, $wp_rem_html_fields;
             $wp_rem_property_summary = get_post_meta($post->ID, 'wp_rem_property_summary', true);
@@ -1086,6 +1054,7 @@ if ( ! class_exists('wp_rem_property_meta') ) {
                     'main_wraper_extra' => $hide_div,
                     'echo' => false,
                     'field_params' => array(
+                        'cust_type' => 'number',
                         'std' => '',
                         'classes' => 'wp-rem-number-field ',
                         'id' => 'property_price',
@@ -1109,7 +1078,7 @@ if ( ! class_exists('wp_rem_property_meta') ) {
                         'return' => true,
                     ),
                 );
-                $html .= $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
+                // $html .= $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
 
                 $wp_rem_opt_array = array(
                     'name' => wp_rem_plugin_text_srt('wp_rem_list_meta_ad_price_ttd'),
@@ -1120,6 +1089,7 @@ if ( ! class_exists('wp_rem_property_meta') ) {
                     'main_wraper_extra' => $hide_div,
                     'echo' => false,
                     'field_params' => array(
+                        'cust_type' => 'number',
                         'std' => '',
                         'classes' => 'wp-rem-number-field ',
                         'id' => 'property_price_ttd',
@@ -1143,7 +1113,7 @@ if ( ! class_exists('wp_rem_property_meta') ) {
                         'return' => true,
                     ),
                 );
-                $html .= $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
+                // $html .= $wp_rem_html_fields->wp_rem_text_field($wp_rem_opt_array);
 
                 $wp_rem_opt_array = array(
                     'name' => wp_rem_plugin_text_srt('wp_rem_list_meta_price_type'),
@@ -1769,6 +1739,7 @@ if ( ! class_exists('wp_rem_property_meta') ) {
                 $html .= '<script type="text/javascript">
                                             jQuery(document).ready(function($) {
                                                 jQuery("#wp_rem_open_house_date").datetimepicker({
+                                                    minDate: new Date(),
                                                     timepicker:false,
                                                     format:	"Y/m/d",
                                                 });

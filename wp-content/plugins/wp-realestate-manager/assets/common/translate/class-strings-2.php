@@ -562,7 +562,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_2') ) {
             $wp_rem_static_text['wp_rem_property_search_flter_max_price'] = esc_html__('Max Price', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_search_flter_all'] = esc_html__('All', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_search_flter_per_weak'] = esc_html__('Per Week', 'wp-rem');
-            $wp_rem_static_text['wp_rem_property_search_flter_per_caleder'] = esc_html__('Per Calendar Month', 'wp-rem');
+            $wp_rem_static_text['wp_rem_property_search_flter_per_caleder'] = esc_html__('Per Month', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_search_flter_price_options'] = esc_html__('Price Options', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_search_flter_advanced'] = esc_html__('Advanced', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_search_flter_wt_keyword'] = esc_html__('What is Keyword search?', 'wp-rem');
@@ -585,7 +585,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_2') ) {
             $wp_rem_static_text['wp_rem_property_leftflter_max'] = esc_html__('Max', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_leftflter_all'] = esc_html__('All', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_leftflter_per_weak'] = esc_html__('Per Week', 'wp-rem');
-            $wp_rem_static_text['wp_rem_property_leftflter_per_calender_month'] = esc_html__('Per Calendar Month', 'wp-rem');
+            $wp_rem_static_text['wp_rem_property_leftflter_per_calender_month'] = esc_html__('Per Month', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_leftflter_price_options'] = esc_html__('Price Options', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_leftflter_price'] = esc_html__('Price', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_leftflter_fron_date'] = esc_html__('From Date', 'wp-rem');

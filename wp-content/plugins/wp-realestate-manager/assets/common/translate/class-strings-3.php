@@ -476,7 +476,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_3') ) {
             $wp_rem_static_text['wp_rem_properties_sort_by'] = esc_html__('Sort By', 'wp-rem');
             $wp_rem_static_text['wp_rem_properties_prev'] = esc_html__('Prev', 'wp-rem');
             $wp_rem_static_text['wp_rem_properties_next'] = esc_html__('Next', 'wp-rem');
-            $wp_rem_static_text['wp_rem_properties_price_on_request'] = esc_html__('Price On Request', 'wp-rem');
+            $wp_rem_static_text['wp_rem_properties_price_on_request'] = esc_html__('Call for Price', 'wp-rem');
 			$wp_rem_static_text['wp_rem_properties_hidden_text'] = esc_html__('Hidden', 'wp-rem');
             $wp_rem_static_text['wp_rem_properties_featured'] = esc_html__('Featured', 'wp-rem');
             $wp_rem_static_text['wp_rem_properties_members'] = esc_html__('Member: %s', 'wp-rem');
@@ -511,7 +511,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_3') ) {
             $wp_rem_static_text['wp_rem_property_price_details'] = esc_html__('Price details', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_enter_price'] = esc_html__('Enter the price you\'d like displayed for the property below.', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_per_week'] = esc_html__('Per Week', 'wp-rem');
-            $wp_rem_static_text['wp_rem_property_per_calendar'] = esc_html__('Per Calendar Month', 'wp-rem');
+            $wp_rem_static_text['wp_rem_property_per_calendar'] = esc_html__('Per Month', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_price_options'] = esc_html__('Price Options', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_price_on_call'] = esc_html__('Price on Call', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_property_price'] = esc_html__('Property Price', 'wp-rem');
@@ -672,7 +672,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_3') ) {
             $wp_rem_static_text['wp_rem_map_cancel_draw'] = esc_html__('Cancel Draw', 'wp-rem');
             $wp_rem_static_text['wp_rem_map_delete_area'] = esc_html__('Delete Area', 'wp-rem');
             $wp_rem_static_text['wp_rem_map_lock'] = esc_html__('Map Lock', 'wp-rem');
-            $wp_rem_static_text['wp_rem_map_records'] = esc_html__('Records found', 'wp-rem');
+            $wp_rem_static_text['wp_rem_map_records'] = esc_html__('properties found', 'wp-rem');
             $wp_rem_static_text['wp_rem_map_showing'] = esc_html__('Showing', 'wp-rem');
             $wp_rem_static_text['wp_rem_map_results'] = esc_html__('results', 'wp-rem');
             $wp_rem_static_text['wp_rem_options_file_import_success'] = esc_html__('File Import Successfully', 'wp-rem');

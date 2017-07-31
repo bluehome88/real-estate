@@ -441,7 +441,8 @@ if ( ! class_exists('cs_icons_form_fields') ) {
                                 jQuery(function(){
                                     jQuery("#' . $prefix . $cs_icons_piker_id . '").datetimepicker({
                                         format:"' . $cs_icons_format . '",
-                                        timepicker:false
+                                        timepicker:false,
+                                        minDate: new Date(),
                                     });
                                 });
                           </script>';
