@@ -2672,9 +2672,9 @@ color: #9097a1;
 .right-filters-row .right-filters .btn-submit { line-height: 24px; }
 .wp_rem_location_autocomplete { position: absolute; z-index: 9999; top: 100% !important; left: 0 !important; display: none; overflow-y: auto; width: 100% !important; max-height: 250px; padding-bottom: 10px; text-align: left; border: solid 1px #d2d2d2; background: #fff none repeat scroll 0 0; }
 /*.wp_rem_location_autocomplete .address_headers {margin-bottom: 10px;padding-top: 15px;padding-right: 15px;padding-bottom: 15px;padding-left: 15px;border-bottom: solid 1px #d2d2d2;}*/
-.member-search .wp_rem_location_autocomplete .address_headers h5 { margin-bottom: 0; padding: 15px 10px; }
-.wp_rem_location_autocomplete .address_headers h5 { margin-bottom: 0; padding: 10px 15px; }
-.wp_rem_location_autocomplete .wp_rem_google_suggestions { font-size: 13px; font-weight: normal; line-height: 16px; position: relative; margin-bottom: 6px; padding-right: 18px; padding-top: 6px; padding-left: 34px; cursor: pointer; border-top: solid 1px #d2d2d2; }
+.member-search .wp_rem_location_autocomplete .address_headers h5 { margin-bottom: 0; margin-left: -5px; /*padding: 15px 10px;*/ }
+.wp_rem_location_autocomplete .address_headers h5 { margin-bottom: 0; margin-left: -5px; /*padding: 10px 15px;*/ }
+.wp_rem_location_autocomplete .wp_rem_google_suggestions { font-size: 13px; font-weight: normal; line-height: 16px; position: relative; margin-bottom: 6px; padding-right: 18px; padding-top: 6px; padding-left: 44px; cursor: pointer; border-top: solid 1px #d2d2d2; }
 .wp_rem_location_autocomplete .wp_rem_google_suggestions i { line-height: 0; position: absolute; top: 14px !important; right: auto !important; left: 15px; margin: 0; padding: 0 !important; }
 .wp_rem_location_autocomplete .wp_rem_google_suggestions span { line-height: 10px; position: absolute; z-index: 1; top: 50%; left: 15px; margin: -7px 0 0 0; color: #999ba3; }
 .wp-rem-locations-fields-group .wp-rem-radius-location { line-height: 18px; position: absolute; top: 50%; right: 10px; left: auto; margin: -7px 0 0 0; cursor: pointer; }

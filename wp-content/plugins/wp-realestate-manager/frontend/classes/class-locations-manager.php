@@ -1121,7 +1121,11 @@ if ( ! class_exists('Wp_rem_Locations') ) {
             $levels = count($location_list);
             foreach ( $location_list[0] as $key => $val1 ) {
                 if ( $this->startsWith(strtolower($val1['name']), $keyword) === true ) {
-                    $locations_for_display[$key] = array( 'item' => $val1, 'children' => array() );
+                    $locations_for_display[$key] = array( 'item' => $val1, 'children' => array(), "match" => "yes" );
+                }
+                else
+                {
+                    $locations_for_display[$key] = array( 'item' => $val1, 'children' => array(), 'match' => "no" );
                 }
             }
 
@@ -1146,7 +1150,8 @@ if ( ! class_exists('Wp_rem_Locations') ) {
                                 $locations[] = array( 'item' => $val3, 'children' => array() );
                             }
                         }
-                        $locations_for_display[$key1]['children'][$key2]['children'] = $locations;
+                        if( $locations )
+                            $locations_for_display[$key1]['children'][$key2]['children'] = $locations;
                     }
                 }
             }
@@ -1161,7 +1166,8 @@ if ( ! class_exists('Wp_rem_Locations') ) {
                                     $locations[] = array( 'item' => $val4, 'children' => array() );
                                 }
                             }
-                            $locations_for_display[$key1]['children'][$key2]['children'][$key3]['children'] = $locations;
+                            if( $locations )
+                                $locations_for_display[$key1]['children'][$key2]['children'][$key3]['children'] = $locations;
                         }
                     }
                 }
