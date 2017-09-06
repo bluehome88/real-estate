@@ -42,8 +42,6 @@ jQuery(document).ready(function (jQuery) {
 							//types: ['address'],
 							componentRestrictions: '', //{country: window.country_code}
 						};
-						//params.componentRestrictions = ''; //{country: window.country_code}
-						autocompleteService.getPlacePredictions(params, updateGooglePredictions);
 						updateDBPredictions();
 					} else {
 						predictionsDropDown.hide();
@@ -53,7 +51,7 @@ jQuery(document).ready(function (jQuery) {
 				
                 function updateGooglePredictions(predictions, status) {
                     var google_results = '';
-					
+
                     if (google.maps.places.PlacesServiceStatus.OK == status) {
                         // AJAX GET ADDRESS FROM GOOGLE
                         google_results += '<div class="address_headers"><h5>ADDRESS</h5></div>'
@@ -93,7 +91,8 @@ jQuery(document).ready(function (jQuery) {
 									var data = results.locations_for_display;
 									$.each( data, function( key1, val1 ) {
 										if ( results.location_levels_to_show[0] == true && typeof val1.item != "undefined" ) {
-											locations_str += '<div class="wp_rem_google_suggestions wp_rem_location_parent"><i class="icon-location-arrow"></i>' + val1.item.name + '<span style="display:none">' + val1.item.slug + '</span></div>';
+											if( val1.match == "yes" || ( val1.match == "no" && val1.children.length > 0 ))
+												locations_str += '<div class="wp_rem_google_suggestions wp_rem_location_parent address_headers"><i class="icon-location-arrow"></i><h5>' + val1.item.name + '</h5><span style="display:none">' + val1.item.slug + '</span></div>';
 										}
 										if ( val1.children.length > 0 ) {
 											$.each( val1.children, function( key2, val2 ) {
@@ -120,10 +119,11 @@ jQuery(document).ready(function (jQuery) {
 									predictionsDBWrapper.empty();
 									if ( locations_str != "" ) {
 										predictionsLoader.hide();
-										predictionsDBWrapper.append('<div class="address_headers"><h5>' + labels_str + '</h5></div>' + locations_str).show();
+										predictionsDBWrapper.append('' + locations_str).show();
 									}
 								}
                             }
+                            predictionsLoader.hide();
                         }
                     });
                 }
