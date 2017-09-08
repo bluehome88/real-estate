@@ -813,9 +813,9 @@ if ( ! function_exists('wp_rem_get_custom_locations_property_filter') ) {
 			}
             $output .= '<span class="wp-rem-input-cross wp-rem-input-cross' . $property_short_counter . '" data-id="' . $property_short_counter . '" style="display:' . $location_cross_display . ';"><i class="icon-cross"></i></span>';
             if( $field_type == 'modern-v2' ){
-				$output .= '<span class="wp-rem-radius-location"><a id="wp-rem-geo-location' . $property_short_counter . '" class="cs-color wp-rem-geo-location' . $property_short_counter . '" href="javascript:void(0)"><i class="icon-target3"></i></a></span>';
+				$output .= '<span class="wp-rem-radius-location"><a id="wp-rem-geo-location' . $property_short_counter . '" class="cs-color wp-rem-geo-location' . $property_short_counter . '" href="javascript:void(0)"><i class="icon-angle-down"></i></a></span>';
 			}elseif($field_type != 'fancy-v3'){
-				$output .= '<span id="wp-rem-radius-location' . $property_short_counter . '" class="wp-rem-radius-location wp-rem-radius-location' . $property_short_counter . '" data-id="' . $property_short_counter . '"><i class="icon-target3"></i></span>';
+				$output .= '<span id="wp-rem-radius-location' . $property_short_counter . '" class="wp-rem-radius-location wp-rem-radius-location' . $property_short_counter . '" data-id="' . $property_short_counter . '"><i class="icon-angle-down"></i></span>';
 			}
 			if ( $auto_complete == 'on' ) {
                 $output .=$wp_rem_form_fields_frontend->wp_rem_form_text_render(
@@ -835,7 +835,7 @@ if ( ! function_exists('wp_rem_get_custom_locations_property_filter') ) {
                             'cust_id' => 'wp-rem-locations-field',
                             'classes' => "wp-rem-location-field " . $location_field_text . " " . $location_field_text . $property_short_counter . ' input-field wp-rem-locations-field' . $property_short_counter,
                             'extra_atr' => 'data-id="' . $property_short_counter . '" placeholder="' . wp_rem_plugin_text_srt('wp_rem_func_all_locations') . '" autocomplete="off"',
-                            'std' => @$_GET['location'] ?: 'Trinidad and Tobago',
+                            'std' => @$_GET['location'] ?: '',
                             'return' => true,
                         )
                 );
@@ -854,7 +854,7 @@ if ( ! function_exists('wp_rem_get_custom_locations_property_filter') ) {
 			
 			if( $field_type == 'fancy-v3' ){
 				$output .= '<div class="fancy-v3-radius-location">';
-					$output .= '<span class="wp-rem-radius-location"><a id="wp-rem-geo-location' . $property_short_counter . '" class="cs-color wp-rem-geo-location' . $property_short_counter . '" href="javascript:void(0)"><i class="icon-target3"></i></a></span>';
+					$output .= '<span class="wp-rem-radius-location"><a id="wp-rem-geo-location' . $property_short_counter . '" class="cs-color wp-rem-geo-location' . $property_short_counter . '" href="javascript:void(0)"><i class="icon-angle-down"></i></a></span>';
 				$output .= '</div>';
 			}
 			

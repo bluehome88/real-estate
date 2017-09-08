@@ -26,11 +26,11 @@ jQuery(document).ready(function (jQuery) {
 				var new_query = '';
 				var xhr = '';
 
-                input.keyup(function () {
+				var showDropDown = function () {
 					new_query = input.val();
 					// Min Number of characters
 					var num_of_chars = 0;
-					if (new_query.length > num_of_chars) {
+					if (new_query.length >= num_of_chars) {
 						predictionsDropDown.show();
 						predictionsGoogleWrapper.hide();
 						predictionsDBWrapper.hide();
@@ -47,7 +47,10 @@ jQuery(document).ready(function (jQuery) {
 						predictionsDropDown.hide();
 					}
 					$("input.search_type").val('custom');
-                });
+                }
+
+                input.keyup(showDropDown);
+                input.click(showDropDown);
 				
                 function updateGooglePredictions(predictions, status) {
                     var google_results = '';
@@ -64,7 +67,9 @@ jQuery(document).ready(function (jQuery) {
 				}
 				
 				function updateDBPredictions() {
-					if ( last_query == new_query ) {
+					if ( last_query == new_query && predictionsDBWrapper.html() ) {
+						predictionsLoader.hide();
+						predictionsDBWrapper.show();
 						return;
 					}
 					last_query = new_query;
@@ -129,7 +134,7 @@ jQuery(document).ready(function (jQuery) {
                 }
 				
 				predictionsDropDown.delegate('div.wp_rem_google_suggestions', 'click', function () {
-                    if (jQuery(this).text() != "ADDRESS" && jQuery(this).text() != "STATE / PROVINCE" && jQuery(this).text() != "COUNTRY") {
+                    // if (jQuery(this).text() != "ADDRESS" && jQuery(this).text() != "STATE / PROVINCE" && jQuery(this).text() != "COUNTRY") {
                         // address with slug			
                         var wp_rem_address_html = jQuery(this).text();
                         // slug only
@@ -141,13 +146,13 @@ jQuery(document).ready(function (jQuery) {
                         predictionsDropDown.hide();
                         input.next('.search_keyword').closest("form.side-loc-srch-form").submit();
 						$("input.search_type").val('autocomplete');
-                    }
+                    // }
                 });
 				
                 jQuery(document).mouseup(function (e) {
                     predictionsDropDown.hide();
                 });
-				
+				jQuery(".wp-rem-radius-location").click( showDropDown );
                 jQuery(window).resize(function () {
                     updatePredictionsDropDownDisplay(predictionsDropDown, input);
                 });
