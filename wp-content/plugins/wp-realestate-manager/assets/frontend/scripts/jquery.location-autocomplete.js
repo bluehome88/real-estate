@@ -150,9 +150,16 @@ jQuery(document).ready(function (jQuery) {
                 });
 				
                 jQuery(document).mouseup(function (e) {
-                    predictionsDropDown.hide();
+                	if( !(e.target.className == "icon-angle-down"))
+                    	predictionsDropDown.hide();
                 });
-				jQuery(".wp-rem-radius-location").click( showDropDown );
+				jQuery(".wp-rem-radius-location").on("click", function(){
+					if( jQuery(".wp_rem_location_autocomplete").is(":visible"))
+						predictionsDropDown.hide();
+					else
+						showDropDown();
+				});
+
                 jQuery(window).resize(function () {
                     updatePredictionsDropDownDisplay(predictionsDropDown, input);
                 });
