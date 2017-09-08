@@ -1336,6 +1336,65 @@ function modify_menu() {
     if (isset($submenu['edit.php?post_type=packages'][10])) {
         unset($submenu['edit.php?post_type=packages'][10]);
     }
+            /* --------------------------------------- Dont' touch this part --------------------------------------------------- */
+            // // To adjust Country info for all properties 
+            // $args = array(
+            //     'posts_per_page' => "-1",
+            //     'post_type' => 'properties',
+            // );
+            // $custom_query = new WP_Query($args);
+            // $all_properties = $custom_query->posts;
+
+            // $location_array = array();
+            // $country_data = array(
+            //     'data' => array(
+            //         'country' => array(),
+            //     ),
+            //     'location_levels' => array(
+            //         'country' => -1,
+            //     ),
+            // );
+            // $country_data = apply_filters('get_locations_fields_data', $country_data, 'locations_fields_selector');
+            // foreach( $country_data['data']['country'] as $country){
+            //     $country_cities = array(
+            //         'data' => array(
+            //             'state' => array(),
+            //         ),
+            //         'selected' => array(
+            //             'country' => $country['slug'],
+            //             'state' => $wp_rem_post_loc_state,
+            //         )
+            //     );
+
+            //     $country_cities = apply_filters('get_locations_fields_data', $country_cities, 'locations_fields_selector');
+            //     foreach( $country_cities['data']['state'] as $city )
+            //     {
+            //         $location_array[$country['slug']][] = $city;
+            //     }
+            // }
+            // foreach ( $all_properties as $property_data ) {
+            //     $property_id = isset($property_data->ID) ? $property_data->ID : '';
+            //     $property_city = get_post_meta($property_id, 'wp_rem_post_loc_state_property');
+            //     $property_country = get_post_meta($property_id, 'wp_rem_post_loc_country_property');
+            //     foreach($location_array as $country => $cities)
+            //     {
+            //         if( empty( $cities ))
+            //             continue;
+            //         foreach( $cities as $city ){
+            //             if( $property_city[0] == $city['slug']){
+            //                 $property_country = $country;
+            //                 break;
+            //             }
+            //         }
+            //     }
+            //     if( !empty($property_city)){
+            //         update_post_meta( $property_id, 'wp_rem_post_loc_country_property', $property_country );
+            //         error_log( $property_id."--".$property_country."\n", 3, 'log.txt');
+            //     }
+            // }
+            /* ------------------------------------------------------------------------------------------ */
+
+
 }
 
 add_action('admin_menu', 'modify_menu');

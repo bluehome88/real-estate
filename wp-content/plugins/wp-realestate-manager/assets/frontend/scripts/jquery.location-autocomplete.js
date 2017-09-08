@@ -72,6 +72,7 @@ jQuery(document).ready(function (jQuery) {
 						predictionsDBWrapper.show();
 						return;
 					}
+					predictionsDBWrapper.empty();
 					last_query = new_query;
                     // AJAX GET STATE / PROVINCE.
                     var dataString = 'action=get_locations_for_search' + '&keyword=' + new_query;
@@ -121,10 +122,15 @@ jQuery(document).ready(function (jQuery) {
 											});
 										}
 									});
-									predictionsDBWrapper.empty();
+									// predictionsDBWrapper.empty();
 									if ( locations_str != "" ) {
 										predictionsLoader.hide();
 										predictionsDBWrapper.append('' + locations_str).show();
+									}
+									else
+									{
+										predictionsLoader.hide();
+										predictionsDBWrapper.append('<div class="wp_rem_google_suggestions wp_rem_location_child">Sorry. No found result.</div>').show();									
 									}
 								}
                             }
