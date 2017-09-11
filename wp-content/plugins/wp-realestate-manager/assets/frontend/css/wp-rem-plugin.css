@@ -3920,8 +3920,8 @@ opacity:1;
 .wp-rem-split-map-wrap.split-map-left .map-actions.toolSticky-active, .wp-rem-split-map-wrap.split-map-left .property-records-sec.toolSticky-active, .wp-rem-split-map-wrap.split-map-right .map-actions.toolSticky-active, .wp-rem-split-map-wrap.split-map-right .property-records-sec.toolSticky-active { opacity: 1; }
 /*map on left and right both*/
 /*map on right*/
-.wp-rem-split-map-wrap.split-map-right .split-map-toggler { right: -35px; left: auto; text-align: right; transition: right 0.3s ease; border-radius: 0 5px 5px 0; box-shadow: 1px 0 2px 0 rgba(154, 150, 150, 0.47); }
-.wp-rem-split-map-wrap.split-map-right .split-map-toggler.active { right: -360px; }
+.wp-rem-split-map-wrap.split-map-right .split-map-toggler { right: -145px; left: auto; text-align: right; transition: right 0.3s ease; border-radius: 0 5px 5px 0; box-shadow: 1px 0 2px 0 rgba(154, 150, 150, 0.47); }
+.wp-rem-split-map-wrap.split-map-right .split-map-toggler.active { right: -470px; }
 .wp-rem-split-map-wrap.split-map-right .split-map-toggler.active .icon-angle-double-right:before { content: "\f100"; }
 .wp-rem-split-map-wrap.split-map-right { margin-right: 50%; }
 .wp-rem-split-map-wrap.split-map-right .filters-sidebar { margin-left: -322px; left: 100%; border-left: 1px solid #ddd; transition: margin-left 0.3s ease; }
@@ -4256,3 +4256,10 @@ opacity: 1;
 .map-places-detail-boxes .places-detail-box span.place-name { display: block; }
 .map-places-radius-box span { font-size: 13px; font-weight: 400; }
 /*Map Places Radius Box */
+.filter_indicator{
+	font-size: 12px;
+    width: 110px;
+    line-height: 16px;
+    float: left;
+    text-align: center;
+}

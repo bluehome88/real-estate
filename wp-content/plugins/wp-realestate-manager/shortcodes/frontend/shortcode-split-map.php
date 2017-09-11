@@ -501,7 +501,7 @@ if ( ! class_exists('Wp_rem_Shortcode_Split_Map_Frontend') ) {
                 }
                 ?> 
                 <div class="<?php echo esc_html($content_columns); ?>">
-                    <a href="javascript:;" class="split-map-toggler"><i class="icon-angle-double-right"></i></a>
+                    <a href="javascript:;" class="split-map-toggler"><div class="filter_indicator">CLICK TO FILTER<br>PROPERTIES</div><i class="icon-angle-double-right"></i></a>
                     <div class="real-estate-property-content real-estate-dev-property-content" id="wp-rem-data-property-content-<?php echo esc_html($property_short_counter); ?>" data-id="<?php echo esc_html($property_short_counter); ?>">
                         <?php
                         $split_map_title = isset($atts['split_map_title']) ? $atts['split_map_title'] : '';
