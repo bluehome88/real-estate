@@ -171,7 +171,7 @@ jQuery(document).ready(function() {
         var rHeight=windowHeight - headerHeight;
         var vCenter=rHeight/2;
         jQuery(".split-map-toggler").css({"top": vCenter});
-        jQuery(".split-map-toggler").click(function(){
+        jQuery(".split-map-toggler").unbind("click").click(function(){
             if(jQuery(this).hasClass('active')){
                 jQuery(this).removeClass('active');
                 jQuery(".wp-rem-split-map-wrap .filters-sidebar").removeClass('active');
