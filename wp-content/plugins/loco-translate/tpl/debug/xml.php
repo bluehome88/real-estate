@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Just show XML full page
  */
 ?> 

@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 /*
  * Frontend file for Contact Us short code
  */
@@ -82,6 +85,7 @@ if ( ! function_exists( 'wp_rem_cs_var_contact_us_data' ) ) {
 					dataType: "json",
 					success: function (response) {
 						wp_rem_cs_show_response_theme(response, \'\', thisObj);
+						window.location.search = "?sent=contactus";
 					}
 				});
 			}

@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Exception for 418 I'm A Teapot responses
  *
  * @see https://tools.ietf.org/html/rfc2324

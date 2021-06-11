@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Shortcode Name : wp_rem_properties_with_filters
  *
  * @package	wp_rem_cs 

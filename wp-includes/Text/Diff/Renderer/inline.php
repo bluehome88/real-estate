@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * "Inline" diff renderer.
  *
  * Copyright 2004-2010 The Horde Project (http://www.horde.org/)

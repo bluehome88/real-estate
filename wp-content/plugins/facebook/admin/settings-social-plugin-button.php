@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 if ( ! class_exists( 'Facebook_Social_Plugin_Settings' ) )
 	require_once( dirname(__FILE__) . '/settings-social-plugin.php' );
 

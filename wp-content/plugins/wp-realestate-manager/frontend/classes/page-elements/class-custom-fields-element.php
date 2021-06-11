@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Nearby Properties Page Element
  */
 if ( ! class_exists('wp_rem_custom_fields_element') ) {

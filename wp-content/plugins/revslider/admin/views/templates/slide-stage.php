@@ -1,5 +1,8 @@
-<?php
-if( !defined( 'ABSPATH') ) exit();
+<?php 
+ 
+  
+  
+ if( !defined( 'ABSPATH') ) exit();
 $obj_library = new RevSliderObjectLibrary();
 
 $startanims = $operations->getArrAnimations();

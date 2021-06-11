@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 /**
  * User Approved Email Template
  *

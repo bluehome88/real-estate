@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * HTTP API: Requests hook bridge class
  *
  * @package WordPress
@@ -10,9 +13,9 @@
 /**
  * Bridge to connect Requests internal hooks to WordPress actions.
  *
- * @package WordPress
- * @subpackage HTTP
  * @since 4.7.0
+ *
+ * @see Requests_Hooks
  */
 class WP_HTTP_Requests_Hooks extends Requests_Hooks {
 	/**
@@ -36,7 +39,7 @@ class WP_HTTP_Requests_Hooks extends Requests_Hooks {
 	 * @param array $request Request data in WP_Http format.
 	 */
 	public function __construct( $url, $request ) {
-		$this->url = $url;
+		$this->url     = $url;
 		$this->request = $request;
 	}
 
@@ -69,7 +72,7 @@ class WP_HTTP_Requests_Hooks extends Requests_Hooks {
 		 * @param array $request Request data in WP_Http format.
 		 * @param string $url URL to request.
 		 */
-		do_action_ref_array( "requests-{$hook}", $parameters, $this->request, $this->url );
+		do_action_ref_array( "requests-{$hook}", $parameters, $this->request, $this->url ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 
 		return $result;
 	}

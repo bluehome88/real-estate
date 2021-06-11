@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Property Sidebar Map Page Element
  */
 if ( ! class_exists( 'wp_rem_sidebar_map_element' ) ) {

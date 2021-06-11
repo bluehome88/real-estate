@@ -1,5 +1,8 @@
-<?php
-global $wp_rem_google_settings;
+<?php 
+ 
+  
+  
+ global $wp_rem_google_settings;
 $wp_rem_google_settings = get_option( 'wp_rem_plugin_options' );
 
 // set google unique id

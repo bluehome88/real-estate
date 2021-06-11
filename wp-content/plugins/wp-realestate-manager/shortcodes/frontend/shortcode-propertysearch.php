@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Properties Shortcode Frontend
  */
 if ( ! class_exists('Wp_rem_Shortcode_Propertiesearch_Frontend') ) {

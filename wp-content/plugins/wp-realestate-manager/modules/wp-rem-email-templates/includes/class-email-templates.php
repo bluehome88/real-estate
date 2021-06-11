@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Main plugin class (boots the plugin conditionally).
  *
  * @since 1.0

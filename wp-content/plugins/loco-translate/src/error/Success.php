@@ -1,9 +1,12 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Success message. Not really an exception obviously, but compatible with Loco_error_AdminNotices
  */
 class Loco_error_Success extends Loco_error_Exception {
-    
+
     /**
      * {@inheritdoc}
      */
@@ -16,7 +19,7 @@ class Loco_error_Success extends Loco_error_Exception {
      * {@inheritdoc}
      */
     public function getTitle(){
-        return __('OK','loco');
+        return __('OK','loco-translate');
     }
 
 
@@ -24,7 +27,7 @@ class Loco_error_Success extends Loco_error_Exception {
      * {@inheritdoc}
      */
     public function getLevel(){
-        return Loco_error_Exception::LEVEL_INFO;
+        return Loco_error_Exception::LEVEL_NOLOG;
     }
 
 }

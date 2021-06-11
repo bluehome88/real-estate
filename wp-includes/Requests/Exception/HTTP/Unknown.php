@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Exception for unknown status responses
  *
  * @package Requests

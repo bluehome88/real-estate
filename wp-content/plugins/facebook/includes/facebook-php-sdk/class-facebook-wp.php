@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 // parent class
 if ( ! class_exists( 'WP_Facebook' ) )
 	require_once( dirname( __FILE__ ) . '/facebook.php' );

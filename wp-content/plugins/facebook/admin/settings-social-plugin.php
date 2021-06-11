@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 /**
  * Common settings shared between Facebook social plugins
  *

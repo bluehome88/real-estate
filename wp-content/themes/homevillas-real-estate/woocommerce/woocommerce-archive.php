@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Shop Archive
  */
 $var_arrays = array('post', 'wp_rem_cs_var_options');

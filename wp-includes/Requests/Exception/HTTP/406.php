@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Exception for 406 Not Acceptable responses
  *
  * @package Requests

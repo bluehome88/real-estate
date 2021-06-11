@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Exception for 402 Payment Required responses
  *
  * @package Requests

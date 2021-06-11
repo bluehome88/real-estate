@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Currencies Settings
  */
 if ( ! class_exists('Wp_rem_Currencies') ) {

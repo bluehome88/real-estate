@@ -1,5 +1,8 @@
-<?php if( !defined( 'ABSPATH') ) exit(); ?>
-
+<?php 
+ 
+  
+  
+ 
 <!-- //Youtube dialog: -->
 <div id="dialog_video" class="dialog-video" title="<?php _e('Add Video Layer', 'revslider'); ?>" style="display:none">
 	

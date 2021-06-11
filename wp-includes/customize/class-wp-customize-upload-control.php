@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Customize API: WP_Customize_Upload_Control class
  *
  * @package WordPress
@@ -18,7 +21,7 @@ class WP_Customize_Upload_Control extends WP_Customize_Media_Control {
 	public $type          = 'upload';
 	public $mime_type     = '';
 	public $button_labels = array();
-	public $removed = ''; // unused
+	public $removed       = ''; // unused
 	public $context; // unused
 	public $extensions = array(); // unused
 

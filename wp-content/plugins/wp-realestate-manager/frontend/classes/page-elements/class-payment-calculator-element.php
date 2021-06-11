@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Payment Calculator Property Page Element
  */
 if ( ! class_exists('wp_rem_payment_calculator_element') ) {

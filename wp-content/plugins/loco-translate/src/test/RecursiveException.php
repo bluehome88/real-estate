@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Exception that throws an exception when rendered
  * Don't use it, it's for testing failures during failures
  */

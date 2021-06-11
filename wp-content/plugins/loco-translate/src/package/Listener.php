@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Captures text domains being loaded at runtime and establishes what bundles they belong to.
  * 
  */

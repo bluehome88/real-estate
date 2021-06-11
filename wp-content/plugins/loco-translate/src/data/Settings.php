@@ -1,6 +1,24 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Global plugin settings stored in a single WordPress site option.
+ * 
+ * @property string $version Current plugin version installed
+ * @property bool $gen_hash Whether to compile hash table into MO files
+ * @property bool $use_fuzzy Whether to include Fuzzy strings in MO files
+ * @property int $num_backups Number of backups to keep of Gettext files
+ * @property array $pot_alias Alternative names for POT files in priority order
+ * @property array $php_alias Alternative file extensions for PHP files
+ * @property array $jsx_alias Registered extensions for scanning JavaScript/JSX files (disabled by default)
+ * @property bool $fs_persist Whether to remember file system credentials in session
+ * @property int $fs_protect Prevent modification of files in system folders (0:off, 1:warn, 2:block)
+ * @property string $max_php_size Skip PHP source files this size or larger
+ * @property bool $po_utf8_bom Whether to prepend PO and POT files with UTF-8 byte order mark
+ * @property string $po_width PO/POT file maximum line width (wrapping) zero to disable
+ * @property bool $jed_pretty Whether to pretty print JSON JED files
+ * @property bool $ajax_files Whether to submit PO data as concrete files (requires Blob support in Ajax)
  */
 class Loco_data_Settings extends Loco_data_Serializable {
 
@@ -16,33 +34,23 @@ class Loco_data_Settings extends Loco_data_Serializable {
      * @var array
      */
     private static $defaults = array (
-        // current plugin version installed
         'version' => '',
-        // whether to compile hash table into MO files
         'gen_hash' => false,
-        // whether to include Fuzzy strings in MO files
         'use_fuzzy' => true,
-        // number of backups to keep of Gettext files
         'num_backups' => 1,
-        // alternative names for POT files in priority order
         'pot_alias' => array( 'default.po', 'en_US.po', 'en.po' ),
-        // alternative file extensions for PHP files
-        'php_alias' => array( 'php' ),
-        // whether to remember file system credentials in session
+        'php_alias' => array( 'php', 'twig' ),
+        'jsx_alias' => array(),
         'fs_persist' => false,
-        // skip PHP source files this size or larger
+        'fs_protect' => 1,
         'max_php_size' => '100K',
-        /*/ Legacy options from 1.x branch:
-        // whether to use external msgfmt command (1), or internal (default)
-        'use_msgfmt' => false,
-        // which external msgfmt command to use
-        'which_msgfmt' => '',
-        // whether to enable core package translation
-        'enable_core' => false,*/
+        'po_utf8_bom' => false,
+        'po_width' => '79',
+        'jed_pretty' => false,
+        'ajax_files' => true,
     );
 
 
-    
     /**
      * Create default settings instance
      * @return Loco_data_Settings
@@ -52,7 +60,6 @@ class Loco_data_Settings extends Loco_data_Serializable {
         $args['version'] = loco_plugin_version();
         return new Loco_data_Settings( $args );
     }
-
 
 
     /**
@@ -65,10 +72,11 @@ class Loco_data_Settings extends Loco_data_Serializable {
             $opts = self::create();
             $opts->fetch();
             self::$current = $opts;
+            // allow hooks to modify settings
+            do_action('loco_settings', $opts );
         }
         return $opts;
     }
-
 
 
     /**
@@ -79,7 +87,6 @@ class Loco_data_Settings extends Loco_data_Serializable {
         delete_option('loco_settings');
         self::$current = null;
     }
-
 
 
     /**
@@ -93,7 +100,7 @@ class Loco_data_Settings extends Loco_data_Serializable {
 
 
     /**
-     * @override
+     * {@inheritdoc}
      */
     public function offsetSet( $prop, $value ){
         if( ! isset(self::$defaults[$prop]) ){
@@ -109,8 +116,7 @@ class Loco_data_Settings extends Loco_data_Serializable {
         }
         else if( is_array($default) ){
             if( ! is_array($value) ){
-                // TODO use a standard CSV split for array values?
-                $value = preg_split( '/[\s,]+/', trim($value), -1, PREG_SPLIT_NO_EMPTY );
+                $value = preg_split( '/[\\s,]+/', trim($value), -1, PREG_SPLIT_NO_EMPTY );
             }
         }
         else {
@@ -118,7 +124,6 @@ class Loco_data_Settings extends Loco_data_Serializable {
         }
         parent::offsetSet( $prop, $value );
     }
-
 
 
     /**
@@ -130,7 +135,6 @@ class Loco_data_Settings extends Loco_data_Serializable {
         $this->clean();
         return update_option('loco_settings', $this->getSerializable() );
     }
-
 
 
     /**
@@ -154,29 +158,24 @@ class Loco_data_Settings extends Loco_data_Serializable {
     }
 
 
-
     /**
      * Run migration in case plugin has been upgraded since settings last saved
-     * @return bool whether upgrade has occured
+     * @return bool whether upgrade has occurred
      */
     public function migrate(){
-        $existed = (bool) get_option('loco_settings');
-        // Populate new format from legacy 1.x options, but only on first run
-        if( ! $existed ){
-            $this->gen_hash = get_option('loco-translate-gen_hash','0');
-            $this->use_fuzzy = get_option('loco-translate-use_fuzzy', '1' );
-            $this->num_backups = get_option('loco-translate-num_backups','1');
+        $updated = false;
+        // Always update version number in settings after an upgrade
+        if( version_compare($this->version,loco_plugin_version(),'<') ){
             $this->persist();
+            $updated = true;
         }
-        // currently the only upgrade could be 1.x => 2.0
-        // deliberately keeping the old options due to legacy switching feature
-        return ! $existed;
+        return $updated;
     }
-    
 
 
     /**
-     * Populate all settings from raw postdata. 
+     * Populate all settings from raw postdata.
+     * @param array posted setting values
      * @return Loco_data_Settings
      */
     public function populate( array $data ){
@@ -198,8 +197,8 @@ class Loco_data_Settings extends Loco_data_Serializable {
                 
             }
         }
-        // enforce missing values that must have default
-        foreach( array('php_alias','max_php_size') as $prop ){
+        // enforce missing values that must have a default
+        foreach( array('php_alias','max_php_size','po_width') as $prop ){
             if( isset($data[$prop]) && '' === $data[$prop] ){
                 parent::offsetSet( $prop, self::$defaults[$prop] );
             }
@@ -207,5 +206,18 @@ class Loco_data_Settings extends Loco_data_Serializable {
 
         return $this;
     }
-
+    
+    
+    /**
+     * Map a file extension to registered types, defaults to "php"
+     * @param string
+     * @return string php, js or twig
+     */
+    public function ext2type($x){
+        $x = strtolower($x);
+        $types = array_fill_keys( $this->jsx_alias, 'js' );
+        $types['twig'] = 'twig'; // <- temporary hack in lieu of dedicated twig extractor
+        return isset($types[$x]) ? $types[$x] : 'php';
+    }
+   
 }

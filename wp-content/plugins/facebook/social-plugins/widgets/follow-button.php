@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Adds the Follow Button Social Plugin as a WordPress Widget
  *
  * @since 1.0

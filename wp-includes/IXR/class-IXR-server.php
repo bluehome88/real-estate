@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 /**
  * IXR_Server
  *
@@ -151,7 +154,7 @@ EOD;
             header('Content-Type: text/xml; charset='.$charset);
         else
             header('Content-Type: text/xml');
-        header('Date: '.date('r'));
+        header('Date: '.gmdate('r'));
         echo $xml;
         exit;
     }

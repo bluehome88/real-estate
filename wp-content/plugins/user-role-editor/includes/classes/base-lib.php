@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 /*
  * General stuff for usage at WordPress plugins
  * Author: Vladimir Garagulya
@@ -18,7 +21,6 @@ class URE_Base_Lib {
     protected $options = array(); // plugin options data
     protected $multisite = false;
     protected $active_for_network = false;
-    protected $blog_ids = null;
     protected $main_blog_id = 0;
 
     
@@ -38,14 +40,13 @@ class URE_Base_Lib {
      */
     protected function __construct($options_id) {
 
-        $this->multisite = function_exists('is_multisite') && is_multisite();
-        if ($this->multisite) {
-            $this->blog_ids = $this->get_blog_ids();
-            // get Id of 1st (main) blog
+        $this->multisite = function_exists( 'is_multisite' ) && is_multisite();
+        if ( $this->multisite ) {
+            // get Id of the 1st (main) blog
             $this->main_blog_id = $this->get_main_site();
         }
 
-        $this->init_options($options_id);
+        $this->init_options( $options_id );
 
     }
     // end of __construct()
@@ -55,6 +56,7 @@ class URE_Base_Lib {
         
         if (!property_exists($this, $property_name)) {
             syslog(LOG_ERR, 'Lib class does not have such property '. $property_name);
+            return null;
         }
         
         return $this->$property_name;
@@ -76,33 +78,21 @@ class URE_Base_Lib {
     public function get_main_site() {
         global $current_site;
         
-        return $current_site->blog_id;
+        $blog_id = is_object($current_site) ? $current_site->blog_id : null;
+        
+        return $blog_id;
     }
     // end of get_main_site()
-
-
-
-    /**
-     * Returns the array of multisite WP blogs IDs
-     * @global wpdb $wpdb
-     * @return array
-     */
-    protected function get_blog_ids() {
-        global $wpdb;
-
-        $blog_ids = $wpdb->get_col("select blog_id from $wpdb->blogs order by blog_id asc");
-
-        return $blog_ids;
-    }
-    // end of get_blog_ids()
 
     
     /**
      * get current options for this plugin
      */
-    protected function init_options($options_id) {
+    protected function init_options( $options_id ) {
+        
         $this->options_id = $options_id;
-        $this->options = get_option($options_id);
+        $this->options = get_option( $options_id );
+        
     }
     // end of init_options()
 
@@ -116,7 +106,7 @@ class URE_Base_Lib {
 
         if ($message) {
             if ($error_style) {
-                echo '<div id="message" class="error" >';
+                echo '<div id="message" class="error">';
             } else {
                 echo '<div id="message" class="updated fade">';
             }
@@ -124,6 +114,7 @@ class URE_Base_Lib {
         }
     }
     // end of show_message()
+    
 
     /**
      * Returns value by name from GET/POST/REQUEST. Minimal type checking is provided
@@ -136,21 +127,32 @@ class URE_Base_Lib {
     public function get_request_var($var_name, $request_type = 'request', $var_type = 'string') {
 
         $result = 0;
-        if ($request_type == 'get') {
-            if (isset($_GET[$var_name])) {
-                $result = filter_var($_GET[$var_name], FILTER_SANITIZE_STRING);
+        $request_type = strtolower($request_type);
+        switch ($request_type) {
+            case 'get': {
+                if (isset($_GET[$var_name])) {
+                    $result = filter_var($_GET[$var_name], FILTER_SANITIZE_STRING);
+                }                
+                break;
             }
-        } else if ($request_type == 'post') {
-            if (isset($_POST[$var_name])) {
-                if ($var_type != 'checkbox') {
-                    $result = filter_var($_POST[$var_name], FILTER_SANITIZE_STRING);;
-                } else {
-                    $result = 1;
+            case 'post': {
+                if (isset($_POST[$var_name])) {
+                    if ($var_type!='checkbox') {
+                        $result = filter_var($_POST[$var_name], FILTER_SANITIZE_STRING);
+                    } else {
+                        $result = 1;
+                    }
                 }
+                break;
             }
-        } else {
-            if (isset($_REQUEST[$var_name])) {
-                $result = filter_var($_REQUEST[$var_name], FILTER_SANITIZE_STRING);
+            case 'request': {
+                if (isset($_REQUEST[$var_name])) {
+                    $result = filter_var($_REQUEST[$var_name], FILTER_SANITIZE_STRING);
+                }
+                break;
+            }
+            default: {
+                $result = -1;   //  Wrong request type value, possible mistake in a function call
             }
         }
 
@@ -167,19 +169,24 @@ class URE_Base_Lib {
     }
     // end of get_request_var()
 
+    
     /**
      * returns option value for option with name in $option_name
      */
     public function get_option($option_name, $default = false) {
 
         if (isset($this->options[$option_name])) {
-            return $this->options[$option_name];
+            $value = $this->options[$option_name];
         } else {
-            return $default;
+            $value = $default;
         }
+        $value = apply_filters('ure_get_option_'. $option_name, $value);
+        
+        return $value;
     }
     // end of get_option()
 
+    
     /**
      * puts option value according to $option_name option name into options array property
      */
@@ -217,15 +224,15 @@ class URE_Base_Lib {
     // end of flush_options()
 
     /**
-     * Check product versrion and stop execution if product version is not compatible
-     * @param type $must_have_version
-     * @param type $version_to_check
-     * @param type $error_message
-     * @return type
+     * Check product version and stop execution if product version is not compatible
+     * @param string $version1
+     * @param string $version2
+     * @param string $error_message
+     * @return void
      */
-    public static function check_version($must_have_version, $version_to_check, $error_message, $plugin_file_name) {
+    public static function check_version($version1, $version2, $error_message, $plugin_file_name) {
 
-        if (version_compare($must_have_version, $version_to_check, '<')) {
+        if (version_compare($version1, $version2, '<')) {
             if (is_admin() && (!defined('DOING_AJAX') || !DOING_AJAX )) {
                 require_once ABSPATH . '/wp-admin/includes/plugin.php';
                 deactivate_plugins($plugin_file_name);
@@ -256,8 +263,12 @@ class URE_Base_Lib {
      */
     public function get_short_list_str($full_list, $items_count=3) {
      
+        if (empty($full_list) || !is_array($full_list)) {
+            return '...';
+        }
+        
         $short_list = array(); $i = 0;
-        foreach($full_list as $key=>$item) {            
+        foreach($full_list as $item) {            
             if ($i>=$items_count) {
                 break;
             }
@@ -267,12 +278,66 @@ class URE_Base_Lib {
         
         $str = implode(', ', $short_list);
         if ($items_count<count($full_list)) {
-            $str .= '...';
+            $str .= ', ...';
         }
         
         return $str;
     }    
     //  end of get_short_list_str()
+    
+    
+    /**
+     * Prepare the list of integer or string values for usage in SQL query IN (val1, val2, ... , valN) claster
+     * @global wpdb $wpdb
+     * @param string $list_type: allowed values 'int', 'string'
+     * @param array $list_values: array of integers or strings
+     * @return string - comma separated values (CSV)
+     */
+    public static function esc_sql_in_list($list_type, $list_values) {
+        global $wpdb;
+        
+        if (empty($list_values) || !is_array($list_values) || count($list_values)==0) {
+            return '';
+        }
+        
+        if ($list_type=='int') {
+            $placeholder = '%d';   //  Integer
+        } else {
+            $placeholder = '%s';   // String
+        }
+        
+        $placeholders = array_fill(0, count($list_values), $placeholder);
+        $format_str = implode(',', $placeholders);
+        
+        $result = $wpdb->prepare($format_str, $list_values);
+        
+        return $result;        
+    }
+    // end of esc_sql_in_list()
+    
+    
+    /**
+     * Returns the array of multi-site WP sites/blogs IDs for the current network
+     * @global wpdb $wpdb
+     * @return array
+     */
+    public function get_blog_ids() {
+        global $wpdb;
+
+        if (!$this->multisite) {
+            return null;
+        }
+        
+        $network = get_current_site();        
+        $query = $wpdb->prepare(
+                    "SELECT blog_id FROM {$wpdb->blogs}
+                        WHERE site_id=%d ORDER BY blog_id ASC",
+                        array( $network->id ) );
+        $blog_ids = $wpdb->get_col( $query );
+
+        return $blog_ids;
+    }
+    // end of get_blog_ids()
     
     
     /**
@@ -298,4 +363,4 @@ class URE_Base_Lib {
     // end of __wakeup()
 
 }
-// end of Garvs_WP_Lib class
+// end of URE_Base_Lib class

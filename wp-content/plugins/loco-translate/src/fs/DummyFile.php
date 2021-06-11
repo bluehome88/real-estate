@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Dummy file that just holds content in memory. 
  * Use when you don't want to commit data to disk but you need to pass a typed file object
  */

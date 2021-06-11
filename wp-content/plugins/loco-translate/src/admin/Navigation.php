@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Generic navigation helper.
  */
 class Loco_admin_Navigation extends ArrayIterator {
@@ -38,10 +41,10 @@ class Loco_admin_Navigation extends ArrayIterator {
                 'href' => Loco_mvc_AdminRouter::generate($type),
             ) );
             if( 'theme' === $type ){
-                $link['name'] = __('Themes','loco');
+                $link['name'] = __('Themes','loco-translate');
             }
             else {
-                $link['name'] = __('Plugins','loco');
+                $link['name'] = __('Plugins','loco-translate');
             }
             $nav[] = $link;
         }

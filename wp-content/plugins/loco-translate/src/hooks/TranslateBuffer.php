@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Buffers translations requested via __, _x, _n and _nx for exporting in a raw form.
  * This is used for JavaScript localization because wp_localize_script is weak.
  */

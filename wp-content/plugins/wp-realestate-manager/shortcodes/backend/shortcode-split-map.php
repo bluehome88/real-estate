@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Shortcode Name : wp_rem_split_map
  *
  * @package	wp_rem_cs 

@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * HTTP response class
  *
  * Contains a response from Requests::request()

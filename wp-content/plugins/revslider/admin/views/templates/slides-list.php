@@ -1,5 +1,8 @@
-<?php if( !defined( 'ABSPATH') ) exit(); ?>
-
+<?php 
+ 
+  
+  
+ 
 <div class="postbox box-slideslist">
 	<div class="title_line nobgnopd">
 		<div class="view_title"><?php _e('Post List','revslider'); ?>

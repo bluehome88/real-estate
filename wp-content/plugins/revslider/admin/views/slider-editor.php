@@ -1,5 +1,8 @@
-<?php
-if( !defined('ABSPATH') ) exit();
+<?php 
+ 
+  
+  
+ if( !defined('ABSPATH') ) exit();
 
 //get taxonomies with cats
 $postTypesWithCats = RevSliderOperations::getPostTypesWithCatsForClient();		

@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Property Pending Approval Email Templates.
  *
  * @since 1.0

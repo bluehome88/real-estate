@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * The template for displaying archive pages
  *
  * Used to display archive-type pages if nothing more specific matches a query.

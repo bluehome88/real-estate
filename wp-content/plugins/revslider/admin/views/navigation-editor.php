@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * @package   Revolution Slider
  * @author    ThemePunch <info@themepunch.com>
  * @link      http://revolution.themepunch.com/

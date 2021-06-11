@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 /**
  * Generate HTML for a single Like Button.
  *

@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 /**
  * Summarize the plugin configuration on a single page
  *

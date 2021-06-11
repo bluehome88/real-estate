@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 if( !defined( 'ABSPATH') ) exit();
 
 $urlIconDelete = RS_PLUGIN_URL."admin/assets/images/icon-trash.png";

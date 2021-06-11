@@ -1,5 +1,8 @@
-<?php
-global $wp_rem_settings_init;
+<?php 
+ 
+  
+  
+ global $wp_rem_settings_init;
 
 require_once ABSPATH . '/wp-admin/includes/file.php';
 

@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Exception for 505 HTTP Version Not Supported responses
  *
  * @package Requests

@@ -1,10 +1,15 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
+ * WPSEO plugin file.
+ *
  * @package WPSEO\XML_Sitemaps
  */
 
 /**
- * Sitemap Provider interface
+ * Sitemap Provider interface.
  */
 interface WPSEO_Sitemap_Provider {
 

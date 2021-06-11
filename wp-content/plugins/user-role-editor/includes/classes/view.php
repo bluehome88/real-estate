@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * View class to output any HTML used at User Role Editor
  *
  * @package    User-Role-Editor
@@ -9,12 +12,14 @@
  **/
 class URE_View {
  
-    private $lib = null;
+    protected $lib = null;
+    protected $editor = null;
     
     
     public function __construct() {
         
         $this->lib = URE_Lib::get_instance();
+        $this->editor = URE_Editor::get_instance();
         
     }
     // end of __construct()
@@ -77,7 +82,7 @@ class URE_View {
         
         if (isset($builtin_wp_caps[$cap_id])) {
             if (in_array('deprecated', $builtin_wp_caps[$cap_id])) {
-                $show_deprecated_caps = $this->lib->get('show_deprecated_caps');
+                $show_deprecated_caps = $this->editor->get('show_deprecated_caps');
                 if (!$show_deprecated_caps) {
                     $hidden_class = 'hidden';
                 }
@@ -93,7 +98,7 @@ class URE_View {
     
         $blocked = false;
         $multisite = $this->lib->get('multisite');
-        if ($multisite && $this->lib->block_cap_for_single_admin($cap_id, true)) {
+        if ($multisite && $this->editor->block_cap_for_single_admin($cap_id, true)) {
             if ($this->lib->is_super_admin()) {
                 if (!is_network_admin()) {
                     $label_style = 'style="color: red;"';
@@ -108,6 +113,21 @@ class URE_View {
     // end of blocked_for_single_admin_style()
     
     
+    // Get full capabilities list and exclude Visual Composer capabilities from it
+    // Do not take VC capabilities into account as VC stores not boolean values with them
+    protected function get_full_capabilities() {
+        $full_caps = $this->editor->get('full_capabilities');
+        foreach($full_caps as $key=>$capability) {
+            if (strpos($key, 'vc_access_rules_')!==false) {
+                unset($full_caps[$key]);
+            }
+        }
+        
+        return $full_caps;
+    }
+    // end of get_full_capabilities()
+    
+    
     /**
      * output HTML-code for capabilities list
      * @param boolean $for_role - if true, it is role capabilities list, else - user specific capabilities list
@@ -117,17 +137,12 @@ class URE_View {
         
         $onclick_for_admin = '';
         $multisite = $this->lib->get('multisite');
-        $current_role = $this->lib->get('current_role');
-        if (!($multisite && $this->lib->is_super_admin())) {  // do not limit SuperAdmin for multi-site
-            if ('administrator'==$current_role) {
-                $onclick_for_admin = 'onclick="ure_turn_it_back(this)"';
-            }
-        }
-        $user_to_edit = $this->lib->get('user_to_edit');
-        $roles = $this->lib->get('roles');
-        $full_capabilities = $this->lib->get('full_capabilities');
+        $current_role = $this->editor->get('current_role');        
+        $user_to_edit = $this->editor->get('user_to_edit');
+        $roles = $this->editor->get('roles');
+        $full_capabilities = $this->get_full_capabilities();
         $built_in_wp_caps = $this->lib->get_built_in_wp_caps();        
-        $caps_readable = $this->lib->get('caps_readable');
+        $caps_readable = $this->editor->get('caps_readable');
         $caps_groups_manager = URE_Capabilities_Groups_Manager::get_instance();
         
         $key_capability = URE_Own_Capabilities::get_key_capability();
@@ -175,7 +190,7 @@ class URE_View {
                 } else {
                     $disabled = '';
                 }
-                if ($this->lib->user_can($cap_id)) {
+                if ($this->editor->user_can($cap_id)) {
                     $checked = 'checked="checked"';
                     if (!isset($user_to_edit->caps[$cap_id])) {
                         $disabled = 'disabled="disabled"';
@@ -186,8 +201,7 @@ class URE_View {
 
             $cap_id_esc = URE_Capability::escape($cap_id);
             $cap_html = '<div id="ure_cap_div_'. $cap_id_esc .'" '. $class .'><input type="checkbox" name="' . $cap_id_esc . '" id="' . 
-                    $cap_id_esc . '" value="' . $cap_id .'" '. $checked . ' ' . $disabled . ' ' . $onclick_for_admin . 
-                    'class="ure-cap-cb">';
+                    $cap_id_esc . '" value="' . $cap_id .'" '. $checked . ' ' . $disabled . ' class="ure-cap-cb">';
             
             if ($caps_readable) {
                 $cap_ind = 'human';
@@ -236,13 +250,16 @@ class URE_View {
     
     public function advertise_commercials() {
 
+        require_once(URE_PLUGIN_DIR . 'includes/classes/advertisement.php');
+
         $this->advert = new URE_Advertisement();
         $this->advert->display();
+        
     }
     // end of advertisement()
 
 
-    public function output_confirmation_dialog() {
+    public static function output_confirmation_dialog() {
         ?>
         <div id="ure_confirmation_dialog" class="ure-modal-dialog">
             <div id="ure_cd_html" style="padding:10px;"></div>
@@ -252,17 +269,52 @@ class URE_View {
     // end of output_confirmation_dialog()
  
     
+    public static function output_task_status_div() {
+?>        
+        <div id="ure_task_status" style="display:none;position:absolute;top:10px;right:10px;padding:10px;background-color:#000000;color:#ffffff;">
+            <img src="<?php echo URE_PLUGIN_URL .'/images/ajax-loader.gif';?>" width="16" height="16"/> <?php esc_html_e('Working...','user-role-editor');?>
+        </div>
+<?php
+    }
+    // end of output task_status_div()
+    
+    
+    private function show_select_all() {
+        $multisite = $this->lib->get('multisite');
+        $current_role = $this->editor->get('current_role');
+        $show = true;
+        if ($multisite) { 
+            if ($current_role=='administrator' && !$this->lib->is_super_admin()) {
+                $show = false;
+            }
+        } elseif ($current_role=='administrator') {
+            $show = false;
+        }
+        
+        return $show;
+    }
+    // end of show_select_all()
+    
+    
     public function display_caps($for_role = true, $edit_mode=true) {
-        $caps_columns_quant = $this->lib->get('caps_columns_quant');
+        
+        $caps_columns_quant = $this->editor->get('caps_columns_quant');                                    
+
 ?>        
     <table id="ure_caps_container" cellpadding="0" cellspacing="0">
         <tr> 
             <td id="ure_caps_groups_title"><span style="font-weight: bold;"><?php esc_html_e('Group', 'user-role-editor');?></span> (<?php esc_html_e('Total', 'user-role-editor');?>/<?php esc_html_e('Granted', 'user-role-editor');?>)</td>
             <td id="ure_caps_select">
                 <div class="ure-table">
+<?php
+        if ($this->show_select_all()) {
+?>
                     <div class="ure-table-cell">
                         <input type="checkbox" id="ure_select_all_caps" name="ure_select_all_caps" value="ure_select_all_caps"/>                
                     </div>
+<?php
+        }
+?>
                     <div class="ure-table-cell ure-caps-option nowrap">
                         <?php esc_html_e('Quick filter:', 'user-role-editor'); ?>&nbsp;
                         <input type="text" id="quick_filter" name="quick_filter" value="" size="10" onkeyup="ure_filter_capabilities(this.value);" />&nbsp;&nbsp;&nbsp;

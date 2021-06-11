@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Requests for PHP
  *
  * Inspired by Requests for Python.
@@ -88,7 +91,7 @@ class Requests {
 	 *
 	 * @var string
 	 */
-	const VERSION = '1.7';
+	const VERSION = '1.7-3470169';
 
 	/**
 	 * Registered transport classes

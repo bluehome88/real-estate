@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Enquire Arrange Buttons Page Element
  */
 if ( ! class_exists('wp_rem_enquire_arrange_button_element') ) {
@@ -510,6 +513,7 @@ if ( ! class_exists('wp_rem_enquire_arrange_button_element') ) {
 						wp_rem_show_response(response, ".enquiry-request-form", thisObj);
 						if (response.type == "success") {
 							jQuery("#frm_property" + form_id + "").trigger("reset");
+							window.location.search = "?sent=1";
 						}
 					}
 				});
@@ -831,6 +835,7 @@ if ( ! class_exists('wp_rem_enquire_arrange_button_element') ) {
 						wp_rem_show_response(response, ".viewing-request-form", thisObj);
 						if (response.type == "success") {
 							jQuery("#frm_arrange" + form_id + "").trigger("reset");
+							window.location.search = "?sent=2";
 						}
 					}
 				});

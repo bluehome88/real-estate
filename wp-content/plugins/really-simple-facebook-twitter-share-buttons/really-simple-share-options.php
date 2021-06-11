@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 function really_simple_share_options () {
 
 	$option_name = 'really_simple_share';

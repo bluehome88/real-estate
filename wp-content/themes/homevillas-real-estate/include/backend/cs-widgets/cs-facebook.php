@@ -1,5 +1,8 @@
-<?php
-/*
+<?php 
+ 
+  
+  
+ /*
  * Start class for facebook page and profile activities 
  */
 if ( ! class_exists( 'wp_rem_cs_facebook_module' ) ) {

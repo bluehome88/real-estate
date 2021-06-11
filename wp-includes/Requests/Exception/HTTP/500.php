@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Exception for 500 Internal Server Error responses
  *
  * @package Requests

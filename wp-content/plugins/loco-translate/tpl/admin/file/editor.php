@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Editor layout for PO and POT files
  */
 $this->extend('../layout');
@@ -64,9 +67,9 @@ echo $header;
                 $dlFields->_e();?> 
             </form>
         </nav>
-        
-        <div id="loco-editor-inner" class="loco-editor loading">
-            <span>Loading..</span>
+
+        <div id="loco-editor-inner" class="jsonly">
+            <div class="loco-loading"></div>
         </div>
         
     </div>

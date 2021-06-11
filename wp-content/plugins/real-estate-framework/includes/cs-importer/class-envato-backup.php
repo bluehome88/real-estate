@@ -1,5 +1,8 @@
-<?php if ( ! defined( 'ABSPATH') ) exit( 'No direct script access allowed' );
-/**
+<?php 
+ 
+  
+  
+ /**
  * Envato file backup class
  *
  * Original class created by Human Made Limited http://hmn.md/. This version has 

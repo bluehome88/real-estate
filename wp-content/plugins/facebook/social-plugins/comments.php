@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * WordPress comments template for the Facebook plugin for WordPress.
  *
  * Integrate with the comments display area of WordPress themes by overriding the theme's default comments template with a Facebook plugin-specific comments template including existing WordPress comments, static markup wrapped in a <noscript> based on comments stored on Facebook servers, and Comments Box XFBML markup to be interpreted by the Facebook SDK for JavaScript. Attempt to match CSS-addressable elements of WordPress core themes and customization functions where possible but with Facebook plugin-specific filters to avoid unexpected behaviors.

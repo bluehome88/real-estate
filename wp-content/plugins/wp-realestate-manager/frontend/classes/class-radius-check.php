@@ -1,5 +1,8 @@
-<?php
-/*
+<?php 
+ 
+  
+  
+ /*
  * Class start for location check search 
  */
 class RadiusCheck {

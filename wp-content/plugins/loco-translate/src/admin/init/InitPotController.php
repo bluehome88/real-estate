@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * pre-xgettext function. Initializes a new PO file for a given locale
  */
 class Loco_admin_init_InitPotController extends Loco_admin_bundle_BaseController {
@@ -13,7 +16,7 @@ class Loco_admin_init_InitPotController extends Loco_admin_bundle_BaseController
         $this->enqueueStyle('poinit');
         //
         $bundle = $this->getBundle();
-        $this->set('title', __('New template','loco').' &lsaquo; '.$bundle );
+        $this->set('title', __('New template','loco-translate').' &lsaquo; '.$bundle );
     }
 
 
@@ -22,7 +25,7 @@ class Loco_admin_init_InitPotController extends Loco_admin_bundle_BaseController
      */
     public function getHelpTabs(){
         return array (
-            __('Overview','default') => $this->view('tab-init-pot'),
+            __('Overview','default') => $this->viewSnippet('tab-init-pot'),
         );
     }
     
@@ -34,8 +37,8 @@ class Loco_admin_init_InitPotController extends Loco_admin_bundle_BaseController
     public function render(){
         
         $breadcrumb = $this->prepareNavigation();
-        // "new" tab is confising when no project-scope navigation
-        // $this->get('tabs')->add( __('New POT','loco'), '', true );
+        // "new" tab is confusing when no project-scope navigation
+        // $this->get('tabs')->add( __('New POT','loco-translate'), '', true );
 
         $bundle = $this->getBundle();
         $project = $this->getProject();
@@ -65,7 +68,7 @@ class Loco_admin_init_InitPotController extends Loco_admin_bundle_BaseController
         
         // POT should actually not exist at this stage. It should be edited instead.
         if( $pot->exists() ){
-            throw new Loco_error_Exception( __('Template file already exists','loco') );
+            throw new Loco_error_Exception( __('Template file already exists','loco-translate') );
         }
         
         // Bundle may deliberately lock template to avoid end-user tampering
@@ -93,6 +96,8 @@ class Loco_admin_init_InitPotController extends Loco_admin_bundle_BaseController
             $largest = max( $largest, $fsize );
             if( $fsize > $max ){
                 $nskip += 1;
+                // uncomment to log which files are too large to be scanned
+                // Loco_error_AdminNotices::debug( sprintf('%s is %s',$sourceFile,Loco_mvc_FileParams::renderBytes($fsize)) );
             }
             else {
                 $bytes += $fsize;
@@ -111,8 +116,8 @@ class Loco_admin_init_InitPotController extends Loco_admin_bundle_BaseController
         $this->set('pot', Loco_mvc_FileParams::create( $pot ) );
         $this->set('dir', Loco_mvc_FileParams::create( $dir ) );
         
-        $title = __('New template file','loco');
-        $subhead = sprintf( __('New translations template for "%s"','loco'), $project );
+        $title = __('New template file','loco-translate');
+        $subhead = sprintf( __('New translations template for "%s"','loco-translate'), $project );
         $this->set('subhead', $subhead );
         
         // navigate up to bundle listing page 
@@ -136,10 +141,8 @@ class Loco_admin_init_InitPotController extends Loco_admin_bundle_BaseController
         ) ) );
 
         // File system connect required if location not writable
-        if( ! $pot->creatable() ){
-            $path = $pot->getRelativePath($content_dir);
-            $this->prepareFsConnect('create', $path );
-        }
+        $relpath = $pot->getRelativePath($content_dir);
+        $this->prepareFsConnect('create', $relpath );
         
         $this->enqueueScript('potinit');
         return $this->view( 'admin/init/init-pot' );

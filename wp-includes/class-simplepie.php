@@ -1,5 +1,8 @@
-<?php
-if ( ! class_exists( 'SimplePie', false ) ) :
+<?php 
+ 
+  
+  
+ if ( ! class_exists( 'SimplePie', false ) ) :
 
 // Load classes we will need.
 require ABSPATH . WPINC . '/SimplePie/Misc.php';

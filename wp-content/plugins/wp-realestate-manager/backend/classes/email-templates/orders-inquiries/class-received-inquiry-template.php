@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Received Inquiry Email Template
  *
  * @since 1.0

@@ -1,5 +1,8 @@
-<?php
-/*
+<?php 
+ 
+  
+  
+ /*
  * User Role Editor Pro WordPress plugin
  * Author: Vladimir Garagulya
  * Author email: support@role-editor.com

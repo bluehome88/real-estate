@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Wp_rem_cs functions and definitions.
  *
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
@@ -13,11 +16,21 @@ require_once trailingslashit(get_template_directory()) . 'include/cs-global-func
 require_once trailingslashit(get_template_directory()) . 'include/backend/cs-global-variables.php';
 require_once trailingslashit(get_template_directory()) . 'include/cs-theme-functions.php';
 require_once trailingslashit(get_template_directory()) . 'include/cs-helpers.php';
+require_once __DIR__ . '/../../../wp-admin/includes/class-wp-filesystem-base.php';
+require_once __DIR__ . '/../../../wp-admin/includes/class-wp-filesystem-direct.php';
+
 
 define('SCRIPTS_VER', '4.7.4');
 
 define('RECEIVED_ENQUIRY_EMAIL', 'admin@1on1realtors.com');
 define('SEND_ARRANGE_SUBMIT', 'admin@1on1realtors.com');
+
+define('REALTOR_EMAIL', 'admin@1on1realtors.com');
+define('REALTOR_CONTACT', '+1(868) 729-9278');
+define('REALTOR_WORKINGTIME', ' (8am-5pm Mon-Fri)');
+
+// define('RECEIVED_ENQUIRY_EMAIL', 'ameeta@simplyintense.com');
+// define('SEND_ARRANGE_SUBMIT', 'ameeta@simplyintense.com');
 /**
  * Sets up theme defaults and registers support for various WordPress features.     *
  * Note that this function is hooked into the after_setup_theme hook, which

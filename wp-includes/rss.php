@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * MagpieRSS: a simple RSS integration tool
  *
  * A compiled file for RSS syndication

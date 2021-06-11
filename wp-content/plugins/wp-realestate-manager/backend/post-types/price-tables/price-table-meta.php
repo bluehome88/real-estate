@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Price Tables Post Type Metas
  */
 if ( ! class_exists( 'price_tables_post_type_meta' ) ) {

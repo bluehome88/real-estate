@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Class used internally by Diff to actually compute the diffs.
  *
  * This class uses the Unix `diff` program via shell_exec to compute the
@@ -135,10 +138,10 @@ class Text_Diff_Engine_shell {
      *
      * @access private
      *
-     * @param array &$text_lines Either $from_lines or $to_lines
-     * @param int   &$line_no    Current line number
-     * @param int   $end         Optional end line, when we want to chop more
-     *                           than one line.
+     * @param array $text_lines Either $from_lines or $to_lines (passed by reference).
+     * @param int   $line_no    Current line number (passed by reference).
+     * @param int   $end        Optional end line, when we want to chop more
+     *                          than one line.
      *
      * @return array The chopped lines
      */

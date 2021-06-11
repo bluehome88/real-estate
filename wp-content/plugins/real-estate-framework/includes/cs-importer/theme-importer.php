@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Control GUI and AJAX requests
  *
  * @since	1.2

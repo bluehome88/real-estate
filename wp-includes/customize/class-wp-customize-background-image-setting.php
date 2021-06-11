@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Customize API: WP_Customize_Background_Image_Setting class
  *
  * @package WordPress

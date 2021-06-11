@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Session handler for persistent requests and default parameters
  *
  * @package Requests

@@ -1,5 +1,8 @@
-<?php
-if( !defined( 'ABSPATH') ) exit();
+<?php 
+ 
+  
+  
+ if( !defined( 'ABSPATH') ) exit();
 
 $tmpl = new RevSliderTemplate();
 

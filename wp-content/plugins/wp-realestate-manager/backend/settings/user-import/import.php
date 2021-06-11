@@ -1,5 +1,8 @@
-<?php
-//load_plugin_textdomain( 'wp_rem', false, basename( dirname( __FILE__ ) ) . '/languages' );
+<?php 
+ 
+  
+  
+ //load_plugin_textdomain( 'wp_rem', false, basename( dirname( __FILE__ ) ) . '/languages' );
 //echo plugin_dir_path( __FILE__ );
 if (!defined('WP_REM_CSV_DELIMITER'))
     define('WP_REM_CSV_DELIMITER', ',');

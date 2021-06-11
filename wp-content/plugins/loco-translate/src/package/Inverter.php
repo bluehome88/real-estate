@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Bundle inverter utility class.
  */
 abstract class Loco_package_Inverter {

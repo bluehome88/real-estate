@@ -1,5 +1,8 @@
-<h2>
-    Advanced configuration
+<?php 
+ 
+  
+  
+     Advanced configuration
 </h2>
 <p>
     The Advanced tab provides full, manual configuration of the bundle.

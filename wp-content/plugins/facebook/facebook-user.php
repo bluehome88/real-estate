@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 /**
  * Functions related to a Facebook user in the WordPress user system
  *

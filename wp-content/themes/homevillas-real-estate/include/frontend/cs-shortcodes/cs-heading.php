@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 // start Heading shortcode front end view function
 if ( ! function_exists( 'wp_rem_cs_var_heading' ) ) {
 

@@ -1,5 +1,8 @@
-<?php
-if ( ! function_exists('email_exists') )
+<?php 
+ 
+  
+  
+ if ( ! function_exists('email_exists') )
     require_once ABSPATH . WPINC . '/registration.php';
 /*
  *  set query vars

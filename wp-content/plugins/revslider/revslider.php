@@ -1,5 +1,8 @@
-<?php
-/*
+<?php 
+ 
+  
+  
+ /*
 Plugin Name: Slider Revolution
 Plugin URI: http://revolution.themepunch.com/
 Description: Slider Revolution - Premium responsive slider

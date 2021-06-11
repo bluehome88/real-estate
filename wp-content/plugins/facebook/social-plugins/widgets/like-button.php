@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 /**
  * Adds the Like Button Social Plugin as a WordPress Widget
  *

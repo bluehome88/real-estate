@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Contains the post embed content template part
  *
  * When a post is embedded in an iframe, this file is used to create the content template part
@@ -17,7 +20,7 @@
 		<p>
 			<?php
 			printf(
-				/* translators: %s: a link to the embedded site */
+				/* translators: %s: A link to the embedded site. */
 				__( 'It looks like nothing was found at this location. Maybe try visiting %s directly?' ),
 				'<strong><a href="' . esc_url( home_url() ) . '">' . esc_html( get_bloginfo( 'name' ) ) . '</a></strong>'
 			);
@@ -31,6 +34,6 @@
 	?>
 
 	<div class="wp-embed-footer">
-		<?php the_embed_site_title() ?>
+		<?php the_embed_site_title(); ?>
 	</div>
 </div>

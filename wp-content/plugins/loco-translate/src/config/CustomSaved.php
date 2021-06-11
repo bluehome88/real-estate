@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Bundle configuration saved as a WordPress site option.
  */
 class Loco_config_CustomSaved extends Loco_data_Option {

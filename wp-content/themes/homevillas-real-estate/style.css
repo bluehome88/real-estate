@@ -1876,6 +1876,7 @@ body.modal-open { overflow: visible !important; padding-right: 0 !important; }
 .modern .main-header .login-option { margin-right: 15px; }
 .modern .main-header .login-option a { color: #435061 !important; }
 .main-header .top-header .contact-info span { color: #fff; font-size: 18px; font-weight: 600; }
+.main-header .top-header .contact-info span a { color: #fff !important; }
 /*Header modern Style*/
 
 /*Column modern Style*/
@@ -2870,5 +2871,95 @@ bottom: 0; height: 50%; left: 0; position: absolute; width: 100%; }
   }
   .map-places-radius-box .kk_col_2 {
     width: 64%;
+  }
+}
+
+/*custom css*/
+div.post-category-list .resident {
+  overflow: hidden;
+}
+
+div.post-category-list .member-info {
+  width: 78%;
+  float: left;
+}
+
+div.post-category-list .thumb-resident {
+  float: right;
+  width: 22% !important;
+  overflow: hidden !important;
+}
+div.post-category-list.resident .thumb-resident img{
+  width: 100%;
+}
+div.post-category-list.resident .list-resident {
+  -webkit-padding-start: 40px !important;
+  padding: 0px !important;
+  margin: 0px;
+}
+div.post-category-list.resident .list-resident li{
+  width:100%;
+  margin-bottom: 10px;
+}
+div.post-category-list.resident .list-resident li a{
+  color: #5a2e8a !important;
+}
+div.property-dsec .container-fluid {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+#property-detail .agent_info_image{
+  float:left;
+  margin-right: 10px;
+}
+#property-detail .agent_info{
+  float:left;
+  width:60%;
+}
+
+.resident-user-img{
+  width: 60px;
+  height: 60px;
+}
+@media only screen and (max-width: 320px) {
+    .resident-user-img {
+          width: 30px;
+          height: 30px;
+    }
+}
+@media only screen and (min-width: 321px) {
+    .resident-user-img {
+          width: 60px;
+          height: 60px;
+    }
+}
+.search-input.new-style label{
+  background: #5a2e8a !important;
+  letter-spacing: 0.02em;
+}
+.search-input.new-style{
+  color: white;
+  width: 26% !important;
+  line-height: 40px;
+  text-align: left;
+  font-size: 1.4em;
+  margin-left: 22px;
+}
+
+@media screen and (max-width: 1196px){
+  .search-input.new-style{
+    width: 31% !important;
+    font-size: 1.3em;
+  }
+}
+@media screen and (max-width: 992px){
+  .search-input.new-style{
+      width: 50% !important;
+  }
+}
+@media screen and (max-width: 550px){
+  .search-input.new-style{
+      margin-left: 0;
+      width: 100% !important;
   }
 }

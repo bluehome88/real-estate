@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * @Divider html form for page builder
  */
 if ( !function_exists( 'wp_rem_cs_var_page_builder_divider' ) ) {

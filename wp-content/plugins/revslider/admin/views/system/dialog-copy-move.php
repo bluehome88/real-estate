@@ -1,5 +1,8 @@
-<?php if( !defined( 'ABSPATH') ) exit(); ?>
-
+<?php 
+ 
+  
+  
+ 
 <div id="dialog_copy_move" data-textclose="<?php _e("Close",'revslider')?>" data-textupdate="<?php _e("Do It!",'revslider')?>" title="<?php _e("Copy / move slide",'revslider')?>" style="display:none">
 	
 	<br>

@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Abstraction of WordPress roles and capabilities and how they apply to Loco.
  * 
  * - Currently only one capability exists, proving full access "loco_admin"
@@ -28,7 +31,6 @@ class Loco_data_Permissions {
     }
 
 
-
     /**
      * Set up default roles and capabilities
      * @return WP_Roles
@@ -36,11 +38,14 @@ class Loco_data_Permissions {
     public static function init(){
         $roles = self::wp_roles();
         $apply = array();
-        // absense of translator role indicates first run
+        // ensure translator role exists and is not locked out
+        if( $role = $roles->get_role('translator') ){
+            $role->has_cap('read') || $role->add_cap('read');
+        }
+        // else absence of translator role indicates first run
         // by default we'll initially allow full access to anyone that can manage_options
-        if( ! $roles->get_role('translator') ){
-            // lazy create "translator" role
-            $apply['translator'] = $roles->add_role( 'translator', 'Translator', array() );
+        else {
+            $apply['translator'] = $roles->add_role( 'translator', 'Translator', array('read'=>true) );
             /* @var $role WP_Role */
             foreach( $roles->role_objects as $id => $role ){
                 if( $role->has_cap('manage_options') ){
@@ -65,15 +70,21 @@ class Loco_data_Permissions {
     }
 
 
+    /**
+     * Construct instance, ensuring default roles and capabilities exist
+     */
+    public function __construct(){
+        self::init();
+    }
+
 
     /**
-     * @return array<WP_Role>
+     * @return WP_Role[]
      */
     public function getRoles(){
         $roles = self::wp_roles();
         return $roles->role_objects;
     }
-
 
 
     /**
@@ -93,7 +104,6 @@ class Loco_data_Permissions {
     }
 
 
-
     /**
      * Completely remove all Loco permissions, as if uninstalling
      * @return Loco_data_Permissions
@@ -105,10 +115,10 @@ class Loco_data_Permissions {
                 $role->has_cap($cap) && $role->remove_cap($cap);
             }
         }
-        // we'll only remove our custom role if it has no capabilities 
-        // this avoids breaking other plugins that use it, or added it.
+        // we'll only remove our custom role if it has no capabilities other than admin access
+        // this avoids breaking other plugins that use it, or added it before Loco was installed.
         if( $role = get_role('translator') ){
-            if( ! $role->capabilities ){
+            if( ! $role->capabilities || array('read') === array_keys($role->capabilities) ){
                 remove_role('translator');
             }
         }
@@ -116,11 +126,9 @@ class Loco_data_Permissions {
     }
 
 
-
     /**
      * Reset to default: roles include no Loco capabilities unless they have super admin privileges
-     * @param bool whether to prevent current user from locking themselves out of the plugin.
-     * @return array<WP_Role>
+     * @return WP_Role[]
      */
     public function reset(){
         $roles = $this->getRoles();
@@ -143,10 +151,12 @@ class Loco_data_Permissions {
 
     /**
      * Get translated WordPress role name
+     * @param string
+     * @return string
      */
     public function getRoleName( $id ){
         if( 'translator' === $id ){
-            $label = _x( 'Translator', 'User role', 'loco' );
+            $label = _x( 'Translator', 'User role', 'loco-translate' );
         }
         else {
             $names = self::wp_roles()->role_names;
@@ -154,12 +164,12 @@ class Loco_data_Permissions {
         }
         return $label;
     }
-    
 
 
     /**
      * Populate permission settings from posted checkboxes
-     * @return Loco_data_Permissions
+     * @param string[]
+     * @return self
      */
     public function populate( array $caps ){
         // drop all permissions before adding (cos checkboxes)
@@ -172,10 +182,10 @@ class Loco_data_Permissions {
                     if( ! empty($checked[$cap]) ){
                         $role->has_cap($cap) || $role->add_cap($cap);
                     }
-                } 
+                }
             }
         }
         return $this;
     }
-    
-} 
+
+}

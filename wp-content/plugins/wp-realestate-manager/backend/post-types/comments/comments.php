@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 add_action('load-edit-comments.php', 'wpwp_rem_load');
 
 function wpwp_rem_load() {

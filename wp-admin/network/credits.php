@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Network Credits administration panel.
  *
  * @package WordPress

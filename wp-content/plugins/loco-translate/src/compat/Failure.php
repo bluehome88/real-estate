@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Class containing reasons for total incompatibility with current WordPress environment.
  * It won't be loaded unless total failure occurs
  * 

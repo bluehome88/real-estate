@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 /**
  * Adds the Recommendations Social Plugin as a WordPress Widget
  *

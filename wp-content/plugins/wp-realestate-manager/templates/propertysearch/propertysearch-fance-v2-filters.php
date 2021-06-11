@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Property search box
  * default variable which is getting from ajax request or shotcode
  * $property_short_counter, $property_arg

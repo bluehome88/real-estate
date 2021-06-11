@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Add content to a WordPress user profile.
  *
  * @since 1.2

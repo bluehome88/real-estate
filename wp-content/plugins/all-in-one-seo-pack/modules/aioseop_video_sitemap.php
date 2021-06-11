@@ -1,9 +1,12 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Loads video sitemap class.
  *
- * @package All-in-One-SEO-Pack
- * 
+ * @package All_in_One_SEO_Pack
+ * @since ?
  */
 
 if ( AIOSEOPPRO ) {

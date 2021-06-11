@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Portable PHP password hashing framework.
  * @package phpass
  * @since 2.5.0

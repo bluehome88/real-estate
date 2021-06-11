@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File list indexed by locale codes
  */
 class Loco_fs_LocaleFileList extends Loco_fs_FileList {

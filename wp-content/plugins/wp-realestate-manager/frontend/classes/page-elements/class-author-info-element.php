@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Property Author info Page Element
  */
 if ( ! class_exists('wp_rem_author_info_element') ) {

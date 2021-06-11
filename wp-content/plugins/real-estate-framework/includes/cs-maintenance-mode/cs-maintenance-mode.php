@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 add_action('admin_menu', 'foodbakery_maintenance_mode_menu');
 if (!function_exists('foodbakery_maintenance_mode_menu')) {
 

@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 /* Generic exception class
  */
 class apiClientOAuthException extends Exception {

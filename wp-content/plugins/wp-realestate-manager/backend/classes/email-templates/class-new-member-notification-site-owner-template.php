@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * New Member Notification Site Owner Email Template.
  *
  * @since 1.0

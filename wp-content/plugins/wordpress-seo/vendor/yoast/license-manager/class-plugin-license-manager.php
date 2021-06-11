@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 if ( class_exists( 'Yoast_License_Manager' ) && ! class_exists( "Yoast_Plugin_License_Manager", false ) ) {
 
 	class Yoast_Plugin_License_Manager extends Yoast_License_Manager {
@@ -28,7 +31,12 @@ if ( class_exists( 'Yoast_License_Manager' ) && ! class_exists( "Yoast_Plugin_Li
 		 * Setup auto updater for plugins
 		 */
 		public function setup_auto_updater() {
-			if ( $this->license_is_valid() ) {
+			/**
+			 * Filter: 'yoast-license-valid' - Perform action when license is valid or hook returns true.
+			 *
+			 * @api bool $is_valid True if the license is valid.
+			 */
+			if ( apply_filters( 'yoast-license-valid', $this->license_is_valid() ) ) {
 				// setup auto updater
 				require_once( dirname( __FILE__ ) . '/class-update-manager.php' );
 				require_once( dirname( __FILE__ ) . '/class-plugin-update-manager.php' );

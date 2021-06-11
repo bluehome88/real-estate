@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Global Varibles Functions
  */
 if ( ! class_exists( 'wp_rem_cs_global_functions' ) ) {

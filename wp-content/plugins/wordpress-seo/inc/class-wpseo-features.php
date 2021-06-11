@@ -1,7 +1,11 @@
-<?php
-/**
- * @package    WPSEO
- * @subpackage Internal
+<?php 
+ 
+  
+  
+ /**
+ * WPSEO plugin file.
+ *
+ * @package WPSEO\Internal
  */
 
 /**

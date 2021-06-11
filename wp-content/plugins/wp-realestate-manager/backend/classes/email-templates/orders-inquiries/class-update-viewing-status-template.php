@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Arrange Viewing Status Update Email Template
  *
  * @since 1.0

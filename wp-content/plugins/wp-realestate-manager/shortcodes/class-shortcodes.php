@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Shortcodes Function
  */
 if (!class_exists('wp_rem_shortcode_functions')) {

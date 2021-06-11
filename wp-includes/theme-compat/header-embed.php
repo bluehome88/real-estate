@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Contains the post embed header template
  *
  * When a post is embedded in an iframe, this file is used to create the header output

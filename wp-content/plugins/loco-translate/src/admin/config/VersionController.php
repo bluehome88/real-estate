@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  *  Plugin version / upgrade screen
  */
 class Loco_admin_config_VersionController extends Loco_admin_config_BaseController {
@@ -10,20 +13,7 @@ class Loco_admin_config_VersionController extends Loco_admin_config_BaseControll
      */
     public function init(){
         parent::init();
-        $this->set( 'title', __('Version','loco') );
-        // handle legacy degradation
-        $nonce = $this->setNonce('downgrade');
-        try {
-            if( $this->checkNonce($nonce->action) ){
-                update_option('loco-branch', '1', true );
-                $legacy = add_query_arg( array('page'=>'loco-translate'), admin_url('admin.php') );
-                wp_redirect( $legacy );
-            }
-        }
-        catch( Loco_error_Exception $e ){
-            Loco_error_AdminNotices::add($e);
-        }
-        
+        $this->set( 'title', __('Version','loco-translate') );
     }
 
 
@@ -32,28 +22,28 @@ class Loco_admin_config_VersionController extends Loco_admin_config_BaseControll
      */
     public function render(){
         
-        $title = __('Plugin settings','loco');
+        $title = __('Plugin settings','loco-translate');
         $breadcrumb = new Loco_admin_Navigation;
         $breadcrumb->add( $title );
         
         // current plugin version
         $version = loco_plugin_version();
         
-        // check for auto-update availabilty
+        // check for auto-update availability
         if( $updates = get_site_transient('update_plugins') ){
             $key = loco_plugin_self();
-            if( isset($updates->checked[$key]) && isset($updates->response[$key]) ){
-                $old = $updates->checked[$key];
-                $new = $updates->response[$key]->new_version;
-                $diff = version_compare( $new, $old );
-                if( 1 === $diff ){
-                    // current version is lower than latest
-                    $this->setUpdate( $new );
+            if( isset($updates->response[$key]) ){
+                $latest = $updates->response[$key]->new_version;
+                // if current version is lower than latest, prompt update
+                if( version_compare($version,$latest,'<') ){
+                    $this->setUpdate($latest);
                 }
-                /*else {
-                    // current version is a future release (dev branch probably)
-                }*/
             }
+        }
+
+        // notify if running a development snapshot, but only if ahead of latest stable
+        if( '-dev' === substr($version,-4) ){
+            $this->set( 'devel', true );
         }
 
         // $this->setUpdate('2.0.1-debug');
@@ -63,7 +53,8 @@ class Loco_admin_config_VersionController extends Loco_admin_config_BaseControll
 
 
     /**
-     * @internal
+     * @param string version
+     * @return void
      */
     private function setUpdate( $version ){
         $action = 'upgrade-plugin_'.loco_plugin_self();

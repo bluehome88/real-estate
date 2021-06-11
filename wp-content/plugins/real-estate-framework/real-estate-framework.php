@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 /*
   Plugin Name: Real Estate Framework
   Plugin URI: http://themeforest.net/user/Chimpstudio/

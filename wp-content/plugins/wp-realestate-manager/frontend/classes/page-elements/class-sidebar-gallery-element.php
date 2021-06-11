@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Property Sidebar Gallery Page Element
  */
 if ( ! class_exists('wp_rem_sidebar_gallery_element') ) {

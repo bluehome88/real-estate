@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 /**
  * Support for Google Analytics Social Interaction Analytics
  *

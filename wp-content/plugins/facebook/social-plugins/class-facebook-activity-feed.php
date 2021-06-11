@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 if ( ! class_exists( 'Facebook_Recommendations_Box' ) )
 	require_once( dirname(__FILE__) . '/class-facebook-recommendations-box.php' );
 

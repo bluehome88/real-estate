@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Plugin Name: CS Icons Manager
  * Plugin URI: http://themeforest.net/user/Chimpstudio/
  * Description: CS Icons Manager

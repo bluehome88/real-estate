@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 /**
  * Adds the Recent Activity Social Plugin as a WordPress Widget
  *

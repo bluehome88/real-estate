@@ -1,5 +1,8 @@
-<?php if( !defined( 'ABSPATH') ) exit(); ?>
-<div class="wrap settings_wrap">
+<?php 
+ 
+  
+  
+ <div class="wrap settings_wrap">
 
 	<div class="clear_both"></div>
 

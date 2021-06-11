@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Parses unified or context diffs output from eg. the diff utility.
  *
  * Example:

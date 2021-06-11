@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Services Page Element
  */
 if ( ! class_exists( 'Wp_rem_Images_Gallery_Element' ) ) {

@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Customize API: WP_Customize_Nav_Menu_Auto_Add_Control class
  *
  * @package WordPress
@@ -20,7 +23,6 @@ class WP_Customize_Nav_Menu_Auto_Add_Control extends WP_Customize_Control {
 	 * Type of control, used by JS.
 	 *
 	 * @since 4.3.0
-	 * @access public
 	 * @var string
 	 */
 	public $type = 'nav_menu_auto_add';
@@ -29,7 +31,6 @@ class WP_Customize_Nav_Menu_Auto_Add_Control extends WP_Customize_Control {
 	 * No-op since we're using JS template.
 	 *
 	 * @since 4.3.0
-	 * @access protected
 	 */
 	protected function render_content() {}
 
@@ -37,15 +38,17 @@ class WP_Customize_Nav_Menu_Auto_Add_Control extends WP_Customize_Control {
 	 * Render the Underscore template for this control.
 	 *
 	 * @since 4.3.0
-	 * @access protected
 	 */
 	protected function content_template() {
 		?>
+		<# var elementId = _.uniqueId( 'customize-nav-menu-auto-add-control-' ); #>
 		<span class="customize-control-title"><?php _e( 'Menu Options' ); ?></span>
-		<label>
-			<input type="checkbox" class="auto_add" />
-			<?php _e( 'Automatically add new top-level pages to this menu' ); ?>
-		</label>
+		<span class="customize-inside-control-row">
+			<input id="{{ elementId }}" type="checkbox" class="auto_add" />
+			<label for="{{ elementId }}">
+				<?php _e( 'Automatically add new top-level pages to this menu' ); ?>
+			</label>
+		</span>
 		<?php
 	}
 }

@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Opening Hours
  */
 if (!class_exists('wp_rem_opening_hours')) {

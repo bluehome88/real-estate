@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Static string Return
  */
 global $cs_icons_managerstatic_text;

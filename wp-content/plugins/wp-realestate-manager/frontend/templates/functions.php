@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
 
  * Start Function how to Remove Extra Variables using Query String
 

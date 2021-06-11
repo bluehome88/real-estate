@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Title         : Aqua Resizer
  * Description   : Resizes WordPress images on the fly
  * Version       : 1.2.0

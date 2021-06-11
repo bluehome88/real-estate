@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Dummy controller skips "core" list view, rendering the core projects directly as a single bundle.
  * Route: loco-core -> loco-core-view
  */

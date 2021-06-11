@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Shortcode Name : property_categories
  *
  * @package	wp_rem_cs 

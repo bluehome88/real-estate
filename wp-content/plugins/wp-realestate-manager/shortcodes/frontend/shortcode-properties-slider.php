@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Properties Slider Shortcode Frontend
  */
 if (!class_exists('Wp_rem_Shortcode_Properties_Slider_Frontend')) {

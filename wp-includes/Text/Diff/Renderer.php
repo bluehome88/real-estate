@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * A class to render Diffs in different formats.
  *
  * This class renders the diff in classic diff format. It is intended that

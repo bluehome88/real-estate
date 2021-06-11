@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Property search box
  * default variable which is getting from ajax request or shotcode
  * $property_short_counter, $property_arg
@@ -41,18 +44,19 @@ $wp_rem_form_fields_frontend->wp_rem_form_hidden_render(
     <div role="tabpanel" class="tab-pane" id="home">
         <div class="search-default-fields">
             <?php if ($propertysearch_title_switch == 'yes') { ?>
-                <div class="field-holder search-input">
+                <div class="field-holder search-input new-style">
                     <label>
-                        <i class="icon-search4"></i>
+                        <!-- <i class="icon-search4"></i> -->
                         <?php
-                        $wp_rem_form_fields_frontend->wp_rem_form_text_render(
-                                array(
-                                    'cust_name' => 'search_title',
-                                    'classes' => 'input-field',
-                                    'extra_atr' => 'placeholder="' . wp_rem_plugin_text_srt('wp_rem_property_search_flter_wt_looking_for') . '"',
-                                )
-                        );
-                        ?>  
+                        echo wp_rem_plugin_text_srt('wp_rem_property_search_flter_wt_looking_for');
+                        // $wp_rem_form_fields_frontend->wp_rem_form_text_render(
+                        //         array(
+                        //             'cust_name' => 'search_title',
+                        //             'classes' => 'input-field',
+                        //             'extra_atr' => 'placeholder="' . wp_rem_plugin_text_srt('wp_rem_property_search_flter_wt_looking_for') . '"',
+                        //         )
+                        // );
+                        ?> : 
                     </label>
                 </div>
                 <?php

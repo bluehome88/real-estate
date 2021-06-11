@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Package Payment Invoice Email Template.
  *
  * @since 1.0

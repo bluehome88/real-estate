@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Holds a bundle definition in a structure serializable to a native array.
  */
 class Loco_config_ArrayModel extends Loco_config_Model {

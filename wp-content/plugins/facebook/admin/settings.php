@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Store settings related to the Facebook plugin
  *
  * @since 1.1

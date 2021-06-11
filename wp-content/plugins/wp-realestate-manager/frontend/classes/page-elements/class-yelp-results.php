@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Yelp List results for property
  */
 if ( ! class_exists( 'wp_rem_yelp_list_results' ) ) {

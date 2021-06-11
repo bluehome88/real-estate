@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Search Fields
  */
 if ( ! class_exists('Wp_rem_Search_Fields') ) {

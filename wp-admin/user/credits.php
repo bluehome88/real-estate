@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * User Dashboard Credits administration panel.
  *
  * @package WordPress

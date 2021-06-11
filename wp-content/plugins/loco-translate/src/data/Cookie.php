@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Basic abstraction of cookie setting.
  * - Provides loco_setcookie filter for tests.
  * - Provides multiple values as url-encoded pairs. Not using JSON, because stripslashes

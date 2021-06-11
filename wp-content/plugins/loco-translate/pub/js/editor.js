@@ -8,6 +8,7 @@
         
         syncParams = null,
         saveParams = null,
+        ajaxUpload = conf.multipart,
         
         // UI translation
         translator = loco.l10n,
@@ -15,7 +16,7 @@
 
         // PO file data
         locale = conf.locale,
-        messages = loco.po.init( locale ),
+        messages = loco.po.init( locale ).wrap( conf.powrap ),
         template = ! locale,
         
         // form containing action buttons
@@ -36,7 +37,13 @@
         saveButton,
         innerDiv = document.getElementById('loco-editor-inner')
     ;
-
+    
+    
+    // warn if ajax uploads are enabled but not supported
+    if( ajaxUpload && ! ( window.FormData && window.Blob ) ){
+        ajaxUpload = false;
+        loco.notices.warn("Your browser doesn't support Ajax file uploads. Falling back to standard postdata");
+    }
 
 
     /**
@@ -106,6 +113,21 @@
 
 
     /**
+     * @param params {Object}
+     * @return FormData
+     */
+    function initMultiPart( params ){
+        var p, data = new FormData;
+        for( p in params ){
+            if( params.hasOwnProperty(p) ) {
+                data.append(p, params[p]);
+            }
+        }
+        return data;
+    }
+
+
+    /**
      * Post full editor contents to "posave" endpoint
      */    
     function doSaveAction( callback ){
@@ -115,13 +137,19 @@
             // Update saved time update
             $('#loco-po-modified').text( result.datetime||'[datetime error]' );
         }
-        saveParams.locale = String( messages.locale() || '' );
+        var postData = $.extend( {locale:String(messages.locale()||'')}, saveParams||{} );
         if( fsConnect ){
-            fsConnect.applyCreds( saveParams );
+            fsConnect.applyCreds(postData);
         }
-        // adding PO source last for easier debugging in network inspector
-        saveParams.data = String( messages );
-        loco.ajax.post( 'save', saveParams, onSuccess, callback );
+        // submit PO as concrete file if configured
+        if( ajaxUpload ){
+            postData = initMultiPart(postData);
+            postData.append('po', new Blob([String(messages)],{type:'application/x-gettext'}), String(postData.path).split('/').pop()||'untitled.po' );
+        }
+        else {
+            postData.data = String(messages);
+        }
+        loco.ajax.post( 'save', postData, onSuccess, callback );
     }
     
 
@@ -159,11 +187,11 @@
         }        
         function think(){
             disable();
-            $(button).addClass('loading');
+            $(button).addClass('loco-loading');
         }
         function unthink(){
             enable();
-            $(button).removeClass('loading');
+            $(button).removeClass('loco-loading');
         }
         saveParams = $.extend( { path: filePath }, conf.project||{} );
 
@@ -189,11 +217,11 @@
             }
             function think(){
                 disable();
-                $(button).addClass('loading');
+                $(button).addClass('loco-loading');
             }
             function unthink(){
                 enable();
-                $(button).removeClass('loading');
+                $(button).removeClass('loco-loading');
             }
             // Only permit sync when document is saved
             editor
@@ -399,15 +427,15 @@
             fuzzy = stats.f,
             empty = stats.u,
             // Translators: Shows total string count at top of editor
-            stext = sprintf( t._n('1 string','%s strings',total), total ),
+            stext = sprintf( t._n('1 string','%s strings',total ), total.format(0) ),
             extra = [];
         if( locale ){
             // Translators: Shows percentage translated at top of editor
             stext = sprintf( t._('%s%% translated'), stats.p.replace('%','') ) +', '+ stext;
             // Translators: Shows number of fuzzy strings at top of editor
-            fuzzy && extra.push( sprintf( t._('%s fuzzy'), fuzzy ) );
+            fuzzy && extra.push( sprintf( t._('%s fuzzy'), fuzzy.format(0) ) );
             // Translators: Shows number of untranslated strings at top of editor
-            empty && extra.push( sprintf( t._('%s untranslated'), empty ) );
+            empty && extra.push( sprintf( t._('%s untranslated'), empty.format(0) ) );
             if( extra.length ){
                 stext += ' ('+extra.join(', ')+')';
             }
@@ -538,8 +566,14 @@
     // ready to render editor
     editor.load( messages );
     
+    // locale should be cast to full object once set in editor
+    if( locale = editor.targetLocale ){
+        locale.isRTL() && $(innerDiv).addClass('trg-rtl');
+    }
     // enable template mode when no target locale 
-    editor.targetLocale || editor.unlock();
+    else {
+        editor.unlock();
+    }
 
     // ok, editor ready
     updateStatus();

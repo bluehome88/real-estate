@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 global $gateways;
 /**
  *  File Type: Payemnts Base Class

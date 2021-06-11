@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * This file handles locations functionality which register locations by registring
  * new taxonomies.
  *

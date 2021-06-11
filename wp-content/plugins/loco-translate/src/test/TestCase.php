@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Test case that doesn't need any WordPress bootstrapping
  */
 abstract class Loco_test_TestCase extends PHPUnit_Framework_TestCase {

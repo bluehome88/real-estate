@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Shortcode Name : wp_rem_featured_properties
  *
  * @package	wp_rem_cs 

@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Dummy filter methods for testing Hookable base class
  */
 class Loco_test_TestFilters extends Loco_hooks_Hookable {

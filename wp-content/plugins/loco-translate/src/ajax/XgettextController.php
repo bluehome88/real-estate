@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Ajax "xgettext" route, for initializing new template file from source code
  */
 class Loco_ajax_XgettextController extends Loco_ajax_common_BundleController {
@@ -32,18 +35,17 @@ class Loco_ajax_XgettextController extends Loco_ajax_common_BundleController {
         $potfile = new Loco_fs_File( $target.'/'.$name );
         $api = new Loco_api_WordPressFileSystem;
         $api->authorizeCreate($potfile);
-        
         // Do extraction and grab only given domain's strings
         $ext = new Loco_gettext_Extraction( $bundle );
         $domain = $project->getDomain()->getName();
         $data = $ext->addProject($project)->includeMeta()->getTemplate( $domain );
         
         // additional headers to set in new POT file
-        $headers = array (
-            'Project-Id-Version' => $project->getName(),
-        );
+        $head = $data->getHeaders();
+        $head['Project-Id-Version'] = $project->getName();
         
-        $potsize = $potfile->putContents( (string) $data );
+        // write POT file to disk returning byte length
+        $potsize = $potfile->putContents( $data->msgcat(true) );
         
         // set response data for debugging
         if( loco_debugging() ){
@@ -60,7 +62,7 @@ class Loco_ajax_XgettextController extends Loco_ajax_common_BundleController {
         
         // put flash message into session to be displayed on redirected page
         try {
-            Loco_data_Session::get()->flash('success', __('Template file created','loco') );
+            Loco_data_Session::get()->flash('success', __('Template file created','loco-translate') );
             Loco_data_Session::close();
         }
         catch( Exception $e ){

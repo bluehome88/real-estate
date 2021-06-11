@@ -1,5 +1,8 @@
-<?php
-if( !defined( 'ABSPATH') ) exit();
+<?php 
+ 
+  
+  
+ if( !defined( 'ABSPATH') ) exit();
 ?>
 <ul class="tp-list_sliders">
 	<?php 

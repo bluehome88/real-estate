@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Defines configurations for Theme, Framework Plugin and rating plugin
  *
  * @since	1.0

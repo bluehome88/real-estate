@@ -1,9 +1,14 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * The template for displaying single member
  *
  */
 global $post, $wp_rem_plugin_options, $wp_rem_theme_options, $Wp_rem_Captcha, $wp_rem_form_fields_frontend, $wp_rem_post_property_types;
+$realtor_phone_number = REALTOR_CONTACT . REALTOR_WORKINGTIME;
+$realtor_email = REALTOR_EMAIL;
 $post_id = $post->ID;
 $wp_rem_user_status = get_post_meta($post_id, 'wp_rem_user_status', true);
 $wp_rem_captcha_switch = '';
@@ -67,7 +72,9 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                         </div> 
                         <ul class="info-list">
                             <?php if ( isset($wp_rem_post_loc_address_member) && $wp_rem_post_loc_address_member != '' ) { ?>
-                                <li><i class="icon-location-pin2"></i> <a href="#" class="branch-address-link" data-lat="<?php echo $wp_rem_post_loc_latitude_member; ?>" data-lng="<?php echo $wp_rem_post_loc_longitude_member; ?>"><?php echo esc_html($wp_rem_post_loc_address_member); ?></a></li>
+                                <li>
+                                    <a href="#" class="branch-address-link" data-lat="<?php echo $wp_rem_post_loc_latitude_member; ?>" data-lng="<?php echo $wp_rem_post_loc_longitude_member; ?>"><i class="icon-location-pin2"></i><?php echo esc_html($wp_rem_post_loc_address_member); ?></a>
+                                </li>
                             <?php } ?>
                             <?php
                             if ( isset($wp_rem_phone_number) && $wp_rem_phone_number != '' ) {
@@ -85,16 +92,15 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                 <!--Tabs Start-->
                 <div class="member-tabs horizontal">
                     <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#contact_tab"><?php echo wp_rem_plugin_text_srt('wp_rem_member_find_on_map'); ?> </a></li><?php if ( ! empty($team_members) && sizeof($team_members) > 1 ) { ?>
+                            <li><a data-toggle="tab" href="#member_tab"><?php echo wp_rem_plugin_text_srt('wp_rem_member_staff'); ?> </a></li>
+                        <?php } ?>
                         <?php if ( isset($wp_rem_biography) && $wp_rem_biography != '' ) { ?>
-                            <li class="active"><a data-toggle="tab" href="#overview_tab"><?php echo wp_rem_plugin_text_srt('wp_rem_member_overview'); ?> </a></li>
+                            <li><a data-toggle="tab" href="#overview_tab"><?php echo wp_rem_plugin_text_srt('wp_rem_member_overview'); ?> </a></li>
                         <?php } ?>
                         <?php if ( ! empty($branches) && sizeof($branches) > 0 ) { ?>
                             <li><a data-toggle="tab" href="#branches_tab"><?php echo wp_rem_plugin_text_srt('wp_rem_member_office_branches'); ?> </a></li>
-                        <?php } ?>
-                        <?php if ( ! empty($team_members) && sizeof($team_members) > 1 ) { ?>
-                            <li><a data-toggle="tab" href="#member_tab"><?php echo wp_rem_plugin_text_srt('wp_rem_member_staff'); ?> </a></li>
-                        <?php } ?>
-                        <li><a data-toggle="tab" href="#contact_tab"><?php echo wp_rem_plugin_text_srt('wp_rem_member_find_on_map'); ?> </a></li>
+                        <?php } ?>  
                     </ul>
                     <div class="tab-content">
                         <?php if ( isset($wp_rem_biography) && $wp_rem_biography != '' ) { ?>
@@ -333,6 +339,8 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                             while ( $custom_query->have_posts() ) : $custom_query->the_post();
                                 global $post;
                                 $property_id = $post->ID;
+                                $wp_rem_property_member = get_post_meta($property_id, 'wp_rem_property_member', true);
+                                $wp_rem_property_username = get_post_meta($property_id, 'wp_rem_property_username', true);
                                 $wp_rem_cover_image_id = get_post_meta($property_id, 'wp_rem_cover_image', true);
                                 $wp_rem_cover_image = wp_get_attachment_url($wp_rem_cover_image_id);
                                 $wp_rem_post_loc_address_property = get_post_meta($property_id, 'wp_rem_post_loc_address_property', true);
@@ -457,22 +465,94 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                                 ?>
                                                 <span class="property-price"><?php echo force_balance_tags($wp_rem_property_price); ?><small></small></span>
                                             <?php } ?>
-                                            <div class="post-time">
-                                                <small>
-                                                    <?php
-                                                    $month = get_the_date('M');
-                                                    $day = get_the_date('j');
-                                                    $year = get_the_date('Y');
-                                                    printf(wp_rem_plugin_text_srt('wp_rem_member_listed_on'), $day, $month, $year);
+                                            
+                                            <?php
+                                            $wp_rem_phone_number = get_post_meta($wp_rem_property_member, 'wp_rem_phone_number', true);
+                                            $wp_rem_property_name = get_the_title($wp_rem_property_member);
+                                            $wp_rem_selected_team_member = get_userdata( $wp_rem_property_username );                                                            ?>
+                                            <div class="post-category-list resident"><?php
+                                                if ( strcmp($wp_rem_property_name, '1on1realtor') == 0 ) {
+                                                    if ( isset($team_members) && ! empty($team_members) && $wp_rem_property_username ) {
+                                                        $wp_rem_team_member_name = $wp_rem_selected_team_member->display_name;
+                                                        $wp_rem_team_member_phone = get_user_meta( $wp_rem_property_username, 'member_phone_number', true);
                                                     ?>
-                                                </small>
-                                                <a href="<?php echo esc_url($member_link); ?>"><span><?php echo esc_html($member_title); ?></span></a>
+                                                        <div class="member-info">
+                                                            <ul class="list-resident">
+                                                                <li><i class="icon-user3"></i>
+                                                                    <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_team_member_name); ?></span></a>
+                                                                </li>
+                                                                <li><i class="icon-phone2"></i><?php echo esc_html($wp_rem_team_member_phone);?></li>
+                                                            </ul>
+                                                        </div>
+                                                    <?php 
+                                                    }
+                                                    else
+                                                    {
+                                                    ?>
+                                                        <div class="member-info">
+                                                            <ul class="list-resident">
+                                                                <li><i class="icon-user3"></i>
+                                                                    <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_property_name); ?></span></a>
+                                                                </li>
+                                                                <li><i class="icon-phone2"></i><?php echo esc_html($wp_rem_phone_number);?></li>
+                                                            </ul>
+                                                        </div>
+                                                    <?php
+                                                    }
+                                                } 
+                                                else { ?>
+                                                    <div class="member-info">
+                                                        <ul class="list-resident">
+                                                            <li><i class="icon- icon-envelope2"></i><span><?php echo esc_html($realtor_email); ?></span></li>
+                                                            <li><i class="icon-phone2"></i><?php echo esc_html($realtor_phone_number)?></li>
+                                                        </ul>
+                                                    </div>
+                                                <?php } ?>
                                             </div>
-                                            <?php if ( isset($member_image) && $member_image != '' ) { ?>
-                                                <div class="thumb-img">
-                                                    <a href="<?php echo esc_url($member_link); ?>"><img src="<?php echo esc_url($member_image); ?>"></a>
-                                                </div>
-                                            <?php } ?>
+                                            <div class="post-category-list resident">
+                                                <?php
+                                                $member_image = array();
+                                                if( $wp_rem_property_username ){
+
+                                                    $wp_rem_property_id = $wp_rem_selected_team_member->ID;
+                                                    $wp_rem_member_thumb_id = get_user_meta($wp_rem_property_id, 'member_thumb', true);
+                                                    // $wp_rem_property_member = get_post_meta($property_id, 'wp_rem_property_member', true);
+                                                    if ( isset($wp_rem_member_thumb_id) && $wp_rem_member_thumb_id != '' )
+                                                        $member_image = wp_get_attachment_image_src($wp_rem_member_thumb_id, 'thumbnail');
+                                                    else
+                                                        $member_image[0] = esc_url(wp_rem::plugin_url() . 'assets/frontend/images/member-no-image.jpg');
+                                                    ?>
+                                                    <div class="thumb-resident">
+                                                        <figure>
+                                                            <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>">
+                                                               <img src="<?php echo esc_url($member_image[0]); ?>" alt="test" >
+                                                           </a>
+                                                        </figure>
+                                                    </div>
+                                                <?php
+                                                }
+                                                else{
+                                                    $member_image = array();
+                                                    $member_image_id = get_post_meta($wp_rem_property_member, 'wp_rem_profile_image', true);
+                                                    $member_image = wp_get_attachment_image_src($member_image_id, 'thumbnail');
+
+                                                    if ($member_image == '' || FALSE == get_post_status($wp_rem_property_member)) {
+                                                        $member_image[0] = esc_url(wp_rem::plugin_url() . 'assets/frontend/images/member-no-image.jpg');
+                                                    }
+
+                                                    if ($member_image != '' && get_post_status($wp_rem_property_member)) { ?>
+                                                        <div class="thumb-resident">
+                                                            <figure>
+                                                                <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>">
+                                                                    <img src="<?php echo esc_url($member_image[0]); ?>" alt="" >
+                                                                </a>
+                                                            </figure>
+                                                        </div>
+                                                    <?php 
+                                                    } 
+                                                }
+                                                ?>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -612,6 +692,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                         $wp_rem_property_is_featured = get_post_meta($property_id, 'wp_rem_property_is_featured', true);
                         $wp_rem_property_price_options = get_post_meta($property_id, 'wp_rem_property_price_options', true);
                         $wp_rem_property_type = get_post_meta($property_id, 'wp_rem_property_type', true);
+                        $wp_rem_phone_number = get_post_meta($post_id, 'wp_rem_phone_number', true);
                         // checking review in on in property type
                         $wp_rem_property_type = isset($wp_rem_property_type) ? $wp_rem_property_type : '';
                         if ( $property_type_post = get_page_by_path($wp_rem_property_type, OBJECT, 'property-type') )
@@ -752,6 +833,93 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                     <?php
                                 }
                                 ?>
+                            <?php
+                                $wp_rem_phone_number = get_post_meta($wp_rem_property_member, 'wp_rem_phone_number', true);
+                                $wp_rem_property_name = get_the_title($wp_rem_property_member);
+                                $wp_rem_selected_team_member = get_userdata( $wp_rem_property_username );                                                            ?>
+                                <div class="post-category-list resident"><?php
+                                    if ( strcmp($wp_rem_property_name, '1on1realtor') == 0 ) {
+                                        if ( isset($team_members) && ! empty($team_members) && $wp_rem_property_username ) {
+                                            $wp_rem_team_member_name = $wp_rem_selected_team_member->display_name;
+                                            $wp_rem_team_member_phone = get_user_meta( $wp_rem_property_username, 'member_phone_number', true);
+                                        ?>
+                                            <div class="member-info">
+                                                <ul class="list-resident">
+                                                    <li><i class="icon-user3"></i>
+                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_team_member_name); ?></span></a>
+                                                    </li>
+                                                    <li><i class="icon-phone2"></i><?php echo esc_html($wp_rem_team_member_phone);?></li>
+                                                </ul>
+                                            </div>
+                                        <?php 
+                                        }
+                                        else
+                                        {
+                                        ?>
+                                            <div class="member-info">
+                                                <ul class="list-resident">
+                                                    <li><i class="icon-user3"></i>
+                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_property_name); ?></span></a>
+                                                    </li>
+                                                    <li><i class="icon-phone2"></i><?php echo esc_html($wp_rem_phone_number);?></li>
+                                                </ul>
+                                            </div>
+                                        <?php
+                                        }
+                                    } 
+                                    else { ?>
+                                        <div class="member-info">
+                                            <ul class="list-resident">
+                                                <li><i class="icon- icon-envelope2"></i><span><?php echo esc_html($realtor_email); ?></span></li>
+                                                <li><i class="icon-phone2"></i><?php echo esc_html($realtor_phone_number)?></li>
+                                            </ul>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                                <div class="post-category-list resident">
+                                    <?php
+                                    $member_image = array();
+                                    if( $wp_rem_property_username ){
+
+                                        $wp_rem_property_id = $wp_rem_selected_team_member->ID;
+                                        $wp_rem_member_thumb_id = get_user_meta($wp_rem_property_id, 'member_thumb', true);
+                                        // $wp_rem_property_member = get_post_meta($property_id, 'wp_rem_property_member', true);
+                                        if ( isset($wp_rem_member_thumb_id) && $wp_rem_member_thumb_id != '' )
+                                            $member_image = wp_get_attachment_image_src($wp_rem_member_thumb_id, 'thumbnail');
+                                        else
+                                            $member_image[0] = esc_url(wp_rem::plugin_url() . 'assets/frontend/images/member-no-image.jpg');
+                                        ?>
+                                        <div class="thumb-resident">
+                                            <figure>
+                                                <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>">
+                                                   <img src="<?php echo esc_url($member_image[0]); ?>" alt="test" >
+                                               </a>
+                                            </figure>
+                                        </div>
+                                    <?php
+                                    }
+                                    else{
+                                        $member_image = array();
+                                        $member_image_id = get_post_meta($wp_rem_property_member, 'wp_rem_profile_image', true);
+                                        $member_image = wp_get_attachment_image_src($member_image_id, 'thumbnail');
+
+                                        if ($member_image == '' || FALSE == get_post_status($wp_rem_property_member)) {
+                                            $member_image[0] = esc_url(wp_rem::plugin_url() . 'assets/frontend/images/member-no-image.jpg');
+                                        }
+
+                                        if ($member_image != '' && get_post_status($wp_rem_property_member)) { ?>
+                                            <div class="thumb-resident">
+                                                <figure>
+                                                    <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>">
+                                                        <img src="<?php echo esc_url($member_image[0]); ?>" alt="" >
+                                                    </a>
+                                                </figure>
+                                            </div>
+                                        <?php 
+                                        } 
+                                    }
+                                    ?>
+                                </div>
                             </div>
                         </div>
                         <?php

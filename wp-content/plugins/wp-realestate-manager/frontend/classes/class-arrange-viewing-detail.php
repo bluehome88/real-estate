@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Order/Inquiry Detail
  */
 if (!class_exists('Wp_rem_Arrange_Viewing_Detail')) {

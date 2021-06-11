@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Remove data written by the Facebook plugin for WordPress after an administrative user clicks "Delete" from the plugin management page in the WordPress administrative interface (wp-admin).
  *
  * @since 1.1

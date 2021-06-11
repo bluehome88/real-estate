@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Class used internally by Diff to actually compute the diffs.
  *
  * This class uses the xdiff PECL package (http://pecl.php.net/package/xdiff)

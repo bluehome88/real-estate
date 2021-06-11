@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Create Custom Post Type and it's meta boxes for Property Alert Notifications
  *
  * @package	Homevillas

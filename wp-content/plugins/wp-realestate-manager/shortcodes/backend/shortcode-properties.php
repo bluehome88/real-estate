@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Shortcode Name : wp_rem_properties
  *
  * @package	wp_rem_cs 
@@ -31,6 +34,7 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_wp_rem_properties') ) {
                 'properties_subtitle' => '',
                 'properties_title_alignment' => '',
                 'property_type' => '',
+                'filter_by_categories' => '',
                 'property_topmap' => '',
                 'property_map_position' => '',
                 'property_map_height' => '',
@@ -213,6 +217,60 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_wp_rem_properties') ) {
 
                             $wp_rem_html_fields->wp_rem_select_field($wp_rem_opt_array);
                             ?>
+
+                            <script>
+                                jQuery(document).ready(function () {
+                                    jQuery(".save_filter_by_categories").click(function () {
+                                        var MY_SELECT = jQuery('#wp_rem_filter_by_categories').get(0);
+                                        var selection = ChosenOrder.getSelectionOrder(MY_SELECT);
+                                        var filter_by_categories_vals = '';
+                                        var comma = '';
+                                        jQuery(selection).each(function (i) {
+                                            filter_by_categories_vals = filter_by_categories_vals + comma + selection[i];
+                                            comma = ',';
+                                        });
+                                        jQuery('#filter_by_categories_val').val(filter_by_categories_vals);
+                                    });
+
+                                });
+                            </script>
+                            <?php
+                            // $categories_filter_array = array();
+                            $categories_filter_array = get_terms( array(
+                                            'taxonomy' => 'property-category',
+                                            'fields' => 'id=>slug',
+                                            'hide_empty' => false,
+                                        ) );
+
+                            // filter properties by category
+                            $wp_rem_opt_array = array(
+                                'name' => 'Filter by Category',
+                                'desc' => '',
+                                'label_desc' => '',
+                                'echo' => true,
+                                'multi' => true,
+                                'field_params' => array(
+                                    'std' => esc_attr($filter_by_categories),
+                                    'id' => 'filter_by_categories',
+                                    'classes' => 'chosen-select',
+                                    'cust_name' => 'filter_by_categories[]',
+                                    'return' => true,
+                                    'options' => $categories_filter_array
+                                ),
+                            );
+
+                            $wp_rem_html_fields->wp_rem_select_field($wp_rem_opt_array);
+                            
+                            $wp_rem_cs_opt_array = array(
+                                'std' => $property_location,
+                                'cust_id' => 'filter_by_categories_val',
+                                'cust_name' => "filter_by_categories_val[]",
+                                'required' => false
+                            );
+                            $wp_rem_cs_var_form_fields->wp_rem_cs_var_form_hidden_render($wp_rem_cs_opt_array);
+
+                            ?>
+
                             <script>
                                 function property_map_position<?php echo absint($property_rand_id); ?>() {
                                     'use strict';
@@ -1004,7 +1062,7 @@ if ( ! function_exists('wp_rem_cs_var_page_builder_wp_rem_properties') ) {
                                     'cust_id' => 'wp_rem_properties_save',
                                     'cust_type' => 'button',
                                     'extra_atr' => 'onclick="javascript:_removerlay(jQuery(this))"',
-                                    'classes' => 'cs-wp_rem_cs-admin-btn save_property_locations_' . $property_rand_id . '',
+                                    'classes' => 'save_filter_by_categories cs-wp_rem_cs-admin-btn save_property_locations_' . $property_rand_id . '',
                                     'cust_name' => 'wp_rem_properties_save',
                                     'return' => true,
                                 ),
@@ -1110,6 +1168,9 @@ if ( ! function_exists('wp_rem_cs_save_page_builder_data_wp_rem_properties_callb
 
                 // saving admin field using filter for add on
                 $wp_rem_cs_bareber_wp_rem_properties .= apply_filters('wp_rem_save_properties_shortcode_admin_fields', $wp_rem_cs_bareber_wp_rem_properties, $data, $counters['wp_rem_cs_counter_wp_rem_properties']);
+                if ( isset($data['filter_by_categories_val'][$counters['wp_rem_cs_counter_wp_rem_properties']]) && $data['filter_by_categories_val'][$counters['wp_rem_cs_counter_wp_rem_properties']] != '' ) {
+                    $wp_rem_cs_bareber_wp_rem_properties .= 'filter_by_categories="' . $data['filter_by_categories_val'][$counters['wp_rem_cs_counter_wp_rem_properties']] . '" ';
+                }
                 if ( isset($data['property_search_keyword'][$counters['wp_rem_cs_counter_wp_rem_properties']]) && $data['property_search_keyword'][$counters['wp_rem_cs_counter_wp_rem_properties']] != '' ) {
                     $wp_rem_cs_bareber_wp_rem_properties .= 'property_search_keyword="' . htmlspecialchars($data['property_search_keyword'][$counters['wp_rem_cs_counter_wp_rem_properties']], ENT_QUOTES) . '" ';
                 }

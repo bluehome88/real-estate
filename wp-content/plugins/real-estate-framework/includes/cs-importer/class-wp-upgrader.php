@@ -1,5 +1,8 @@
-<?php if ( ! defined( 'ABSPATH') ) exit( 'No direct script access allowed' );
-/**
+<?php 
+ 
+  
+  
+ /**
  * Include the parent class
  */
 if ( ! class_exists( 'Theme_Upgrader' ) )

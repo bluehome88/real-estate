@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Searchs Shortcode Frontend
  */
 if ( ! class_exists('Wp_rem_Shortcode_Pricing_Table_front') ) {

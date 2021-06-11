@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 class URE_Known_JS_CSS_Compatibility_Issues {
     
     public static function fix($hook_suffix, $ure_hook_suffixes) {

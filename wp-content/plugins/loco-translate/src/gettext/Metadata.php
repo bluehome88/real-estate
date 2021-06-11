@@ -1,12 +1,14 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 loco_require_lib('compiled/gettext.php');
 
 /**
- * Holds cacheable metadata about a PO file
+ * Holds metadata about a PO file, cached as Transient
  */
 class Loco_gettext_Metadata extends Loco_data_Transient {
-
 
     /**
      * Generate abbreviated stats from parsed array data  
@@ -39,7 +41,6 @@ class Loco_gettext_Metadata extends Loco_data_Transient {
     }
 
 
-
     /**
      * {@inheritdoc}
      */
@@ -48,10 +49,11 @@ class Loco_gettext_Metadata extends Loco_data_Transient {
     }
 
 
-
     /**
      * Load metadata from file, using cache if enabled.
      * Note that this does not throw exception, check "valid" key
+     * @param Loco_fs_File
+     * @param bool
      * @return Loco_gettext_Metadata
      */
     public static function load( Loco_fs_File $po, $nocache = false ){
@@ -71,22 +73,23 @@ class Loco_gettext_Metadata extends Loco_data_Transient {
                 $data = Loco_gettext_Data::load($po)->getArrayCopy();
                 $meta['valid'] = true;
                 $meta['stats'] = self::stats( $data );
-                // client code should call $meta->persist to cache it for next time
             }
             catch( Exception $e ){
                 $meta['valid'] = false;
             }
         }
-        /*/ debug cache status after fetching transient: dirty means a miss and will require call to persist.
-        Loco_error_AdminNotices::debug( sprintf('%s for %s', $meta->isDirty() ? 'MISS' : 'HIT', $meta['rpath'] ) );*/
-
+        // persist on shutdown with a useful TTL and keepalive
+        // Maximum lifespan: 10 days. Refreshed if accessed a day after being cached.
+        $meta->setLifespan(864000)->keepAlive(86400)->persistLazily();
+        
         return $meta;
     }
 
 
-
     /**
-     * Construct from previously parsed PO data
+     * Construct metadata from previously parsed PO data
+     * @param Loco_fs_File
+     * @param Loco_gettext_Data
      * @return Loco_gettext_Metadata 
      */
     public static function create( Loco_fs_File $file, Loco_gettext_Data $data ){
@@ -175,7 +178,7 @@ class Loco_gettext_Metadata extends Loco_data_Transient {
         $translated = $stats['p'];
         $untranslated = $stats['t'] - $translated;
         
-        return loco_print_progress( $translated, $untranslated, $flagged );
+        loco_print_progress( $translated, $untranslated, $flagged );
     }
 
 
@@ -185,7 +188,7 @@ class Loco_gettext_Metadata extends Loco_data_Transient {
      */
     public function getTotalSummary(){
         $total = $this->getTotal();
-        return sprintf( _n('1 string','%s strings',$total,'loco'), number_format($total) );
+        return sprintf( _n('1 string','%s strings',$total,'loco-translate'), number_format($total) );
     }
 
 
@@ -195,12 +198,12 @@ class Loco_gettext_Metadata extends Loco_data_Transient {
      */
     public function getProgressSummary(){
         $extra = array();
-        $stext = sprintf( __('%s%% translated','loco'), $this->getPercent() ).', '.$this->getTotalSummary();
+        $stext = sprintf( __('%s%% translated','loco-translate'), $this->getPercent() ).', '.$this->getTotalSummary();
         if( $num = $this->countFuzzy() ){
-            $extra[] = sprintf( __('%s fuzzy','loco'), number_format($num) );
+            $extra[] = sprintf( __('%s fuzzy','loco-translate'), number_format($num) );
         }
         if( $num = $this->countUntranslated() ){
-            $extra[] = sprintf( __('%s untranslated','loco'), number_format($num) );
+            $extra[] = sprintf( __('%s untranslated','loco-translate'), number_format($num) );
         }
         if( $extra ){
             $stext .= ' ('.implode(', ', $extra).')';

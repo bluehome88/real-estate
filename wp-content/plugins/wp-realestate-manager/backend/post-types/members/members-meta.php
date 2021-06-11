@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * @Add Meta Box For Members Post
  * @return
  *
@@ -1053,6 +1056,9 @@ if ( ! class_exists('Wp_rem_Members_Meta') ) {
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <div class="field-holder form-elements">
                                                         <label><?php echo wp_rem_plugin_text_srt('wp_rem_member_profile_image'); ?></label>
+                                                        <?php if( $profile_url ) :?>
+                                                        <img src="<?php echo $profile_url;?>" width="100" height="100"/>
+                                                        <?php endif;?>
                     <?php
                     $wp_rem_opt_array = array(
                         'id' => 'member_thumb_' . $member_data->ID,

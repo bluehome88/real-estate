@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Recently items to display on home page
  */
 class Loco_data_RecentItems extends Loco_data_Option {

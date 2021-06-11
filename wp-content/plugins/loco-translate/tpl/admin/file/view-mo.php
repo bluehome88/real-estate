@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Binary MO hex view
  */
 $this->extend('view');
@@ -8,7 +11,7 @@ $this->start('source');
 
      <div class="notice inline notice-info">
          <p>
-             <?php esc_html_e('File is in binary MO format','loco')?>.
+             <?php esc_html_e('File is in binary MO format','loco-translate')?>.
          </p>
      </div>
      

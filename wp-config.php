@@ -1,4 +1,13 @@
-<?php
+<?php 
+ 
+  
+  
+ 
+// BEGIN iThemes Security - Do not modify or remove this line
+// iThemes Security Config Details: 2
+define( 'DISALLOW_FILE_EDIT', true ); // Disable File Editor - Security > Settings > WordPress Tweaks > File Editor
+// END iThemes Security - Do not modify or remove this line
+
 @include __DIR__ . '/local-config.php';
 /**
  * The base configuration for WordPress
@@ -47,14 +56,14 @@ define('DB_COLLATE', '');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         'uZL!Bc2|SfE4=S@~rVRnV]Isz*kyJo).@Ac`VN!AtQx.r$Gp^z#BVE;gf~?IO7hI');
-define('SECURE_AUTH_KEY',  'e}NUV1/rOEMt|Y+E7AA]|H.GYD:-8g/EI6 cq|?-F|r{eEn7feNK0gNI,=EH!$o-');
-define('LOGGED_IN_KEY',    'b7,9e9 J|ult/Cg[a7Wl,3#fvJE]-o-vfpIyh +Pl;vgy{XSkMv:y7TcmFr@q)3T');
-define('NONCE_KEY',        '&`P_`t<a6+|Q8q[5w>4m1%z&OA@7(In}TOt#Xm:<;&21-H4X2`x QR:KyK35aE9U');
-define('AUTH_SALT',        'V<DZ.O/O~g5Pp[ui CF;EZe8_:h1`A83A+]YCT_%[>/v[f* 02--W,UoJ*]{[-7C');
-define('SECURE_AUTH_SALT', '@LWjF Sftrf^LCZ{OWLvh~]_)qk|g?Xrky!J!|1K[E<dhV8C)7O4W;qOMB&M{8Ys');
-define('LOGGED_IN_SALT',   'eT,TS<LC`>x1K8n$])W*Ahqi-lE;GxPrRZF[9+)sga$g7:4GL$r41|X!8VE:bhBW');
-define('NONCE_SALT',       'VeQI-!|%L,<nl26 _)HF1~uX(C;`cCW8dVYkMfR8~`v(hW0~?IDhLZR2lM[On#^y');
+define('AUTH_KEY',         'w%+ct|x3/%zT~`R6joNcWds.EZ/=pw,IToaF =+2jg.J/89;(X&2|9r@8[&B.-?=');
+define('SECURE_AUTH_KEY',  'FDOw#3+O[yK3Yw->XxHWE[Zle7s;}J;Eo3UvO+}texjR[f8o*:_sP ,AMZyK1%u=');
+define('LOGGED_IN_KEY',    'llGcfU+!x>E$UG)7Nq+On>yd03`|XLr/}l-PrpWW3T,l$OBv.+M9Hr+FLo7SrQX#');
+define('NONCE_KEY',        'Kg2 yF_=J-S|g]JSI4cCg=D[5uLmzDID/Q4,/+#XL)|-$Sy&e:x( pr:R^Kd+mZ}');
+define('AUTH_SALT',        '412Ai4k G<U6I+lWnqDR}|WSatv+m%-lhH>-;/mGVMd-pL_fzkT<3RqK|)b1u)+<');
+define('SECURE_AUTH_SALT', 'r*pN#2]RhFWxn|U^{<8%.(%*5t56S{,JM&[Xu4ev*v*~:UC^,NGZUOQKs~a.;7V{');
+define('LOGGED_IN_SALT',   '0RA)3VF{om+YQ+P=WFz|^&+ JCc~/~J(>_[T9*Ksz*@r^fuY4`&f~r7]il0cbHT|');
+define('NONCE_SALT',       '}Z5KduMDwJG(O{x.~2(.?1T8!]N[sdEajjYCcEzA*%lNf#[^/P^k?)#EstGiO>eM');
 
 /**#@-*/
 
@@ -78,7 +87,7 @@ $table_prefix  = 'wp_';
  *
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
-@define('WP_DEBUG', false);
+@define('WP_DEBUG', true);
 
 // For Real estate manager plugin
 @define('FS_METHOD', 'direct');

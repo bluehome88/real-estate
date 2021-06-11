@@ -1,5 +1,8 @@
-<?php if( !defined( 'ABSPATH') ) exit(); 
-
+<?php 
+ 
+  
+  
+ 
 $slide_general_addon = apply_filters('revslider_slide_settings_addons', array(), $slide, $slider);
 ?>
 

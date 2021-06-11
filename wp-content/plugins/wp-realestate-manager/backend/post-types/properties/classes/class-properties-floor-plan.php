@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Floor Plans
  */
 if (!class_exists('wp_rem_floor_plans')) {

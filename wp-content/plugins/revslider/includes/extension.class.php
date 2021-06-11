@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Slider Revolution
  *
  * @package   Essential_Grid

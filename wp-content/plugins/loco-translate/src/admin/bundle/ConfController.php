@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Bundle configuration page
  */
 class Loco_admin_bundle_ConfController extends Loco_admin_bundle_BaseController {
@@ -13,7 +16,7 @@ class Loco_admin_bundle_ConfController extends Loco_admin_bundle_BaseController 
         $this->enqueueScript('config');
         $bundle = $this->getBundle();
         // translators: where %s is a plugin or theme
-        $this->set( 'title', sprintf( __('Configure %s','loco'),$bundle->getName() ) );
+        $this->set( 'title', sprintf( __('Configure %s','loco-translate'),$bundle->getName() ) );
 
         $post = Loco_mvc_PostParams::get();
         // always set a nonce for current bundle
@@ -52,7 +55,7 @@ class Loco_admin_bundle_ConfController extends Loco_admin_bundle_BaseController 
      */
     public function getHelpTabs(){
         return array (
-            __('Advanced tab','loco') => $this->view('tab-bundle-conf'),
+            __('Advanced tab','loco-translate') => $this->viewSnippet('tab-bundle-conf'),
         );
     }
     
@@ -62,11 +65,14 @@ class Loco_admin_bundle_ConfController extends Loco_admin_bundle_BaseController 
      */
     public function render() {
 
+        $parent = null;
         $bundle = $this->getBundle();
+        $default = $bundle->getDefaultProject();
         $base = $bundle->getDirectoryPath();
 
+
         // parent themes are inherited into bundle, we don't want them in the child theme config
-        if( $bundle->isTheme() && ( $parent = $bundle->getParentTheme() ) ){
+        if( $bundle->isTheme() && ( $parent = $bundle->getParent() ) ){
             $this->set( 'parent', new Loco_mvc_ViewParams( array(
                 'name' => $parent->getName(),
                 'href' => Loco_mvc_AdminRouter::generate('theme-conf', array( 'bundle' => $parent->getSlug() ) + $_GET ),
@@ -77,16 +83,24 @@ class Loco_admin_bundle_ConfController extends Loco_admin_bundle_BaseController 
         $data = Loco_mvc_PostParams::get();
         // else build initial data from current bundle state 
         if( ! $data->has('conf') ){
+            // create single default set for totally unconfigured bundles
             if( 0 === count($bundle) ){
                 $bundle->createDefault('');
             }
             $writer = new Loco_config_BundleWriter($bundle);
             $data = $writer->toForm();
-            // removed parent bundle configs, as they are inherited
+            // removed parent bundle from config form, as they are inherited
             /* @var Loco_package_Project $project */
             foreach( $bundle as $i => $project ){
-                if( isset($parent) && $parent->hasProject($project) ){
-                    $data['conf'][$i]['removed'] = true;
+                if( $parent && $parent->hasProject($project) ){
+                    // warn if child theme uses parent theme's text domain (but allowing to render so we don't get an empty form.
+                    if( $project === $default ){
+                        Loco_error_AdminNotices::warn( __("Child theme declares the same Text Domain as the parent theme",'loco-translate') );
+                    }
+                    // else safe to remove parent theme configuration as it should be held in its own bundle
+                    else {
+                        $data['conf'][$i]['removed'] = true;
+                    }
                 }
             }
         }
@@ -103,7 +117,7 @@ class Loco_admin_bundle_ConfController extends Loco_admin_bundle_BaseController 
                 $conf[] = new Loco_mvc_ViewParams( $raw );
             }
         }
-        
+
         // bundle level configs
         $name = $bundle->getName();
         $excl = $data['exclude'];
@@ -124,8 +138,9 @@ class Loco_admin_bundle_ConfController extends Loco_admin_bundle_BaseController 
             'type' => $bundle->getType()  
         );
         $this->set( 'xmlUrl', Loco_mvc_AjaxRouter::generate( 'DownloadConf', $args ) );
+        $this->set( 'manUrl', apply_filters('loco_external','https://localise.biz/wordpress/plugin/manual/bundle-config') );
         
-        $this->prepareNavigation()->add( __('Advanced configuration','loco') );
+        $this->prepareNavigation()->add( __('Advanced configuration','loco-translate') );
         return $this->view('admin/bundle/conf', compact('conf','base','name','excl') );
     }    
     

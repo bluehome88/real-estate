@@ -1,5 +1,8 @@
-<h2>
-    Bundle setup
+<?php 
+ 
+  
+  
+     Bundle setup
 </h2>
 <p>
     The Setup tab shows a summary of whether the bundle is configured for translation and where the configuration is stored.

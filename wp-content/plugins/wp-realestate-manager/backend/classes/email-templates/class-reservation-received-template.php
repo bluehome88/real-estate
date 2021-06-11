@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Reservation Received Email Template.
  *
  * @since 1.0

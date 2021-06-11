@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Plugin Functions
  */
 if ( ! class_exists('Wp_rem_Plugin_Functions') ) {
@@ -514,7 +517,7 @@ if ( ! class_exists('Wp_rem_Plugin_Functions') ) {
             $wp_rem_obj->wp_rem_google_place_scripts();
             $wp_rem_obj->wp_rem_autocomplete_scripts();
 
-            $wp_rem_post_loc_country = 'trinidad-and-tobago';
+            // $wp_rem_post_loc_country = 'trinidad-and-tobago';
 
             $locations_data = array(
                 'data' => array(

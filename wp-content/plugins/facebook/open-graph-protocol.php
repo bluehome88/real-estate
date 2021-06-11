@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 /**
  * Output Open Graph protocol for consumption by Facebook services building a summary of the webpage.
  *

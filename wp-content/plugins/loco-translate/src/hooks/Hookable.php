@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Hookable objects automatically bind Wordpress filters and actions instance methods.
  * - Filter methods take the form `public function filter_{hook}()`
  * - Actions methods take the form `public function on_{hook}`

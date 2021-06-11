@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Object represents a Text Domain within a bundle.
  * TODO implement a conflict watcher to warn when domains are shared by multiple bundles?
  */

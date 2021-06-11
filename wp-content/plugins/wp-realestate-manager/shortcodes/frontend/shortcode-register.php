@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Register Shortcode Frontend
  */
 if ( ! class_exists('Wp_rem_Shortcode_Register_Frontend') ) {

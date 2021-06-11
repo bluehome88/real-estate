@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 /*
  * @Shortcode Name :   Start function for Counter shortcode/element front end view
  */

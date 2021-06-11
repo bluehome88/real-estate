@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Placeholder for missing PHP "json" extension.
  * Just avoids fatal errors. Does not actually replace functionality.
  *

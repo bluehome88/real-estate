@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Common access to bundle headers.
  * Because access to theme and plugin header data via WordPress is a total mess.
  * 
@@ -74,13 +77,13 @@ class Loco_package_Header {
             }
         }
         else {
-            $author = __('Unknown author','loco');
+            $author = __('Unknown author','loco-translate');
         }
-        
+        // translators: Author credit: "<product>" <version> by <author>
         $html = sprintf( __('"%s" %s by %s','default'), esc_html($this->Name), $this->Version, $author );
         
         if( ( $link = $this->PluginURI ) || ( $link = $this->ThemeURI ) ){
-            $html .= sprintf( ' &mdash; <a href="%s" target="_blank">%s</a>', esc_url($link), __('Visit official site','loco') );
+            $html .= sprintf( ' &mdash; <a href="%s" target="_blank">%s</a>', esc_url($link), __('Visit official site','loco-translate') );
         }
         
         return $html;

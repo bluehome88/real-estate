@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 /*
  * THEME_NAME contains the name of the current theme
  */

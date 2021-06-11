@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Manages revisions (backups) of a file.
  * Revision file names have form "<filename>-backup-<date>.<ext>~"
  */
@@ -17,6 +20,12 @@ class Loco_fs_Revisions implements Countable/*, IteratorAggregate*/ {
     private $paths;
     
     /**
+     * Cached regular expression for matching backup file paths
+     * @var string
+     */
+    private $regex;
+
+    /**
      * Cached count of backups + 1
      * @var int
      */
@@ -31,19 +40,20 @@ class Loco_fs_Revisions implements Countable/*, IteratorAggregate*/ {
 
     /**
      * Construct from master file (current version)
+     * @param Loco_fs_File
      */
     public function __construct( Loco_fs_File $file ){
         $this->master = $file;
     }
-    
-    
+
+
     /**
      * @internal
      * Executes deferred deletions with silent errors
      */
     public function __destruct(){
         if( $trash = $this->trash ){
-            $writer = $this->master->getWriteContext();
+            $writer = clone $this->master->getWriteContext();
             foreach( $trash as $file ){
                 if( $file->exists() ){
                     try {
@@ -51,7 +61,8 @@ class Loco_fs_Revisions implements Countable/*, IteratorAggregate*/ {
                         $writer->delete(false);
                     }
                     catch( Loco_error_WriteException $e ){
-                        // avoiding fatals as pruning is non-critical operation
+                        // avoiding fatal error because pruning is non-critical operation
+                        Loco_error_AdminNotices::debug( $e->getMessage() );
                     }
                 }
             }
@@ -59,13 +70,15 @@ class Loco_fs_Revisions implements Countable/*, IteratorAggregate*/ {
     }
 
 
+
     /**
      * Check that file permissions allow a new backup to be created
      * @return bool
      */
     public function writable(){
-        return $this->master->getParent()->writable();
+        return $this->master->exists() && $this->master->getParent()->writable();
     }
+
 
 
     /**
@@ -94,9 +107,9 @@ class Loco_fs_Revisions implements Countable/*, IteratorAggregate*/ {
     }
 
 
-
     /**
-     * Delete oldest backups until we have maximuim of $num_backups remaining
+     * Delete oldest backups until we have maximum of $num_backups remaining
+     * @param int
      * @return Loco_fs_Revisions
      */
     public function prune( $num_backups ){
@@ -112,7 +125,22 @@ class Loco_fs_Revisions implements Countable/*, IteratorAggregate*/ {
     }
 
 
-
+    /**
+     * build regex for matching backed up revisions of master
+     * @return string
+     */
+    private function getRegExp(){
+        $regex = $this->regex;
+        if( is_null($regex) ){
+            $regex = preg_quote( $this->master->filename(), '/' ).'-backup-(\\d{14,})';
+            if( $ext = $this->master->extension() ){
+                $regex .= preg_quote('.'.$ext,'/');
+            }
+            $regex = '/^'.$regex.'~/';
+            $this->regex = $regex;
+        }
+        return $regex;
+    }
 
 
 
@@ -121,16 +149,11 @@ class Loco_fs_Revisions implements Countable/*, IteratorAggregate*/ {
      */
     public function getPaths(){
         if( is_null($this->paths) ){
-            // build regex for matching backed up revisions of master
-            $regex = preg_quote( $this->master->filename(), '/' ).'-backup-(\\d{14,})?';
-            if( $ext = $this->master->extension() ){
-                $regex .= preg_quote('.'.$ext,'/');
-            }
-            $regex = '/'.$regex.'~/';
-            //
             $this->paths = array();
+            $regex = $this->getRegExp();
             $finder = new Loco_fs_FileFinder( $this->master->dirname() );
-            /** @var $file Loco_fs_File */
+            $finder->setRecursive(false);
+            /* @var $file Loco_fs_File */
             foreach( $finder as $file ){
                 if( preg_match( $regex, $file->basename(), $r ) ){
                     $this->paths[] = $file->getPath();
@@ -140,6 +163,22 @@ class Loco_fs_Revisions implements Countable/*, IteratorAggregate*/ {
             rsort( $this->paths );
         }
         return $this->paths;
+    }
+
+
+    
+    /**
+     * Parse a file path into a timestamp
+     * @param string
+     * @return int
+     */
+    public function getTimestamp( $path ){
+        $name = basename($path);
+        if( preg_match( $this->getRegExp(), $name, $r ) ){
+            $ymdhis = substr( $r[1], 0, 14 );
+            return strtotime( $ymdhis );
+        }
+        throw new Loco_error_Exception('Invalid revision file: '.$name);
     }
 
 
@@ -154,15 +193,38 @@ class Loco_fs_Revisions implements Countable/*, IteratorAggregate*/ {
         }
         return $this->length;
     }
-    
+
+
 
     /**
      * Delete file when object removed from memory.
      * Previously unlinked on shutdown, but doesn't work with WordPress file system abstraction
+     * @param string
      * @return void
      */
     public function unlinkLater($path){
         $this->trash[] = new Loco_fs_File($path);
     }
-      
+
+
+
+    /**
+     * Test whether at least one backup file exists on disk.
+     * @return bool
+     *
+    public function sniff(){
+        $found = false;
+        if( $dir = opendir( $this->master->dirname() ) ){
+            $regex = $this->getRegExp();
+            while( $f = readdir($dir) ){
+                if( preg_match($regex,$f) ){
+                    $found = true;
+                    break;
+                }
+            }
+            closedir($dir);
+        }
+        return $found;
+    }*/
+
 }

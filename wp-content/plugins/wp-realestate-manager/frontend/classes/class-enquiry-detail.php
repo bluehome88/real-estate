@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Enquiry Detail
  */
 if (!class_exists('Wp_rem_Enquiry_Detail')) {

@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Property Sidebar Map Page Element
  */
 if ( ! class_exists( 'wp_rem_attachments_element' ) ) {

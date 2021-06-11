@@ -1,5 +1,8 @@
-<?php if( !defined( 'ABSPATH') ) exit(); ?>
-<input type="hidden" id="sliderid" value="<?php echo $sliderID; ?>"></input>
+<?php 
+ 
+  
+  
+ <input type="hidden" id="sliderid" value="<?php echo $sliderID; ?>"></input>
 
 <?php
 $is_edit = true;

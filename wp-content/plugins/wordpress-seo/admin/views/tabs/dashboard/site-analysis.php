@@ -1,6 +1,13 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
+ * WPSEO plugin file.
+ *
  * @package WPSEO\Admin\Views
+ *
+ * @uses Yoast_Form $yform Form object.
  */
 
 if ( ! defined( 'WPSEO_VERSION' ) ) {

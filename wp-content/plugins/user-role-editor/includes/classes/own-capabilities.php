@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Class to provide the routine for the own User Role Editor user capabilities list
  *
  * @package    User-Role-Editor
@@ -36,7 +39,8 @@ class URE_Own_Capabilities {
             $ure_caps['ure_edit_posts_access'] = 1;
             $ure_caps['ure_plugins_activation_access'] = 1;   
             $ure_caps['ure_view_posts_access'] = 1;   
-            $ure_caps['ure_front_end_menu_access'] = 1;   
+            $ure_caps['ure_front_end_menu_access'] = 1;  
+            $ure_caps['ure_nav_menus_access'] = 1;  
             $multisite = $lib->get('multisite');
             if ($multisite) {
                 $ure_caps['ure_themes_access'] = 1;

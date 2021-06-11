@@ -1,5 +1,8 @@
-<?php
-$var_arrays = array( 'wp_rem_cs_var_home', 'wp_rem_cs_var_demo' );
+<?php 
+ 
+  
+  
+ $var_arrays = array( 'wp_rem_cs_var_home', 'wp_rem_cs_var_demo' );
 $theme_option_array_global_vars = WP_REM_CS_VAR_GLOBALS()->globalizing( $var_arrays );
 extract( $theme_option_array_global_vars );
 

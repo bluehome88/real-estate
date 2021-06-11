@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Package Purchased Email Template.
  *
  * @since 1.0

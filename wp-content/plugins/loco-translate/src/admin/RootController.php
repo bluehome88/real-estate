@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Highest level Loco admin screen.
  */
 class Loco_admin_RootController extends Loco_admin_list_BaseController {
@@ -9,7 +12,7 @@ class Loco_admin_RootController extends Loco_admin_list_BaseController {
      */
     public function getHelpTabs(){
         return array (
-            __('Overview','default') => $this->view('tab-home'),
+            __('Overview','default') => $this->viewSnippet('tab-home'),
         );
     }
 
@@ -20,8 +23,8 @@ class Loco_admin_RootController extends Loco_admin_list_BaseController {
     public function render(){
         
         // translators: home screen title where %s is the version number
-        $this->set('title', sprintf( __('Loco Translate %s','loco'), loco_plugin_version() ) );
-        
+        $this->set('title', sprintf( __('Loco Translate %s','loco-translate'), loco_plugin_version() ) );
+
         // Show currently active theme on home page
         $theme = Loco_package_Theme::create(null);
         $this->set('theme', $this->bundleParam($theme) );
@@ -57,19 +60,32 @@ class Loco_admin_RootController extends Loco_admin_list_BaseController {
         $this->set('recent', $bundles );
         
 
-        // TODO favourites/starred
+        // current locale and related links
+        $locale = Loco_Locale::parse( get_locale() );
+        $api = new Loco_api_WordPressTranslations;
+        $tag = (string) $locale;
+        $this->set( 'siteLocale', new Loco_mvc_ViewParams( array(
+            'code' => $tag,
+            'name' => ( $name = $locale->ensureName($api) ),
+            'attr' => 'class="'.$locale->getIcon().'" lang="'.$locale->lang.'"',
+            'link' => '<a href="'.esc_url(Loco_mvc_AdminRouter::generate('lang-view', array('locale'=>$tag) )).'">'.esc_html($name).'</a>',
+            //'opts' => admin_url('options-general.php').'#WPLANG',
+        ) ) );
         
-        
-        // current locale notice
-        $tag = get_locale();
-        if( 'en_' !== substr($tag,0,3) ){
-            $locale = Loco_Locale::parse($tag);
-            $this->set( 'locale', $locale );
+        // user's "admin" language may differ and is worth showing
+        if( function_exists('get_user_locale') ){
+            $locale = Loco_Locale::parse( get_user_locale() );
+            $alt = (string) $locale;
+            if( $tag !== $alt ){
+                $this->set( 'adminLocale', new Loco_mvc_ViewParams( array(
+                    'name' => ( $name = $locale->ensureName($api) ),
+                    'link' => '<a href="'.esc_url(Loco_mvc_AdminRouter::generate('lang-view', array('locale'=>$tag) )).'">'.esc_html($name).'</a>',
+                ) ) );
+            }
         }
-
-        // roll back link
-        $this->set( 'rollback', Loco_mvc_AdminRouter::generate('config-version') );
-
+        
+        $this->set('title', __('Welcome to Loco Translate','loco-translate') );
+        
         return $this->view('admin/root');
     }
 

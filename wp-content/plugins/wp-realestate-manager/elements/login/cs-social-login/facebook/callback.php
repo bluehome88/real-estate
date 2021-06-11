@@ -1,5 +1,8 @@
-<?php
-global $wp_rem_plugin_options;
+<?php 
+ 
+  
+  
+ global $wp_rem_plugin_options;
 
 require_once 'facebook.php';
 $wp_rem_plugin_options = get_option('wp_rem_plugin_options');

@@ -1,5 +1,8 @@
-<h2>
-    File information
+<?php 
+ 
+  
+  
+     File information
 </h2>
 <p>
     This screen shows technical information about the selected file.

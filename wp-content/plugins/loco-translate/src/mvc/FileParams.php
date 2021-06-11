@@ -1,6 +1,13 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Abstracts information about a file into a view parameter object.
+ * 
+ * @property-read string $name
+ * @property-read string $path
+ * @property-read string $relpath
  */
 class Loco_mvc_FileParams extends Loco_mvc_ViewParams {
     
@@ -13,6 +20,8 @@ class Loco_mvc_FileParams extends Loco_mvc_ViewParams {
     
     /**
      * Print property as a number of bytes in larger denominations
+     * @param int
+     * @return string
      */
     public static function renderBytes( $n ){
         $i = 0;
@@ -37,6 +46,7 @@ class Loco_mvc_FileParams extends Loco_mvc_ViewParams {
 
 
     /**
+     * @param Loco_fs_File
      * @return Loco_mvc_FileParams 
      */
     public static function create( Loco_fs_File $file ) {
@@ -46,8 +56,10 @@ class Loco_mvc_FileParams extends Loco_mvc_ViewParams {
 
     /**
      * Override does lazy property initialization
+     * @param array initial extra properties
+     * @param Loco_fs_File
      */
-    public function __construct( array $props = array(), Loco_fs_File $file ){
+    public function __construct( array $props, Loco_fs_File $file ){
         parent::__construct( array (
             'name' => '',
             'path' => '',
@@ -64,7 +76,6 @@ class Loco_mvc_FileParams extends Loco_mvc_ViewParams {
     }
 
 
-
     /**
      * {@inheritdoc}
      * Override to get live information from file object
@@ -76,7 +87,6 @@ class Loco_mvc_FileParams extends Loco_mvc_ViewParams {
         }
         return parent::offsetGet($prop);
     }
-
 
 
     /**
@@ -92,8 +102,8 @@ class Loco_mvc_FileParams extends Loco_mvc_ViewParams {
     }
 
 
-
     /**
+     * @internal
      * @return string
      */    
     private function _get_name(){
@@ -102,6 +112,7 @@ class Loco_mvc_FileParams extends Loco_mvc_ViewParams {
 
 
     /**
+     * @internal
      * @return string
      */    
     private function _get_path(){
@@ -110,11 +121,11 @@ class Loco_mvc_FileParams extends Loco_mvc_ViewParams {
 
 
     /**
+     * @internal
      * @return string
      */
     private function _get_relpath(){
-        $base = loco_constant('WP_CONTENT_DIR');
-        return $this->file->getRelativePath($base);
+        return $this->file->getRelativePath( loco_constant('WP_CONTENT_DIR') );
     }
 
 
@@ -122,9 +133,11 @@ class Loco_mvc_FileParams extends Loco_mvc_ViewParams {
      * Using slightly modified version of WordPress's Human time differencing
      * + Added "Just now" when in the last 30 seconds
      * TODO possibly replace with custom function that includes "Yesterday" etc..
+     * @internal
+     * @return string
      */
     private function _get_reltime(){
-        $time = $this->file->modified();
+        $time = $this->has('mtime') ? $this['mtime'] : $this->file->modified();
         $time_diff = time() - $time;
         // use same time format as posts listing when in future or more than a day ago
         if( $time_diff < 0 || $time_diff >= 86400 ){
@@ -132,14 +145,14 @@ class Loco_mvc_FileParams extends Loco_mvc_ViewParams {
         }
         if( $time_diff < 30 ){
             // translators: relative time when something happened in the last 30 seconds
-            return __('Just now','loco');
+            return __('Just now','loco-translate');
         }
         return sprintf( __('%s ago','default'), human_time_diff($time) );
     }
 
 
-
     /**
+     * @internal
      * @return int
      */
     private function _get_bytes(){
@@ -148,6 +161,7 @@ class Loco_mvc_FileParams extends Loco_mvc_ViewParams {
 
 
     /**
+     * @internal
      * @return string
      */
     private function _get_size(){
@@ -157,6 +171,7 @@ class Loco_mvc_FileParams extends Loco_mvc_ViewParams {
  
     /**
      * Get octal file mode
+     * @internal
      * @return string
      */
     private function _get_imode(){
@@ -167,6 +182,7 @@ class Loco_mvc_FileParams extends Loco_mvc_ViewParams {
  
     /**
      * Get rwx file mode
+     * @internal
      * @return string
      */
     private function _get_smode(){
@@ -177,6 +193,7 @@ class Loco_mvc_FileParams extends Loco_mvc_ViewParams {
 
     /**
      * Get file owner name
+     * @internal
      * @return string
      */
     private function _get_owner(){
@@ -189,6 +206,7 @@ class Loco_mvc_FileParams extends Loco_mvc_ViewParams {
 
     /**
      * Get group owner name
+     * @internal
      * @return string
      */
     private function _get_group(){
@@ -201,6 +219,7 @@ class Loco_mvc_FileParams extends Loco_mvc_ViewParams {
 
     /**
      * Print pseudo console line
+     * @return string;
      */
     public function ls(){
         $this->e('smode');

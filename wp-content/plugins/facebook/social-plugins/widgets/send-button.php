@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Adds the Send Button Social Plugin as a WordPress Widget
  *
  * @since 1.0

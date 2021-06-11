@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  *  Site-wide Loco options (plugin settings)
  */
 class Loco_admin_config_SettingsController extends Loco_admin_config_BaseController {
@@ -28,8 +31,8 @@ class Loco_admin_config_SettingsController extends Loco_admin_config_BaseControl
                     $opts->populate( $post->opts )->persist();
                     $perms->populate( $post->has('caps') ? $post->caps : array() );
                     // done update
-                    Loco_error_AdminNotices::success( __('Settings saved','loco') );
-                    // remove saved params if persistant options unset
+                    Loco_error_AdminNotices::success( __('Settings saved','loco-translate') );
+                    // remove saved params from session if persistent options unset
                     if( ! $opts['fs_persist'] ){
                         $session = Loco_data_Session::get();
                         if( isset($session['loco-fs']) ){
@@ -74,7 +77,7 @@ class Loco_admin_config_SettingsController extends Loco_admin_config_BaseControl
      */
     public function render(){
         
-        $title = __('Plugin settings','loco');
+        $title = __('Plugin settings','loco-translate');
         $breadcrumb = new Loco_admin_Navigation;
         $breadcrumb->add( $title );
         

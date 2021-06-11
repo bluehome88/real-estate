@@ -1,5 +1,8 @@
-<?php if ( ! defined( 'ABSPATH') ) exit( 'No direct script access allowed' );
-/**
+<?php 
+ 
+  
+  
+ /**
  * Envato Protected API
  *
  * Wrapper class for the Envato marketplace protected API methods specific

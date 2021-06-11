@@ -1,5 +1,7 @@
-<?php ob_start("ob_gzhandler");?>
 <?php 
+ 
+  
+  
 global $post;
 
 require_once __DIR__ . '/custom/header-data.php';
@@ -67,7 +69,7 @@ $metakeywords = cetGetProductMetaKeywords(@$post->ID, @$post->post_title);
     <!-- End Google Tag Manager (noscript) -->
     <div class="wrapper wrapper-<?php echo esc_html( $wp_rem_cs_var_layout ); ?>" <?php echo esc_html($style_bgcol); ?>>
         <!-- Side Menu Start -->
-        <div id="overlay"></div>
+        <div id="overlay" class="main_overlay"></div>
         <?php
         $wp_rem_cs_var_maintenance_page = isset( $wp_rem_cs_var_options['wp_rem_cs_var_maintinance_mode_page'] ) ? $wp_rem_cs_var_options['wp_rem_cs_var_maintinance_mode_page'] : '';
         $wp_rem_cs_var_maintenance_check = isset( $wp_rem_cs_var_options['wp_rem_cs_var_maintenance_switch'] ) ? $wp_rem_cs_var_options['wp_rem_cs_var_maintenance_switch'] : '';

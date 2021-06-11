@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * A file finder built from search path references in a PO/POT file
  */
 class Loco_gettext_SearchPaths extends Loco_fs_FileFinder {
@@ -7,6 +10,7 @@ class Loco_gettext_SearchPaths extends Loco_fs_FileFinder {
     
     /**
      * Look up a relative file reference against search paths
+     * @param string relative file path reference
      * @return Loco_fs_File
      */
     public function match( $ref ){
@@ -69,7 +73,7 @@ class Loco_gettext_SearchPaths extends Loco_fs_FileFinder {
                 }
                 // map excluded path to given base
                 $exclude = new Loco_fs_File( $head[$key] );
-                $tmp = $exclude->normalize( $base );
+                $exclude->normalize($base);
                 if( $exclude->exists() ){
                      $this->exclude( (string) $exclude );
                 }
@@ -77,7 +81,7 @@ class Loco_gettext_SearchPaths extends Loco_fs_FileFinder {
             }
         }
 
-        // Add po file location if no propietary headers used
+        // Add po file location if no proprietary headers used
         if( ! $ninc ){
             $this->addRoot( $pofile->dirname() );
         }

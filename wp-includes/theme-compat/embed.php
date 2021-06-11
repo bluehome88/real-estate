@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Contains the post embed base template
  *
  * When a post is embedded in an iframe, this file is used to create the output
@@ -13,7 +16,8 @@
 get_header( 'embed' );
 
 if ( have_posts() ) :
-	while ( have_posts() ) : the_post();
+	while ( have_posts() ) :
+		the_post();
 		get_template_part( 'embed', 'content' );
 	endwhile;
 else :

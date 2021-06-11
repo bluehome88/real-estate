@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Members Shortcode Frontend
  */
 if ( ! class_exists('Wp_rem_Shortcode_Members_Frontend') ) {

@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Login Shortcode Frontend
  */
 if ( ! class_exists('Wp_rem_Shortcode_Login_Frontend') ) {

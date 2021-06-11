@@ -1,5 +1,8 @@
-<?php
-/*
+<?php 
+ 
+  
+  
+ /*
  * Sign In With Social Media
  */
 if (!function_exists('wp_rem_pb_register')) {

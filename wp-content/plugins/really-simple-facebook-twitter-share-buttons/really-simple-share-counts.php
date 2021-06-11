@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 function really_simple_share_counts () {
   $how_many_posts = 60;
 

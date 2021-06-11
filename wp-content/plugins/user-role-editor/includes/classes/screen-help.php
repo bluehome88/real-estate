@@ -1,7 +1,10 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 /* 
- * User Role Editor On Screen Help class
+ * User Role Editor Settings page on Screen Help class
  * 
  */
 
@@ -22,6 +25,8 @@ class URE_Screen_Help {
                 esc_html__('Capabilities like "level_0", "level_1" are deprecated and are not used by WordPress. '
                         . 'They are left at the user roles for the compatibility purpose with the old themes and plugins code. '
                         . 'Turning on this option will show those deprecated capabilities.', 'user-role-editor') . '</li>
+            <li><strong>' . esc_html__('Confirm role update','user-role-editor').'</strong> - ' .
+                esc_html__('Show confirmation dialog before save changes made to a current role.') . '</li>
             <li><strong>' . esc_html__('Edit user capabilities','user-role-editor').'</strong> - '.
                 esc_html__('If turned off - capabilities section of selected user is shown in readonly mode. '
                         . 'Administrator can not assign capabilities to the user directly. '
@@ -76,12 +81,12 @@ class URE_Screen_Help {
     
     
     protected function get_multisite_tab() {
-        $text = '<h2>'. esc_html__('User Role Editor Options page help', 'user-role-editor') .'</h2>
+        $text = '<h2>'. esc_html__( 'User Role Editor Options page help', 'user-role-editor' ) .'</h2>
             <p>
             <ul>
-                <li><strong>' . esc_html__('Allow non super-admininstrators to create, edit and delete users', 'user-role-editor').'</strong> - ' .
-                esc_html__('Super administrator only may create, edit and delete users under WordPress multi-site by default. ' 
-                        . 'Turn this option on in order to remove this limitation.','user-role-editor') . '</li>';
+                <li><strong>' . esc_html__( 'Allow non super-administrators to create, edit and delete users', 'user-role-editor' ).'</strong> - '.
+                esc_html__( 'Super administrator only may create, edit and delete users under WordPress multi-site by default. '. 
+																												'Turn this option on in order to remove this limitation.','user-role-editor' ) .'</li>';
         
         $text = apply_filters('ure_get_settings_multisite_tab_help', $text);
         $text .='

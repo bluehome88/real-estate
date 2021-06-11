@@ -1,5 +1,8 @@
-<?php
-if ( ! function_exists('wp_rem_cs_mailchimp_list') ) {
+<?php 
+ 
+  
+  
+ if ( ! function_exists('wp_rem_cs_mailchimp_list') ) {
 
     /**
      * Mailchimp list.

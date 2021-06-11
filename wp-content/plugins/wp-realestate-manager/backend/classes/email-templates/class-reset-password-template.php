@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Forget Password Email Templates.
  *
  * @since 1.0

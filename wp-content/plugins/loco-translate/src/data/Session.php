@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Abstracts session data access using WP_Session_Tokens
  */
 class Loco_data_Session extends Loco_data_Serializable {

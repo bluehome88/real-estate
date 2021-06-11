@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Exception for 407 Proxy Authentication Required responses
  *
  * @package Requests

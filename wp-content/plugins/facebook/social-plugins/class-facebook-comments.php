@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 /**
  * Display Facebook Comments in static markup or in a specially-configured div recognized by the Facebook JavaScript SDK
  *

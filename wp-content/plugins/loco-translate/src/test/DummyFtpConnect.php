@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Fake FTP file system.
  * - Hook into WordPress with `new Loco_test_DummyFtpConnect`
  * - Use to write a file with `$file->getWriteContext()->connect( new WP_Filesystem_Debug($creds) )`
@@ -97,7 +100,7 @@ class WP_Filesystem_Debug extends WP_Filesystem_Base {
      */
     private function _call( $method, array $args ){
         if( $this->authed ){
-            $real = new WP_Filesystem_Direct( null );
+            $real = Loco_api_WordPressFileSystem::direct();
             return call_user_func_array( array($real,$method), $args );
         }
         return false;

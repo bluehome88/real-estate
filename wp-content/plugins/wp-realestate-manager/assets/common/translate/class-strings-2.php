@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 /**
  * Static string 2
  */
@@ -556,7 +559,8 @@ if ( ! class_exists('wp_rem_plugin_all_strings_2') ) {
             /*
              * propertysearch-list-filter
              */
-            $wp_rem_static_text['wp_rem_property_search_flter_wt_looking_for'] = esc_html__('What are you looking for?', 'wp-rem');
+            $wp_rem_static_text['wp_rem_property_search_flter_wt_looking_for'] = esc_html__('Find Me Properties', 'wp-rem');
+            // $wp_rem_static_text['wp_rem_property_search_flter_wt_looking_for'] = esc_html__('What are you looking for?', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_search_flter_saerch'] = esc_html__('Search', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_search_flter_min_price'] = esc_html__('Min Price', 'wp-rem');
             $wp_rem_static_text['wp_rem_property_search_flter_max_price'] = esc_html__('Max Price', 'wp-rem');

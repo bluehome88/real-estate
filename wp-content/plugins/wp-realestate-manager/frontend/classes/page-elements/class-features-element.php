@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * File Type: Features Element
  */
 if ( ! class_exists('wp_rem_features_element') ) {

@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * The "WordPress Core" translations bundle
  */
 class Loco_package_Core extends Loco_package_Bundle {
@@ -9,8 +12,8 @@ class Loco_package_Core extends Loco_package_Bundle {
      */
     public function getSystemTargets(){
         return array (
-            rtrim( loco_constant('LOCO_LANG_DIR'), '/' ),
-            rtrim( loco_constant('WP_LANG_DIR'), '/' )
+            untrailingslashit( loco_constant('LOCO_LANG_DIR') ),
+	        untrailingslashit( loco_constant('WP_LANG_DIR') )
         );
     }
 
@@ -23,7 +26,7 @@ class Loco_package_Core extends Loco_package_Bundle {
             'TextDomain' => 'default',
             'DomainPath' => '/wp-content/languages/',
             // dummy author info for core components
-            'Name' => __('WordPress core','loco'),
+            'Name' => __('WordPress core','loco-translate'),
             'Version' => $GLOBALS['wp_version'],
             'Author' => __('The WordPress Team','default'),
             'AuthorURI' => __('https://wordpress.org/','default'),
@@ -64,9 +67,8 @@ class Loco_package_Core extends Loco_package_Bundle {
         $saved = parent::isConfigured() or $saved = 'internal';
         return $saved;
     }
-    
 
-    
+
     /**
      * Manually define the core WordPress translations as a single bundle
      * Projects are those included in standard WordPress downloads: [default], "admin", "admin-network" and "continents-cities"
@@ -77,7 +79,7 @@ class Loco_package_Core extends Loco_package_Bundle {
         $rootDir = loco_constant('ABSPATH');
         $langDir = loco_constant('WP_LANG_DIR');
         
-        $bundle = new Loco_package_Core('core', __('WordPress Core','loco') );
+        $bundle = new Loco_package_Core('core', __('WordPress Core','loco-translate') );
         $bundle->setDirectoryPath( $rootDir );
         
         // Core config may be saved in DB, but not supporting bundled XML
@@ -89,13 +91,25 @@ class Loco_package_Core extends Loco_package_Bundle {
         $domain = new Loco_package_TextDomain('default');
         $domain->setCanonical( true );
         // front end subset, has empty name in WP
-        $project = $domain->createProject( $bundle, 'Development');
+        // full title is like "4.9.x - Development" but we don't know what version at this point
+        list($x,$y) = explode('.',$GLOBALS['wp_version'],3); 
+        $project = $domain->createProject( $bundle, sprintf('%u.%u.x - Development',$x,$y) );
         $project->setSlug('')
                 ->setPot( new Loco_fs_File($langDir.'/wordpress.pot') )
                 ->addSourceDirectory( $rootDir)
                 ->excludeSourcePath( $rootDir.'/wp-admin')
                 ->excludeSourcePath( $rootDir.'/wp-content')
                 ->excludeSourcePath( $rootDir.'/wp-includes/class-pop3.php')
+                ->excludeSourcePath( $rootDir.'/wp-includes/js/codemirror')
+                ->excludeSourcePath( $rootDir.'/wp-includes/js/crop')
+                ->excludeSourcePath( $rootDir.'/wp-includes/js/imgareaselect')
+                ->excludeSourcePath( $rootDir.'/wp-includes/js/jcrop')
+                ->excludeSourcePath( $rootDir.'/wp-includes/js/jquery')
+                ->excludeSourcePath( $rootDir.'/wp-includes/js/mediaelement')
+                ->excludeSourcePath( $rootDir.'/wp-includes/js/plupload')
+                ->excludeSourcePath( $rootDir.'/wp-includes/js/swfupload')
+                ->excludeSourcePath( $rootDir.'/wp-includes/js/thickbox')
+                ->excludeSourcePath( $rootDir.'/wp-includes/js/tw-sack.js')
         ;
         // "Administration" project (admin subset)
         $project = $domain->createProject( $bundle, 'Administration');

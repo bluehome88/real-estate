@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Data object persisted as a WordPress user meta entry under the loco_prefs key
  */
 class Loco_data_Preferences extends Loco_data_Serializable {

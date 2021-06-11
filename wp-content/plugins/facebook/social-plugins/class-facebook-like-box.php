@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Encourage visitors to Like a Facebook Page.
  *
  * Optionally display profile photos of friends who already like your page or latest updates from your page.

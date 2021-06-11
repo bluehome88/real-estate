@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Loads Loco configuration file into a bundle definition
  */
 class Loco_config_BundleReader {

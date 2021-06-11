@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Object representing a file's permission bits
  */
 class Loco_fs_FileMode {
