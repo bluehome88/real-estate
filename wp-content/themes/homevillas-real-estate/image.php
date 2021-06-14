@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- /**
+<?php
+/**
  * The template for displaying image attachments
  *
  * @package WordPress

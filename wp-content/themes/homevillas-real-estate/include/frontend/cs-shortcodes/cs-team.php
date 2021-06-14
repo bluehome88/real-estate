@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- 
+<?php
+
 /*
  *
  * @Shortcode Name :  Team front end view

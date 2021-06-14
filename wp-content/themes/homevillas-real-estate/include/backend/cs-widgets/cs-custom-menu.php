@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- /**
+<?php
+/**
  * Widget API: WP_nav_menu_Widget class
  *
  * @package WordPress

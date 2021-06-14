@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- 
+<?php
+
 /**
  * Core Helper Functions of Framework
  *

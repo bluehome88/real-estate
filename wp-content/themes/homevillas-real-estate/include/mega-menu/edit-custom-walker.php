@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- 
+<?php
+
 /**
  *  /!\ This is a copy of Walker_Nav_Menu_Edit class in core
  * 

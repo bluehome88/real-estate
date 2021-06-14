@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- 
+<?php
+
 $wp_rem_cs_var_options = WP_REM_CS_VAR_GLOBALS()->theme_options();
 $wp_rem_cs_var_options = get_option( 'wp_rem_cs_var_options' );
 $wp_rem_cs_var_options['wp_rem_cs_var_layout'] = isset( $wp_rem_cs_var_options['wp_rem_cs_var_layout'] ) ? $wp_rem_cs_var_options['wp_rem_cs_var_layout'] : '';

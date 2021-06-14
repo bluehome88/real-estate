@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- /**
+<?php
+/**
  * @Spacer html form for page builder
  */
 if (!function_exists('wp_rem_cs_sitemap')) {

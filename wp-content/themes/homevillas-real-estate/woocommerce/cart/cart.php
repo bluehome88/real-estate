@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- /**
+<?php
+/**
  * Cart Page
  *
  * This template can be overridden by copying it to yourtheme/woocommerce/cart/cart.php.

@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- /**
+<?php
+/**
  * Plugin installation and activation for WordPress themes.
  *
  * Please note that this is a drop-in library for a theme or plugin.

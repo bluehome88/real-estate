@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- /**
+<?php
+/**
  * Loop Add to Cart
  *
  * This template can be overridden by copying it to yourtheme/woocommerce/loop/add-to-cart.php.

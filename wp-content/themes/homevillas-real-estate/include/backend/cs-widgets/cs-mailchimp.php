@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- 
+<?php
+
 /**
  * Wp_rem_cs_Mailchimp Class
  *

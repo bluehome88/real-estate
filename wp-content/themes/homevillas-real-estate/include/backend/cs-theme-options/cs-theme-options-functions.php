@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- 
+<?php
+
 /**
  * Saving Theme Options
  *

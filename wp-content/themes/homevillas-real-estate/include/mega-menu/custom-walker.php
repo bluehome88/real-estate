@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- 
+<?php
+
 /**
  * Custom Walker
  * @access      public

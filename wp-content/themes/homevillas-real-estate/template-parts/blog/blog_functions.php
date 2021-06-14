@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- 
+<?php
+
 /**
  * @  Blog html form for page builder Frontend side
  *

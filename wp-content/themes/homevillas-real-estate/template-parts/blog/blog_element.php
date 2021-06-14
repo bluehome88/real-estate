@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- /*
+<?php
+/*
  *
  * @File : blog
  * @retrun

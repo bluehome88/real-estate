@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- 
+<?php
+
 /*
  *
  * @Shortcode Name : Accordion

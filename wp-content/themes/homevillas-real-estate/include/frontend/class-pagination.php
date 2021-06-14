@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- 
+<?php
+
 /*
   pagination class_alias */
 

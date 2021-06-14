@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- 
+<?php
+
 /*
  *
  * @Shortcode Name :   Start function for Price Plan shortcode/element front end view

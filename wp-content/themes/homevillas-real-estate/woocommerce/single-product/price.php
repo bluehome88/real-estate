@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- /**
+<?php
+/**
  * Single Product Price, including microdata for SEO
  *
  * This template can be overridden by copying it to yourtheme/woocommerce/single-product/price.php.

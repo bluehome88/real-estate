@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- 
+<?php
+
 /*
  *
  * @Shortcode Name : Start function for Map shortcode/element front end view

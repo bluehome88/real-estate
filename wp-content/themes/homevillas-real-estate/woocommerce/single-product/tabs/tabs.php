@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- /**
+<?php
+/**
  * Single Product tabs
  *
  * This template can be overridden by copying it to yourtheme/woocommerce/single-product/tabs/tabs.php.

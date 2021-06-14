@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- /**
+<?php
+/**
  * Wp_rem_cs functions and definitions.
  *
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
@@ -16,14 +13,11 @@ require_once trailingslashit(get_template_directory()) . 'include/cs-global-func
 require_once trailingslashit(get_template_directory()) . 'include/backend/cs-global-variables.php';
 require_once trailingslashit(get_template_directory()) . 'include/cs-theme-functions.php';
 require_once trailingslashit(get_template_directory()) . 'include/cs-helpers.php';
-require_once __DIR__ . '/../../../wp-admin/includes/class-wp-filesystem-base.php';
-require_once __DIR__ . '/../../../wp-admin/includes/class-wp-filesystem-direct.php';
-
 
 define('SCRIPTS_VER', '4.7.4');
 
-define('RECEIVED_ENQUIRY_EMAIL', 'admin@1on1realtors.com');
-define('SEND_ARRANGE_SUBMIT', 'admin@1on1realtors.com');
+define('RECEIVED_ENQUIRY_EMAIL', '1on1@simplyintense.com');
+define('SEND_ARRANGE_SUBMIT', '1on1@simplyintense.com');
 
 define('REALTOR_EMAIL', 'admin@1on1realtors.com');
 define('REALTOR_CONTACT', '+1(868) 729-9278');
@@ -596,7 +590,7 @@ if ( ! function_exists('wp_rem_cs_require_theme_files') ) {
     function wp_rem_cs_require_theme_files($wp_rem_cs_path = '') {
         global $wp_filesystem;
         if (!$wp_filesystem) {
-            $wp_filesystem = new WP_Filesystem_Direct(1);
+            #$wp_filesystem = new WP_Filesystem_Direct(1);
         }
         // $backup_url = '';
         // if (false === ($creds = request_filesystem_credentials($backup_url, '', false, false, array()) )) {
@@ -607,7 +601,7 @@ if ( ! function_exists('wp_rem_cs_require_theme_files') ) {
         //     return true;
         // }
         $wp_rem_cs_sh_front_dir = trailingslashit(get_template_directory()) . $wp_rem_cs_path;
-        $wp_rem_cs_all_f_list = $wp_filesystem->dirlist($wp_rem_cs_sh_front_dir);
+        #$wp_rem_cs_all_f_list = $wp_filesystem->dirlist($wp_rem_cs_sh_front_dir);
         if ( is_array($wp_rem_cs_all_f_list) && sizeof($wp_rem_cs_all_f_list) > 0 ) {
             foreach ( $wp_rem_cs_all_f_list as $file_key => $file_val ) {
                 if ( isset($file_val['name']) ) {
@@ -730,4 +724,168 @@ if ( ! in_array('wp-realestate-manager/wp-realestate-manager.php', $active_plugi
     }
 
     add_action('wp_footer', 'wp_rem_theme_loader');
+}
+
+
+add_action( 'wp_rem_custom_images_gallery', 'wp_rem_custom_images_gallery' );
+function wp_rem_custom_images_gallery( $post_id ) {
+    global $wp_rem_plugin_options;
+    ?>
+    <div class="property-grid real-estate-property">
+        <div class="img-holder">
+            <figure>
+                <?php
+                $property_id = $post_id;
+                $gallery_ids_list = get_post_meta($property_id, 'wp_rem_detail_page_gallery_ids', true);
+                if (function_exists('property_gallery_first_image')) {
+                    $size = 'wp_rem_cs_media_1';
+                    $gallery_image_args = array(
+                        'property_id' => $property_id,
+                        // 'size' => $size,
+                        'class' => 'img-grid',
+                        'default_image_src' => esc_url(wp_rem::plugin_url() . 'assets/frontend/images/no-image9x6.jpg')
+                    );
+                    echo $property_gallery_first_image = property_gallery_first_image($gallery_image_args);
+                }
+                ?>
+
+                <figcaption>
+                    <?php
+                        echo fetch_property_open_house_grid_view_callback($property_id);
+                    ?>
+                    <div class="caption-inner">
+                        <?php
+                            $count_all = ( isset($gallery_ids_list) && is_array($gallery_ids_list) && sizeof($gallery_ids_list) > 0 ) ? count($gallery_ids_list) : 0;
+                            
+                        if ($count_all > 0) {
+                            ?>
+                            <ul id="galley-img<?php echo absint($property_id) ?>" class="galley-img">
+                                <li><a  href="javascript:void(0)" class="rem-pretty-photos" data-id="<?php echo absint($property_id) ?>" ><span class="capture-count"><i class="icon-camera6"></i><?php echo absint($count_all); ?></span><div class="info-content"><span><?php echo wp_rem_plugin_text_srt('wp_rem_element_tooltip_icon_camera'); ?></span></div></a> </li>   
+                            </ul>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                </figcaption>
+            </figure>
+        </div>
+    </div>
+
+
+    <?php
+    $content_gallery = isset($wp_rem_plugin_options['wp_rem_property_detail_page_content_gallery']) ? $wp_rem_plugin_options['wp_rem_property_detail_page_content_gallery'] : '';
+    if( $content_gallery != 'on' ){
+        return;
+    }
+    
+    $html = '';
+    $gallery_limit = wp_rem_cred_limit_check( $post_id, 'wp_rem_transaction_property_pic_num' );
+    $gallery_ids_list = get_post_meta( $post_id, 'wp_rem_detail_page_gallery_ids', true );
+    $gallery_pics_allowed = get_post_meta($post_id, 'wp_rem_transaction_property_pic_num', true);
+
+     ?>
+        <div class="main-post slider">
+	        <div class="swiper-container gallery-top" style="display: none;">
+                <div class="swiper-wrapper">
+                    <?php
+                    $gallery_counterr = 1;
+                    foreach ( $gallery_ids_list as $gallery_idd ) {
+                        if ( isset( $gallery_idd ) && $gallery_idd != '' ) {
+                            if ( wp_get_attachment_url( $gallery_idd ) ) {
+                                $image = wp_get_attachment_image_src( $gallery_idd, 'wp_rem_media_9' );
+                                ?>
+                                <div class="swiper-slide">
+                                    <figure>
+                                        <img src="<?php echo esc_url($image[0]); ?>" alt="" />
+                                    </figure>
+                                </div>
+                                <?php
+                                if ( $gallery_limit == $gallery_counterr ) {
+                                    break;
+                                }
+                                $gallery_counterr ++;
+                            }
+                        }
+                    }
+                    ?>
+                </div>
+                <!-- Add Arrows -->
+                <div class="swiper-button-prev"> <i class="icon-chevron-thin-left"></i></div>
+                <div class="swiper-button-next"><i class="icon-chevron-thin-right"></i></div>
+            </div>
+
+            <div class="swiper-container gallery-thumbs">
+                <div class="swiper-wrapper">
+                    <?php
+                    $gallery_counter = 1;
+
+                    foreach ( $gallery_ids_list as $gallery_id ) {
+                        if ( isset( $gallery_id ) && $gallery_id != '' ) {
+                            if ( wp_get_attachment_url( $gallery_id ) ) {
+                                ?>
+                                <div class="swiper-slide">
+                                    <figure>
+                                        <?php 
+	                                        $image = wp_get_attachment_image_src( $gallery_id, 'wp_rem_media_7' );
+	                                        $real_image = wp_get_attachment_image_src( $gallery_id, 'full' );
+	                                    ?>
+	                                    <img href="<?php echo esc_url($real_image[0]); ?>" src="<?php echo esc_url($image[0]); ?>" alt="" style="cursor:zoom-in;"/>
+                                    </figure>
+                                </div>
+                                <?php
+                                if ( $gallery_limit == $gallery_counter ) {
+                                    break;
+                                }
+                                $gallery_counter ++;
+                            }
+                        }
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+    <?php
+                $if_top_loop = ( isset( $gallery_counterr ) && $gallery_counterr == 2 ) ? 'false' : 'true';
+                $if_thumb_loop = ( isset( $gallery_counterr ) && $gallery_counterr <= 8 ) ? 'false' : 'true';
+                $wp_rem_cs_inline_script = '
+                jQuery(document).ready(function () {
+                    if (jQuery(".main-post.slider .gallery-top, .main-post.slider .gallery-thumbs").length != "") {
+                        "use strict";
+                        var galleryTop = new Swiper(".main-post.slider .gallery-top", {
+                            nextButton: ".main-post.slider .swiper-button-next",
+                            prevButton: ".main-post.slider .swiper-button-prev",
+                            spaceBetween: 0,
+                            loop: '.$if_top_loop.',
+                            loopedSlides: 15
+                        });
+
+                        var galleryThumbs = new Swiper(".main-post.slider .gallery-thumbs", {
+                            spaceBetween: 5,
+                            slidesPerView: 7,
+                            touchRatio: .2,
+                            loop: '.$if_thumb_loop.',
+                            loopedSlides: 15,
+                            //looped slides should be the same
+                            slideToClickedSlide: true,
+                            breakpoints: {
+                                1024: {
+                                    slidesPerView: 6,
+                                },
+                                600: {
+                                    slidesPerView: 4,
+                                }
+                            }
+                        });
+                        galleryTop.params.control = galleryThumbs;
+                        galleryThumbs.params.control = galleryTop;
+                    }
+					
+					$(".swiper-wrapper").magnificPopup({
+					  delegate: "img", 
+					  type: "image"
+					});
+                });';
+                wp_rem_cs_inline_enqueue_script($wp_rem_cs_inline_script, 'wp-rem-custom-inline');
+                
+    echo force_balance_tags( $html );
 }

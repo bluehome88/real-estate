@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- /**
+<?php
+/**
  * Product quantity inputs
  *
  * This template can be overridden by copying it to yourtheme/woocommerce/global/quantity-input.php.

@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- 
+<?php
+
 /*
  *
  * @Shortcode Name :  Start function for Multiple icon_box shortcode/element front end view

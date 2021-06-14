@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- /**
+<?php
+/**
  * @ Start frontend Blog Grid View 
  *
  *

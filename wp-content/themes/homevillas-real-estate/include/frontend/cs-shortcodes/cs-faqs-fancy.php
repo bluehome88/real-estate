@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- /*
+<?php
+/*
  *
  * @Shortcode Name :  faqs_fancy front end view
  * @retrun

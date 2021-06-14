@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- 
+<?php
+
 /**
  * A simple parser that allows you to Convert  wordpress shortcode  to multidimentional array.
  * * The Shortcode API (new in 2.4) is a simple regex based parser that allows you to replace simple wordpress shortcode like tags within a HTMLText or HTMLVarchar field when rendered into a template. It is inspired by and very similar to the [Wordpress implementation](http://codex.wordpress.org/Shortcode_API) of shortcodes. Examples of shortcode tags are:

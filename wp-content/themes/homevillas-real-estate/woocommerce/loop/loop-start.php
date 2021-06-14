@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- /**
+<?php
+/**
  * Product Loop Start
  *
  * @author 		WooThemes

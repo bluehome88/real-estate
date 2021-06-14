@@ -2874,103 +2874,24 @@ bottom: 0; height: 50%; left: 0; position: absolute; width: 100%; }
 }
 
 /*custom css*/
-div.post-category-list .resident {
+div .post-category-list .resident {
+  width: 100%;
   overflow: hidden;
 }
 
-div.post-category-list .member-info {
+div .member-info {
   width: 78%;
   float: left;
 }
 
-div.post-category-list .thumb-resident {
+div .thumb-resident {
   float: right;
   width: 22% !important;
   overflow: hidden !important;
 }
-div.post-category-list.resident .thumb-resident img{
-  width: 100%;
-}
-div.post-category-list.resident .list-resident {
+
+ .list-resident, dir .list-resident {
   -webkit-padding-start: 40px !important;
   padding: 0px !important;
   margin: 0px;
 }
-div.post-category-list.resident .list-resident li{
-  width:100%;
-  margin-bottom: 10px;
-}
-div.post-category-list.resident .list-resident li a{
-  color: #5a2e8a !important;
-}
-div.property-dsec .container-fluid {
-  padding-left: 0px !important;
-  padding-right: 0px !important;
-}
-#property-detail .agent_info_image{
-  float:left;
-  margin-right: 10px;
-}
-#property-detail .agent_info{
-  float:left;
-  width:60%;
-}
-
-.resident-user-img{
-  width: 60px;
-  height: 60px;
-}
-@media only screen and (max-width: 320px) {
-    .resident-user-img {
-          width: 30px;
-          height: 30px;
-    }
-}
-@media only screen and (min-width: 321px) {
-    .resident-user-img {
-          width: 60px;
-          height: 60px;
-    }
-}
-.search-input.new-style label{
-  background: #5a2e8a !important;
-  letter-spacing: 0.02em;
-}
-.search-input.new-style{
-  color: white;
-  width: 26% !important;
-  line-height: 40px;
-  text-align: left;
-  font-size: 1.4em;
-  margin-left: 22px;
-}
-
-@media screen and (max-width: 1196px){
-  .search-input.new-style{
-    width: 31% !important;
-    font-size: 1.3em;
-  }
-}
-@media screen and (max-width: 992px){
-  .search-input.new-style{
-      width: 50% !important;
-  }
-}
-@media screen and (max-width: 550px){
-  .search-input.new-style{
-      margin-left: 0;
-      width: 100% !important;
-  }
-}
-
-/*
-.page-id-7675 .wp-rem-split-map-wrap.split-map-right{
-    margin-right: 0;
-}
-.page-id-7675 .wp-rem-split-map-wrap{
-	width: 100%;
-}
-.page-id-7675 .wp-rem-top-gmap-holder{
-	display: none;
-}
-*/

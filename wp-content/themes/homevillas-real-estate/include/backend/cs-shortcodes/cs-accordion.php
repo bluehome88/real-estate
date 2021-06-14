@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- /**
+<?php
+/**
  * Shortcode Name : Accordion
  *
  * @package	wp_rem_cs 

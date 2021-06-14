@@ -1,8 +1,5 @@
-<?php 
- 
-  
-  
- /**
+<?php
+/**
  * Pagination - Show numbered pagination for catalog pages.
  *
  * @author 		WooThemes
