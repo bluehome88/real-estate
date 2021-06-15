@@ -4263,3 +4263,9 @@ opacity: 1;
     float: left;
     text-align: center;
 }
+
+/* homepage search widget */
+.search_split_advanced{
+	display: flex;
+	flex-wrap: wrap;
+}

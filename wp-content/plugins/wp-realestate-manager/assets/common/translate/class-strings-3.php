@@ -798,7 +798,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_3') ) {
             $wp_rem_static_text['wp_rem_add_user_step_six_update'] = esc_html__('Step 6: Update', 'wp-rem');
             $wp_rem_static_text['wp_rem_add_user_step_six_review_pay'] = esc_html__('Step 6: Review & Payment', 'wp-rem');
             $wp_rem_static_text['wp_rem_add_user_payment_info'] = esc_html__('Payment Information', 'wp-rem');
-            $wp_rem_static_text['wp_rem_listsearch_best_home'] = esc_html__('Search Best Home', 'wp-rem');
+            $wp_rem_static_text['wp_rem_listsearch_best_home'] = esc_html__('Search', 'wp-rem');
             $wp_rem_static_text['wp_rem_listsearch_advanced'] = esc_html__('Advance', 'wp-rem');
             $wp_rem_static_text['wp_rem_listfilter_advanced'] = esc_html__('Featured', 'wp-rem');
             $wp_rem_static_text['wp_rem_listfilter_showmore'] = esc_html__('Show More Properties', 'wp-rem');
