@@ -561,6 +561,7 @@ if ($property_loop_obj->have_posts()) {
                                 if (isset($cus_fields['content']) && $cus_fields['content'] != '' && $open_house_data == '') {
                                     ?>
                                     <ul class="post-category-list">
+                                        <li>House -</li>
                                         <?php echo wp_rem_allow_special_char($cus_fields['content']); ?>
                                     </ul>
                                     <?php
@@ -596,9 +597,8 @@ if ($property_loop_obj->have_posts()) {
                                             <div class="member-info">
                                                 <ul class="list-resident">
                                                     <li><i class="icon-user3"></i>
-                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_team_member_name); ?></span></a>
+                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_team_member_name); ?> - <i class="icon-phone2"></i><?php echo esc_html($wp_rem_team_member_phone);?></span></a>
                                                     </li>
-                                                    <li><i class="icon-phone2"></i><?php echo esc_html($wp_rem_team_member_phone);?></li>
                                                 </ul>
                                             </div>
                                         <?php 
@@ -609,9 +609,8 @@ if ($property_loop_obj->have_posts()) {
                                             <div class="member-info">
                                                 <ul class="list-resident">
                                                     <li><i class="icon-user3"></i>
-                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_property_name); ?></span></a>
+                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_property_name); ?> - <i class="icon-phone2"></i><?php echo esc_html($wp_rem_phone_number);?></span></a>
                                                     </li>
-                                                    <li><i class="icon-phone2"></i><?php echo esc_html($wp_rem_phone_number);?></li>
                                                 </ul>
                                             </div>
                                         <?php
@@ -620,8 +619,7 @@ if ($property_loop_obj->have_posts()) {
                                     else { ?>
                                         <div class="member-info">
                                             <ul class="list-resident">
-                                                <li><i class="icon- icon-envelope2"></i><span><?php echo esc_html($realtor_email); ?></span></li>
-                                                <li><i class="icon-phone2"></i><?php echo esc_html($realtor_phone_number)?></li>
+                                                <li><i class="icon- icon-envelope2"></i><span><?php echo esc_html($realtor_email); ?> - <i class="icon-phone2"></i><?php echo esc_html($realtor_phone_number)?></span></li>
                                             </ul>
                                         </div>
                                     <?php } ?>
@@ -672,19 +670,6 @@ if ($property_loop_obj->have_posts()) {
                             ?>
 
                             <div class="text-holder">
-                                <?php if ($wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '') { ?>
-                                    <span class="property-price">
-
-                                        <?php
-                                        if ($wp_rem_property_price_options == 'on-call') {
-                                            echo force_balance_tags($wp_rem_property_price);
-                                        } else {
-                                            echo $wp_rem_property_price;
-                                        }
-                                        ?>
-
-                                    </span>
-                                <?php } ?>
                                 <?php
                                 $favourite_label = '';
                                 $favourite_label = '';
@@ -727,8 +712,22 @@ if ($property_loop_obj->have_posts()) {
                                 if (isset($cus_fields['content']) && $cus_fields['content'] != '') {
                                     ?>
                                     <ul class="post-category-list">
+                                        <li>House -</li>
                                         <?php echo wp_rem_allow_special_char($cus_fields['content']); ?>
                                     </ul>
+                                <?php } ?>
+                                <?php if ($wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '') {  ?>
+                                    <span class="property-price">
+
+                                        <?php
+                                        if ($wp_rem_property_price_options == 'on-call') {
+                                            echo force_balance_tags($wp_rem_property_price);
+                                        } else {
+                                            echo $wp_rem_property_price;
+                                        }
+                                        ?>
+
+                                    </span>
                                 <?php } 
 								$prop_enquir_args = array(
                                     'enquiry_label' => 'Enquiry',
@@ -746,9 +745,8 @@ if ($property_loop_obj->have_posts()) {
                                             <div class="member-info">
                                                 <ul class="list-resident">
                                                     <li><i class="icon-user3"></i>
-                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_team_member_name); ?></span></a>
+                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_team_member_name); ?> - <i class="icon-phone2"></i><?php echo esc_html($wp_rem_team_member_phone);?></span></a>
                                                     </li>
-                                                    <li><i class="icon-phone2"></i><?php echo esc_html($wp_rem_team_member_phone);?></li>
                                                 </ul>
                                             </div>
                                         <?php 
@@ -759,9 +757,8 @@ if ($property_loop_obj->have_posts()) {
                                             <div class="member-info">
                                                 <ul class="list-resident">
                                                     <li><i class="icon-user3"></i>
-                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_property_name); ?></span></a>
+                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_property_name); ?> - <i class="icon-phone2"></i><?php echo esc_html($wp_rem_phone_number);?></span></a>
                                                     </li>
-                                                    <li><i class="icon-phone2"></i><?php echo esc_html($wp_rem_phone_number);?></li>
                                                 </ul>
                                             </div>
                                         <?php
@@ -770,8 +767,7 @@ if ($property_loop_obj->have_posts()) {
                                     else { ?>
                                         <div class="member-info">
                                             <ul class="list-resident">
-                                                <li><i class="icon- icon-envelope2"></i><span><?php echo esc_html($realtor_email); ?></span></li>
-                                                <li><i class="icon-phone2"></i><?php echo esc_html($realtor_phone_number)?></li>
+                                                <li><i class="icon- icon-envelope2"></i><span><?php echo esc_html($realtor_email); ?> - <i class="icon-phone2"></i><?php echo esc_html($realtor_phone_number)?></span></li>
                                             </ul>
                                         </div>
                                     <?php } ?>

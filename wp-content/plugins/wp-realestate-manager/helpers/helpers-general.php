@@ -2197,13 +2197,13 @@ function wp_rem_property_price($property_id, $wp_rem_property_price = '', $guidp
 
         // Rent - USD
         if ($price) {
-            $price_line_1 = '<div>Rental Price USD ' . wp_rem_get_currency( $price, true );
+            $price_line_1 = '<div>' . wp_rem_get_currency( $price, true ) . ' USD';
             $price_line_1 .= ' (' . $price_label . ')</div>';
         }
         
         // Rent - TTD
         if ($price_ttd) {
-            $price_line_2 = '<div>Rental Price TTD ' . wp_rem_get_currency($price_ttd, true);
+            $price_line_2 = '<div>' . wp_rem_get_currency($price_ttd, true) . ' TTD';
             $price_line_2 .= ' (' . $price_label . ')</div>';
         }
 
@@ -2220,12 +2220,12 @@ function wp_rem_property_price($property_id, $wp_rem_property_price = '', $guidp
         
         // Sale - USD
         if ($price) {
-            $price_line_1 = '<div>Sale Price USD ' . wp_rem_get_currency($price, true) . '</div>';
+            $price_line_1 = '<div>' . wp_rem_get_currency($price, true) . ' USD</div>';
         }
 
         // Sale - TTD
         if ($price_ttd) {
-            $price_line_2 = '<div>Sale Price TTD ' . wp_rem_get_currency($price_ttd, true) . '</div>';
+            $price_line_2 = '<div>' . wp_rem_get_currency($price_ttd, true) . ' TTD</div>';
         }
 
         if ($price || $price_ttd) {

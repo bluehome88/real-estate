@@ -4269,3 +4269,9 @@ opacity: 1;
 	display: flex;
 	flex-wrap: wrap;
 }
+.search_split_advanced .features-list{
+	margin-top: 15px;
+}
+.property-medium .post-category-list li i{
+	float: none;
+}
