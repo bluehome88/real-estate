@@ -2963,3 +2963,15 @@ div.property-dsec .container-fluid {
       width: 100% !important;
   }
 }
+.main-post .media-holder.simple-image-frame img {
+  width: 100%;
+}
+#our-agents .section-fullwidth .col-lg-12 .contact-property ul.contact-info li {
+  padding-left: 0px;
+}
+#our-agents .section-fullwidth .col-lg-12 .contact-property ul.contact-info li i {
+  display: none;
+}
+#our-agents .section-fullwidth .col-lg-12 .contact-property ul.contact-info li .address-text {
+  width: 100%;
+}
