@@ -467,7 +467,7 @@ if (!function_exists('wp_rem_map_content')) {
                 ?>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="map-places-radius-box">
-                        <h5>POINTS OF INTEREST (M)</h5>
+                        <h5>MAP</h5>
                         <div class="kk_adjust_radius_container">
                             <div class="kk_row">
                                 <div class='kk_col_1'>
@@ -573,7 +573,7 @@ if (!function_exists('wp_rem_map_content')) {
 
         $html .= "map = new google.maps.Map(document.getElementById('map_canvas" . $map_dynmaic_no . "'), mapOptions);";
 
-        // if ($wp_rem_map_circle == 'on') {
+        if ($wp_rem_map_circle == 'on') {
             
             $html .= "var circle = new google.maps.Circle({
 									center: center,
@@ -584,7 +584,7 @@ if (!function_exists('wp_rem_map_content')) {
 									strokeColor: '#FF6600',
 									strokeWeight: 1         // CIRCLE BORDER.     
 								});";
-        // }
+        }
 
         $html .= "
 		directionsDisplay.setMap(map);
