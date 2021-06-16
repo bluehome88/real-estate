@@ -596,8 +596,8 @@ if ($property_loop_obj->have_posts()) {
                                         ?>
                                             <div class="member-info">
                                                 <ul class="list-resident">
-                                                    <li><i class="icon-user3"></i>
-                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_team_member_name); ?> - <i class="icon-phone2"></i><?php echo esc_html($wp_rem_team_member_phone);?></span></a>
+                                                    <li>
+                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><i class="icon-user3"></i><span><?php echo esc_html($wp_rem_team_member_name); ?></span></a> - <i class="icon-phone2"></i><?php echo esc_html($wp_rem_team_member_phone);?>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -608,8 +608,8 @@ if ($property_loop_obj->have_posts()) {
                                         ?>
                                             <div class="member-info">
                                                 <ul class="list-resident">
-                                                    <li><i class="icon-user3"></i>
-                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_property_name); ?> - <i class="icon-phone2"></i><?php echo esc_html($wp_rem_phone_number);?></span></a>
+                                                    <li>
+                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><i class="icon-user3"></i><span><?php echo esc_html($wp_rem_team_member_name); ?></span></a> - <i class="icon-phone2"></i><?php echo esc_html($wp_rem_team_member_phone);?>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -744,8 +744,8 @@ if ($property_loop_obj->have_posts()) {
                                         ?>
                                             <div class="member-info">
                                                 <ul class="list-resident">
-                                                    <li><i class="icon-user3"></i>
-                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_team_member_name); ?> - <i class="icon-phone2"></i><?php echo esc_html($wp_rem_team_member_phone);?></span></a>
+                                                    <li>
+                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><i class="icon-user3"></i><span><?php echo esc_html($wp_rem_team_member_name); ?></span></a> - <i class="icon-phone2"></i><?php echo esc_html($wp_rem_team_member_phone);?>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -756,8 +756,8 @@ if ($property_loop_obj->have_posts()) {
                                         ?>
                                             <div class="member-info">
                                                 <ul class="list-resident">
-                                                    <li><i class="icon-user3"></i>
-                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_property_name); ?> - <i class="icon-phone2"></i><?php echo esc_html($wp_rem_phone_number);?></span></a>
+                                                    <li>
+                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><i class="icon-user3"></i><span><?php echo esc_html($wp_rem_team_member_name); ?></span></a> - <i class="icon-phone2"></i><?php echo esc_html($wp_rem_team_member_phone);?>
                                                     </li>
                                                 </ul>
                                             </div>

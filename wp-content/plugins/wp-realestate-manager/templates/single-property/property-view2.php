@@ -260,7 +260,7 @@ if (!empty($wp_rem_property_category) && is_array($wp_rem_property_category)) {
                             ?>
                             <?php
                             if ($wp_rem_enable_yelp_places_element != 'off') {
-                                // do_action('wp_rem_restaurant_yelp_results', $post_id);
+                                do_action('wp_rem_restaurant_yelp_results', $post_id);
                             } if (!empty($wp_rem_property_type_walkscores_switch) && $wp_rem_property_type_walkscores_switch == 'on') : ?>
                                 <?php if (true || isset($wp_rem_plugin_options['wp_rem_walkscore_api_key']) && $wp_rem_plugin_options['wp_rem_walkscore_api_key'] != '') : ?>
                                     <?php

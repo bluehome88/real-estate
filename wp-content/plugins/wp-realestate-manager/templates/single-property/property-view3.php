@@ -519,7 +519,7 @@ if (($top_map == 'on' || ($top_slider == 'on' && $count_all > 0)) && $member_pro
                                 do_action('wp_rem_property_video_html', $post_id);
                             }
                             if ($wp_rem_enable_yelp_places_element != 'off') {
-                                // do_action('wp_rem_restaurant_yelp_results', $post_id);
+                                do_action('wp_rem_restaurant_yelp_results', $post_id);
                             }
                             if (!empty($wp_rem_property_type_walkscores_switch) && $wp_rem_property_type_walkscores_switch == 'on') :
                                 if (true || isset($wp_rem_plugin_options['wp_rem_walkscore_api_key']) && $wp_rem_plugin_options['wp_rem_walkscore_api_key'] != '') :
