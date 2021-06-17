@@ -2975,3 +2975,11 @@ div.property-dsec .container-fluid {
 #our-agents .section-fullwidth .col-lg-12 .contact-property ul.contact-info li .address-text {
   width: 100%;
 }
+
+.post-category-list .thumb-resident {
+  display: none;
+}
+.enquiry-list-btn {
+  position: absolute;
+  bottom: 0;
+}

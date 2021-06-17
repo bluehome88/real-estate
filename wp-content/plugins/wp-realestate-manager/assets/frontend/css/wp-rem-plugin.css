@@ -4275,3 +4275,14 @@ opacity: 1;
 .property-medium .post-category-list li i{
 	float: none;
 }
+.property-grid .post-category-list-property {
+	font-weight: 500;
+	font-style: italic;
+	margin: 0;
+	color: #5a2e8a !important;
+}
+.property-medium .post-category-list-property {
+	font-weight: 700;
+    margin: 0;
+    color: #5a2e8a !important;
+}

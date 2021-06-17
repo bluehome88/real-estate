@@ -560,8 +560,14 @@ if ($property_loop_obj->have_posts()) {
                                 $cus_fields = apply_filters('wp_rem_custom_fields', $property_id, $cus_fields, $property_no_custom_fields);
                                 if (isset($cus_fields['content']) && $cus_fields['content'] != '' && $open_house_data == '') {
                                     ?>
+                                    <p class="post-category-list-property">
+                                        <?php
+                                        if (isset($wp_rem_property_category['parent'])) {
+                                            $property_type = get_term_by('slug', $wp_rem_property_category['parent'], 'property-category');
+                                            echo($property_type->name); 
+                                        } ?>
+                                    </p>
                                     <ul class="post-category-list">
-                                        <li>House -</li>
                                         <?php echo wp_rem_allow_special_char($cus_fields['content']); ?>
                                     </ul>
                                     <?php
@@ -711,8 +717,14 @@ if ($property_loop_obj->have_posts()) {
                                 $cus_fields = apply_filters('wp_rem_custom_fields', $property_id, $cus_fields, $property_no_custom_fields);
                                 if (isset($cus_fields['content']) && $cus_fields['content'] != '') {
                                     ?>
+                                    <p class="post-category-list-property">
+                                        <?php
+                                        if (isset($wp_rem_property_category['parent'])) {
+                                            $property_type = get_term_by('slug', $wp_rem_property_category['parent'], 'property-category');
+                                            echo($property_type->name); 
+                                        } ?>
+                                    </p>
                                     <ul class="post-category-list">
-                                        <li>House -</li>
                                         <?php echo wp_rem_allow_special_char($cus_fields['content']); ?>
                                     </ul>
                                 <?php } ?>
