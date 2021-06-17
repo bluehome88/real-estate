@@ -2975,11 +2975,24 @@ div.property-dsec .container-fluid {
 #our-agents .section-fullwidth .col-lg-12 .contact-property ul.contact-info li .address-text {
   width: 100%;
 }
-
+#property-detail .agent_info {
+  width: 80%;
+}
+#property-detail .agent_info_contact {
+  text-align: center;
+}
+#property-detail .agent_info_contact a {
+  border: 2px solid #ff6428;
+  padding: 5px;
+  width: 45%;
+  margin: 1.5px 2%;
+  display: inline-block;
+  font: 600 Normal 11px "Montserrat", sans-serif;
+}
 .post-category-list .thumb-resident {
   display: none;
 }
-.enquiry-list-btn {
+/* .enquiry-list-btn {
   position: absolute;
   bottom: 0;
-}
+} */

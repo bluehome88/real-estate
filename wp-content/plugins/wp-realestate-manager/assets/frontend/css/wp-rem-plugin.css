@@ -4278,11 +4278,17 @@ opacity: 1;
 .property-grid .post-category-list-property {
 	font-weight: 500;
 	font-style: italic;
-	margin: 0;
+	/* margin: 0; */
 	color: #5a2e8a !important;
 }
 .property-medium .post-category-list-property {
 	font-weight: 700;
     margin: 0;
     color: #5a2e8a !important;
+}
+.description-holder .property-feature-desc {
+	padding: 0;
+}
+.description-holder .property-feature-desc > div {
+	padding: 0;
 }
