@@ -264,30 +264,36 @@ if (!empty($wp_rem_property_category) && is_array($wp_rem_property_category)) {
                                                 <h3><?php echo wp_rem_plugin_text_srt('wp_rem_property_property_key_detail'); ?></h3>
                                             </div>
                                             <?php
-                                                $beds = get_post_meta($post_id, 'min-beds', true);
-                                                if (!empty($beds)) {
-                                                    $beds = $beds . ' Bedrooms';
+                                                $content_detail = '';
+                                                if (!empty($wp_rem_post_loc_address_property)) {
+                                                    $content_detail .= '<p>Location:   <strong>'.$wp_rem_post_loc_address_property.'</strong></p>';
                                                 }
-                                                $btahs = get_post_meta($post_id, 'min-bath', true);
-                                                if (!empty($btahs)) {
-                                                    $btahs = $btahs . ' Bathrooms';
-                                                }
-                                                $garage = get_post_meta($post_id, 'min-garage', true);
-                                                if (!empty($garage)) {
-                                                    $garage = $garage . ' Garage';
+                                                if (!empty($wp_rem_cate_str)) {
+                                                    $content_detail .= '<p>Type:   '.$wp_rem_cate_str.'</p>';
                                                 }
                                                 $size = get_post_meta($post_id, 'area-ft', true);
                                                 if (!empty($size)) {
-                                                    $size = $size . ' SqFt';
+                                                    $property_type = get_term_by('slug', $wp_rem_property_category['parent'], 'property-category');
+                                                    if ($property_type->name == "Land") {
+                                                        $content_detail .= '<p>Land Size:   <strong>'.$size . ' SqFt</strong></p>';
+                                                    } else {
+                                                        $content_detail .= '<p>House Size:   <strong>'.$size . ' SqFt</strong></p>';
+                                                    }
                                                 }
+                                                $beds = get_post_meta($post_id, 'min-beds', true);
+                                                if (!empty($beds)) {
+                                                    $content_detail .= '<p>Bedrooms:   <strong>'.$beds.' Bedrooms</strong></p>';
+                                                }
+                                                $btahs = get_post_meta($post_id, 'min-bath', true);
+                                                if (!empty($btahs)) {
+                                                    $content_detail .= '<p>Bathrooms:   <strong>'.$btahs . ' Bathrooms</strong></p>';
+                                                }
+                                                $garage = get_post_meta($post_id, 'min-garage', true);
+                                                if (!empty($garage)) {
+                                                    $content_detail .= '<p>Parking:   <strong>'.$garage . ' Garage</strong></p>';
+                                                }
+                                                echo($content_detail);
                                             ?>
-                                            <p>Location: <?php echo($wp_rem_post_loc_address_property); ?></p>
-                                            <p>Type: <?php echo($wp_rem_cate_str); ?></p>
-                                            <p>Land Size: <?php echo($size); ?></p>
-                                            <p>House Size: <?php echo($size); ?></p>
-                                            <p>Bedrooms: <?php echo($beds); ?></p>
-                                            <p>Bathrooms: <?php echo($btahs); ?></p>
-                                            <p>Parking: <?php echo($garage); ?></p>
                                         </div>
                                     <?php } ?>
                                     <?php if ($content != '') { ?>    

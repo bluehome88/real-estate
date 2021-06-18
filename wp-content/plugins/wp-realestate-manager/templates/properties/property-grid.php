@@ -719,10 +719,11 @@ if ($property_loop_obj->have_posts()) {
                                     ?>
                                     <p class="post-category-list-property">
                                         <?php
-                                        if (isset($wp_rem_property_category['parent'])) {
-                                            $property_type = get_term_by('slug', $wp_rem_property_category['parent'], 'property-category');
-                                            echo($property_type->name); 
-                                        } ?>
+                                            echo $wp_rem_cate_str;
+                                            // if (isset($wp_rem_property_category['parent'])) {
+                                            //     $property_type = get_term_by('slug', $wp_rem_property_category['parent'], 'property-category');
+                                            //     echo($property_type->name); }
+                                        ?>
                                     </p>
                                     <ul class="post-category-list">
                                         <?php echo wp_rem_allow_special_char($cus_fields['content']); ?>
