@@ -268,7 +268,12 @@ if ( $property_loop_obj->have_posts() ) {
                                     );
                                     $ratings_data = apply_filters('reviews_ratings_data', $ratings_data, $property_id);
                                     $open_house_data = apply_filters('fetch_property_open_house', $property_id);
-                                    echo wp_rem_allow_special_char($open_house_data);
+                                    echo wp_rem_allow_special_char($open_house_data); 
+                                    ?>
+                                    <p class="post-category-list-property">
+                                        <?php echo $wp_rem_cate_str; ?>
+                                    </p>
+                                    <?php
                                     // All custom fields with value
                                     $cus_fields = array( 'content' => '' );
                                     $cus_fields = apply_filters('wp_rem_custom_fields', $property_id, $cus_fields, $property_no_custom_fields, true, true, false);

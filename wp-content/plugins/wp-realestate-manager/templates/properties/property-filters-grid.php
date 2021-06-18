@@ -329,11 +329,7 @@ if ( $property_loop_obj->have_posts() ) {
                                     }
                                     ?>
                                 </span>
-                            <?php } ?>
-                            <p class="post-category-list-property">
-                                <?php echo $wp_rem_cate_str; ?>
-                            </p>
-                            <?php
+                            <?php } 
                             $favourite_label = '';
                             $favourite_label = '';
                             $figcaption_div = true;
@@ -350,7 +346,11 @@ if ( $property_loop_obj->have_posts() ) {
                                     <li><i class="icon-location-pin2"></i><span><?php echo esc_html(implode(', ', $get_property_location)); ?></span></li>
                                 </ul>
                                 <?php
-                            }
+                            } ?>
+                            <p class="post-category-list-property">
+                                <?php echo $wp_rem_cate_str; ?>
+                            </p>
+                            <?php
                             // All custom fields with value
                             $cus_fields = array( 'content' => '' );
                             $cus_fields = apply_filters('wp_rem_custom_fields', $property_id, $cus_fields, $property_no_custom_fields);
