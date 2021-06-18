@@ -301,6 +301,9 @@ if ( $property_loop_obj->have_posts() ) {
                             <div class="post-title">
                                 <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(wp_trim_words(get_the_title($property_id), $wp_rem_properties_title_limit)) ?></a></h4>
                             </div>
+                            <p class="post-category-list-property">
+                                <?php echo $wp_rem_cate_str; ?>
+                            </p>
                             <?php
                             // All custom fields with value
                             $cus_fields = array( 'content' => '' );
@@ -313,6 +316,9 @@ if ( $property_loop_obj->have_posts() ) {
                             <?php } ?>
 
                         <?php } else { ?>
+                            <div class="post-title">
+                                <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(wp_trim_words(get_the_title($property_id), $wp_rem_properties_title_limit)) ?></a></h4>
+                            </div>
                             <?php if ( $wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '') { ?>
                                 <span class="property-price">
                                     <?php
@@ -324,6 +330,9 @@ if ( $property_loop_obj->have_posts() ) {
                                     ?>
                                 </span>
                             <?php } ?>
+                            <p class="post-category-list-property">
+                                <?php echo $wp_rem_cate_str; ?>
+                            </p>
                             <?php
                             $favourite_label = '';
                             $favourite_label = '';
@@ -336,9 +345,6 @@ if ( $property_loop_obj->have_posts() ) {
                             );
                             do_action('wp_rem_favourites_frontend_button', $property_id, $book_mark_args, $figcaption_div);
                             ?>
-                            <div class="post-title">
-                                <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(wp_trim_words(get_the_title($property_id), $wp_rem_properties_title_limit)) ?></a></h4>
-                            </div>
                             <?php if ( ! empty($get_property_location) ) { ?>
                                 <ul class="property-location">
                                     <li><i class="icon-location-pin2"></i><span><?php echo esc_html(implode(', ', $get_property_location)); ?></span></li>

@@ -2982,7 +2982,8 @@ div.property-dsec .container-fluid {
   text-align: center;
 }
 #property-detail .agent_info_contact a {
-  border: 2px solid #ff6428;
+  background-color: #5a2e8a;
+  color: white;
   padding: 5px;
   width: 45%;
   margin: 1.5px 2%;
