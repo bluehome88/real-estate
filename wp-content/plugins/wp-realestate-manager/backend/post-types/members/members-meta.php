@@ -715,6 +715,7 @@ if ( ! class_exists('Wp_rem_Members_Meta') ) {
                                                 $html .= $this->purchase_package_info_field_show($trans_docs_num, wp_rem_plugin_text_srt('wp_rem_member_no_documents'));
                                                 $html .= $this->purchase_package_info_field_show($trans_tags_num, wp_rem_plugin_text_srt('wp_rem_member_no_tags'));
                                                 $html .= $this->purchase_package_info_field_show($trans_phone, wp_rem_plugin_text_srt('wp_rem_member_phone_number'));
+                                                $html .= $this->purchase_package_info_field_show($trans_phone, wp_rem_plugin_text_srt('wp_rem_member_bio'));
                                                 $html .= $this->purchase_package_info_field_show($trans_open_house, wp_rem_plugin_text_srt('wp_rem_member_open_house'));
                                                 $html .= $this->purchase_package_info_field_show($trans_website, wp_rem_plugin_text_srt('wp_rem_member_website_link'));
                                                 $html .= $this->purchase_package_info_field_show($trans_social, wp_rem_plugin_text_srt('wp_rem_member_social_impressions'));
@@ -942,6 +943,7 @@ if ( ! class_exists('Wp_rem_Members_Meta') ) {
                                 $member_permissions = get_user_meta($member_data->ID, 'wp_rem_permissions', true);
                                 $wp_rem_member_name = get_user_meta($member_data->ID, 'member_name', true);
                                 $wp_rem_member_phone_number = get_user_meta($member_data->ID, 'member_phone_number', true);
+                                $wp_rem_member_bio = get_user_meta($member_data->ID, 'member_bio', true);
                                 $member_profile_picture = get_user_meta($member_data->ID, 'member_thumb', true);
                                 $wp_rem_public_profile = get_user_meta($member_data->ID, 'wp_rem_public_profile', true);
 
@@ -1040,15 +1042,45 @@ if ( ! class_exists('Wp_rem_Members_Meta') ) {
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <div class = "field-holder">
                                                         <label><?php echo wp_rem_plugin_text_srt('wp_rem_member_phone_number'); ?></label>
+                                                        <?php
+                                                        $wp_rem_opt_array = array(
+                                                            'id' => '',
+                                                            'std' => esc_html($wp_rem_member_phone_number),
+                                                            'cust_id' => 'member_phone_number',
+                                                            'force_std' => true,
+                                                            'cust_name' => 'wp_rem_member_phone_number',
+                                                        );
+                                                        $wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+                                                        ?>
+                                                    </div>
+                                                </div>                                                
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class = "field-holder">
+                                                        <label><?php echo wp_rem_plugin_text_srt('wp_rem_member_bio'); ?></label>
                     <?php
                     $wp_rem_opt_array = array(
                         'id' => '',
-                        'std' => esc_html($wp_rem_member_phone_number),
-                        'cust_id' => 'member_phone_number',
+                        'std' => esc_html($wp_rem_member_bio),
+                        'cust_id' => 'member_bio',
                         'force_std' => true,
-                        'cust_name' => 'wp_rem_member_phone_number',
+                        'cust_name' => 'wp_rem_member_bio',
+                        'wp_rem_editor' => true
                     );
-                    $wp_rem_form_fields->wp_rem_form_text_render($wp_rem_opt_array);
+                    $wp_rem_html_fields->wp_rem_form_textarea_render($wp_rem_opt_array);
+ 
+                    // $wp_rem_opt_array = array(
+                    //     'name' => wp_rem_plugin_text_srt('wp_rem_member_biography'),
+                    //     'desc' => '',
+                    //     'hint_text' => '',
+                    //     'echo' => true,
+                    //     'field_params' => array(
+                    //         'std' => '',
+                    //         'id' => 'biography',
+                    //         'return' => true,
+                    //     ),
+                    // );
+
+                    // $wp_rem_html_fields->wp_rem_textarea_render($wp_rem_opt_array);
                     ?>
                                                     </div>
                                                 </div>

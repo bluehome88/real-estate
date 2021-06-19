@@ -303,6 +303,7 @@ if ( ! class_exists('wp_rem_plugin_all_strings_3') ) {
             $wp_rem_static_text['wp_rem_member_no_documents'] = esc_html__('Number of Documents', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_no_tags'] = esc_html__('Number of Tags', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_phone_number'] = esc_html__('Phone Number', 'wp-rem');
+            $wp_rem_static_text['wp_rem_member_bio'] = esc_html__('Bio', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_open_house'] = esc_html__('Open House', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_website_link'] = esc_html__('Website Link', 'wp-rem');
             $wp_rem_static_text['wp_rem_member_social_impressions'] = esc_html__('Social Impressions Reach', 'wp-rem');

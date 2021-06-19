@@ -206,6 +206,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                             $member_permissions = get_user_meta($member_data->ID, 'wp_rem_permissions', true);
                                             $member_name = get_user_meta($member_data->ID, 'member_name', true);
                                             $phone_number = get_user_meta($member_data->ID, 'member_phone_number', true);
+                                            $member_bio = get_user_meta($member_data->ID, 'member_bio', true);
                                             $wp_rem_member_thumb_id = get_user_meta($member_data->ID, 'member_thumb', true);
                                             $member_name = ( isset($member_name) && $member_name != '' ) ? $member_name : $member_data->user_login;
                                             $wp_rem_public_profile = get_user_meta($member_data->ID, 'wp_rem_public_profile', true);
@@ -225,6 +226,12 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                                             <span class="member-phone"><i class="icon-phone2"></i><?php echo esc_html($phone_number); ?> </span> 
                                                             <?php
                                                         }
+
+                                                        if ( isset($member_bio) && $member_bio != '' ) { ?>
+                                                            <div class="member-bio"><?php echo htmlspecialchars_decode($member_bio); ?> </div> 
+                                                            <?php
+                                                        }
+                                                        
                                                         ?>
                                                     </div>
                                                 </li>
