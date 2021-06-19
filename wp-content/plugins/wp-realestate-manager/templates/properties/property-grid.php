@@ -605,7 +605,6 @@ if ($property_loop_obj->have_posts()) {
                                         if ( isset($team_members) && ! empty($team_members) && $wp_rem_property_username ) {
                                             $wp_rem_team_member_name = $wp_rem_selected_team_member->display_name;
                                             $wp_rem_team_member_phone = get_user_meta( $wp_rem_property_username, 'member_phone_number', true);
-                                            $wp_rem_team_member_phone_call = preg_replace('/[^0-9]/', '', $wp_rem_team_member_phone);
                                         ?>
                                             <div class="member-info">
                                                 <ul class="list-resident">
@@ -613,7 +612,7 @@ if ($property_loop_obj->have_posts()) {
                                                         <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><i class="icon-user3"></i><span><?php echo esc_html($wp_rem_team_member_name); ?></span></a>
                                                     </li>
                                                     <li>
-                                                        <a href="tel:<?php echo $wp_rem_team_member_phone_call; ?>"><i class="icon-phone2"></i><span><?php echo esc_html($wp_rem_team_member_phone); ?></span></a>
+                                                        <a href="tel:<?php echo $wp_rem_team_member_phone; ?>"><i class="icon-phone2"></i><span><?php echo esc_html($wp_rem_team_member_phone); ?></span></a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -770,7 +769,6 @@ if ($property_loop_obj->have_posts()) {
                                         if ( isset($team_members) && ! empty($team_members) && $wp_rem_property_username ) {
                                             $wp_rem_team_member_name = $wp_rem_selected_team_member->display_name;
                                             $wp_rem_team_member_phone = get_user_meta( $wp_rem_property_username, 'member_phone_number', true);
-                                            $wp_rem_team_member_phone_call = preg_replace('/[^0-9]/', '', $wp_rem_team_member_phone);
                                         ?>
                                             <div class="member-info">
                                                 <ul class="list-resident">
@@ -778,7 +776,7 @@ if ($property_loop_obj->have_posts()) {
                                                         <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><i class="icon-user3"></i><span><?php echo esc_html($wp_rem_team_member_name); ?></span></a>
                                                     </li>
                                                     <li>
-                                                        <a href="tel:<?php echo $wp_rem_team_member_phone_call; ?>"><i class="icon-phone2"></i><span><?php echo esc_html($wp_rem_team_member_phone); ?></span></a>
+                                                        <a href="tel:<?php echo $wp_rem_team_member_phone; ?>"><i class="icon-phone2"></i><span><?php echo esc_html($wp_rem_team_member_phone); ?></span></a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -803,7 +801,7 @@ if ($property_loop_obj->have_posts()) {
                                     else { ?>
                                         <div class="member-info">
                                             <ul class="list-resident">
-                                                <li><i class="icon- icon-envelope2"></i><span><?php echo esc_html($realtor_email); ?> - <i class="icon-phone2"></i><?php echo esc_html($realtor_phone_number)?></span></li>
+                                                <li><i class="icon-envelope2"></i><span><?php echo esc_html($realtor_email); ?> - <i class="icon-phone2"></i><?php echo esc_html($realtor_phone_number)?></span></li>
                                             </ul>
                                         </div>
                                     <?php } ?>

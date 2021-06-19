@@ -127,7 +127,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                                 <address><a href="#" class="branch-address-link" data-lat="<?php echo $branche_lat; ?>" data-lng="<?php echo $branche_lng; ?>"><i class="icon-location-pin2"></i><?php echo esc_html($branche_adrss); ?></a></address>
                                                 <span class="member-email"><i class="icon-envelope-o"></i><a href="mailto:<?php echo esc_html($branche_email); ?>"><?php echo wp_rem_plugin_text_srt('wp_rem_member_contact_email'); ?></a> </span>
                                                 <?php if ( isset($branche_phone) && $branche_phone != '' ) { ?>
-                                                    <span class="member-phone"><i class="icon-phone2"></i><?php echo esc_html($branche_phone); ?> </span> 
+                                                    <span class="member-phone"><i class="icon-phone2"></i><a href="tel:<?php echo esc_html($branche_phone); ?>"><?php echo esc_html($branche_phone); ?> </a></span> 
                                                     <?php
                                                 }
                                                 ?>
@@ -223,7 +223,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                                         <h3><?php echo esc_html($member_name); ?></h3> 
                                                         <span class="member-email"><i class="icon-envelope-o"></i><a href="mailto:<?php echo esc_html($member_data->user_email); ?>"><?php echo wp_rem_plugin_text_srt('wp_rem_member_contact_email'); ?></a> </span>
                                                         <?php if ( isset($phone_number) && $phone_number != '' ) { ?>
-                                                            <span class="member-phone"><i class="icon-phone2"></i><?php echo esc_html($phone_number); ?> </span> 
+                                                            <span class="member-phone"><i class="icon-phone2"></i><a href="tel:<?php echo esc_html($phone_number); ?>"><?php echo esc_html($phone_number); ?> </a></span> 
                                                             <?php
                                                         }
 
@@ -492,7 +492,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                                                 <li><i class="icon-user3"></i>
                                                                     <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_team_member_name); ?></span></a>
                                                                 </li>
-                                                                <li><i class="icon-phone2"></i><?php echo esc_html($wp_rem_team_member_phone);?></li>
+                                                                <li><i class="icon-phone2"></i><a href="tel:<?php echo esc_html($wp_rem_team_member_phone); ?>"><?php echo esc_html($wp_rem_team_member_phone);?></a></li>
                                                             </ul>
                                                         </div>
                                                     <?php 
@@ -505,7 +505,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                                                 <li><i class="icon-user3"></i>
                                                                     <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_property_name); ?></span></a>
                                                                 </li>
-                                                                <li><i class="icon-phone2"></i><?php echo esc_html($wp_rem_phone_number);?></li>
+                                                                <li><i class="icon-phone2"></i><a href="tel:<?php echo esc_html($wp_rem_phone_number); ?>"><?php echo esc_html($wp_rem_phone_number);?></a></li>
                                                             </ul>
                                                         </div>
                                                     <?php
@@ -515,7 +515,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                                     <div class="member-info">
                                                         <ul class="list-resident">
                                                             <li><i class="icon- icon-envelope2"></i><span><?php echo esc_html($realtor_email); ?></span></li>
-                                                            <li><i class="icon-phone2"></i><?php echo esc_html($realtor_phone_number)?></li>
+                                                            <li><i class="icon-phone2"></i><a href="tel:<?php echo esc_html($realtor_phone_number); ?>"><?php echo esc_html($realtor_phone_number)?></a></li>
                                                         </ul>
                                                     </div>
                                                 <?php } ?>
@@ -861,7 +861,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                                     <li><i class="icon-user3"></i>
                                                         <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_team_member_name); ?></span></a>
                                                     </li>
-                                                    <li><i class="icon-phone2"></i><?php echo esc_html($wp_rem_team_member_phone);?></li>
+                                                    <li><i class="icon-phone2"></i><a href="tel:<?php echo esc_html($wp_rem_team_member_phone); ?>"><?php echo esc_html($wp_rem_team_member_phone);?></a></li>
                                                 </ul>
                                             </div>
                                         <?php 
@@ -874,7 +874,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                                     <li><i class="icon-user3"></i>
                                                         <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_property_name); ?></span></a>
                                                     </li>
-                                                    <li><i class="icon-phone2"></i><?php echo esc_html($wp_rem_phone_number);?></li>
+                                                    <li><i class="icon-phone2"></i><a href="tel:<?php echo esc_html($wp_rem_phone_number); ?>"><?php echo esc_html($wp_rem_phone_number);?></a></li>
                                                 </ul>
                                             </div>
                                         <?php
@@ -884,7 +884,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                         <div class="member-info">
                                             <ul class="list-resident">
                                                 <li><i class="icon- icon-envelope2"></i><span><?php echo esc_html($realtor_email); ?></span></li>
-                                                <li><i class="icon-phone2"></i><?php echo esc_html($realtor_phone_number)?></li>
+                                                <li><i class="icon-phone2"></i><a href="tel:<?php echo esc_html($realtor_phone_number); ?>"><?php echo esc_html($realtor_phone_number)?></a></li>
                                             </ul>
                                         </div>
                                     <?php } ?>

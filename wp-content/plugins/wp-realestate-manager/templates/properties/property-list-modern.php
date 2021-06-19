@@ -222,6 +222,9 @@ if ( $property_loop_obj->have_posts() ) {
                             </div>
                             <?php if ( $property_view != 'grid' ) { ?>
                                 <div class="text-holder">
+                                    <div class="post-title">
+                                        <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(get_the_title($property_id)); ?></a></h4>
+                                    </div>
                                     <?php
                                     if ( $wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '') {
                                         ?>
@@ -237,11 +240,6 @@ if ( $property_loop_obj->have_posts() ) {
 
                                         </span>
                                     <?php } ?>
-
-
-                                    <div class="post-title">
-                                        <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(get_the_title($property_id)); ?></a></h4>
-                                    </div>
 
                                     <?php
                                     $favourite_label = '';
@@ -313,6 +311,15 @@ if ( $property_loop_obj->have_posts() ) {
                                 ?>
 
                                 <div class="text-holder">
+                                    <?php
+                                    $title__ = get_the_title($property_id);
+                                    if ( isset($title__) && ! empty($title__) ) {
+                                        ?>
+
+                                        <div class="post-title">
+                                            <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(wp_trim_words($title__, $wp_rem_properties_title_limit)) ?></a></h4>
+                                        </div>
+                                    <?php } ?>
                                     <?php if ( $wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '') { ?>
                                         <span class="property-price">
 
@@ -338,16 +345,7 @@ if ( $property_loop_obj->have_posts() ) {
                                     );
                                     do_action('wp_rem_favourites_frontend_button', $property_id, $book_mark_args, $figcaption_div);
                                     ?>
-
-                                    <?php
-                                    $title__ = get_the_title($property_id);
-                                    if ( isset($title__) && ! empty($title__) ) {
-                                        ?>
-
-                                        <div class="post-title">
-                                            <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(wp_trim_words($title__, $wp_rem_properties_title_limit)) ?></a></h4>
-                                        </div>
-                                    <?php } ?>
+                                    
                                     <?php do_action('wp_rem_compare_btn', $property_id, $compare_property_switch); ?>
                                     <?php
                                     $ratings_data = array(
@@ -522,7 +520,10 @@ if ( $property_loop_obj->have_posts() ) {
                             </figure>
                         </div>
         <?php if ( $property_view != 'grid' ) { ?>
-                            <div class="text-holder">
+                            <div class="text-holder"> 
+                                <div class="post-title">
+                                    <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(get_the_title($property_id)); ?></a></h4>
+                                </div>
 
             <?php
             if ( $wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '') {
@@ -540,9 +541,7 @@ if ( $property_loop_obj->have_posts() ) {
                                     </span>
             <?php } ?>
 
-                                <div class="post-title">
-                                    <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(get_the_title($property_id)); ?></a></h4>
-                                </div>
+                               
 
             <?php
             $ratings_data = array(
@@ -591,19 +590,26 @@ if ( $property_loop_obj->have_posts() ) {
         } else {
             ?>
                             <div class="text-holder">
+                                <?php
+                                $title__ = get_the_title($property_id);
+                                if ( isset($title__) && ! empty($title__) ) {
+                                    ?>
+
+                                    <div class="post-title">
+                                        <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(wp_trim_words($title__, $wp_rem_properties_title_limit)) ?></a></h4>
+                                    </div>
+                                <?php } ?>
                             <?php if ( $wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '') { ?>
                                     <span class="property-price">
-
-                <?php
-                if ( $wp_rem_property_price_options == 'on-call' ) {
-                    echo force_balance_tags($wp_rem_property_price);
-                } else {
-                    echo $wp_rem_property_price;
-                }
-                ?>
-
+                                    <?php
+                                    if ( $wp_rem_property_price_options == 'on-call' ) {
+                                        echo force_balance_tags($wp_rem_property_price);
+                                    } else {
+                                        echo $wp_rem_property_price;
+                                    }
+                                    ?>
                                     </span>
-            <?php } ?>
+                            <?php } ?>
                                 <?php
                                 $favourite_label = '';
                                 $favourite_label = '';
@@ -616,15 +622,7 @@ if ( $property_loop_obj->have_posts() ) {
                                 );
                                 do_action('wp_rem_favourites_frontend_button', $property_id, $book_mark_args, $figcaption_div);
                                 ?>
-                                <?php
-                                $title__ = get_the_title($property_id);
-                                if ( isset($title__) && ! empty($title__) ) {
-                                    ?>
-
-                                    <div class="post-title">
-                                        <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(wp_trim_words($title__, $wp_rem_properties_title_limit)) ?></a></h4>
-                                    </div>
-            <?php } ?>
+                                
                                 <?php do_action('wp_rem_compare_btn', $property_id, $compare_property_switch); ?>
                                 <?php
                                 $ratings_data = array(

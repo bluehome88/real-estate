@@ -373,7 +373,7 @@ if ( $property_loop_obj->have_posts() ) {
                                             <ul class="list-resident">
                                                 <li><i class="icon-user3"></i>
                                                     <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_team_member_name); ?></span></a></li>
-                                                <li><i class="icon-phone2"></i><?php echo esc_html($wp_rem_team_member_phone);?></li>
+                                                <li><i class="icon-phone2"></i><a href="tel:<?php echo esc_html($wp_rem_team_member_phone); ?>"><?php echo esc_html($wp_rem_team_member_phone);?></a></li>
                                             </ul>
                                         </div>
                                     <?php 
@@ -386,7 +386,7 @@ if ( $property_loop_obj->have_posts() ) {
                                                 <li><i class="icon-user3"></i>
                                                     <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_property_name); ?></span></a>
                                                 </li>
-                                                <li><i class="icon-phone2"></i><?php echo esc_html($wp_rem_phone_number);?></li>
+                                                <li><i class="icon-phone2"></i><a href="tel:<?php echo esc_html($wp_rem_phone_number); ?>"><?php echo esc_html($wp_rem_phone_number);?></a></li>
                                             </ul>
                                         </div>
                                     <?php
@@ -397,7 +397,7 @@ if ( $property_loop_obj->have_posts() ) {
                                         <ul class="list-resident">
                                             <li><i class="icon- icon-envelope2"></i><span><?php echo esc_html($realtor_email); ?></span>
                                             </li>
-                                            <li><i class="icon-phone2"></i><?php echo esc_html($realtor_phone_number)?></li>
+                                            <li><i class="icon-phone2"></i><a href="tel:<?php echo esc_html($realtor_phone_number); ?>"><?php echo esc_html($realtor_phone_number)?></a></li>
                                         </ul>
                                     </div>
                                 <?php } ?>
