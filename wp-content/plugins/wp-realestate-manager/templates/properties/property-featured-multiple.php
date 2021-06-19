@@ -232,7 +232,9 @@ if ( $property_loop_obj->have_posts() ) {
                     </figure>
                 </div>
                 <div class="text-holder">
-
+                    <div class="post-title">
+                        <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(wp_trim_words(get_the_title($property_id), $wp_rem_properties_title_limit)) ?></a></h4>
+                    </div>
                     <div class="price-holder">
                         <?php if ( $wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '') { ?>
                             <span class="property-price">
@@ -246,9 +248,9 @@ if ( $property_loop_obj->have_posts() ) {
                             </span>
                         <?php } ?>
                     </div>
-                    <div class="post-title">
-                        <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(wp_trim_words(get_the_title($property_id), $wp_rem_properties_title_limit)) ?></a></h4>
-                    </div>
+                    <p class="post-category-list-property">
+                        <?php echo $wp_rem_cate_str; ?>
+                    </p>
                     <?php
                     // All custom fields with value
                     $cus_fields = array( 'content' => '' );

@@ -438,6 +438,12 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                                 <h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
                                             </div>
                                             <?php
+                                            if ( isset($wp_rem_property_price_options) && $wp_rem_property_price_options == 'price' ) {
+                                                $wp_rem_property_price = wp_rem_property_price($property_id, $wp_rem_property_price, '<span class="guid-price">', '</span>');
+                                                ?>
+                                                <span class="property-price"><?php echo force_balance_tags($wp_rem_property_price); ?></span>
+                                            <?php } ?>
+                                            <?php
                                             $favourite_label = '';
                                             $favourite_label = '';
                                             $figcaption_div = true;
@@ -454,7 +460,11 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                                     <li><i class="icon-location-pin2"></i><span><?php echo esc_html($wp_rem_post_loc_address_property); ?></span></li>
                                                 </ul>
                                                 <?php
-                                            }
+                                            } ?>
+                                            <p class="post-category-list-property">
+                                                <?php echo $wp_rem_cate_str; ?>
+                                            </p>
+                                            <?php
                                             // All custom fields with value
                                             $cus_fields = array( 'content' => '' );
                                             $cus_fields = apply_filters('wp_rem_custom_fields', $property_id, $cus_fields, $default_property_no_custom_fields);
@@ -466,14 +476,8 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                                     </ul>
                                                 </div>
                                                 <?php
-                                            }
-                                            if ( isset($wp_rem_property_price_options) && $wp_rem_property_price_options == 'price' ) {
-                                                $wp_rem_property_price = wp_rem_property_price($property_id, $wp_rem_property_price, '<span class="guid-price">', '</span>');
-                                                ?>
-                                                <span class="property-price"><?php echo force_balance_tags($wp_rem_property_price); ?><small></small></span>
-                                            <?php } ?>
-                                            
-                                            <?php
+                                            } ?>
+                                          <?php
                                             $wp_rem_phone_number = get_post_meta($wp_rem_property_member, 'wp_rem_phone_number', true);
                                             $wp_rem_property_name = get_the_title($wp_rem_property_member);
                                             $wp_rem_selected_team_member = get_userdata( $wp_rem_property_username );                                                            ?>
@@ -797,19 +801,6 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                 </figure>
                             </div>
                             <div class="text-holder">
-                                <?php if ( $wp_rem_property_type_price_nearby_switch == 'on' && $wp_rem_property_nearby_price_options != 'none' ) { ?>
-                                    <span class="property-price">
-                                        <?Php
-                                        if ( $wp_rem_property_nearby_price_options == 'on-call' ) {
-                                            echo '<span class="property-price">' . force_balance_tags($wp_rem_property_nearby_price) . '</span>';
-                                        } else {
-                                            $property_info_price = wp_rem_property_price($nearby_property_id, $wp_rem_property_nearby_price, '<span class="guid-price">', '</span>');
-                                            echo '<span class="property-price">' . force_balance_tags($property_info_price) . '</span>';
-                                        }
-                                        ?>
-                                    </span>
-                                <?php } ?>
-
                                 <?php
                                 $favourite_label = '';
                                 $favourite_label = '';
@@ -828,6 +819,21 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                         <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(get_the_title($property_id)); ?></a></h4>
                                     </div>
                                 <?php } ?>
+                                <?php if ( $wp_rem_property_type_price_nearby_switch == 'on' && $wp_rem_property_nearby_price_options != 'none' ) { ?>
+                                    <span class="property-price">
+                                        <?Php
+                                        if ( $wp_rem_property_nearby_price_options == 'on-call' ) {
+                                            echo '<span class="property-price">' . force_balance_tags($wp_rem_property_nearby_price) . '</span>';
+                                        } else {
+                                            $property_info_price = wp_rem_property_price($nearby_property_id, $wp_rem_property_nearby_price, '<span class="guid-price">', '</span>');
+                                            echo '<span class="property-price">' . force_balance_tags($property_info_price) . '</span>';
+                                        }
+                                        ?>
+                                    </span>
+                                <?php } ?>
+                                <p class="post-category-list-property">
+                                    <?php echo $wp_rem_cate_str; ?>
+                                </p>
                                 <?php
                                 // property custom fields.
                                 $cus_fields = array( 'content' => '' );
