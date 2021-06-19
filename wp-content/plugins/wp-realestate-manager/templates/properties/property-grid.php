@@ -625,10 +625,10 @@ if ($property_loop_obj->have_posts()) {
                                             <div class="member-info">
                                                 <ul class="list-resident">
                                                     <li>
-                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><i class="icon-user3"></i><span><?php echo esc_html($wp_rem_team_member_name); ?></span></a>
+                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><i class="icon-user3"></i><span><?php echo esc_html($wp_rem_property_name); ?></span></a>
                                                     </li>
                                                     <li>
-                                                        <a href="tel:<?php echo $wp_rem_team_member_phone_call; ?>"><i class="icon-phone2"></i><span><?php echo esc_html($wp_rem_team_member_phone); ?></span></a>
+                                                        <a href="tel:<?php echo $wp_rem_phone_number; ?>"><i class="icon-phone2"></i><span><?php echo esc_html($wp_rem_phone_number); ?></span></a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -763,7 +763,8 @@ if ($property_loop_obj->have_posts()) {
                                 
                                 $wp_rem_phone_number = get_post_meta($wp_rem_property_member, 'wp_rem_phone_number', true);
                                 $wp_rem_property_name = get_the_title($wp_rem_property_member);
-                                $wp_rem_selected_team_member = get_userdata( $wp_rem_property_username );                                                            ?>
+                                $wp_rem_selected_team_member = get_userdata( $wp_rem_property_username );       
+                                ?>
                                 <div class="post-category-list resident"><?php
                                     if ( strcmp($wp_rem_property_name, '1on1realtor') == 0 ) {
                                         if ( isset($team_members) && ! empty($team_members) && $wp_rem_property_username ) {
@@ -789,10 +790,10 @@ if ($property_loop_obj->have_posts()) {
                                             <div class="member-info">
                                                 <ul class="list-resident">
                                                     <li>
-                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><i class="icon-user3"></i><span><?php echo esc_html($wp_rem_team_member_name); ?></span></a>
+                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><i class="icon-user3"></i><span><?php echo esc_html($wp_rem_property_name); ?></span></a>
                                                     </li>
                                                     <li>
-                                                        <a href="<?php echo $wp_rem_team_member_phone_call; ?>"><i class="icon-phone2"></i><span><?php echo esc_html($wp_rem_team_member_phone); ?></span></a>
+                                                        <a href="tel:<?php echo $wp_rem_phone_number; ?>"><i class="icon-phone2"></i><span><?php echo esc_html($wp_rem_phone_number); ?></span></a>
                                                     </li>
                                                 </ul>
                                             </div>
