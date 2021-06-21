@@ -104,7 +104,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                     </ul>
                     <div class="tab-content">
                         <?php if ( isset($wp_rem_biography) && $wp_rem_biography != '' ) { ?>
-                            <div id="overview_tab" class="tab-pane fade in active">
+                            <div id="overview_tab" class="tab-pane fade">
                                 <p><?php echo force_balance_tags(str_replace("<br/>", '</p><p>', str_replace("<br />", '</p><p>', nl2br($wp_rem_biography)))); ?></p>
                             </div>
                         <?php } ?>
@@ -243,7 +243,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                 </div>
                             </div>
                         <?php } ?>
-                        <div id="contact_tab" class="tab-pane fade member-contact-form">
+                        <div id="contact_tab" class="tab-pane fade member-contact-form in active">
                             <?php if ( ( isset($wp_rem_post_loc_latitude_member) && $wp_rem_post_loc_latitude_member != '' ) && ( isset($wp_rem_post_loc_longitude_member) && $wp_rem_post_loc_longitude_member != '' ) ) { ?>
                                 <div class="widget widget-map-sec">
                                     <?php
