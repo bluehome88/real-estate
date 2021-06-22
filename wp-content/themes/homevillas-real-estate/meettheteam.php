@@ -3,7 +3,7 @@
   
   
  /**
- * The template for displaying single property
+ * Template name: Meet the Team
  *
  */
 get_header();

@@ -2997,3 +2997,46 @@ div.property-dsec .container-fluid {
   position: absolute;
   bottom: 0;
 } */
+
+.main-section.member-detail .member-info{
+  margin-top: 30px;
+}
+
+.meet-team .tabs-property > div {
+  text-align: center;
+}
+.meet-team .tabs-property .member-image {
+  width: 100%;
+  height: auto;
+}
+.meet-team .tabs-property .member-image img {
+    width: 80%;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+}
+.meet-team .tabs-property .member-data {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 35px;
+}
+.meet-team .tabs-property .member-data .view-team-member {
+  background-color: #ff6428;
+    border: 1px solid #ff6428;
+    color: white;
+}
+.meet-team .tabs-property .member-data .view-team-member:hover {
+  background-color: transparent;
+  color: #ff6428;
+}
+.meet-team .team-description {
+  text-align: center;
+  margin: 30px auto;
+}
+.member-detail .meet-team .element-title,
+.member-detail .team-member-detail .element-title {
+  margin: 30px auto;
+}
+.member-detail .team-member-detail .property-grid .post-category-list > ul {
+  padding: 0px;
+}

@@ -27,11 +27,10 @@ $wp_rem_sitekey = isset($wp_rem_plugin_options['wp_rem_sitekey']) ? $wp_rem_plug
 $wp_rem_secretkey = isset($wp_rem_plugin_options['wp_rem_secretkey']) ? $wp_rem_plugin_options['wp_rem_secretkey'] : '';
 $default_property_no_custom_fields = isset($wp_rem_plugin_options['wp_rem_property_no_custom_fields']) ? $wp_rem_plugin_options['wp_rem_property_no_custom_fields'] : '';
 
-$member_name = get_user_meta($member_id, 'member_name', true);
+$member_name = $user->display_name;
 $phone_number = get_user_meta($member_id, 'member_phone_number', true);
 $member_bio = get_user_meta($member_id, 'member_bio', true);
 $wp_rem_member_thumb_id = get_user_meta($member_id, 'member_thumb', true);
-$member_name = ( isset($member_name) && $member_name != '' ) ? $member_name : $member_data->user_login;
 
 wp_enqueue_script('wp-rem-prettyPhoto');
 wp_enqueue_style('wp-rem-prettyPhoto');
@@ -43,7 +42,7 @@ wp_rem_cs_inline_enqueue_script($wp_rem_cs_inline_script, 'wp-rem-custom-inline'
 
 if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
     ?>
-    <div class="page-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="page-content col-lg-12 col-md-12 col-sm-12 col-xs-12 team-member-detail">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="member-info">
@@ -66,24 +65,24 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                 <li><span class="member-phone"><i class="icon-phone2"></i><a href="tel:<?php echo esc_html($phone_number); ?>"><?php echo esc_html($phone_number); ?> </a></span> </li>
                                 <?php
                             }  ?> 
-                            <?php if ( isset($member_bio) && $member_bio != '' ) { ?>
-                                <li><div class="member-bio"><?php echo htmlspecialchars_decode($member_bio); ?> </div></li>
-                                <?php
-                            } ?>
+                            
                         </ul>
                     </div>
                 </div>
             </div>
+            <?php if ( isset($member_bio) && $member_bio != '' ) { ?>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 member-bio">
+                    <h3>About Me</h3>
+                    <?php echo htmlspecialchars_decode($member_bio); ?> 
+                </div>
+            <?php } ?>
             <div id="properties"></div>
             <?php
             if ( $post_count > 0 ) {
                 ?>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="element-title">
-                        <h2><?php
-                            echo get_the_title($post_id) . ' ';
-                            echo wp_rem_plugin_text_srt('wp_rem_member_properties');
-                            ?></h2>
+                        <h3><?php echo $member_name; ?> Properties</h3>
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -135,16 +134,17 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                     }
                                 }
                                 ?>
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="property-medium">
+                                <div class="property-row col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="property-grid">
                                         <div class="img-holder">
                                             <figure>
                                                 <a href="<?php the_permalink(); ?>">
                                                     <?php
                                                     if ( function_exists('property_gallery_first_image') ) {
+
                                                         $gallery_image_args = array(
                                                             'property_id' => $property_id,
-                                                            'size' => 'full',
+                                                            'size' => 'wp_rem_cs_media_5',
                                                             'class' => '',
                                                             'default_image_src' => esc_url(wp_rem::plugin_url() . 'assets/frontend/images/no-image9x6.jpg')
                                                         );
@@ -224,49 +224,6 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                                 </div>
                                                 <?php
                                             } ?>
-                                          <?php
-                                            $wp_rem_phone_number = get_post_meta($wp_rem_property_member, 'wp_rem_phone_number', true);
-                                            $wp_rem_property_name = get_the_title($wp_rem_property_member);
-                                            $wp_rem_selected_team_member = get_userdata( $wp_rem_property_username );                                                            ?>
-                                            <div class="post-category-list resident"><?php
-                                                if ( strcmp($wp_rem_property_name, '1on1realtor') == 0 ) {
-                                                    if ( isset($team_members) && ! empty($team_members) && $wp_rem_property_username ) {
-                                                        $wp_rem_team_member_name = $wp_rem_selected_team_member->display_name;
-                                                        $wp_rem_team_member_phone = get_user_meta( $wp_rem_property_username, 'member_phone_number', true);
-                                                    ?>
-                                                        <div class="member-info">
-                                                            <ul class="list-resident">
-                                                                <li><i class="icon-user3"></i>
-                                                                    <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_team_member_name); ?></span></a>
-                                                                </li>
-                                                                <li><i class="icon-phone2"></i><a href="tel:<?php echo esc_html($wp_rem_team_member_phone); ?>"><?php echo esc_html($wp_rem_team_member_phone);?></a></li>
-                                                            </ul>
-                                                        </div>
-                                                    <?php 
-                                                    }
-                                                    else
-                                                    {
-                                                    ?>
-                                                        <div class="member-info">
-                                                            <ul class="list-resident">
-                                                                <li><i class="icon-user3"></i>
-                                                                    <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_property_name); ?></span></a>
-                                                                </li>
-                                                                <li><i class="icon-phone2"></i><a href="tel:<?php echo esc_html($wp_rem_phone_number); ?>"><?php echo esc_html($wp_rem_phone_number);?></a></li>
-                                                            </ul>
-                                                        </div>
-                                                    <?php
-                                                    }
-                                                } 
-                                                else { ?>
-                                                    <div class="member-info">
-                                                        <ul class="list-resident">
-                                                            <li><i class="icon- icon-envelope2"></i><span><?php echo esc_html($realtor_email); ?></span></li>
-                                                            <li><i class="icon-phone2"></i><a href="tel:<?php echo esc_html($realtor_phone_number); ?>"><?php echo esc_html($realtor_phone_number)?></a></li>
-                                                        </ul>
-                                                    </div>
-                                                <?php } ?>
-                                            </div>
                                             <div class="post-category-list resident">
                                                 <?php
                                                 $member_image = array();
@@ -320,16 +277,16 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                             ?>
                         </div>
                         <?php
-                        $property_short_counter = rand(123, 9999);
+                            $property_short_counter = rand(123, 9999);
 
-                        $paging_args = array(
-                            'total_posts' => $post_count,
-                            'posts_per_page' => $paging_var_perpage,
-                            'paging_var' => $paging_var,
-                            'show_pagination' => 'yes',
-                            'property_short_counter' => $property_short_counter,
-                        );
-                        do_action('wp_rem_pagination', $paging_args);
+                            $paging_args = array(
+                                'total_posts' => $post_count,
+                                'posts_per_page' => $paging_var_perpage,
+                                'paging_var' => $paging_var,
+                                'show_pagination' => 'yes',
+                                'property_short_counter' => $property_short_counter,
+                            );
+                            do_action('wp_rem_pagination', $paging_args);
                         ?>
                     </div>
                 </div>
