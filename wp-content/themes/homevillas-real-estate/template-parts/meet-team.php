@@ -130,6 +130,8 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                             <?php } ?>
                                             <div class="member-data">
                                                 <h6><?php echo esc_html($member_name); ?></h6> 
+                                                <a href="tel:<?php echo esc_html($phone_number);?>"><?php echo esc_html($phone_number); ?></a> 
+                                                <a href="mailto:<?php echo esc_html($member_data->user_email); ?>"><?php echo esc_html($member_data->user_email); ?></a> 
                                                 <a href="<?php echo $current_url."/?member=".$member_data->user_login;?>" class="btn view-team-member">View more</a>
                                             </div>
                                         </div>

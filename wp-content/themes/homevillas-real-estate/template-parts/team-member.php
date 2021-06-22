@@ -50,7 +50,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                         <figure>
                              <?php if ( isset($wp_rem_member_thumb_id) && $wp_rem_member_thumb_id != '' ) { ?>
                                 <div class="member-image">
-                                    <?php echo wp_get_attachment_image($wp_rem_member_thumb_id, 'thumbnail'); ?>
+                                    <?php echo wp_get_attachment_image($wp_rem_member_thumb_id, 'medium'); ?>
                                 </div>
                             <?php } ?>
                         </figure>
@@ -67,15 +67,16 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                             }  ?> 
                             
                         </ul>
+                        <?php if ( isset($member_bio) && $member_bio != '' ) { ?>
+                            <div class="member-bio">
+                                <h3>About Me</h3>
+                                <?php echo htmlspecialchars_decode($member_bio); ?> 
+                            </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
-            <?php if ( isset($member_bio) && $member_bio != '' ) { ?>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 member-bio">
-                    <h3>About Me</h3>
-                    <?php echo htmlspecialchars_decode($member_bio); ?> 
-                </div>
-            <?php } ?>
+            
             <div id="properties"></div>
             <?php
             if ( $post_count > 0 ) {
@@ -276,18 +277,6 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                             endwhile;
                             ?>
                         </div>
-                        <?php
-                            $property_short_counter = rand(123, 9999);
-
-                            $paging_args = array(
-                                'total_posts' => $post_count,
-                                'posts_per_page' => $paging_var_perpage,
-                                'paging_var' => $paging_var,
-                                'show_pagination' => 'yes',
-                                'property_short_counter' => $property_short_counter,
-                            );
-                            do_action('wp_rem_pagination', $paging_args);
-                        ?>
                     </div>
                 </div>
                 <?php

@@ -26,7 +26,7 @@ if (!isset($_REQUEST[$paging_var])) {
     $_REQUEST[$paging_var] = '';
 }
 
-$posts_per_page = isset($wp_rem_plugin_options['wp_rem_member_dashboard_pagination']) ? $wp_rem_plugin_options['wp_rem_member_dashboard_pagination'] : 10;
+$posts_per_page = -1;
 // custom property
 
 $list_args = array(

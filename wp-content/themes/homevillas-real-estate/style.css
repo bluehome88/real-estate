@@ -3020,10 +3020,14 @@ div.property-dsec .container-fluid {
   margin-top: 20px;
   margin-bottom: 35px;
 }
+.meet-team .tabs-property .member-data a:hover{
+  color: #ff6428 !important;  
+}
 .meet-team .tabs-property .member-data .view-team-member {
   background-color: #ff6428;
     border: 1px solid #ff6428;
     color: white;
+    margin-top: 10px;
 }
 .meet-team .tabs-property .member-data .view-team-member:hover {
   background-color: transparent;
@@ -3039,4 +3043,32 @@ div.property-dsec .container-fluid {
 }
 .member-detail .team-member-detail .property-grid .post-category-list > ul {
   padding: 0px;
+}
+.member-detail .team-member-detail  .member-info .img-holder figure img{
+  height: auto;
+  width: auto;
+}
+.member-detail .team-member-detail  .member-info .img-holder{
+  width: auto;
+}
+.member-detail .team-member-detail  .member-info .img-holder ~ .text-holder{
+  width: -webkit-calc(100% - 330px);
+  width: -moz-calc(100% - 330px);
+  width: calc(100% - 330px);
+}
+@media (max-width: 767px) {
+  .member-detail .team-member-detail .member-info .img-holder ~ .text-holder{
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+  }
+  .member-detail .team-member-detail .member-info .img-holder{
+    float: none;
+    text-align: center;
+  }
+  .member-detail .team-member-detail .member-info .img-holder figure{
+    border: none;
+    box-shadow: none;
+  }
 }
