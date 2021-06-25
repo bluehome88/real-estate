@@ -48,11 +48,15 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                 <div class="member-info">
                     <div class="img-holder">
                         <figure>
-                             <?php if ( isset($wp_rem_member_thumb_id) && $wp_rem_member_thumb_id != '' ) { ?>
-                                <div class="member-image">
-                                    <?php echo wp_get_attachment_image($wp_rem_member_thumb_id, 'medium'); ?>
-                                </div>
+                            <div class="member-image">
+                             <?php if ( isset($wp_rem_member_thumb_id) && $wp_rem_member_thumb_id != '' ) { 
+                                echo wp_get_attachment_image($wp_rem_member_thumb_id, 'medium'); 
+                             } else {
+                                $image = esc_url(wp_rem::plugin_url() . 'assets/frontend/images/member-no-image.jpg');
+                            ?>
+                            <img src="<?php echo esc_url($image); ?>" alt="" />
                             <?php } ?>
+                            </div>
                         </figure>
                     </div>
                     <div class="text-holder">

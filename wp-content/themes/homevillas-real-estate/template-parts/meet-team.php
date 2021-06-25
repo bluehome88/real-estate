@@ -48,17 +48,13 @@ wp_rem_cs_inline_enqueue_script($wp_rem_cs_inline_script, 'wp-rem-custom-inline'
 // Handle Member url
 global $wp;
 $current_url = home_url( $wp->request );
-if( isset($_GET) && isset( $_GET['member'] )){
-    echo $_GET['member'];
-    print_r( $wp );
-}
 
 if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
     ?>
     <div class="page-content col-lg-12 col-md-12 col-sm-12 col-xs-12 meet-team">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="member-info">
+                <div class="member-info group-info">
                     <div class="img-holder">
                         <figure>
                             <?php
@@ -119,14 +115,19 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                     $wp_rem_public_profile = isset($wp_rem_public_profile) ? $wp_rem_public_profile : '';
                                     if ( isset($wp_rem_public_profile) && $wp_rem_public_profile == 'yes' ) {
                                         ?>
-                                        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
-                                            <?php if ( isset($wp_rem_member_thumb_id) && $wp_rem_member_thumb_id != '' ) { ?>
-                                                <div class="member-image">
-                                                    <a href="<?php echo $current_url."/?member=".$member_data->user_login;?>">
-                                                        <?php echo wp_get_attachment_image($wp_rem_member_thumb_id, 'large'); ?>
-                                                    </a>
-                                                </div>
-                                            <?php } ?>
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                            <div class="member-image">
+                                                <a href="<?php echo $current_url."/?member=".$member_data->user_login;?>">
+                                                    <?php 
+                                                    if ( isset($wp_rem_member_thumb_id) && $wp_rem_member_thumb_id != '' ) { 
+                                                        echo wp_get_attachment_image($wp_rem_member_thumb_id, 'large');
+                                                    } else {
+                                                        $image = esc_url(wp_rem::plugin_url() . 'assets/frontend/images/member-no-image.jpg');
+                                                    ?>
+                                                    <img src="<?php echo esc_url($image); ?>" alt="" />
+                                                    <?php } ?>
+                                                </a>
+                                            </div>
                                             <div class="member-data">
                                                 <h6 style="text-transform: none !important;"><?php echo esc_html($member_name); ?></h6> 
                                                 <a href="tel:<?php echo esc_html($phone_number);?>"><?php echo esc_html($phone_number); ?></a> 

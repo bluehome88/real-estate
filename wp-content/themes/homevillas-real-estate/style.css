@@ -3020,6 +3020,9 @@ div.property-dsec .container-fluid {
   margin-top: 20px;
   margin-bottom: 35px;
 }
+.meet-team .tabs-property .member-data > a{
+  display: block;  
+}
 .meet-team .tabs-property .member-data a:hover{
   color: #ff6428 !important;  
 }
@@ -3028,6 +3031,7 @@ div.property-dsec .container-fluid {
     border: 1px solid #ff6428;
     color: white;
     margin-top: 10px;
+    display: inline-block;
 }
 .meet-team .tabs-property .member-data .view-team-member:hover {
   background-color: transparent;
@@ -3071,4 +3075,7 @@ div.property-dsec .container-fluid {
     border: none;
     box-shadow: none;
   }
+}
+.member-detail .group-info .img-holder {
+  width: 215px !important;
 }
