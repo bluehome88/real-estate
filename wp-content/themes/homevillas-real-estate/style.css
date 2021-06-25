@@ -2966,13 +2966,13 @@ div.property-dsec .container-fluid {
 .main-post .media-holder.simple-image-frame img {
   width: 100%;
 }
-#our-agents .section-fullwidth .col-lg-12 .contact-property ul.contact-info li {
+#our-agents .col-lg-12 .contact-property ul.contact-info li {
   padding-left: 0px;
 }
-#our-agents .section-fullwidth .col-lg-12 .contact-property ul.contact-info li i {
+#our-agents .col-lg-12 .contact-property ul.contact-info li i {
   display: none;
 }
-#our-agents .section-fullwidth .col-lg-12 .contact-property ul.contact-info li .address-text {
+#our-agents .col-lg-12 .contact-property ul.contact-info li .address-text {
   width: 100%;
 }
 #property-detail .agent_info {
@@ -3014,6 +3014,7 @@ div.property-dsec .container-fluid {
     height: auto;
     object-fit: cover;
     object-position: center;
+    border-radius: 50%;
 }
 .meet-team .tabs-property .member-data {
   width: 100%;
@@ -3027,11 +3028,11 @@ div.property-dsec .container-fluid {
   color: #ff6428 !important;  
 }
 .meet-team .tabs-property .member-data .view-team-member {
-  background-color: #ff6428;
-    border: 1px solid #ff6428;
-    color: white;
-    margin-top: 10px;
-    display: inline-block;
+  color: #510e78;
+  margin-top: 10px;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 700;
 }
 .meet-team .tabs-property .member-data .view-team-member:hover {
   background-color: transparent;
@@ -3078,4 +3079,7 @@ div.property-dsec .container-fluid {
 }
 .member-detail .group-info .img-holder {
   width: 215px !important;
+}
+#our-agents .text-holder li{
+  padding: 0;
 }

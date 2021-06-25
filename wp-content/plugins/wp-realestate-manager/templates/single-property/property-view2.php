@@ -231,8 +231,8 @@ if (!empty($wp_rem_property_category) && is_array($wp_rem_property_category)) {
                                                 if (!empty($wp_rem_post_loc_address_property)) {
                                                     $content_detail .= '<p>Location:   <strong>'.$wp_rem_post_loc_address_property.'</strong></p>';
                                                 }
-                                                if (!empty($wp_rem_cate_str)) {
-                                                    $content_detail .= '<p>Type:   <strong>'.$wp_rem_cate_str.'</strong></p>';
+                                                if (!empty($wp_rem_cate)) {
+                                                    $content_detail .= '<p>Type:   <strong>'.$wp_rem_cate->name.'</strong></p>';
                                                 }
                                                 $size = get_post_meta($post_id, 'area-ft', true);
                                                 if (!empty($size)) {
@@ -245,11 +245,11 @@ if (!empty($wp_rem_property_category) && is_array($wp_rem_property_category)) {
                                                 }
                                                 $beds = get_post_meta($post_id, 'min-beds', true);
                                                 if (!empty($beds)) {
-                                                    $content_detail .= '<p>Bedrooms:   <strong>'.$beds.' Bedrooms</strong></p>';
+                                                    $content_detail .= '<p>Bedrooms:   <strong>'.$beds.'</strong></p>';
                                                 }
                                                 $btahs = get_post_meta($post_id, 'min-bath', true);
                                                 if (!empty($btahs)) {
-                                                    $content_detail .= '<p>Bathrooms:   <strong>'.$btahs . ' Bathrooms</strong></p>';
+                                                    $content_detail .= '<p>Bathrooms:   <strong>'.$btahs . '</strong></p>';
                                                 }
                                                 $garage = get_post_meta($post_id, 'min-garage', true);
                                                 if (!empty($garage)) {

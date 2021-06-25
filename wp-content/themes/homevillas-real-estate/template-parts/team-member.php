@@ -52,7 +52,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                              <?php if ( isset($wp_rem_member_thumb_id) && $wp_rem_member_thumb_id != '' ) { 
                                 echo wp_get_attachment_image($wp_rem_member_thumb_id, 'medium'); 
                              } else {
-                                $image = esc_url(wp_rem::plugin_url() . 'assets/frontend/images/member-no-image.jpg');
+                                $image = esc_url(wp_rem::plugin_url() . 'assets/frontend/images/no-profile-women-image.jpg');
                             ?>
                             <img src="<?php echo esc_url($image); ?>" alt="" />
                             <?php } ?>

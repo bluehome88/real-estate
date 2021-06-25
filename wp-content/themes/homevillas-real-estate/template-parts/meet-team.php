@@ -54,7 +54,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
     <div class="page-content col-lg-12 col-md-12 col-sm-12 col-xs-12 meet-team">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="member-info group-info">
+                <!-- <div class="member-info group-info">
                     <div class="img-holder">
                         <figure>
                             <?php
@@ -92,7 +92,8 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                             <?php } ?>
                         </ul>
                     </div>
-                </div>
+                </div> -->
+                <?php the_content(); ?>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 team-description">
                     <h2 style="text-transform: none !important;">Our Agents</h2>
                 </div>
@@ -122,7 +123,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                                     if ( isset($wp_rem_member_thumb_id) && $wp_rem_member_thumb_id != '' ) { 
                                                         echo wp_get_attachment_image($wp_rem_member_thumb_id, 'large');
                                                     } else {
-                                                        $image = esc_url(wp_rem::plugin_url() . 'assets/frontend/images/member-no-image.jpg');
+                                                        $image = esc_url(wp_rem::plugin_url() . 'assets/frontend/images/no-profile-women-image.jpg');
                                                     ?>
                                                     <img src="<?php echo esc_url($image); ?>" alt="" />
                                                     <?php } ?>
@@ -132,7 +133,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                                 <h6 style="text-transform: none !important;"><?php echo esc_html($member_name); ?></h6> 
                                                 <a href="tel:<?php echo esc_html($phone_number);?>"><?php echo esc_html($phone_number); ?></a> 
                                                 <a href="mailto:<?php echo esc_html($member_data->user_email); ?>"><?php echo esc_html($member_data->user_email); ?></a> 
-                                                <a href="<?php echo $current_url."/?member=".$member_data->user_login;?>" class="btn view-team-member">View more</a>
+                                                <a href="<?php echo $current_url."/?member=".$member_data->user_login;?>" class="btn view-team-member">View Listings</a>
                                             </div>
                                         </div>
                                         <?php
