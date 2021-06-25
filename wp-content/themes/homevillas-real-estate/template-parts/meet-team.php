@@ -55,7 +55,7 @@ if( isset($_GET) && isset( $_GET['member'] )){
 
 if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
     ?>
-    <div class="page-content col-lg-8 col-md-8 col-sm-12 col-xs-12 meet-team">
+    <div class="page-content col-lg-12 col-md-12 col-sm-12 col-xs-12 meet-team">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="member-info">
@@ -98,8 +98,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 team-description">
-                    <h2>Our Agent</h2>
-                    <p>Description about our agent</p>
+                    <h2 style="text-transform: none !important;">Our Agents</h2>
                 </div>
                 <!--Tabs Start-->
                 <div class="member-tabs horizontal">
@@ -120,7 +119,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                     $wp_rem_public_profile = isset($wp_rem_public_profile) ? $wp_rem_public_profile : '';
                                     if ( isset($wp_rem_public_profile) && $wp_rem_public_profile == 'yes' ) {
                                         ?>
-                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
                                             <?php if ( isset($wp_rem_member_thumb_id) && $wp_rem_member_thumb_id != '' ) { ?>
                                                 <div class="member-image">
                                                     <a href="<?php echo $current_url."/?member=".$member_data->user_login;?>">
@@ -129,7 +128,7 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
                                                 </div>
                                             <?php } ?>
                                             <div class="member-data">
-                                                <h6><?php echo esc_html($member_name); ?></h6> 
+                                                <h6 style="text-transform: none !important;"><?php echo esc_html($member_name); ?></h6> 
                                                 <a href="tel:<?php echo esc_html($phone_number);?>"><?php echo esc_html($phone_number); ?></a> 
                                                 <a href="mailto:<?php echo esc_html($member_data->user_email); ?>"><?php echo esc_html($member_data->user_email); ?></a> 
                                                 <a href="<?php echo $current_url."/?member=".$member_data->user_login;?>" class="btn view-team-member">View more</a>
@@ -147,105 +146,6 @@ if ( isset($wp_rem_user_status) && $wp_rem_user_status == 'active' ) {
             </div>
         </div>
     </div>
-    <aside class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-        <form class="contactform_name" id="contactfrm<?php echo absint($wp_rem_cs_email_counter); ?>" name="contactform_name" action="javascript:wp_rem_contact_send_message(<?php echo absint($wp_rem_cs_email_counter); ?>)">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <h5><?php echo wp_rem_plugin_text_srt('wp_rem_contact_heading'); ?> <?php echo get_the_title($post_id); ?></h5>
-                    <div id="message22" class="response-message"></div>
-                    <div class="field-holder">
-                        <i class="icon- icon-user4"></i>
-                        <?php
-                        $wp_rem_opt_array = array(
-                            'cust_name' => 'contact_full_name',
-                            'return' => false,
-                            'classes' => 'input-field',
-                            'extra_atr' => ' placeholder=" ' . wp_rem_plugin_text_srt('wp_rem_member_contact_your_name') . '"',
-                        );
-                        $wp_rem_form_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
-                        ?>
-                    </div>
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="field-holder">
-                        <i class="icon- icon-envelope3"></i>
-                        <?php
-                        $wp_rem_opt_array = array(
-                            'cust_name' => 'contact_email_add',
-                            'return' => false,
-                            'classes' => 'input-field',
-                            'extra_atr' => ' placeholder=" ' . wp_rem_plugin_text_srt('wp_rem_member_contact_your_email') . '"',
-                        );
-                        $wp_rem_form_fields_frontend->wp_rem_form_text_render($wp_rem_opt_array);
-                        ?>
-                    </div>
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="field-holder">
-                        <i class="icon-message"></i>
-                        <?php
-                        $wp_rem_opt_array = array(
-                            'std' => '',
-                            'id'=>'',
-                            'name'=>'',
-                            'cust_name' => 'contact_message_field',
-                            'return' => false,
-                            'extra_atr' => ' placeholder=" ' . wp_rem_plugin_text_srt('wp_rem_member_contact_your_message') . '"',
-                        );
-                        $wp_rem_form_fields_frontend->wp_rem_form_textarea_render($wp_rem_opt_array);
-                        ?>
-                    </div>
-                </div>
-                <?php
-                if ( $wp_rem_captcha_switch == 'on' ) {
-                    if ( $wp_rem_sitekey <> '' and $wp_rem_secretkey <> '' ) {
-                        wp_rem_google_recaptcha_scripts();
-                        ?>
-                        <script>
-                            var recaptcha_member;
-                            var wp_rem_multicap = function () {
-                                //Render the recaptcha1 on the element with ID "recaptcha1"
-                                recaptcha_member = grecaptcha.render('recaptcha_member_sidebar', {
-                                    'sitekey': '<?php echo ($wp_rem_sitekey); ?>', //Replace this with your Site key
-                                    'theme': 'light'
-                                });
-
-                            };
-                        </script>
-                        <?php
-                    }
-                    if ( class_exists('Wp_rem_Captcha') ) {
-                        $output = '<div class="col-md-12 recaptcha-reload" id="member_sidebar_div">';
-                        $output .= $Wp_rem_Captcha->wp_rem_generate_captcha_form_callback('member_sidebar', 'true');
-                        $output .='</div>';
-                        echo force_balance_tags($output);
-                    }
-                }
-                ?>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <?php wp_rem_term_condition_form_field('member_detail_term_policy', 'member_detail_term_policy'); ?>
-                    <div class="field-holder">
-                        <div class="contact-message-submit input-button-loader">
-                            <?php
-                            $wp_rem_form_fields_frontend->wp_rem_form_text_render(
-                                    array(
-                                        'cust_id' => 'message_submit',
-                                        'cust_name' => 'contact_message_submit',
-                                        'classes' => 'bgcolor',
-                                        'std' => wp_rem_plugin_text_srt('wp_rem_contact_send_message') . '',
-                                        'cust_type' => "submit",
-                                    )
-                            );
-                            ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <?php
-        echo do_action('wp_rem_opening_hours_element_opened_html', $post_id);
-        ?>
-    </aside>
 <?php } else {
     ?> 
     <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
