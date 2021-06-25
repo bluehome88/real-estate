@@ -4293,8 +4293,7 @@ opacity: 1;
 	padding: 0;
 }
 .description-holder .property-feature-desc .property-feature p strong {
-	font-weight: 700;
-    color: black;
+	font-weight: 400;
 }
 .grid-default-slider .property-grid.default .price-holder .property-price {
 	margin-bottom: 15px;

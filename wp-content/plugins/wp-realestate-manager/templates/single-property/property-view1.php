@@ -269,15 +269,15 @@ if (!empty($wp_rem_property_category) && is_array($wp_rem_property_category)) {
                                                     $content_detail .= '<p>Location:   <strong>'.$wp_rem_post_loc_address_property.'</strong></p>';
                                                 }
                                                 if (!empty($wp_rem_cate_str)) {
-                                                    $content_detail .= '<p>Type:   '.$wp_rem_cate_str.'</p>';
+                                                    $content_detail .= '<p>Type:   <strong>'.$wp_rem_cate_str.'</strong></p>';
                                                 }
                                                 $size = get_post_meta($post_id, 'area-ft', true);
                                                 if (!empty($size)) {
                                                     $property_type = get_term_by('slug', $wp_rem_property_category['parent'], 'property-category');
                                                     if ($property_type->name == "Land") {
-                                                        $content_detail .= '<p>Land Size:   <strong>'.$size . ' SqFt</strong></p>';
+                                                        $content_detail .= '<p>Land Size:   <strong>'.number_format($size) . ' Square Feet</strong></p>';
                                                     } else {
-                                                        $content_detail .= '<p>House Size:   <strong>'.$size . ' SqFt</strong></p>';
+                                                        $content_detail .= '<p>House Size:   <strong>'.number_format($size) . ' Square Feet</strong></p>';
                                                     }
                                                 }
                                                 $beds = get_post_meta($post_id, 'min-beds', true);
@@ -290,7 +290,7 @@ if (!empty($wp_rem_property_category) && is_array($wp_rem_property_category)) {
                                                 }
                                                 $garage = get_post_meta($post_id, 'min-garage', true);
                                                 if (!empty($garage)) {
-                                                    $content_detail .= '<p>Parking:   <strong>'.$garage . ' Garage</strong></p>';
+                                                    $content_detail .= '<p>Parking:   <strong>'.$garage . '</strong></p>';
                                                 }
                                                 echo($content_detail);
                                             ?>

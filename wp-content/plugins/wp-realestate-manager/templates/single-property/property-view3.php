@@ -491,24 +491,55 @@ if (($top_map == 'on' || ($top_slider == 'on' && $count_all > 0)) && $member_pro
                                 ?>
                                 <?= do_shortcode('[really_simple_share button="facebook_share_new"]') ?>
                                 <div id="property-detail" class="description-holder">
+                                    <div class="property-feature-desc col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <?php if ($wp_rem_property_summary != '') { ?>
-                                        <div class="property-feature">
+                                        <div class="property-feature col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                             <div class="element-title">
                                                 <h3><?php echo wp_rem_plugin_text_srt('wp_rem_property_property_key_detail'); ?></h3>
                                             </div>
-                                            <p><?php echo force_balance_tags(str_replace("<br/>", '</p><p>', str_replace("<br />", '</p><p>', nl2br($wp_rem_property_summary)))); ?></p>
+                                            <?php
+                                                $content_detail = '';
+                                                if (!empty($wp_rem_post_loc_address_property)) {
+                                                    $content_detail .= '<p>Location:   <strong>'.$wp_rem_post_loc_address_property.'</strong></p>';
+                                                }
+                                                if (!empty($wp_rem_cate_str)) {
+                                                    $content_detail .= '<p>Type:   <strong>'.$wp_rem_cate_str.'</strong></p>';
+                                                }
+                                                $size = get_post_meta($post_id, 'area-ft', true);
+                                                if (!empty($size)) {
+                                                    $property_type = get_term_by('slug', $wp_rem_property_category['parent'], 'property-category');
+                                                    if ($property_type->name == "Land") {
+                                                        $content_detail .= '<p>Land Size:   <strong>'.number_format($size) . ' Square Feet</strong></p>';
+                                                    } else {
+                                                        $content_detail .= '<p>House Size:   <strong>'.number_format($size) . ' Square Feet</strong></p>';
+                                                    }
+                                                }
+                                                $beds = get_post_meta($post_id, 'min-beds', true);
+                                                if (!empty($beds)) {
+                                                    $content_detail .= '<p>Bedrooms:   <strong>'.$beds.' Bedrooms</strong></p>';
+                                                }
+                                                $btahs = get_post_meta($post_id, 'min-bath', true);
+                                                if (!empty($btahs)) {
+                                                    $content_detail .= '<p>Bathrooms:   <strong>'.$btahs . ' Bathrooms</strong></p>';
+                                                }
+                                                $garage = get_post_meta($post_id, 'min-garage', true);
+                                                if (!empty($garage)) {
+                                                    $content_detail .= '<p>Parking:   <strong>'.$garage . '</strong></p>';
+                                                }
+                                                echo($content_detail);
+                                            ?>
                                         </div>
-                                        <?php
-                                    }
-                                    if ($content != '') {
-                                        ?>    
-                                        <div class="property-dsec">
+                                    <?php } ?>
+                                    <?php if ($content != '') { ?>    
+                                        <div class="property-dsec col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                             <div class="element-title">
-                                                <h3><?php echo wp_rem_plugin_text_srt('wp_rem_property_property_desc'); ?></h3>
+                                                <div><h3><?php echo wp_rem_plugin_text_srt('wp_rem_property_property_desc'); ?></h3>
+                                                </div>
+                                                <?php echo force_balance_tags($content);?>
                                             </div>
-                                            <?php echo force_balance_tags($content); ?>
-                                        </div> 
-                                    <?php } ?> 
+                                        </div>
+                                    <?php } ?>
+                                    </div>
                                 </div>
                                 <?php
                             } // DESCRIPTION AND FEATURE CONTENT END   
