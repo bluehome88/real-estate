@@ -1,3 +1,4 @@
+
 <?php 
  
   
@@ -2712,16 +2713,6 @@ ob_end_clean();
 													
 													$video_size += $max_video_size;
 												}
-											break;
-											case 'youtube':
-												$infos['id'] = 'external';
-												if(!isset($layer['video_data']->id) || empty($layer['video_data']->id)) continue;
-												$used_videos[$do_ssl.'//www.youtube.com/watch?v='.$layer['video_data']->id] = $infos;
-											break;
-											case 'vimeo':
-												if(!isset($layer['video_data']->id) || empty($layer['video_data']->id)) continue;
-												$infos['id'] = 'external';
-												$used_videos[$do_ssl.'//vimeo.com/'.$layer['video_data']->id] = $infos;
 											break;
 										}
 										
