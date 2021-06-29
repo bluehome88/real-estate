@@ -3083,3 +3083,10 @@ div.property-dsec .container-fluid {
 #our-agents .text-holder li{
   padding: 0;
 }
+.meet-team .title-area h3, .meet-team .team-description h2{
+  text-transform: capitalize !important;
+  font-size: 24px !important;
+}
+.meet-team .info-list li{
+  font-size: 20px;
+}
