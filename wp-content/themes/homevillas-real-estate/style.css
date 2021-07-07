@@ -3090,3 +3090,14 @@ div.property-dsec .container-fluid {
 .meet-team .info-list li{
   font-size: 20px;
 }
+/* update header */
+.main-header .top-header{
+  background-color: white;
+}
+.main-header .top-header .contact-info span{
+  color: #472468;
+}
+.main-header .top-header .contact-info small{
+  font-family: Montserrat, sans-serif;
+  font-weight: 700;  
+}
