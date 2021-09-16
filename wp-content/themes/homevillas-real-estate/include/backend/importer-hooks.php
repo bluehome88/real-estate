@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Define hooks (wp content, theme options, menus & locations, set up pages, revolution slider, widgets) for importer
  *
  * @since	1.2

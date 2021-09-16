@@ -442,7 +442,7 @@ if ( ! function_exists( 'wp_rem_creating_shortcode' ) ) {
                     'wp_rem_cs_section_bg_image_repeat' => is_set( $post_data['wp_rem_cs_section_bg_image_repeat'][$counters['column_container_no']], '' ),
                     'wp_rem_cs_section_flex_slider' => is_set( $post_data['wp_rem_cs_section_flex_slider'][$counters['column_container_no']], '' ),
                     'wp_rem_cs_section_custom_slider' => is_set( $post_data['wp_rem_cs_section_custom_slider'][$counters['column_container_no']], '' ),
-                    'wp_rem_cs_section_video_url' => is_set( $post_data['wp_rem_cs_section_video_url'][$counters['column_container_no']], '' ),
+                    // 'wp_rem_cs_section_video_url' => is_set( $post_data['wp_rem_cs_section_video_url'][$counters['column_container_no']], '' ),
                     'wp_rem_cs_section_video_mute' => is_set( $post_data['wp_rem_cs_section_video_mute'][$counters['column_container_no']], '' ),
                     'wp_rem_cs_section_video_autoplay' => is_set( $post_data['wp_rem_cs_section_video_autoplay'][$counters['column_container_no']], '' ),
                     'wp_rem_cs_section_bg_color' => is_set( $post_data['wp_rem_cs_section_bg_color'][$counters['column_container_no']], '' ),

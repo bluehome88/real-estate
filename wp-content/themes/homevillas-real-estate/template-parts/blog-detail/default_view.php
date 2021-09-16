@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Template part for displaying post detail view 1.
  *
  * @link https://codex.wordpress.org/Template_Hierarchy

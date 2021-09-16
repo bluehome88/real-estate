@@ -1,5 +1,8 @@
-<?php
-if (!class_exists('wp_rem_cs_var_widget_data')) {
+<?php 
+ 
+  
+  
+ if (!class_exists('wp_rem_cs_var_widget_data')) {
 
     class wp_rem_cs_var_widget_data {
 

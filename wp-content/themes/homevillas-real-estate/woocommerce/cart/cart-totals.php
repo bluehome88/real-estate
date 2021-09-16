@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Cart totals
  *
  * This template can be overridden by copying it to yourtheme/woocommerce/cart/cart-totals.php.

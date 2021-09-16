@@ -563,6 +563,7 @@ if ( ! class_exists('Wp_rem_Member_Member') ) {
             $member_name = wp_rem_get_input('wp_rem_member_name', NULL, 'STRING');
             $public_profile = wp_rem_get_input('wp_rem_public_profile', NULL, 'STRING');
             $member_phone_number = wp_rem_get_input('wp_rem_member_phone_number', NULL, 'STRING');
+            $member_bio = wp_rem_get_input('wp_rem_member_bio', NULL, 'STRING');
             $member_thumb = isset($_FILES['wp_rem_member_thumb']) ? $_FILES['wp_rem_member_thumb'] : '';
             $user_type = isset($user_type) && $user_type != '' ? $user_type : 'team-member';
             if ( $email == NULL ) {
@@ -638,6 +639,9 @@ if ( ! class_exists('Wp_rem_Member_Member') ) {
                 if ( isset($member_phone_number) && $member_phone_number != '' ) {
                     update_user_meta($user_ID, 'member_phone_number', $member_phone_number);
                 }
+                if ( isset($member_bio) && $member_bio != '' ) {
+                    update_user_meta($user_ID, 'member_bio', $member_bio);
+                }
                 if ( isset($public_profile) && $public_profile != '' ) {
                     update_user_meta($user_ID, 'wp_rem_public_profile', $public_profile);
                 }
@@ -682,6 +686,7 @@ if ( ! class_exists('Wp_rem_Member_Member') ) {
             $count_supper_admin = wp_rem_get_input('count_supper_admin', NULL, 'STRING');
             $member_name = wp_rem_get_input('wp_rem_member_name', NULL, 'STRING');
             $member_phone_number = wp_rem_get_input('wp_rem_member_phone_number', NULL, 'STRING');
+            $member_bio = wp_rem_get_input('wp_rem_member_bio', NULL, 'STRING');
             $wp_rem_member_thumb_id = wp_rem_get_input('wp_rem_member_thumb_id', '', 'STRING');
             $member_thumb = isset($_FILES['wp_rem_member_thumb']) ? $_FILES['wp_rem_member_thumb'] : '';
 
@@ -707,6 +712,9 @@ if ( ! class_exists('Wp_rem_Member_Member') ) {
                 }
                 if ( isset($member_phone_number) && $member_phone_number != '' ) {
                     update_user_meta($user_ID, 'member_phone_number', $member_phone_number);
+                }
+                if ( isset($member_bio) && $member_bio != '' ) {
+                    update_user_meta($user_ID, 'member_bio', $member_bio);
                 }
                 if ( ! empty($member_thumb['name']) ) {
 

@@ -1,5 +1,8 @@
-<div class="suggestion-search">
-    <form action="<?php echo esc_url(home_url('/')); ?>" method="get" class="form-inline">
+<?php 
+ 
+  
+  
+     <form action="<?php echo esc_url(home_url('/')); ?>" method="get" class="form-inline">
         <fieldset>
             <div class="input-group">
                 <input type="text" name="s" id="search" placeholder="<?php echo wp_rem_cs_var_theme_text_srt('wp_rem_cs_about_search'); ?>" value="<?php the_search_query(); ?>"

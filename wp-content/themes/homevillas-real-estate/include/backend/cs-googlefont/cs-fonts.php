@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 // Get fonts files
 $var_arrays = array('fonts');
 $fonts_global_vars = WP_REM_CS_VAR_GLOBALS()->globalizing($var_arrays);

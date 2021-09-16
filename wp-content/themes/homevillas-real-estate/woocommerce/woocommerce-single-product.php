@@ -1,5 +1,8 @@
-<?php
-/*
+<?php 
+ 
+  
+  
+ /*
  * Remove wordpress 
  * default comment 
  * filter

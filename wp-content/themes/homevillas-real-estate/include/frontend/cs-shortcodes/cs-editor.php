@@ -1,5 +1,8 @@
-<?php
-
+<?php 
+ 
+  
+  
+ 
 /*
  *
  * @Shortcode Name : Start function for Eitor shortcode/element front end view

@@ -1,5 +1,8 @@
-<?php
-/**
+<?php 
+ 
+  
+  
+ /**
  * Loop Price
  *
  * This template can be overridden by copying it to yourtheme/woocommerce/loop/price.php.
