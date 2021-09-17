@@ -4263,39 +4263,3 @@ opacity: 1;
     float: left;
     text-align: center;
 }
-
-/* homepage search widget */
-.search_split_advanced{
-	display: flex;
-	flex-wrap: wrap;
-}
-.search_split_advanced .features-list{
-	margin-top: 15px;
-}
-.property-medium .post-category-list li i{
-	float: none;
-}
-.property-grid .post-category-list-property a {
-	font-weight: 500;
-	font-style: italic;
-	/* margin: 0; */
-	color: #5a2e8a !important;
-}
-.property-medium .post-category-list-property a {
-	font-weight: 700;
-    margin: 0;
-    color: #5a2e8a !important;
-}
-.description-holder .property-feature-desc {
-	padding: 0;
-}
-.description-holder .property-feature-desc > div {
-	padding: 0;
-}
-.description-holder .property-feature-desc .property-feature p strong {
-	font-weight: 400;
-}
-.grid-default-slider .property-grid.default .price-holder .property-price {
-	margin-bottom: 15px;
-}
-

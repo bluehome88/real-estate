@@ -373,10 +373,7 @@ if ( $property_loop_obj->have_posts() ) {
                                 </figcaption>
                             </figure>
                         </div>
-                        <div class="text-holder"> 
-                            <div class = "post-title">
-                                <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(get_the_title($property_id)); ?></a></h4>
-                            </div>
+                        <div class="text-holder">
                             <span class = "property-price">
 
                                 <?php
@@ -400,7 +397,9 @@ if ( $property_loop_obj->have_posts() ) {
                             );
                             do_action('wp_rem_favourites_frontend_button', $property_id, $book_mark_args, $figcaption_div);
                             ?>
-                           
+                            <div class = "post-title">
+                                <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(get_the_title($property_id)); ?></a></h4>
+                            </div>
                             <?php if ( ! empty($get_property_location) ) { ?>
                                 <ul class="location-list">
                                     <li><i class="icon-map-marker"></i><span><?php echo esc_html(implode(' / ', $get_property_location)); ?></span></li>

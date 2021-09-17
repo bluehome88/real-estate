@@ -194,14 +194,19 @@ if ( $property_loop_obj->have_posts() ) {
                                 </figure>
                             </div>
                             <div class="text-holder">
-                                <div class="post-title">
-                                    <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(get_the_title($property_id)); ?></a></h4>
-                                </div>
+
+
+
                                 <?php if ( ! empty($get_property_location) ) { ?>
                                     <ul class="location-list">
                                         <li><span><?php echo esc_html(implode(' / ', $get_property_location)); ?></span></li>
                                     </ul>
                                 <?php } ?>
+
+
+                                <div class="post-title">
+                                    <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(get_the_title($property_id)); ?></a></h4>
+                                </div>
                                 <?php
                                 // All custom fields with value
                                 $cus_fields = array( 'content' => '' );
@@ -352,9 +357,6 @@ if ( $property_loop_obj->have_posts() ) {
                             </figure>
                         </div>
                         <div class="text-holder">
-                            <div class="post-title">
-                                <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(get_the_title($property_id)); ?></a></h4>
-                            </div>
                             <span class = "property-price">
                                 <?php
                                 if ( $wp_rem_property_price_options == 'on-call' ) {
@@ -364,6 +366,10 @@ if ( $property_loop_obj->have_posts() ) {
                                 }
                                 ?>
                             </span>
+                            
+                            <div class="post-title">
+                                <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(get_the_title($property_id)); ?></a></h4>
+                            </div>
                             <?php
                             echo human_time_diff(get_the_time('U', $property_id), current_time('timestamp')).' Ago';
                             // All custom fields with value

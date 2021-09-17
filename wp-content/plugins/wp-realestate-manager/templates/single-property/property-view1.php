@@ -257,56 +257,23 @@ if (!empty($wp_rem_property_category) && is_array($wp_rem_property_category)) {
                                 ?>
                                 <?= do_shortcode('[really_simple_share button="facebook_share_new"]') ?>
                                 <div id="property-detail" class="description-holder">
-                                    <div class="property-feature-desc col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <?php if ($wp_rem_property_summary != '') { ?>
-                                        <div class="property-feature col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <div class="property-feature">
                                             <div class="element-title">
                                                 <h3><?php echo wp_rem_plugin_text_srt('wp_rem_property_property_key_detail'); ?></h3>
                                             </div>
-                                            <?php
-                                                $content_detail = '';
-                                                if (!empty($wp_rem_post_loc_address_property)) {
-                                                    $content_detail .= '<p>Location:   <strong>'.$wp_rem_post_loc_address_property.'</strong></p>';
-                                                }
-                                                if (!empty($wp_rem_cate)) {
-                                                    $content_detail .= '<p>Type:   <strong>'.$wp_rem_cate->name.'</strong></p>';
-                                                }
-                                                $size = get_post_meta($post_id, 'area-ft', true);
-                                                if (!empty($size)) {
-                                                    $property_type = get_term_by('slug', $wp_rem_property_category['parent'], 'property-category');
-                                                    if ($property_type->name == "Land") {
-                                                        $content_detail .= '<p>Land Size:   <strong>'.number_format($size) . ' Square Feet</strong></p>';
-                                                    } else {
-                                                        $content_detail .= '<p>House Size:   <strong>'.number_format($size) . ' Square Feet</strong></p>';
-                                                    }
-                                                }
-                                                $beds = get_post_meta($post_id, 'min-beds', true);
-                                                if (!empty($beds)) {
-                                                    $content_detail .= '<p>Bedrooms:   <strong>'.$beds.'</strong></p>';
-                                                }
-                                                $btahs = get_post_meta($post_id, 'min-bath', true);
-                                                if (!empty($btahs)) {
-                                                    $content_detail .= '<p>Bathrooms:   <strong>'.$btahs . '</strong></p>';
-                                                }
-                                                $garage = get_post_meta($post_id, 'min-garage', true);
-                                                if (!empty($garage)) {
-                                                    $content_detail .= '<p>Parking:   <strong>'.$garage . '</strong></p>';
-                                                }
-                                                echo($content_detail);
-                                            ?>
+                                            <p><?php echo force_balance_tags(str_replace("<br/>", '</p><p>', str_replace("<br />", '</p><p>', nl2br($wp_rem_property_summary)))); ?></p>
                                         </div>
                                     <?php } ?>
                                     <?php if ($content != '') { ?>    
-                                        <div class="property-dsec col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <div class="property-dsec">
                                             <div class="element-title">
                                                 <div><h3><?php echo wp_rem_plugin_text_srt('wp_rem_property_property_desc'); ?></h3>
                                                 </div>
                                                 <?php echo force_balance_tags($content);?>
                                             </div>
                                         </div>
-                                    <?php } ?>
-                                    </div>
-                                    <?php 
+                                    <?php } 
                                         $wp_rem_phone_number = get_post_meta($wp_rem_property_member_id, 'wp_rem_phone_number', true);
                                         $wp_rem_property_name = get_the_title($wp_rem_property_member_id);
                                         $wp_rem_selected_team_member = get_userdata( $wp_rem_property_username ); ?>
@@ -360,53 +327,36 @@ if (!empty($wp_rem_property_category) && is_array($wp_rem_property_category)) {
                                                     if ( strcmp($wp_rem_property_name, '1on1realtor') == 0 ) {
                                                         if ( isset($team_members) && ! empty($team_members) && $wp_rem_property_username ) {
                                                             $wp_rem_team_member_name = $wp_rem_selected_team_member->display_name;
-                                                            $wp_rem_team_member_email = $wp_rem_selected_team_member->user_email;
                                                             $wp_rem_team_member_phone = get_user_meta( $wp_rem_property_username, 'member_phone_number', true);
-                                                            $wp_rem_team_member_phone_call = preg_replace('/[^0-9]/', '', $wp_rem_team_member_phone);
                                                         ?>
-                                                            <div class="col-sm-6">
+                                                            <div class="col-sm-12">
                                                                 <ul class="list-resident">
                                                                     <li><i class="icon-user3"></i><a href="<?php echo get_the_permalink($wp_rem_property_member_id); ?>">
                                                                         <?php echo esc_html($wp_rem_team_member_name); ?></a></li>
                                                                     <li><i class="icon-phone2"></i><?php echo esc_html($wp_rem_team_member_phone);?></li>
                                                                 </ul>
                                                             </div>
-                                                            <div class="col-sm-6 agent_info_contact">
-                                                                <a href="tel:<?php echo($wp_rem_team_member_phone_call); ?>"><i class="icon-phone2"></i>&nbsp;&nbsp;CALL AGENT</a>
-                                                                <a href="mailto:<?php echo esc_html($wp_rem_team_member_email); ?>"><i class="icon-envelope2"></i>&nbsp;EMAIL AGENT</a>
-                                                            </div>
                                                         <?php 
                                                         }
                                                         else
                                                         {
-                                                            $wp_rem_team_member_phone_call = preg_replace('/[^0-9]/', '', $wp_rem_phone_number);
                                                         ?>
-                                                            <div class="col-sm-6">
+                                                            <div class="col-sm-12">
                                                                 <ul class="list-resident">
                                                                     <li><i class="icon-user3"></i><a href="<?php echo get_the_permalink($wp_rem_property_member_id); ?>"><?php echo esc_html($wp_rem_property_name); ?></a></li>
                                                                     <li><i class="icon-phone2"></i><?php echo esc_html($wp_rem_phone_number);?></li>
                                                                 </ul>
                                                             </div>
-                                                            <div class="col-sm-6 agent_info_contact">
-                                                                <a href="tel:<?php echo($wp_rem_team_member_phone_call); ?>"><i class="icon-phone2"></i>&nbsp;&nbsp;CALL AGENT</a>
-                                                                <a href="mailto:<?php echo esc_html($realtor_email); ?>"><i class="icon-envelope2"></i>&nbsp;EMAIL AGENT</a>
-                                                            </div>
                                                         <?php
                                                         }
                                                     } 
-                                                    else { 
-                                                        $wp_rem_team_member_phone_call = preg_replace('/[^0-9]/', '', $wp_rem_phone_number);
-                                                    ?>
-                                                        <div class="col-sm-6">
+                                                    else { ?>
+                                                        <div class="col-sm-12">
                                                             <ul class="list-resident">
                                                                 <li><i class="icon- icon-envelope2"></i><?php echo esc_html($realtor_email); ?></li>
                                                                 <li><i class="icon-phone2"></i><?php echo esc_html($realtor_phone_number); ?></li>
                                                             </ul>
                                                         </div>
-                                                        <div class="col-sm-6 agent_info_contact">
-                                                                <a href="tel:<?php echo($wp_rem_team_member_phone_call); ?>"><i class="icon-phone2"></i>&nbsp;&nbsp;CALL AGENT</a>
-                                                                <a href="mailto:<?php echo esc_html($realtor_email); ?>"><i class="icon-envelope2"></i>&nbsp;EMAIL AGENT</a>
-                                                            </div>
                                                     <?php } ?>
                                                 </div>
                                             </div>
@@ -414,12 +364,12 @@ if (!empty($wp_rem_property_category) && is_array($wp_rem_property_category)) {
                                 </div>
                             <?php } // DESCRIPTION AND FEATURE CONTENT END ?> 
 							
+							<?php do_action('wp_rem_sidebar_map_html', $post_id); ?>
                             <?php
                             if ($wp_rem_enable_features_element != 'off') {
                                 do_action('wp_rem_features_element_html', $post_id);
                             }
                             ?>
-                            <?php do_action('wp_rem_sidebar_map_html', $post_id); ?>
                             <?php
                             if ($wp_rem_enable_appartment_for_sale_element != 'off') {
                                 do_action('wp_rem_property_apartment_html', $post_id);
