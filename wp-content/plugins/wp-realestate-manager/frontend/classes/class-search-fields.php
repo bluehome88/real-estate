@@ -13,7 +13,7 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
          * Start construct Functions
          */
         public function __construct() {
-            add_action('wp_rem_property_type_fields', array( $this, 'wp_rem_property_type_fields_callback' ));
+            add_action('wp_rem_property_type_fields', array( $this, 'wp_rem_property_type_fields_callback' ), 10, 2 );
             add_action('wp_rem_property_type_features', array( $this, 'wp_rem_property_type_features' ), 10, 2);
             add_action('wp_ajax_wp_rem_property_type_search_fields', array( $this, 'wp_rem_property_type_search_fields_callback' ));
             add_action('wp_ajax_nopriv_wp_rem_property_type_search_fields', array( $this, 'wp_rem_property_type_search_fields_callback' ));
@@ -425,16 +425,30 @@ if ( ! class_exists('Wp_rem_Search_Fields') ) {
             wp_die();
         }
 
-        public function wp_rem_property_type_fields_callback($list_type_slug = '') {
+        public function wp_rem_property_type_fields_callback($list_type_slug = '', $widget = 0) {
             global $wp_rem_form_fields;
             $advanced_filter = false;
+
             if ( $list_type_slug != '' ) {
 
                 $property_type_id = $this->wp_rem_property_type_id_by_slug($list_type_slug);
                 if ( $property_type_id != 0 ) {
                     $property_type_fields = get_post_meta($property_type_id, 'wp_rem_property_type_cus_fields', true);
                     if ( isset($property_type_fields) && is_array($property_type_fields) && ! empty($property_type_fields) ) {
+
+                        $field_counter = 0;
                         foreach ( $property_type_fields as $property_type_field ) {
+                            $field_counter++;
+                            // for simple
+                            if( $widget == 1 && $field_counter > 2 ){
+                                continue;
+                            }
+                            // for advanced
+                            if( $widget == 2 && $field_counter < 3 ){
+                                continue;
+                            }
+
+
                             $field_type = isset($property_type_field['type']) ? $property_type_field['type'] : '';
                             $field_enable_srch = isset($property_type_field['enable_srch']) ? $property_type_field['enable_srch'] : '';
                             if ( $field_enable_srch == 'yes' ) {

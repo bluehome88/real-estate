@@ -2993,9 +2993,15 @@ div.property-dsec .container-fluid {
 .post-category-list .thumb-resident {
   display: none;
 }
+/* .enquiry-list-btn {
+  position: absolute;
+  bottom: 0;
+} */
+
 .main-section.member-detail .member-info{
   margin-top: 30px;
 }
+
 .meet-team .tabs-property > div {
   text-align: center;
 }

@@ -213,40 +213,6 @@ if ($property_loop_obj->have_posts()) {
                                         <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(get_the_title($property_id)); ?></a></h4>
                                     </div>
                                     <?php
-                                    $favourite_label = '';
-                                    $favourite_label = '';
-                                    $figcaption_div = true;
-                                    $book_mark_args = array(
-                                        'before_label' => $favourite_label,
-                                        'after_label' => $favourite_label,
-                                        'before_icon' => '<i class="icon-heart-o"></i>',
-                                        'after_icon' => '<i class="icon-heart5"></i>',
-                                    );
-                                    do_action('wp_rem_favourites_frontend_button', $property_id, $book_mark_args, $figcaption_div);
-                                    if (!empty($get_property_location)) {
-                                        ?>
-                                        <ul class="property-locationd">
-                                            <li><i class="icon-location-pin2"></i><span><?php echo esc_html(implode(', ', $get_property_location)); ?></span></li>
-                                        </ul>
-                                        <?php
-                                    }
-                                    $ratings_data = array(
-                                        'overall_rating' => 0.0,
-                                        'count' => 0,
-                                    );
-                                    $ratings_data = apply_filters('reviews_ratings_data', $ratings_data, $property_id);
-                                    $open_house_data = apply_filters('fetch_property_open_house', $property_id);
-                                    echo wp_rem_allow_special_char($open_house_data);
-                                    // All custom fields with value
-                                    $cus_fields = array('content' => '');
-                                    $cus_fields = apply_filters('wp_rem_custom_fields', $property_id, $cus_fields, $property_no_custom_fields);
-                                    if (isset($cus_fields['content']) && $cus_fields['content'] != '' && $open_house_data == '') {
-                                        ?>
-                                        <ul class="post-category-list">
-                                            <?php echo wp_rem_allow_special_char($cus_fields['content']); ?>
-                                        </ul>
-                                        <?php
-                                    }
                                     if ($wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '') {
                                         ?>
                                         <span class="property-price">
@@ -260,6 +226,44 @@ if ($property_loop_obj->have_posts()) {
                                             ?>
 
                                         </span>
+                                    <?php } ?>
+                                    <?php
+                                    $favourite_label = '';
+                                    $favourite_label = '';
+                                    $figcaption_div = true;
+                                    $book_mark_args = array(
+                                        'before_label' => $favourite_label,
+                                        'after_label' => $favourite_label,
+                                        'before_icon' => '<i class="icon-heart-o"></i>',
+                                        'after_icon' => '<i class="icon-heart5"></i>',
+                                    );
+                                    do_action('wp_rem_favourites_frontend_button', $property_id, $book_mark_args, $figcaption_div);
+                                    if (!empty($get_property_location)) {
+                                        ?>
+                                        <ul class="property-location">
+                                            <li><i class="icon-location-pin2"></i><span><?php echo esc_html(implode(', ', $get_property_location)); ?></span></li>
+                                        </ul>
+                                        <?php
+                                    }
+                                    $ratings_data = array(
+                                        'overall_rating' => 0.0,
+                                        'count' => 0,
+                                    );
+                                    $ratings_data = apply_filters('reviews_ratings_data', $ratings_data, $property_id);
+                                    $open_house_data = apply_filters('fetch_property_open_house', $property_id);
+                                    echo wp_rem_allow_special_char($open_house_data); ?>
+                                    <p class="post-category-list-property">
+                                        <?php echo $wp_rem_cate_str; ?>
+                                    </p>
+                                    <?php
+                                    // All custom fields with value
+                                    $cus_fields = array('content' => '');
+                                    $cus_fields = apply_filters('wp_rem_custom_fields', $property_id, $cus_fields, $property_no_custom_fields);
+                                    if (isset($cus_fields['content']) && $cus_fields['content'] != '' && $open_house_data == '') {
+                                        ?>
+                                        <ul class="post-category-list">
+                                            <?php echo wp_rem_allow_special_char($cus_fields['content']); ?>
+                                        </ul>
                                     <?php } ?>
                                     <div class="post-time">
                                         <small><?php echo wp_rem_plugin_text_srt('wp_rem_property_grid_listed_on'); ?> <?php echo esc_html($wp_rem_property_posted); ?> <?php echo wp_rem_plugin_text_srt('wp_rem_property_grid_by'); ?></small>
@@ -326,7 +330,11 @@ if ($property_loop_obj->have_posts()) {
                                         'overall_rating' => 0.0,
                                         'count' => 0,
                                     );
-                                    $ratings_data = apply_filters('reviews_ratings_data', $ratings_data, $property_id);
+                                    $ratings_data = apply_filters('reviews_ratings_data', $ratings_data, $property_id); ?>
+                                    <p class="post-category-list-property">
+                                        <?php echo $wp_rem_cate_str; ?>
+                                    </p>
+                                    <?php
                                     // All custom fields with value
                                     $cus_fields = array('content' => '');
                                     $cus_fields = apply_filters('wp_rem_custom_fields', $property_id, $cus_fields, $property_no_custom_fields);
@@ -531,6 +539,21 @@ if ($property_loop_obj->have_posts()) {
                                     <h4><a href="<?php echo esc_url(get_permalink($property_id)); ?>"><?php echo esc_html(get_the_title($property_id)); ?></a></h4>
                                 </div>
                                 <?php
+                                if ($wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '') {
+                                    ?>
+                                    <span class="property-price">
+
+                                        <?php
+                                        if ($wp_rem_property_price_options == 'on-call') {
+                                            echo force_balance_tags($wp_rem_property_price);
+                                        } else {
+                                            echo $wp_rem_property_price;
+                                        }
+                                        ?>
+
+                                    </span>
+                                <?php } ?>
+                                <?php
                                 $favourite_label = '';
                                 $favourite_label = '';
                                 $figcaption_div = true;
@@ -554,7 +577,11 @@ if ($property_loop_obj->have_posts()) {
                                 );
                                 $ratings_data = apply_filters('reviews_ratings_data', $ratings_data, $property_id);
                                 $open_house_data = apply_filters('fetch_property_open_house', $property_id);
-                                echo wp_rem_allow_special_char($open_house_data);
+                                echo wp_rem_allow_special_char($open_house_data); ?>
+                                <p class="post-category-list-property">
+                                    <?php echo $wp_rem_cate_str; ?>
+                                </p>
+                                <?php
                                 // All custom fields with value
                                 $cus_fields = array('content' => '');
                                 $cus_fields = apply_filters('wp_rem_custom_fields', $property_id, $cus_fields, $property_no_custom_fields);
@@ -563,22 +590,8 @@ if ($property_loop_obj->have_posts()) {
                                     <ul class="post-category-list">
                                         <?php echo wp_rem_allow_special_char($cus_fields['content']); ?>
                                     </ul>
-                                    <?php
-                                }
-                                if ($wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '') {
-                                    ?>
-                                    <span class="property-price">
-
-                                        <?php
-                                        if ($wp_rem_property_price_options == 'on-call') {
-                                            echo force_balance_tags($wp_rem_property_price);
-                                        } else {
-                                            echo $wp_rem_property_price;
-                                        }
-                                        ?>
-
-                                    </span>
                                 <?php } ?>
+
                                 <div class="post-time">
                                     
                                 </div>
@@ -592,13 +605,16 @@ if ($property_loop_obj->have_posts()) {
                                         if ( isset($team_members) && ! empty($team_members) && $wp_rem_property_username ) {
                                             $wp_rem_team_member_name = $wp_rem_selected_team_member->display_name;
                                             $wp_rem_team_member_phone = get_user_meta( $wp_rem_property_username, 'member_phone_number', true);
+                                            $wp_rem_team_member_phone_call = preg_replace('/[^0-9]/', '', $wp_rem_team_member_phone);
                                         ?>
                                             <div class="member-info">
                                                 <ul class="list-resident">
-                                                    <li><i class="icon-user3"></i>
-                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_team_member_name); ?></span></a>
+                                                    <li>
+                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><i class="icon-user3"></i><span><?php echo esc_html($wp_rem_team_member_name); ?></span></a>
                                                     </li>
-                                                    <li><i class="icon-phone2"></i><?php echo esc_html($wp_rem_team_member_phone);?></li>
+                                                    <li>
+                                                        <a href="tel:<?php echo $wp_rem_team_member_phone_call; ?>"><i class="icon-phone2"></i><span><?php echo esc_html($wp_rem_team_member_phone); ?></span></a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         <?php 
@@ -608,10 +624,12 @@ if ($property_loop_obj->have_posts()) {
                                         ?>
                                             <div class="member-info">
                                                 <ul class="list-resident">
-                                                    <li><i class="icon-user3"></i>
-                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_property_name); ?></span></a>
+                                                    <li>
+                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><i class="icon-user3"></i><span><?php echo esc_html($wp_rem_property_name); ?></span></a>
                                                     </li>
-                                                    <li><i class="icon-phone2"></i><?php echo esc_html($wp_rem_phone_number);?></li>
+                                                    <li>
+                                                        <a href="tel:<?php echo $wp_rem_phone_number; ?>"><i class="icon-phone2"></i><span><?php echo esc_html($wp_rem_phone_number); ?></span></a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         <?php
@@ -620,8 +638,7 @@ if ($property_loop_obj->have_posts()) {
                                     else { ?>
                                         <div class="member-info">
                                             <ul class="list-resident">
-                                                <li><i class="icon- icon-envelope2"></i><span><?php echo esc_html($realtor_email); ?></span></li>
-                                                <li><i class="icon-phone2"></i><?php echo esc_html($realtor_phone_number)?></li>
+                                                <li><i class="icon- icon-envelope2"></i><span><?php echo esc_html($realtor_email); ?> - <i class="icon-phone2"></i><?php echo esc_html($realtor_phone_number)?></span></li>
                                             </ul>
                                         </div>
                                     <?php } ?>
@@ -672,19 +689,6 @@ if ($property_loop_obj->have_posts()) {
                             ?>
 
                             <div class="text-holder">
-                                <?php if ($wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '') { ?>
-                                    <span class="property-price">
-
-                                        <?php
-                                        if ($wp_rem_property_price_options == 'on-call') {
-                                            echo force_balance_tags($wp_rem_property_price);
-                                        } else {
-                                            echo $wp_rem_property_price;
-                                        }
-                                        ?>
-
-                                    </span>
-                                <?php } ?>
                                 <?php
                                 $favourite_label = '';
                                 $favourite_label = '';
@@ -706,7 +710,19 @@ if ($property_loop_obj->have_posts()) {
                                     </div>
                                     <?php
                                 }
+                                if ($wp_rem_property_type_price_switch == 'on' && $wp_rem_property_price != '') {  ?>
+                                    <span class="property-price">
 
+                                        <?php
+                                        if ($wp_rem_property_price_options == 'on-call') {
+                                            echo force_balance_tags($wp_rem_property_price);
+                                        } else {
+                                            echo $wp_rem_property_price;
+                                        }
+                                        ?>
+
+                                    </span>
+                                <?php } 
                                 // Property Notes Button
                                 $prop_notes_args = array(
                                     'before_label' => 'Add Notes',
@@ -720,7 +736,16 @@ if ($property_loop_obj->have_posts()) {
                                     'overall_rating' => 0.0,
                                     'count' => 0,
                                 );
-                                $ratings_data = apply_filters('reviews_ratings_data', $ratings_data, $property_id);
+                                $ratings_data = apply_filters('reviews_ratings_data', $ratings_data, $property_id); ?>
+                                <p class="post-category-list-property">
+                                    <?php
+                                        echo $wp_rem_cate_str;
+                                        // if (isset($wp_rem_property_category['parent'])) {
+                                        //     $property_type = get_term_by('slug', $wp_rem_property_category['parent'], 'property-category');
+                                        //     echo($property_type->name); }
+                                    ?>
+                                </p>
+                                <?php
                                 // All custom fields with value
                                 $cus_fields = array('content' => '');
                                 $cus_fields = apply_filters('wp_rem_custom_fields', $property_id, $cus_fields, $property_no_custom_fields);
@@ -729,26 +754,32 @@ if ($property_loop_obj->have_posts()) {
                                     <ul class="post-category-list">
                                         <?php echo wp_rem_allow_special_char($cus_fields['content']); ?>
                                     </ul>
-                                <?php } 
+                                <?php } ?>
+                                
+                                <?php
 								$prop_enquir_args = array(
                                     'enquiry_label' => 'Enquiry',
                                 );
                                 
                                 $wp_rem_phone_number = get_post_meta($wp_rem_property_member, 'wp_rem_phone_number', true);
                                 $wp_rem_property_name = get_the_title($wp_rem_property_member);
-                                $wp_rem_selected_team_member = get_userdata( $wp_rem_property_username );                                                            ?>
+                                $wp_rem_selected_team_member = get_userdata( $wp_rem_property_username );       
+                                ?>
                                 <div class="post-category-list resident"><?php
                                     if ( strcmp($wp_rem_property_name, '1on1realtor') == 0 ) {
                                         if ( isset($team_members) && ! empty($team_members) && $wp_rem_property_username ) {
                                             $wp_rem_team_member_name = $wp_rem_selected_team_member->display_name;
                                             $wp_rem_team_member_phone = get_user_meta( $wp_rem_property_username, 'member_phone_number', true);
+                                            $wp_rem_team_member_phone_call = preg_replace('/[^0-9]/', '', $wp_rem_team_member_phone);
                                         ?>
                                             <div class="member-info">
                                                 <ul class="list-resident">
-                                                    <li><i class="icon-user3"></i>
-                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_team_member_name); ?></span></a>
+                                                    <li>
+                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><i class="icon-user3"></i><span><?php echo esc_html($wp_rem_team_member_name); ?></span></a>
                                                     </li>
-                                                    <li><i class="icon-phone2"></i><?php echo esc_html($wp_rem_team_member_phone);?></li>
+                                                    <li>
+                                                        <a href="tel:<?php echo $wp_rem_team_member_phone_call; ?>"><i class="icon-phone2"></i><span><?php echo esc_html($wp_rem_team_member_phone); ?></span></a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         <?php 
@@ -758,10 +789,12 @@ if ($property_loop_obj->have_posts()) {
                                         ?>
                                             <div class="member-info">
                                                 <ul class="list-resident">
-                                                    <li><i class="icon-user3"></i>
-                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><span><?php echo esc_html($wp_rem_property_name); ?></span></a>
+                                                    <li>
+                                                        <a href="<?php echo get_the_permalink($wp_rem_property_member); ?>"><i class="icon-user3"></i><span><?php echo esc_html($wp_rem_property_name); ?></span></a>
                                                     </li>
-                                                    <li><i class="icon-phone2"></i><?php echo esc_html($wp_rem_phone_number);?></li>
+                                                    <li>
+                                                        <a href="tel:<?php echo $wp_rem_phone_number; ?>"><i class="icon-phone2"></i><span><?php echo esc_html($wp_rem_phone_number); ?></span></a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         <?php
@@ -770,8 +803,7 @@ if ($property_loop_obj->have_posts()) {
                                     else { ?>
                                         <div class="member-info">
                                             <ul class="list-resident">
-                                                <li><i class="icon- icon-envelope2"></i><span><?php echo esc_html($realtor_email); ?></span></li>
-                                                <li><i class="icon-phone2"></i><?php echo esc_html($realtor_phone_number)?></li>
+                                                <li><i class="icon- icon-envelope2"></i><span><?php echo esc_html($realtor_email); ?> - <i class="icon-phone2"></i><?php echo esc_html($realtor_phone_number)?></span></li>
                                             </ul>
                                         </div>
                                     <?php } ?>
@@ -817,7 +849,7 @@ if ($property_loop_obj->have_posts()) {
                                     ?>
                                 </div>
 
-                                <?php                              
+                                <?php 
                                 do_action('wp_rem_enquiry_check_frontend_button', $property_id, $prop_enquir_args);
 								?>
 
