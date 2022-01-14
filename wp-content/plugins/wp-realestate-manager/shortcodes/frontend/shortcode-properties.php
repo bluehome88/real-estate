@@ -626,6 +626,17 @@ if (!class_exists('Wp_rem_Shortcode_Properties_Frontend')) {
                             $this->property_search_sort_fields($atts, $property_sort_by, $property_short_counter, $property_view, $property_totnum);
                             echo '</div>';
                         }
+
+                        // Top Pagination
+                        $paging_args = array('total_posts' => $property_totnum,
+                            'posts_per_page' => $posts_per_page,
+                            'paging_var' => $paging_var,
+                            'show_pagination' => $pagination,
+                            'property_short_counter' => $property_short_counter,
+                            'split_map' => $split_map,
+                        );
+                        $this->wp_rem_property_pagination_callback($paging_args);
+
                         // search keywords  
                         set_query_var('property_loop_obj', $property_loop_obj);
                         set_query_var('property_view', $property_view);
